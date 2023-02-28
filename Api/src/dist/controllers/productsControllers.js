@@ -31,5 +31,7 @@ const cleanArray = (arr) => {
 };
 const getAllProducts = () => __awaiter(void 0, void 0, void 0, function* () {
     const apiUsersRaw = (yield axios_1.default.get(`https://apisgames-production.up.railway.app/products`)).data;
+    const apiUsers = cleanArray(apiUsersRaw);
+    return apiUsers;
 });
 exports.getAllProducts = getAllProducts;
