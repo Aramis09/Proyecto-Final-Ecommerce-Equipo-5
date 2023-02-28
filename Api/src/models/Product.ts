@@ -1,0 +1,1 @@
+import { DataTypes } from "sequelize";
