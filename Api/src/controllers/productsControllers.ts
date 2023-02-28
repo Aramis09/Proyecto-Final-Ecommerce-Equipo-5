@@ -21,6 +21,6 @@ const cleanArray=(arr: any[])=>{
 export const getAllProducts = async ()=>{
     const apiUsersRaw = (await axios.get(`https://apisgames-production.up.railway.app/products`)).data;
     const apiUsers =cleanArray(apiUsersRaw);
-    console.log(apiUsers);
+    console.log(apiUsersRaw);
     return apiUsers;
 };
