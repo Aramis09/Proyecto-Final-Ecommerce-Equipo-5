@@ -1,0 +1,9 @@
+npm init -y
+npm i typescript -D //** Dependencia de Desarrollo: Usarlo solo en desarrollo, No en produccion, se convertira en JS
+npx tsc --init //** Convertir el codigo a JS, npx comando de Node, tsc Typescript Compiler, crea un archivo de configuracion de Typescript: tsconfig.json, hacia que entorno va a compilar
+npx tsc --watch //** Para tener la compilacion automatica de Typescript a JS
+npm i express pg  //** instalacion de Express y Postgres
+npm i @types/express -D //** Ayuda a saber como funcionan los modulos de node
+npm i nodemon -D //** Actualize el servidor cuando cambie el codigo
+npm i concurrently -D //** Sirve para no tener que levantar 2 consolas, con esto levantaremos en una sola el tsc --watch y el nodemon
+npm install axios dotenv morgan pg-hstore sequelize
