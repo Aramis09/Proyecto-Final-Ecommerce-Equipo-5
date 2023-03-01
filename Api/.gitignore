@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+.env
+node_modules
+=======
 <<<<<<< development
 .env
 =======
@@ -17,3 +21,4 @@ node_modules
 >>>>>>> local
 >>>>>>> local
 >>>>>>> local
+>>>>>>> development
