@@ -1,11 +1,21 @@
-const { getAllProducts, getProductById } = require("../controllers/productsControllers")
+const { getAllProducts, getProductById, findProducts } = require("../controllers/productsControllers")
 
-const getProductsHandler = async (req,res)=>{
-    const results = await getAllProducts();
-    res.status(201).json(results);
+const getProducts = async (req,res)=>{
+    const {name}=req.query;
+    let products ={};
+    try {
+        if (name){
+            products = await findProducts(name);
+        }else{
+            products = await getAllProducts()
+        };
+        res.status(200).json(products);
+    } catch (error) {
+        res.status(400).json({error:error.message});
+    }
 }
 
-const getProductHandler = async(req,res)=>{
+const getProduct = async(req,res)=>{
     const {id} = req.params;
     console.log('id',id);
     try {
@@ -16,4 +26,4 @@ const getProductHandler = async(req,res)=>{
     }
 }
 
-module.exports = { getProductsHandler, getProductHandler }
+module.exports = { getProducts, getProduct }

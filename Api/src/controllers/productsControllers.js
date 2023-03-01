@@ -1,36 +1,36 @@
 const {Product, Platform, Image, Genre, Store} = require("../db");
 const axios = require("axios");
 const { Op } = require("sequelize");
-
+const arrayIncludes = [
+    {
+        model: Image,
+        attributes: ["image_path"],
+    },
+    {
+        model: Platform,
+        attributes: ["name"],
+        through: { attributes: [] },
+    },
+    {
+        model: Genre,
+        attributes: ["name"],
+        through: { attributes: [] },
+    },
+    {
+        model: Store,
+        attributes: ["name"],
+        through: { attributes: [] },
+    },
+]
 const options ={
-    include:[
-        {
-            model: Image,
-            attributes: ["image_path"],
-        },
-        {
-            model: Platform,
-            attributes: ["name"],
-            through: { attributes: [] },
-        },
-        {
-            model: Genre,
-            attributes: ["name"],
-            through: { attributes: [] },
-        },
-        {
-            model: Store,
-            attributes: ["name"],
-            through: { attributes: [] },
-        },
-    ]
+    include:arrayIncludes
 };
 
 let arrayPlatforms =[];
-let arrayImagesDet =[];
 let arrayGenres =[];
 let arrayStores =[];
 
+let arrayImagesDet =[];
 let arrayPlatformsDet =[];
 let arrayGenresDet =[];
 let arrayStoresDet =[];
@@ -43,14 +43,6 @@ const getAllProducts= async ()=>{
         await cargaBDProducts();
         products = await Product.findAll(options);
     }
-    //console.log('arrayPlatforms',arrayPlatforms);
-    //console.log('arrayGenres',arrayGenres);
-    //console.log('arrayStores',arrayStores);
-    //console.log('arrayImagesDet',arrayImagesDet);
-    //console.log('arrayPlatformsDet',arrayPlatformsDet);
-    //console.log('arrayGenresDet',arrayGenresDet);
-    //console.log('arrayStoresDet',arrayStoresDet);
-
     return products;
 };
 
@@ -170,9 +162,27 @@ const cargaBDProducts = async () =>{
 }
 
 const getProductById = async (id)=>{
-    console.log('getProductById id',id);
-    const product = await Product.findByPk(id,options);
-    return product;
+    try {
+        const product = await Product.findByPk(id,options);
+        return product;
+    } catch (error) {
+        throw Error("Error: No se encontro el ID en la BD de Productos!!")
+    }
+
 };
 
-module.exports = {getAllProducts,getProductById};
+const findProducts = async (name, platform, genre, store) => {
+    if (!name & !platform & !genre & !store) throw Error("Error: Debe existir un valor name, platform, genre, store = null..!");
+     let products = await Product.findAll({
+         where:{
+             name:{
+                 [Op.iLike]:`%${name}%`,
+             }
+         },
+         include:arrayIncludes
+     });
+     if (products.length===0) throw Error(`Error: No se encontro ningun Producto con el nombre: ${name} !`);
+     return products;
+ };
+
+module.exports = {getAllProducts, getProductById, findProducts};
