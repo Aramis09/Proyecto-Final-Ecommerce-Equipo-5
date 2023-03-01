@@ -1,3 +1,24 @@
-node_modules
+<<<<<<< HEAD
 .env
-package-lock.json
+node_modules
+=======
+<<<<<<< development
+.env
+=======
+<<<<<<< master
+.env
+=======
+<<<<<<< Esteban
+.env
+node_modules
+=======
+<<<<<<< development
+.env
+=======
+.env
+node_modules
+>>>>>>> local
+>>>>>>> local
+>>>>>>> local
+>>>>>>> local
+>>>>>>> development
