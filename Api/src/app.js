@@ -1,7 +1,7 @@
-import express from 'express';
-import morgan from 'morgan';
-import {mainRouter} from './routes/index'
-export const app=express();
+const express = require("express");
+const morgan = require("morgan");
+const mainRouter = require("./routes/index");
+const app=express();  //**Este es nuestro servidor */
 
 //**.use : cuando recibas una request que pase por aca */
 //**Middlewares a usar: Son funciones que se encargan de hacer algo con la request y continua */
@@ -12,3 +12,4 @@ app.use(express.json()); //**traduce de json a js object */
 
 app.use(mainRouter);
 
+module.exports = app;
