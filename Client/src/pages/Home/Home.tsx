@@ -1,3 +1,4 @@
+import { Carousel } from "../../components/Carousel/Carousel";
 import { NavBar } from "../../components/NavBar";
 import { Product } from "../../components/Product/Product";
 import styles from "./Home.module.css";
@@ -6,6 +7,7 @@ export const Home = () => {
   return (
     <>
       <NavBar />
+      <Carousel />
       <section className={styles["buttons-platforms"]}>
         <button>PC</button>
         <button>PLAYSTATION</button>

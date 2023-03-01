@@ -7,7 +7,7 @@ export const Product = () => {
     <div className={styles.cards}>
       {PRUEBA.map((product, index) => {
         return (
-          <div className={styles.card}>
+          <div key={index} className={styles.card}>
             <Card
               key={index}
               name={product.name}
