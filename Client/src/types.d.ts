@@ -4,3 +4,8 @@ export interface CardProps {
   platforms: string[];
   price: string | number;
 }
+
+export interface CardProps2 extends CardProps {
+  description: string;
+  image: string[]
+}
