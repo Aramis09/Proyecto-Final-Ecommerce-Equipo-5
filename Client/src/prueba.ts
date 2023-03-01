@@ -165,4 +165,51 @@ export const PRUEBA = [
       "https://media.rawg.io/media/screenshots/da6/da6e4cba4e5787674d0e6877d1fc426a.jpg"
     ],
     "description": "Every day, millions of players worldwide enter battle as one of over a hundred Dota heroes. And no matter if its their 10th hour of play or 1,000th, theres always something new to discover. With regular updates that ensure a constant evolution of gameplay, features, and heroes, Dota 2 has taken on a life of its own."
+  },
+  {
+    "id": 422,
+    "name": "Terraria",
+    "background_image": "https://media.rawg.io/media/games/f46/f466571d536f2e3ea9e815ad17177501.jpg",
+    "rating": 4.05,
+    "playtime": 14,
+    "platforms": [
+      "Xbox 360",
+      "Wii U",
+      "Nintendo 3DS",
+      "Xbox One",
+      "PlayStation 4",
+      "iOS",
+      "PC",
+      "macOS",
+      "Linux",
+      "Nintendo Switch",
+      "PlayStation 3",
+      "PS Vita",
+      "Android"
+    ],
+    "genres": [
+      "Action",
+      "Indie",
+      "Platformer"
+    ],
+    "stores": [
+      "Xbox Store",
+      "Steam",
+      "GOG",
+      "Nintendo Store",
+      "App Store",
+      "Google Play",
+      "PlayStation Store"
+    ],
+    "price": "9.99",
+    "images": [
+      "https://media.rawg.io/media/games/f46/f466571d536f2e3ea9e815ad17177501.jpg",
+      "https://media.rawg.io/media/screenshots/3af/3afd69426804e7162edbe03cd9f8d0f4.jpg",
+      "https://media.rawg.io/media/screenshots/48c/48c7e3e1268467b91b24c7da7c6539df.jpg",
+      "https://media.rawg.io/media/screenshots/84b/84b447d4df99d42ffe479c7feb438171.jpg",
+      "https://media.rawg.io/media/screenshots/de0/de053efd6104719567d23fb0dad58b92.jpg",
+      "https://media.rawg.io/media/screenshots/490/4907be07a7771c8a7f0eb30c3a1fadc0.jpg",
+      "https://media.rawg.io/media/screenshots/485/485ce1d6c733357664be153777097af1.jpg"
+    ],
+    "description": "Dig, fight, explore, build! Nothing is impossible in this action-packed adventure game. Four Pack also available!"
   },]

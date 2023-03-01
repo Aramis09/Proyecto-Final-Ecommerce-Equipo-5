@@ -1,0 +1,13 @@
+.buttons-platforms {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
+.More-products-btn {
+  background-color: cornflowerblue ;
+}
