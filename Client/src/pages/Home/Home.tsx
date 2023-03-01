@@ -15,6 +15,7 @@ export const Home = () => {
       </section>
       <h2>TOP GAMES</h2>
       <Product />
+      <button className={styles['More-products-btn']}>More</button>
     </>
   );
 };
