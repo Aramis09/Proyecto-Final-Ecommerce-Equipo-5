@@ -1,4 +1,4 @@
-const { getAllProducts } = require("../controllers/productsControllers")
+const { getAllProducts, getProductById } = require("../controllers/productsControllers")
 
 const getProductsHandler = async (req,res)=>{
     const results = await getAllProducts();
@@ -7,8 +7,9 @@ const getProductsHandler = async (req,res)=>{
 
 const getProductHandler = async(req,res)=>{
     const {id} = req.params;
+    console.log('id',id);
     try {
-        const product = await getProductById(id);
+        const product = await getProductById(parseInt(id));
         res.status(201).json(product);
     } catch (error) {
         res.status(400).json({error:error.message});

@@ -6,23 +6,23 @@ const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}
 
 //**Definicion de modelos (con sequelize)*/
 const ProductModel = require("./models/Product");
-const PlataformModel = require("./models/Plataform");
+const PlatformModel = require("./models/Platform");
 const GenreModel = require("./models/Genre");
 const ImageModel = require("./models/Image");
 const StoreModel = require("./models/Store");
 
 /**Instancias que definen los modelos, crea el .models: */
 ProductModel(sequelize);
-PlataformModel(sequelize);
+PlatformModel(sequelize);
 GenreModel(sequelize);
 ImageModel(sequelize);
 StoreModel(sequelize);
 
 
 //**Relacionar los Modelos */
-const {Product, Plataform, Genre, Image, Store} = sequelize.models;
-Product.belongsToMany(Plataform,{through:"ProductsPlataforms"});
-Plataform.belongsToMany(Product,{through:"ProductsPlataforms"});
+const {Product, Platform, Genre, Image, Store} = sequelize.models;
+Product.belongsToMany(Platform,{through:"ProductsPlatforms"});
+Platform.belongsToMany(Product,{through:"ProductsPlatforms"});
 
 Product.belongsToMany(Genre,{through:"ProductsGenres"});
 Genre.belongsToMany(Product,{through:"ProductsGenres"});
