@@ -2,6 +2,8 @@ import { PRUEBA } from "../prueba";
 import { MediaCard } from "./MediaCard";
 
 export const Product = () => {
+
+  console.log('h')
   return (
     <>
       {PRUEBA.map((product) => {
