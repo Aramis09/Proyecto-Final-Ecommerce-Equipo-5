@@ -8,9 +8,12 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
+<<<<<<< HEAD
     id: {
       type: DataTypes.STRING,
       allowNull: false,
     },
+=======
+>>>>>>> development
   });
 };
