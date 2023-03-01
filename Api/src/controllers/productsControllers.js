@@ -195,6 +195,16 @@ const findProducts = async (atributo,valor) => {
                 include:arrayIncludes
             });
             break;
+        case 'genre':
+                products = await Product.findAll({
+                    where:{
+                        name:{
+                            [Op.iLike]:`%${valor}%`,
+                        }
+                    },
+                    include:arrayIncludes
+                });
+                break;
         default:
             break;
     }
