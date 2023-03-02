@@ -4,7 +4,7 @@ import styles from "./Detail.module.css";
 import { DetailCarousel } from "./DetailCarousel";
 
 export const Detail = () => {
-  const game = PRUEBA.slice(0, 1);
+  const game = PRUEBA.slice(1, 2);
 
   return (
     <>

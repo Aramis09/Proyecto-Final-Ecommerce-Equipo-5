@@ -3,7 +3,7 @@ import { PRUEBA } from "../../prueba";
 import styles from "./DetailCarousel.module.css";
 
 export const DetailCarousel = () => {
-  const game = PRUEBA.slice(0, 1);
+  const game = PRUEBA.slice(1, 2);
   const imageLinks = game[0].images;
   const [currentImage, setCurrentImage] = useState(0);
 
