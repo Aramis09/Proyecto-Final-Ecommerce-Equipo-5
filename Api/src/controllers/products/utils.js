@@ -33,5 +33,5 @@ let arrayPlatformsDet =[];
 let arrayGenresDet =[];
 let arrayStoresDet =[];
 
-module.exports = {options,arrayStoresDet,arrayGenresDet,arrayPlatformsDet,arrayPlatforms,arrayGenres,arrayStores,arrayImagesDet
+module.exports = {options,arrayStoresDet,arrayGenresDet,arrayPlatformsDet,arrayPlatforms,arrayGenres,arrayStores,arrayImagesDet,arrayIncludes
 };

@@ -2,9 +2,10 @@ const { getAllProducts, getProductById, getProductsByName,getOrderAlphabeticalLi
 
 const productsList = async (req,res)=>{
     const { name }= req.query;
+    let products ={};
     try {
         if (name){
-            var products = await getProductsByName(name);
+            products = await getProductsByName(name);
         }else{
             products = await getAllProducts();
         };
@@ -26,7 +27,6 @@ const productID = async (req,res) => {
 
 const productOrder = async (req,res) =>{
     try {
-        console.log('si entreeeeeeeeeeeee')
         const { typeOrder } = req.query;
         const typeOrderMin = typeOrder.toLowerCase();
         if(typeOrderMin === 'az') {
@@ -40,4 +40,4 @@ const productOrder = async (req,res) =>{
     }
 };
 
-module.exports = { productsList, productID,productOrder };
+module.exports = { productsList, productID, productOrder };
