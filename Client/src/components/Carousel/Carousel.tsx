@@ -6,14 +6,20 @@ export const Carousel = () => {
   const sliceItems = PRUEBA.slice(0, 3);
   const [currentImage, setCurrentImage] = useState(0);
 
-  const handleChangeImage = () => {
+  const handleChangeImageNext = () => {
     setCurrentImage(
       currentImage === sliceItems.length - 1 ? 0 : currentImage + 1
     );
   };
 
+  const handleChangeImagePrev = () => {
+    setCurrentImage(
+      currentImage === 0 ? sliceItems.length - 1 : currentImage - 1
+    );
+  };
+
   useEffect(() => {
-    const intervalId = setInterval(handleChangeImage, 5000);
+    const intervalId = setInterval(handleChangeImageNext, 5000);
     return () => clearInterval(intervalId);
   }, []);
 
@@ -44,8 +50,8 @@ export const Carousel = () => {
         })}
       </section>
       <div className={styles["carousel-buttons--change"]}>
-        <button onClick={handleChangeImage}>←</button>
-        <button onClick={handleChangeImage}>→</button>
+        <button onClick={handleChangeImagePrev}>←</button>
+        <button onClick={handleChangeImageNext}>→</button>
       </div>
     </>
   );
