@@ -13,5 +13,3 @@ app.use(express.json()); //**traduce de json a js object */
 app.use(mainRouter);
 
 module.exports = app;
-
-
