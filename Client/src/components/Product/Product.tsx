@@ -2,10 +2,12 @@ import { PRUEBA } from "../../prueba";
 import { Card } from "../Card/Card";
 import styles from "./Product.module.css";
 
-export const Product = () => {
+export const Product = ({ limit }) => {
+  const cardSlice = PRUEBA.slice(0, limit);
+
   return (
     <div className={styles.cards}>
-      {PRUEBA.map((product, index) => {
+      {cardSlice.map((product, index) => {
         return (
           <div key={index} className={styles.card}>
             <Card

@@ -14,7 +14,7 @@ export const Home = () => {
         <button>XBOX</button>
       </section>
       <h2>TOP GAMES</h2>
-      <Product />
+      <Product limit={6}/>
       <button className={styles['More-products-btn']}>More</button>
     </>
   );
