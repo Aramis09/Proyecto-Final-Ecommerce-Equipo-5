@@ -1,4 +1,5 @@
 import style from '../styles/NavBar.module.css';
+import icon from '../assets/joystick_icon.png';
 
 
 
@@ -7,17 +8,14 @@ export const NavBar = () => {
     <div className={style.mainContainer}>
       <nav>
         <ul className={style.listContainer}>
-          <li className={style.listItem}>
-            ICON
+          <li>
+            <img src={icon} alt="joystick_icon" />
           </li>
           <li>
-            HOME
+            SEARCHBAR
           </li>
           <li>
-            LOGIN
-          </li>
-          <li>
-            CONTACT US
+            <button className={style.loginButton}>LOGIN</button>
           </li>
         </ul>
       </nav>
