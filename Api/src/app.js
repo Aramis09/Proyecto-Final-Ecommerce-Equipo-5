@@ -1,5 +1,6 @@
 const express = require("express");
 const morgan = require("morgan");
+const cookieParser = require('cookie-parser');//**esto siver para los CORS */
 const mainRouter = require("./routes/index");
 const app = express();  //**Este es nuestro servidor */
 
@@ -7,6 +8,7 @@ const app = express();  //**Este es nuestro servidor */
 //**Middlewares a usar: Son funciones que se encargan de hacer algo con la request y continua */
 app.use(morgan("dev"));
 app.use(express.json()); //**traduce de json a js object */
+app.use(cookieParser());
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*'); // update to match the domain you will make the request from
     res.header('Access-Control-Allow-Credentials', 'true');
@@ -17,5 +19,13 @@ app.use((req, res, next) => {
 //** EndPoints Peticiones */
 
 app.use(mainRouter);
+
+// Error catching endware. Manejo de errores
+app.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
+  const status = err.status || 500;
+  const message = err.message || err;
+  console.error(err);
+  res.status(status).send(message);
+});
 
 module.exports = app;
