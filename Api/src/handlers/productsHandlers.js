@@ -1,29 +1,43 @@
-const { getAllProducts, getProductById, findProducts } = require("../controllers/productsControllers")
+const { getAllProducts, getProductById, getProductsByName,getOrderAlphabeticalList } = require("../controllers/products/productsControllers");
 
-const getProducts = async (req,res)=>{
-    const {name}=req.query;
-    let products ={};
+const productsList = async (req,res)=>{
+    const { name }= req.query;
     try {
         if (name){
-            products = await findProducts(name);
+            var products = await getProductsByName(name);
         }else{
-            products = await getAllProducts()
+            products = await getAllProducts();
         };
         res.status(200).json(products);
     } catch (error) {
         res.status(400).json({error:error.message});
-    }
-}
+    };
+};
 
-const getProduct = async(req,res)=>{
-    const {id} = req.params;
-    console.log('id',id);
+const productID = async (req,res) => {
+    const { id } = req.params;
     try {
-        const product = await getProductById(parseInt(id));
-        res.status(201).json(product);
+        const productFound = await getProductById(parseInt(id));
+        res.status(201).json(productFound);
+    } catch (error) {
+        res.status(400).json({error:error.message});
+    };
+};
+
+const productOrder = async (req,res) =>{
+    try {
+        console.log('si entreeeeeeeeeeeee')
+        const { typeOrder } = req.query;
+        const typeOrderMin = typeOrder.toLowerCase();
+        if(typeOrderMin === 'az') {
+            const orderListAZ = await getOrderAlphabeticalList(typeOrderMin);
+            return res.status(200).json(orderListAZ);
+        }
+        const orderListAZ = await getOrderAlphabeticalList(typeOrderMin);
+        return res.status(200).json(orderListAZ);
     } catch (error) {
         res.status(400).json({error:error.message});
     }
-}
+};
 
-module.exports = { getProducts, getProduct }
+module.exports = { productsList, productID,productOrder };
