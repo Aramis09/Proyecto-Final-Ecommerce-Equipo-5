@@ -12,7 +12,8 @@ module.exports = (sequelize)=>{
         },
         background_image:{
             type:DataTypes.STRING,
-            allowNull: false,
+            validate:{isUrl: true, notNull: true, notEmpty: true},
+            allowNull:false,
         },
         rating:{
             type:DataTypes.DECIMAL(10,2),
@@ -31,7 +32,11 @@ module.exports = (sequelize)=>{
         created:{
             type:DataTypes.BOOLEAN,
             defaultValue:true
-        }
+        },
+        state:{
+            type:DataTypes.BOOLEAN,
+            defaultValue:true
+        },
     },
     {timestamps:false}
     )

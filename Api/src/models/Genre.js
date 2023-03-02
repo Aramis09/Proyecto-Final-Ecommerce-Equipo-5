@@ -13,7 +13,11 @@ module.exports = (sequelize)=>{
         created:{
             type:DataTypes.BOOLEAN,
             defaultValue:true
-        }
+        },
+        state:{
+            type:DataTypes.BOOLEAN,
+            defaultValue:true
+        },
     },
     {timestamps:false}
     )

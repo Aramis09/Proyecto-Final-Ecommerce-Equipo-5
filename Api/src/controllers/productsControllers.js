@@ -37,11 +37,17 @@ let arrayStoresDet =[];
 
 const getAllProducts= async ()=>{
     let products = null;
-    products = await Product.findAll(options);
+    products = await Product.findAll({
+        where:{state:true},
+        include:arrayIncludes
+    });
     if (products.length===0){
         console.log("Entro a Carga Inicial");
         await cargaBDProducts();
-        products = await Product.findAll(options);
+        products = await Product.findAll({
+            where:{state:true},
+            include:arrayIncludes
+        });
     }
     return products;
 };
@@ -162,11 +168,16 @@ const cargaBDProducts = async () =>{
 }
 
 const getProductById = async (id)=>{
+    if (!id) throw Error("Error: Debe existir un valor ID, ID=null..!");
     try {
-        const product = await Product.findByPk(id,options);
+        const product = await Product.findOne({
+            where:{id:Number(id), state:true},
+            include:arrayIncludes
+        });
+        if (!product) throw Error(`Error: ID=${id} no encontrado..!!`);
         return product;
     } catch (error) {
-        throw Error("Error: No se encontro el ID en la BD de Productos!!")
+        throw Error(error.message)
     }
 
 };

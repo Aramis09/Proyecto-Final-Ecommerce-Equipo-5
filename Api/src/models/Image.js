@@ -8,7 +8,8 @@ module.exports = (sequelize)=>{
         },
         image_path:{
             type:DataTypes.STRING,
-            allowNull: false,
+            validate:{isUrl: true, notNull: true, notEmpty: true},
+            allowNull:false,
         },
         created:{
             type:DataTypes.BOOLEAN,

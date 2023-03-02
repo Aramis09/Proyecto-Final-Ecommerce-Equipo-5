@@ -1,6 +1,6 @@
 const { getAllProducts, getProductById, findProducts } = require("../controllers/productsControllers")
 
-const getProducts = async (req,res)=>{
+const getProductsHandler = async (req,res)=>{
     const {name}=req.query;
     let products ={};
     try {
@@ -15,9 +15,8 @@ const getProducts = async (req,res)=>{
     }
 }
 
-const getProduct = async(req,res)=>{
+const getProductByIdHandler = async(req,res)=>{
     const {id} = req.params;
-    console.log('id',id);
     try {
         const product = await getProductById(parseInt(id));
         res.status(201).json(product);
@@ -26,4 +25,4 @@ const getProduct = async(req,res)=>{
     }
 }
 
-module.exports = { getProducts, getProduct }
+module.exports = { getProductsHandler, getProductByIdHandler }

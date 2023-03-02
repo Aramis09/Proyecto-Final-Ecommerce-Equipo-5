@@ -1,5 +1,5 @@
 const {Router}=require("express");
-const { getProduct,getProducts } = require("../handlers/productsHandlers");
+const { getProductByIdHandler,getProductsHandler } = require("../handlers/productsHandlers");
 const productsRouter = Router();
 
 //** Funcion llamar a la funcion que interactua con el modelo y obtiene los datos de la BD */
@@ -8,8 +8,8 @@ const productsRouter = Router();
 //** Cuando tenga los datos, reponder con los datos obtenidos */
 //** No debe interactuar directamente con la BD */
 
-productsRouter.get("/",getProducts);
-productsRouter.get("/:id",getProduct);
+productsRouter.get("/",getProductsHandler);
+productsRouter.get("/:id",getProductByIdHandler);
 //productsRouter.post("/",createProductHandler);
 
 module.exports= productsRouter;

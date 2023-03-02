@@ -1,7 +1,11 @@
 const app = require("./src/app");
-const {sequelize, DB_PORT} = require("./src/db");
+const {sequelize} = require("./src/db");
+const PORT= process.env.PORT;
 
-app.listen(DB_PORT,()=>{
-    sequelize.sync({force:true});
-    console.log("Listening on: http://localhost:3001")
-})
+sequelize.sync({force:true})
+.then(() => {
+    app.listen(Number(PORT), () => {
+    console.log("Back listening on http://localhost:"+PORT); // eslint-disable-line no-console
+        });
+    })
+.catch((err)=>console.log(err.message));
