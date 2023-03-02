@@ -1,59 +1,85 @@
+import { useState } from "react";
 import { PRUEBA } from "../../prueba";
-import { useState, useEffect } from "react";
-import styles from "./Carousel.module.css";
+import { Rating } from "../Rating/Rating";
+import styles from "./Detail.module.css";
 
 export const Detail = () => {
-  const sliceItems = PRUEBA.slice(0, 3);
-  const [currentImage, setCurrentImage] = useState(0);
+  const game = PRUEBA.slice(0, 1);
+  const [currentSlide, setCurrentSlide] = useState(0);
 
-  const handleChangeImage = () => {
-    setCurrentImage(
-      currentImage === sliceItems.length - 1 ? 0 : currentImage + 1
+  const nextSlide = () => {
+    setCurrentSlide((currentSlide + 1) % game[0].images.length);
+  };
+
+  const prevSlide = () => {
+    setCurrentSlide(
+      (currentSlide - 1 + game[0].images.length) % game[0].images.length
     );
   };
 
-  useEffect(() => {
-    const intervalId = setInterval(handleChangeImage, 5000);
-    return () => clearInterval(intervalId);
-  }, []);
-
   return (
-    <div className="Detail">
-      <img src={PRUEBA[0].background_image} alt="Imagen Game" />
-      <div className="Section 1">
-        <span>{PRUEBA[0].name}</span>
-        <span>{PRUEBA[0].price}</span>
-        <span>{PRUEBA[0].rating}</span>
-      </div>
-      <div className="Section 2">
-        <p>{PRUEBA[0].description}</p>
-        <span>{PRUEBA[0].genres}</span>
-        <span>{PRUEBA[0].platforms}</span>
-      </div>
-      <section className={styles["carousel-container"]}>
-        {sliceItems.map((item, index) => {
-          return (
-            <div key={index} className={styles["card-carousel"]}>
-              <div className={styles["img-carousel"]}>
-                {currentImage === index ? (
-                  <img src={item.background_image} alt={item.name} />
-                ) : null}
-              </div>
-              <div className={styles["description-carousel"]}>
-                {currentImage === index ? (
-                  <>
-                    <div className={styles.description}>
-                      <h2>{item.name}</h2>
-                      {item.description}
-                      <button>Go</button>
-                    </div>
-                  </>
-                ) : null}
-              </div>
-            </div>
-          );
-        })}
+    <>
+      <section className={styles["background-image"]}>
+        {game.map((item, index) => (
+          <img key={index} src={item.background_image} alt={item.name} />
+        ))}
       </section>
-    </div>
+      <section>
+        <div>
+          {game.map((item) => (
+            <div key={item.id}>
+              <h3>{item.name}</h3>
+              <p>${item.price}</p>
+              <p>{item.rating}</p>
+              <Rating value={item.rating} />
+            </div>
+          ))}
+        </div>
+        <div>
+          {game.map((item) => (
+            <div key={item.id}>
+              <p>{item.description}</p>
+              <p>{item.genres}</p>
+              <p>{item.platforms}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+      <section className={styles.carousel}>
+        <div className={styles["carousel-container"]}>
+          {game[0].images.map((image, index) => (
+            <div
+              key={index}
+              className={
+                index === currentSlide
+                  ? styles["carousel-slide"] + " " + styles["active-slide"]
+                  : styles["carousel-slide"]
+              }
+            >
+              {<img src={image}  />}
+            </div>
+          ))}
+          <button className={styles["carousel-prev"]} onClick={prevSlide}>
+            &#10094;
+          </button>
+          <button className={styles["carousel-next"]} onClick={nextSlide}>
+            &#10095;
+          </button>
+        </div>
+        <div className={styles["carousel-indicators"]}>
+          {game[0].images.map((image, index) => (
+            <span
+              key={index}
+              className={
+                index === currentSlide
+                  ? styles["carousel-indicator"] + " " + styles["active-indicator"]
+                  : styles["carousel-indicator"]
+              }
+              onClick={() => setCurrentSlide(index)}
+            ></span>
+          ))}
+        </div>
+      </section>
+    </>
   );
 };

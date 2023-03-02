@@ -12,7 +12,6 @@ export const PriceSlider = () => {
 
   return (
     <div>
-      <label>Precio</label>
       <div>
         <input
           type="range"
