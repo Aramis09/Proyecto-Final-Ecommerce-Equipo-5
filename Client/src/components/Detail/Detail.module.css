@@ -2,6 +2,8 @@
   height: 300px;
   width: 100%;
   position: relative;
+  padding-bottom: 50px;
+  overflow: hidden;
 }
 
 .background-image img {
@@ -10,76 +12,63 @@
   object-fit: cover;
 }
 
-.carousel {
-  margin-top: 2rem;
-  position: relative;
-}
-
-.carousel-container {
+.info-container {
   display: flex;
-  align-items: center;
+  flex-direction: row;
   justify-content: center;
-  position: relative;
+  padding: 50px 0 100px; 
 }
 
-.carousel-slide {
-  opacity: 0;
-  transition: opacity 0.5s ease-in-out;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+.left-section {
+  display: flex;
+  flex-direction: column;
+  width: 500px;
+  margin-right: 50px; 
 }
 
-.carousel-slide img {
+.left-section h3 {
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-bottom: 10px; 
+}
+
+.right-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 700px;
+}
+
+.right-section p {
+  font-size: 1.2rem;
+  margin-bottom: 20px; 
+}
+
+.right-section-info {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around; 
   width: 100%;
-  height: 100%;
-  object-fit: contain;
 }
 
-.active-slide {
-  opacity: 1;
+.right-section-info h4 {
+  font-size: 1.4rem;
+  margin-bottom: 10px;
 }
 
-.carousel-prev,
-.carousel-next {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 2rem;
-  color: white;
-  background-color: rgba(0, 0, 0, 0.5);
-  border: none;
-  cursor: pointer;
-}
-
-.carousel-prev {
-  left: 0;
-  padding: 1rem;
-}
-
-.carousel-next {
-  right: 0;
-  padding: 1rem;
-}
-
-.carousel-indicators {
+.gender-section, .platforms-section {
   display: flex;
-  align-items: center;
+  flex-direction: column;
   justify-content: center;
-  margin-top: 1rem;
+  align-items: center; 
 }
 
-.carousel-indicator {
-  width: 1rem;
-  height: 1rem;
-  background-color: white;
-  border-radius: 50%;
-  margin: 0 0.5rem;
-  cursor: pointer;
+.button-container {
+  display: flex;
+  flex-direction: row;
 }
 
-.active-indicator {
-  background-color: #f44336;
+.button-container button {
+  margin-right: 10px;
 }
