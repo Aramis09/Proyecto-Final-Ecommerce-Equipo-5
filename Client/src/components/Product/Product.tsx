@@ -1,17 +1,11 @@
-import { Card } from "../Card/Card";
 import { PRUEBA } from "../../prueba";
+import { Card } from "../Card/Card";
 import styles from "./Product.module.css";
 
-interface Props {
-  limit: number;
-}
-
-export const Product = ({ limit }: Props) => {
-  const cardSlice = PRUEBA.slice(0, limit);
-
+export const Product = () => {
   return (
     <div className={styles.cards}>
-      {cardSlice.map((product, index) => {
+      {PRUEBA.map((product, index) => {
         return (
           <div key={index} className={styles.card}>
             <Card

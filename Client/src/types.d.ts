@@ -5,13 +5,7 @@ export interface CardProps {
   price: string | number;
 }
 
-export interface GamesData extends CardProps {
-  id: number;
-  rating: number;
-  playtime: number;
-  genres: string[];
-  stores: string[];
-  images: string[];
+export interface CardProps2 extends CardProps {
   description: string;
+  image: string[]
 }
-
