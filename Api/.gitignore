@@ -1,15 +1,3 @@
-<<<<<<< master
-.env
-=======
-<<<<<<< Esteban
-.env
 node_modules
-=======
-<<<<<<< development
 .env
-=======
-.env
-node_modules
->>>>>>> local
->>>>>>> local
->>>>>>> local
+package-lock.json
