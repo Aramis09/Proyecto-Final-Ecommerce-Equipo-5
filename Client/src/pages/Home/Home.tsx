@@ -1,6 +1,7 @@
 import { Carousel } from "../../components/Carousel/Carousel";
 import { NavBar } from "../../components/NavBar";
 import { Product } from "../../components/Product/Product";
+import { Link } from "react-router-dom";
 import styles from "./Home.module.css";
 
 export const Home = () => {
@@ -15,7 +16,9 @@ export const Home = () => {
       </section>
       <h2>TOP GAMES</h2>
       <Product limit={6}/>
+      <Link to={'/products'}>
       <button className={styles['More-products-btn']}>More</button>
+      </Link>
     </>
   );
 };

@@ -1,5 +1,6 @@
 import { PRUEBA } from "../../prueba";
 import { Card } from "../Card/Card";
+import { Games } from "../../prueba-get";
 import styles from "./Product.module.css";
 
 export const Product = ({ limit }) => {
