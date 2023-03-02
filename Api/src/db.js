@@ -1,8 +1,8 @@
 //**Crea la conexion con la base de datos (con sequelize) */
 const {Sequelize} = require("sequelize");
 require("dotenv").config(); //**La variables de entorno quedan dispobnibles .env */
-const {DB_USER, DB_PASSWORD, DB_HOST, DB_PORT}= process.env;
-const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/pf`,{logging:false});
+const {DB_DATA}= process.env;
+const sequelize = new Sequelize(DB_DATA,{logging:false});
 
 //**Definicion de modelos (con sequelize)*/
 const ProductModel = require("./models/Product");
@@ -34,4 +34,4 @@ Product.hasMany(Image);
 Image.belongsTo(Product);
 
 //**Exportarla para poder trabajar con los modelos en los controllers */
-module.exports={sequelize, ...sequelize.models, DB_PORT};
+module.exports={sequelize, ...sequelize.models};
