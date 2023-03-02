@@ -7,13 +7,15 @@ import dataJson from '../../serverJson/data_API_nuestra.json';
 interface reducerOneState{
     all: Array<object>,
     details: object,
-    carouselData: Array<object>
+    carouselData: Array<object>,
+    searchedData: Array<object>
 }
 
 const initialState: reducerOneState = {
     all: [],
     details: {},
-    carouselData: []
+    carouselData: [],
+    searchedData: []
 }
 
 
@@ -38,6 +40,17 @@ export const sliceOne = createSlice({
             }
             state.carouselData = [dataJson[arr[0]], dataJson[arr[1]], dataJson[arr[2]]];
             //la idea es que desde el backend se elijan 3 juegos aleatorios, igual esta a decision de todos.
+        },
+        search: (state, action: PayloadAction<string>) => {
+            //get.axios()
+                //.then(r => r.data)
+                //.then(data => state.all = data)
+            //
+        },
+        filteredSearch: (state, action: PayloadAction<any>) => {
+            //get.axios()
+                //.then(r => r.data)
+                //.then(data => state.all = data)
         }
     }
 })
