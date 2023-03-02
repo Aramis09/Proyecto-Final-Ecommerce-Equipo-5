@@ -1,5 +1,5 @@
-import style from '../styles/NavBar.module.css';
-import icon from '../assets/joystick_icon.png';
+import style from './NavBar.module.css';
+import icon from '../../assets/joystick_icon.png';
 
 
 
