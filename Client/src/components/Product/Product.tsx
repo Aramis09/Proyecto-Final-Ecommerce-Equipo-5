@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks/hooks";
-import { getAll } from "../../redux/reducer/sliceOne";
+import { getAll } from "../../redux/actions/actions";
 import { Card } from "../Card/Card";
 import styles from "./Product.module.css";
 
@@ -13,7 +13,7 @@ export const Product = () => {
     dispatch(getAll())
   }, [])
 
-  //console.log(storeState.length) //debug
+  console.log('debug product', storeState) //debug
 
   return (
     <div className={styles.cards} >
@@ -32,7 +32,7 @@ export const Product = () => {
             </div>
           )
         })
-
+        
         }
     </div>
   );

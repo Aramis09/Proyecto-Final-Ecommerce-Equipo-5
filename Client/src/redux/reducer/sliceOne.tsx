@@ -1,8 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from "../store";
-import axios from "axios";
-import dataJson from '../../serverJson/data_API_nuestra.json';
+//import axios from "axios";
+import { getAll, searchGameById, searchGameByName, carouselPicks } from "../actions/actions";
+//import dataJson from '../../serverJson/data_API_nuestra.json';
 
 interface reducerOneState{
     all: Array<object>,
@@ -18,65 +19,78 @@ const initialState: reducerOneState = {
     searchedData: []
 }
 
-
-export const sliceOne = createSlice({
+export const sliceOne = createSlice ({
     name: "sliceOne",
     initialState,
     reducers:{
-        getAll: (state) => {
-            state.all = dataJson;
-            //A futuro tenemos que cambiar esta solicitud para traer todos los juegos desde el backend.
-        },
-        gameDetails: (state, action: PayloadAction<object>) => {
-            state.details = action.payload
-        },
         emptyGameDetails: (state) => {
             state.details = {}
         },
-        carouselPicks: (state) => {
-            var arr: number[]=[]
-            for(var i:number=0; i < 3; i++){
-                arr.push(Math.floor(Math.random()*74))
-            }
-            state.carouselData = [dataJson[arr[0]], dataJson[arr[1]], dataJson[arr[2]]];
-            //la idea es que desde el backend se elijan 3 juegos aleatorios, igual esta a decision de todos.
-        },
-        search: (state, action: PayloadAction<string>) => {
-            //get.axios()
-                //.then(r => r.data)
-                //.then(data => state.all = data)
-            //
-        },
-        filteredSearch: (state, action: PayloadAction<any>) => {
-            //get.axios()
-                //.then(r => r.data)
-                //.then(data => state.all = data)
+        emptySearchedData: (state) => {
+            state.searchedData = []
         }
+        /*
+        filteredSearch: (state, action: PayloadAction<any>) => {
+            
+            Nota: esto se va a implementar en la carpeta actions para poder hacer
+            peticiones de cosas asincronas (peticiones a server).
+            NO ESTA PREPARADO, COORDINAR CON EL BACK PARA MEJOR CREACION!!
+        }
+
+
+        */
+    },
+    extraReducers(builder) {
+        builder
+            .addCase(getAll.pending, (state) => {
+                //console.log('pending') //debug
+            })
+            .addCase(getAll.fulfilled, (state, action:PayloadAction<any>) => {
+                //console.log('full', action.payload) //debug
+                state.all = action.payload
+            })
+            .addCase(getAll.rejected, (state) => {
+                //console.log('error', action.payload) //debug
+                throw new Error
+            })
+            .addCase(searchGameById.pending, (state) => {
+                //console.log('pending') //debug
+            })
+            .addCase(searchGameById.fulfilled, (state, action:PayloadAction<any>) => {
+                //console.log('full', action.payload) //debug
+                state.details = action.payload
+            })
+            .addCase(searchGameById.rejected, (state) => {
+                //console.log('error', action.payload) //debug
+                throw new Error
+            })
+            .addCase(carouselPicks.pending, (state) => {
+                //console.log('pending') //debug
+            })
+            .addCase(carouselPicks.fulfilled, (state, action:PayloadAction<any>) => {
+                //console.log('full', action.payload) //debug
+                state.carouselData = action.payload
+            })
+            .addCase(carouselPicks.rejected, (state) => {
+                //console.log('error', action.payload) //debug
+                throw new Error
+            })
+            .addCase(searchGameByName.pending, (state) => {
+                //console.log('pending') //debug
+            })
+            .addCase(searchGameByName.fulfilled, (state, action:PayloadAction<any>) => {
+                //console.log('full', action.payload) //debug
+                state.searchedData = action.payload
+            })
+            .addCase(searchGameByName.rejected, (state) => {
+                //console.log('error', action.payload) //debug
+                throw new Error
+            })
     }
 })
 
-export const {getAll, gameDetails, emptyGameDetails, carouselPicks} = sliceOne.actions;
+export const {emptyGameDetails, emptySearchedData} = sliceOne.actions;
 
 export const selectAll = (state: RootState) => state.reducerOne;
 
 export default sliceOne.reducer
-
-
-/*
-getAll: (state) => {
-    axios.get("https://apisgames-production.up.railway.app/products")
-    .then(r => {
-        console.log('peticion 1', r.data)
-        return r.data
-    })
-    .then(data => {
-        console.log('respuesta', data)
-        state.all = data
-    })
-    .catch(err => {
-        console.log('err', err);
-        console.log('dataJson', dataJson)
-        state.all = dataJson;
-    })
-
-*/

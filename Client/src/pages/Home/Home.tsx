@@ -7,15 +7,15 @@ export const Home = () => {
   return (
     <>
       <NavBar />
-      <Carousel />
+        <Carousel />
       <section className={styles["buttons-platforms"]}>
         <button>PC</button>
         <button>PLAYSTATION</button>
         <button>XBOX</button>
       </section>
       <h2>TOP GAMES</h2>
-      <Product />
-      <button className={styles['More-products-btn']}>More</button>
+    <Product />
+    <button className={styles['More-products-btn']}>More</button>
     </>
   );
 };

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks/hooks";
-import { carouselPicks } from "../../redux/reducer/sliceOne";
+import { carouselPicks } from "../../redux/actions/actions"
 import styles from "./Carousel.module.css";
 
 export const Carousel = () => {
@@ -15,7 +15,6 @@ export const Carousel = () => {
     );
   };
   
-
   useEffect(() => {
     dispatch(carouselPicks())
     return () => clearInterval(intervalId);
