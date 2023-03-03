@@ -4,13 +4,13 @@
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: center;
   align-items: center;
   width: 80vw;
   height: 100%;
   border-radius: 10px;
   padding: 70px;
   gap: 25px;
+  font-family: 'Orbitron', sans-serif;
 }
 
 .cards-products {
@@ -24,6 +24,7 @@
   border-radius: 10px;
   padding: 70px;
   gap: 25px;
+  font-family: 'Orbitron', sans-serif;
 }
 
 .card {
@@ -37,6 +38,7 @@
   padding: 10px;
   background-color: $background-color;
   box-shadow: 5px 5px 15px 0 $light-blue-color;
+  font-family: 'Orbitron', sans-serif;
 }
 
 .card:hover {
