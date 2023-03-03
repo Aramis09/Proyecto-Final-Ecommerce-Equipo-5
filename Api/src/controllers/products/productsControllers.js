@@ -48,6 +48,8 @@ const getProductById = async id =>{
     };
 };
 
+
+
 const getProductsByName = async nameForSeach => {
     try {
         const listOfProducts = await getAllProducts();
