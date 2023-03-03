@@ -72,18 +72,39 @@ const getProductsByName = async nameForSeach => {
         return error.message;
     };
 };
-const getOrderAlphabeticalList = async orderType =>{
-    const productList = await getAllProducts();
-    console.log(orderType)
-    if(orderType === 'az'){
-        let orderedList =  productList.sort(alphabeticalOrderAZ);
-        return orderedList;
+const getOrderList = async (typeOrder,direction) =>{
+    try {
+        const productListOrdered = await getAllProductsWithCondition('order',[[typeOrder, direction]]);
+        return productListOrdered;
+    } catch (error) {
+        return {error : error.message};
     };
-    let orderedList =  productList.sort(alphabeticalOrderZA);
-        return orderedList;
 };
 
 ///////LOGIC/////////LOGIC/////////LOGIC/////////LOGIC/////////LOGIC//////////////////////LOGIC/////////
+const getAllProductsWithCondition = async (nameCondition,condition)=>{
+    let productsListWithMoreTrash = await Product.findAll({
+        where:{state:true},
+        include:arrayIncludes,
+        [nameCondition]:condition,
+    });
+    let productsListWithTrash=await productsListWithMoreTrash.map(productWithTrash => productWithTrash.dataValues);
+    if (!productsListWithTrash.length){
+        console.log("Entro a Carga Inicial");
+        await loadProductsInDB();
+        let productsListWithMoreTrash = await Product.findAll({
+            where:{state:true},
+            include:arrayIncludes
+        });
+        let productsListWithTrash=await productsListWithMoreTrash.map(productWithTrash => productWithTrash.dataValues);
+        let productListClean = cleaningProcess(await productsListWithTrash);
+        return productListClean;
+    };
+    let productListClean = cleaningProcess( await productsListWithTrash);
+    return productListClean;
+};
+
+
 async function cleaningProcess(productListWithTrash){
         let productListClean = [];
         productListWithTrash.forEach(productWithTrash => {
@@ -232,4 +253,4 @@ function alphabeticalOrderZA(a,b){
     if( frst > second ) return -1;
      if( frst < second) return 1;
 };
-module.exports = {getAllProducts, getProductById, getProductsByName,getOrderAlphabeticalList};
+module.exports = {getAllProducts, getProductById, getProductsByName,getOrderList};

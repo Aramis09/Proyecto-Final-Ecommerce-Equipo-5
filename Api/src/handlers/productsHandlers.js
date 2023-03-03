@@ -1,4 +1,4 @@
-const { getAllProducts, getProductById, getProductsByName,getOrderAlphabeticalList } = require("../controllers/products/productsControllers");
+const { getAllProducts, getProductById, getProductsByName,getOrderList } = require("../controllers/products/productsControllers");
 
 const productsList = async (req,res)=>{
     const { name }= req.query;
@@ -27,17 +27,23 @@ const productID = async (req,res) => {
 
 const productOrder = async (req,res) =>{
     try {
-        const { typeOrder } = req.query;
-        const typeOrderMin = typeOrder.toLowerCase();
-        if(typeOrderMin === 'az') {
-            const orderListAZ = await getOrderAlphabeticalList(typeOrderMin);
-            return res.status(200).json(orderListAZ);
+        const { typeOrder,direction } = req.query;
+        if(!direction || !typeOrder) throw new Error ('please, add query with type order:"ASC" or "DESC". too add "typeOrder":"alphabetic","price"');
+        
+        if(typeOrder === 'name'){
+            const orderList = await getOrderList(typeOrder,direction);
+            if(orderList.error) throw new Error(orderList.error);
+            return res.status(200).json(orderList);
+        };
+        if(typeOrder === 'price'){
+            const orderList = await getOrderList(typeOrder,direction);
+            if(orderList.error) throw new Error(orderList.error);
+            return res.status(200).json(orderList);
         }
-        const orderListAZ = await getOrderAlphabeticalList(typeOrderMin);
-        return res.status(200).json(orderListAZ);
     } catch (error) {
         res.status(400).json({error:error.message});
-    }
+    };
 };
+
 
 module.exports = { productsList, productID, productOrder };
