@@ -11,7 +11,10 @@ export const Product = ({ limit }: Props) => {
   const cardSlice = allGames.slice(0, limit);
 
   return (
-    <div className={styles.cards}>
+    <div
+      className={cardSlice.length > 6 ? styles["cards-products"] : styles.cards}
+    >
+      {" "}
       {cardSlice.map((product, index) => {
         return (
           <div key={index} className={styles.card}>
