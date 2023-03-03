@@ -25,15 +25,19 @@
 }
 
 .loginButton {
+    color: black;
     background-color: #018dff;
     cursor: pointer;
     border-radius: 20px;
-    border-color: white;
     margin-right: 5px;
 }
 
 .loginButton:hover {
     background-color: #004074;
     transition: 1s;
-    color: #018dff;
+    color: white;
+}
+
+.navbarIcon {
+    margin-top: 5px;
 }

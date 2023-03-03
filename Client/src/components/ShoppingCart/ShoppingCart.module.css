@@ -1,0 +1,39 @@
+.cartButton {
+    background-color: #018dff;
+    border-radius: 40%;
+    float: right;
+    margin-top: 50px;
+    padding: 0;
+    height: 3rem;
+    width: 3rem;
+}
+
+.cartButton:hover {
+    background-color: #004074;
+    transition: 1s;
+}
+
+.cartIcon {
+    margin: auto;
+}
+
+.modalContainer {
+    position: absolute;
+    top: 20%;
+    left: 85%;
+}
+
+.modalContent {
+    background-color: #004074;
+    padding: 1rem;
+    border-radius: 10%;
+}
+
+.closeModalButton {
+    background-color: #018dff;
+    border-radius: 50%;
+    padding: 0;
+    margin: 5px;
+    height: 50%;
+    width: 20%;
+}
