@@ -1,0 +1,38 @@
+@import '../../styles/global-vars.scss';
+
+.card h3 {
+  font-size: 1.6rem;
+  margin-bottom: 10px;
+}
+
+.card img {
+  width: 100%;
+  height: auto;
+  margin-bottom: 10px;
+  border-radius: 10px;
+}
+
+.card p {
+  color: $neon-color;
+  margin: 0;
+  font-weight: 600;
+  font-size: 1.2rem;
+}
+
+.platforms-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.platforms {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1vh;
+  text-decoration: none;
+}

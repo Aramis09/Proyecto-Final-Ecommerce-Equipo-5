@@ -1,7 +1,6 @@
-import style from './NavBar.module.css';
-import icon from '../../assets/joystick_icon.png';
-
-
+import { Link } from "react-router-dom";
+import style from "./NavBar.module.scss";
+import icon from "../../assets/joystick_icon.png";
 
 export const NavBar = () => {
   return (
@@ -9,11 +8,11 @@ export const NavBar = () => {
       <nav>
         <ul className={style.listContainer}>
           <li>
-            <img src={icon} alt="joystick_icon" />
+            <Link to={"/"}>
+              <img src={icon} alt="joystick_icon" />
+            </Link>
           </li>
-          <li>
-            SEARCHBAR
-          </li>
+          <li>SEARCHBAR</li>
           <li>
             <button className={style.loginButton}>LOGIN</button>
           </li>
