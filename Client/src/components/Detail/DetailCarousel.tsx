@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { PRUEBA } from "../../prueba";
+import { allGames } from "../../get";
 import styles from "./DetailCarousel.module.scss";
 
 export const DetailCarousel = () => {
-  const game = PRUEBA.slice(1, 2);
+  const game = allGames.slice(3, 4);
   const imageLinks = game[0].images;
   const [currentImage, setCurrentImage] = useState(0);
 

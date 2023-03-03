@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { PRUEBA } from "../../prueba";
 import { allGames } from "../../get";
 import styles from "./Carousel.module.scss";
 

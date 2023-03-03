@@ -1,4 +1,3 @@
-import { PRUEBA } from "../../prueba";
 import { allGames } from "../../get";
 import { NavBar } from "../NavBar/NavBar";
 import { Rating } from "../Rating/Rating";

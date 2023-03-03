@@ -1,5 +1,4 @@
 import { Card } from "../Card/Card";
-import { PRUEBA } from "../../prueba";
 import { allGames } from "../../get";
 import styles from "./Product.module.scss";
 
