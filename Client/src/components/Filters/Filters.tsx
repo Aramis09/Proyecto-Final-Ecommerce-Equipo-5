@@ -86,7 +86,7 @@ export const Filters = () => {
             }
           }}
         >
-          orden
+          Orden
         </label>
         <select multiple className={orderOpen ? styles.open : ""}>
           {optionOrder.map((option) => (
