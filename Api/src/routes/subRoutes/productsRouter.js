@@ -1,5 +1,5 @@
 const {Router}=require("express");
-const { productsList, productID, productsListByPlatforms } = require("../../handlers/productsHandlers");
+const { productsList, productID, productsListByPlatforms, productsListByCategory } = require("../../handlers/productsHandlers");
 const productsRouter = Router();
 
 //** Funcion llamar a la funcion que interactua con el modelo y obtiene los datos de la BD */
@@ -10,6 +10,7 @@ const productsRouter = Router();
 
 productsRouter.get("/",productsList);
 productsRouter.get("/platforms",productsListByPlatforms);
+productsRouter.get("/multiple",productsListByCategory);
 productsRouter.get("/:id",productID);
 
 //productsRouter.post("/",createProductHandler);
