@@ -1,6 +1,6 @@
 const app = require("./src/app");
 const {sequelize} = require("./src/db");
-const PORT = process.env.PORT || 3002; //volver a 3001
+const PORT = process.env.PORT || 3001; //volver a 3001
 
 sequelize.sync({force:false})
 .then(() => {

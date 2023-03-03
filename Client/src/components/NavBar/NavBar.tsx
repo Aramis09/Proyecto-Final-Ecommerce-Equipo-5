@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import style from "./NavBar.module.scss";
+import { SearchBar } from "../SearchBar/SearchBar";
 import icon from "../../assets/joystick_icon.png";
 
 export const NavBar = () => {
@@ -12,7 +13,7 @@ export const NavBar = () => {
               <img src={icon} alt="joystick_icon" />
             </Link>
           </li>
-          <li>SEARCHBAR</li>
+          <li><SearchBar /></li>
           <li>
             <button className={style.loginButton}>LOGIN</button>
           </li>
