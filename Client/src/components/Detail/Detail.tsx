@@ -1,13 +1,16 @@
 import { PRUEBA } from "../../prueba";
+import { allGames } from "../../get";
+import { NavBar } from "../NavBar/NavBar";
 import { Rating } from "../Rating/Rating";
-import styles from "./Detail.module.css";
+import styles from "./Detail.module.scss";
 import { DetailCarousel } from "./DetailCarousel";
 
 export const Detail = () => {
-  const game = PRUEBA.slice(1, 2);
+  const game = allGames.slice(3, 4);
 
   return (
     <>
+      <NavBar />
       <section className={styles["background-image"]}>
         {game.map((item, index) => (
           <img key={index} src={item.background_image} alt={item.name} />
@@ -39,7 +42,7 @@ export const Detail = () => {
                 <div className={styles["platforms-section"]} key={index}>
                   <h4>Plataformas</h4>
                   <div className={styles["button-container"]}>
-                    {platforms.map((item) => (
+                    {platforms.slice(0, 3).map((item) => (
                       <button>{item}</button>
                     ))}
                   </div>

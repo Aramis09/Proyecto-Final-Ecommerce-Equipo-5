@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { PRUEBA } from "../../prueba";
 import { PriceSlider } from "../PriceSlider/PriceSlider";
-import styles from "./Filters.module.css";
+import styles from "./Filters.module.scss";
 
 const uniqueGenres = [...new Set(PRUEBA.flatMap((option) => option.genres))];
 const uniquePlatform = [

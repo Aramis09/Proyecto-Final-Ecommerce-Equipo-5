@@ -1,3 +1,5 @@
+@import '../../styles/global-vars.scss';
+
 .mainContainer {
     position: fixed;
     top: 0;
@@ -10,7 +12,8 @@
 
 .listContainer {
     list-style: none;
-    background-color: #018dff;
+    background-color: black;
+    box-shadow: 5px 5px 15px 0 $shadow-purple-color;
     display: flex;
     flex-direction: row;
     justify-content: space-between;

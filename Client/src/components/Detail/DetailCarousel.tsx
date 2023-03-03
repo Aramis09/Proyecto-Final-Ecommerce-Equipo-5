@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { PRUEBA } from "../../prueba";
-import styles from "./DetailCarousel.module.css";
+import styles from "./DetailCarousel.module.scss";
 
 export const DetailCarousel = () => {
   const game = PRUEBA.slice(1, 2);

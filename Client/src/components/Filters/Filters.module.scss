@@ -1,13 +1,16 @@
+@import '../../styles/global-vars.scss';
+
 .filters-container {
   position: fixed;
-  top: 150px;
-  left: 0;
+  top: 130px;
+  left: 25px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: darkblue;
-  border-radius: 20px;
+  background-color: $background-color;
+  border-radius: 30px;
+  box-shadow: 5px 5px 20px 0 $shadow-purple-color;
   height: 400px;
   width: 200px;
   overflow-y: auto;

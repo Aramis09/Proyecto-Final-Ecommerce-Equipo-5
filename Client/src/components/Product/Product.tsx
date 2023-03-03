@@ -1,13 +1,14 @@
 import { Card } from "../Card/Card";
 import { PRUEBA } from "../../prueba";
-import styles from "./Product.module.css";
+import { allGames } from "../../get";
+import styles from "./Product.module.scss";
 
 interface Props {
   limit: number;
 }
 
 export const Product = ({ limit }: Props) => {
-  const cardSlice = PRUEBA.slice(0, limit);
+  const cardSlice = allGames.slice(0, limit);
 
   return (
     <div className={styles.cards}>
