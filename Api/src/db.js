@@ -10,6 +10,7 @@ const PlatformModel = require("./models/Platform");
 const GenreModel = require("./models/Genre");
 const ImageModel = require("./models/Image");
 const StoreModel = require("./models/Store");
+const ProductsPlatformsModel = require("./models/ProductsPlatforms");
 
 /**Instancias que definen los modelos, crea el .models: */
 ProductModel(sequelize);
@@ -17,10 +18,11 @@ PlatformModel(sequelize);
 GenreModel(sequelize);
 ImageModel(sequelize);
 StoreModel(sequelize);
+ProductsPlatformsModel(sequelize);
 
 
 //**Relacionar los Modelos */
-const {Product, Platform, Genre, Image, Store} = sequelize.models;
+const {Product, Platform, Genre, Image, Store, ProductsPlatforms} = sequelize.models;
 
 const ProductsPlatforms_Profile = sequelize.define('ProductsPlatforms', {}, { timestamps: false });
 Product.belongsToMany(Platform,{through:ProductsPlatforms_Profile});
