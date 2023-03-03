@@ -14,7 +14,8 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "types": ["node", "react", "@types/hoist-non-react-statics"]
   },
   "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]

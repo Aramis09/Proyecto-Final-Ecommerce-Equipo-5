@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { PRUEBA } from "../../prueba";
-import styles from "./Carousel.module.css";
+import { allGames } from "../../get";
+import styles from "./Carousel.module.scss";
 
 export const Carousel = () => {
-  const sliceItems = PRUEBA.slice(0, 3);
+  const sliceItems = allGames.slice(10, 15);
   const [currentImage, setCurrentImage] = useState(0);
 
   const handleChangeImage = () => {
@@ -12,10 +12,10 @@ export const Carousel = () => {
     );
   };
 
-  useEffect(() => {
-    const intervalId = setInterval(handleChangeImage, 5000);
-    return () => clearInterval(intervalId);
-  }, []);
+  // useEffect(() => {
+  //   const intervalId = setInterval(handleChangeImage, 5000);
+  //   return () => clearInterval(intervalId);
+  // }, []);
 
   return (
     <>
