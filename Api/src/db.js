@@ -13,6 +13,9 @@ const PlatformModel = require("./models/Platform");
 const GenreModel = require("./models/Genre");
 const ImageModel = require("./models/Image");
 const StoreModel = require("./models/Store");
+const ProductsPlatformsModel = require("./models/ProductsPlatforms");
+const ProductsGenresModel = require("./models/ProductsGenres");
+const ProductsStoresModel = require("./models/ProductsStores");
 
 /**Instancias que definen los modelos, crea el .models: */
 ProductModel(sequelize);
@@ -20,18 +23,26 @@ PlatformModel(sequelize);
 GenreModel(sequelize);
 ImageModel(sequelize);
 StoreModel(sequelize);
+ProductsPlatformsModel(sequelize);
+ProductsGenresModel(sequelize);
+ProductsStoresModel(sequelize);
+
 
 
 //**Relacionar los Modelos */
-const {Product, Platform, Genre, Image, Store} = sequelize.models;
-Product.belongsToMany(Platform,{through:"ProductsPlatforms"});
-Platform.belongsToMany(Product,{through:"ProductsPlatforms"});
+const {Product, Platform, Genre, Image, Store, ProductsPlatforms, ProductsGenres, ProductsStores} = sequelize.models;
 
-Product.belongsToMany(Genre,{through:"ProductsGenres"});
-Genre.belongsToMany(Product,{through:"ProductsGenres"});
+const ProductsPlatforms_Profile = sequelize.define('ProductsPlatforms', {}, { timestamps: false });
+Product.belongsToMany(Platform,{through:ProductsPlatforms_Profile});
+Platform.belongsToMany(Product,{through:ProductsPlatforms_Profile});
 
-Product.belongsToMany(Store,{through:"ProductsStores"});
-Store.belongsToMany(Product,{through:"ProductsStores"});
+const ProductsGenres_Profile = sequelize.define('ProductsGenres', {}, { timestamps: false });
+Product.belongsToMany(Genre,{through:ProductsGenres_Profile});
+Genre.belongsToMany(Product,{through:ProductsGenres_Profile});
+
+const ProductsStores_Profile = sequelize.define('ProductsStores', {}, { timestamps: false });
+Product.belongsToMany(Store,{through:ProductsStores_Profile});
+Store.belongsToMany(Product,{through:ProductsStores_Profile});
 
 Product.hasMany(Image);
 Image.belongsTo(Product);
