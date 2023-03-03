@@ -21,14 +21,18 @@ StoreModel(sequelize);
 
 //**Relacionar los Modelos */
 const {Product, Platform, Genre, Image, Store} = sequelize.models;
-Product.belongsToMany(Platform,{through:"ProductsPlatforms"});
-Platform.belongsToMany(Product,{through:"ProductsPlatforms"});
 
-Product.belongsToMany(Genre,{through:"ProductsGenres"});
-Genre.belongsToMany(Product,{through:"ProductsGenres"});
+const ProductsPlatforms_Profile = sequelize.define('ProductsPlatforms', {}, { timestamps: false });
+Product.belongsToMany(Platform,{through:ProductsPlatforms_Profile});
+Platform.belongsToMany(Product,{through:ProductsPlatforms_Profile});
 
-Product.belongsToMany(Store,{through:"ProductsStores"});
-Store.belongsToMany(Product,{through:"ProductsStores"});
+const ProductsGenres_Profile = sequelize.define('ProductsGenres', {}, { timestamps: false });
+Product.belongsToMany(Genre,{through:ProductsGenres_Profile});
+Genre.belongsToMany(Product,{through:ProductsGenres_Profile});
+
+const ProductsStores_Profile = sequelize.define('ProductsStores', {}, { timestamps: false });
+Product.belongsToMany(Store,{through:ProductsStores_Profile});
+Store.belongsToMany(Product,{through:ProductsStores_Profile});
 
 Product.hasMany(Image);
 Image.belongsTo(Product);
