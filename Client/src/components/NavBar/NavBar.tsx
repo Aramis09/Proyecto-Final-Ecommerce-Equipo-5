@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { SearchBar } from "./SearchBar";
+import { SearchBar } from "../SearchBar/SearchBar";
 import style from "./NavBar.module.scss";
 import icon from "../../assets/joystick_icon.png";
 
