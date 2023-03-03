@@ -1,16 +1,18 @@
 import { useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "../../redux/hooks/hooks";
-import { getAll } from "../../redux/actions/actions";
+//import { useAppDispatch, useAppSelector } from "../../redux/hooks/hooks";
+import { useAppDispatch, useAppSelector } from "../../redux_2/hooks/hooks";
+//import { getAll } from "../../redux/actions/actions";
+import { getAllListProducts } from "../../redux_2/actions/productAction";
 import { Card } from "../Card/Card";
 import styles from "./Product.module.css";
 
 export const Product = () => {
 
   const dispatch = useAppDispatch();
-  var storeState = useAppSelector((state) => state.reducerOne.all)
+  var storeState = useAppSelector((state) => state.productReducer.all)
 
   useEffect(() => {
-    dispatch(getAll())
+    dispatch(getAllListProducts())
   }, [])
 
   console.log('debug product', storeState) //debug

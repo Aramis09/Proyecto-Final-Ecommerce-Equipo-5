@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../../redux/hooks/hooks";
-import { carouselPicks } from "../../redux/actions/actions"
+//import { useAppDispatch, useAppSelector } from "../../redux/hooks/hooks";
+import { useAppDispatch, useAppSelector } from "../../redux_2/hooks/hooks";
+//import { carouselPicks } from "../../redux/actions/actions"
+import { getListProductsCarrusel } from "../../redux_2/actions/productAction";
 import styles from "./Carousel.module.css";
 
 export const Carousel = () => {
   const dispatch = useAppDispatch();
   const [currentImage, setCurrentImage] = useState(0);
-  var carouselData = useAppSelector((state) => state.reducerOne.carouselData);
+  var carouselData = useAppSelector((state) => state.productReducer.carouselData);
   var intervalId: any;
   
   const handleChangeImage = () => {
@@ -16,7 +18,7 @@ export const Carousel = () => {
   };
   
   useEffect(() => {
-    dispatch(carouselPicks())
+    dispatch(getListProductsCarrusel())
     return () => clearInterval(intervalId);
   }, []);
   
@@ -25,7 +27,7 @@ export const Carousel = () => {
   }, [carouselData])
 
   
-  console.log(carouselData)
+  console.log('carouselData', carouselData)
   return (
     <>
       <section className={styles["carousel-container"]}>
