@@ -1,22 +1,34 @@
+import { useState } from 'react';
+import style from './SearchBar.module.scss';
+
+
 export const SearchBar = () => {
-  const handleClickSubmit = (event: any) => {
-    event.preventDefault();
-  };
+	const [Search, setSearch] = useState('');
 
-  const handleInputChange = (event: any) => {
-    event.preventDefault();
-  };
+	const handleClickSubmit = (event: any) => {
+		event.preventDefault();
+    // dispatch(ProductsByName(Search));
+	};
 
-  return (
-    <div>
+	const handleInputChange = (event: any) => {
+		event.preventDefault();
+		setSearch(event.target.value);
+	};
+
+	return (
+		<div className='Search'>
       <input
-        type="text"
-        placeholder="Search Video Games"
-        onChange={handleInputChange}
+        className={style.Input}
+        type='text'
+        placeholder='Search Video Games'
+        onChange={(event) => handleInputChange(event)}
       />
-      <button type="submit" onClick={handleClickSubmit}>
-        Search
-      </button>
-    </div>
-  );
+			<button
+				className={style.But}
+				type='submit'
+				onClick={(event) => handleClickSubmit(event)}>
+				SEARCH
+			</button>
+		</div>
+	);
 };
