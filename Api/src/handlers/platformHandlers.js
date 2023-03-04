@@ -5,7 +5,7 @@ const platformsList = async (req,res)=>{
     let platforms ={};
     try {
         if (name){
-            platforms = await getPlatformsByName(names);
+            platforms = await getPlatformsByName(name);
         }else{
             platforms = await getAllPlatforms();
         };
