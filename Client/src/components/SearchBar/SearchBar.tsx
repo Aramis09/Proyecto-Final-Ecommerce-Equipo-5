@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useAppDispatch } from '../../redux/hooks/hooks';
-import { getListProducts } from '../../redux/actions/productAction';
+import { searchName } from '../../redux/reducer/productReducer';
+import { getProductsByFilters } from '../../redux/actions/productAction';
 import style from './SearchBar.module.scss';
 
 
@@ -10,9 +11,24 @@ export const SearchBar = () => {
 
 	const handleClickSubmit = (event: any) => {
 		event.preventDefault();
-    	dispatch(getListProducts(Search));
+		dispatch(searchName(Search))
+    	dispatch(getProductsByFilters( //NO TOCAR
+			{ 
+			name:Search,
+			filters:
+				{
+				genres:[],
+				platform:[],
+				priceRange:[0,100]
+				},
+			order:
+			{
+				alphabetic:'',
+				price:''
+			}    
+			}
+			));
 	};
-
 	const handleInputChange = (event: any) => {
 		event.preventDefault();
 		setSearch(event.target.value);

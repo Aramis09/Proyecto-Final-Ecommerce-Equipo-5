@@ -13,7 +13,6 @@ export const Products = () => {
   let searchedData = useAppSelector((state) => state.productReducer.searchedData.slice(0, 6));
   const dispatch = useAppDispatch()
 
-
   useEffect(() => {
     dispatch(getListGenres());
     dispatch(getListPlatforms(''));
@@ -28,7 +27,7 @@ export const Products = () => {
         <Filters />
         {
           //<Product />
-          searchedData.length
+          (searchedData.length && searchedData.length>0)
           ?
           searchedData.map((item: object, index: number) => {
             return (<div key={index}>

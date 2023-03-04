@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import {listProducts, productByID, errorMsg, carouselPicks, productsByFilters, saveTopRatedProducts} from "../reducer/productReducer";
+import {listProducts, productByID, errorMsg, carouselPicks, productsByFilters, saveTopRatedProducts, searchObject} from "../reducer/productReducer";
 import { LIST_PRODUCTS, LIST_PRODUCTS_BY_FILTERS, LIST_PRODUCTS_BY_PLATFORMS } from "../../utils/constants";
 
 
@@ -21,6 +21,7 @@ export const getProductsByFilters =  (filters: {}) => async (dispatch: any) => {
     let listProducts: object[];
     try{
         listProducts = (await axios.post(LIST_PRODUCTS_BY_FILTERS, filters)).data;
+        dispatch(searchObject(filters))
         dispatch(productsByFilters(listProducts));
     }catch(error){
         dispatch(errorMsg("Ocurrio un error...intentelo mas tarde"));

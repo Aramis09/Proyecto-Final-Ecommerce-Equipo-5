@@ -1,7 +1,12 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useAppDispatch } from "../../redux/hooks/hooks";
+import { selectedFilterPriceRange } from "../../redux/reducer/productReducer";
+
 
 export const PriceSlider = () => {
   const [priceRange, setPriceRange] = useState([0, 100]);
+
+  const dispatch = useAppDispatch();
 
   const handlePriceRangeChange = (
     event: React.ChangeEvent<HTMLInputElement>
@@ -9,6 +14,11 @@ export const PriceSlider = () => {
     const newPriceRange = [event.target.valueAsNumber, priceRange[1]];
     setPriceRange(newPriceRange);
   };
+
+  useEffect(() => {
+    dispatch(selectedFilterPriceRange(priceRange))
+    console.log(priceRange)
+  }, [priceRange])
 
   return (
     <div>
