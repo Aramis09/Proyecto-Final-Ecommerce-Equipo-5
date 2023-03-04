@@ -1,66 +1,53 @@
 import { useEffect, useState } from "react";
-//import { useAppDispatch, useAppSelector } from "../../redux/hooks/hooks";
-import { useAppDispatch, useAppSelector } from "../../redux_2/hooks/hooks";
-//import { carouselPicks } from "../../redux/actions/actions"
-import { getListProductsCarrusel } from "../../redux_2/actions/productAction";
-import styles from "./Carousel.module.css";
+import { useAppSelector } from "../../redux/hooks/hooks";
+import styles from "./Carousel.module.scss";
 
 export const Carousel = () => {
-  const dispatch = useAppDispatch();
   const [currentImage, setCurrentImage] = useState(0);
-  var carouselData = useAppSelector((state) => state.productReducer.carouselData);
-  var intervalId: any;
-  
+  let carouselData = useAppSelector((state) => state.productReducer.carouselData);
+
   const handleChangeImage = () => {
     setCurrentImage(
       currentImage === carouselData.length - 1 ? 0 : currentImage + 1
     );
   };
-  
+
   useEffect(() => {
-    dispatch(getListProductsCarrusel())
+    const intervalId = setInterval(handleChangeImage, 5000);
     return () => clearInterval(intervalId);
   }, []);
-  
-  useEffect(() => {
-    intervalId = setInterval(handleChangeImage, 5000);
-  }, [carouselData])
 
-  
-  console.log('carouselData', carouselData)
   return (
     <>
       <section className={styles["carousel-container"]}>
-        {
-          carouselData.length> 0 &&
-          carouselData.map((item: any, index: number) => {
-            return (
-              <div key={index} className={styles["card-carousel"]}>
-                <div className={styles["img-carousel"]}>
-                  {currentImage === index ? (
-                    <img src={item.background_image} alt={item.name} />
-                  ) : null}
-                </div>
-                <div className={styles["description-carousel"]}>
-                  {currentImage === index ? (
-                    <>
-                      <div className={styles.description}>
-                        <h2>{item.name}</h2>
-                        {item.description}
-                        <button>Go</button>
-                      </div>
-                    </>
-                  ) : null}
-                </div>
+        {carouselData.map((item, index) => {
+          return (
+            <div key={index} className={styles["card-carousel"]}>
+              <div className={styles["img-carousel"]}>
+                {currentImage === index ? (
+                  <img src={item.background_image} alt={item.name} />
+                ) : null}
               </div>
-            );
-          })
-        }
+              <div className={styles["description-carousel"]}>
+                {currentImage === index ? (
+                  <>
+                    <div className={styles.description}>
+                      <h2>{item.name}</h2>
+                      {item.description}
+                      <button>Go</button>
+                    </div>
+                  </>
+                ) : null}
+              </div>
+            </div>
+          );
+        })}
       </section>
       <div className={styles["carousel-buttons--change"]}>
         <button onClick={handleChangeImage}>←</button>
         <button onClick={handleChangeImage}>→</button>
       </div>
+      
     </>
   );
 };

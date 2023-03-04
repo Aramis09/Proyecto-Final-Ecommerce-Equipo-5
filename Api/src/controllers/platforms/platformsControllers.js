@@ -30,7 +30,7 @@ const getPlatformById = async id =>{
 
 const getPlatformsByName = async (name) => {
     try {
-        platforms = await Platform.findAll({
+        let platforms = await Platform.findAll({
             attributes:['id','name'],
             where:{
                 name:{

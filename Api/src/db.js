@@ -1,10 +1,13 @@
 //**Crea la conexion con la base de datos (con sequelize) */
 const {Sequelize} = require("sequelize");
 require("dotenv").config(); //**La variables de entorno quedan dispobnibles .env */
-const {DB_USER, DB_PASSWORD, DB_HOST, DB_PORT, DB_NAME}= process.env;
+//const {DB_DATA}= process.env;
+//const sequelize = new Sequelize(DB_DATA,{logging:false});
+//las lineas 7 y 8 es para que pueda correrlo en mi pc, agradeceria que lo dejen comentado nomas (nicrus27)
+const {DB_USER, DB_PASSWORD, DB_HOST, DB_NAME}= process.env;
 const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME}`, {
     logging: false,
-  });
+});
 
 //**Definicion de modelos (con sequelize)*/
 const ProductModel = require("./models/Product");
@@ -12,6 +15,9 @@ const PlatformModel = require("./models/Platform");
 const GenreModel = require("./models/Genre");
 const ImageModel = require("./models/Image");
 const StoreModel = require("./models/Store");
+const ProductsPlatformsModel = require("./models/ProductsPlatforms");
+const ProductsGenresModel = require("./models/ProductsGenres");
+const ProductsStoresModel = require("./models/ProductsStores");
 
 /**Instancias que definen los modelos, crea el .models: */
 ProductModel(sequelize);
@@ -19,10 +25,14 @@ PlatformModel(sequelize);
 GenreModel(sequelize);
 ImageModel(sequelize);
 StoreModel(sequelize);
+ProductsPlatformsModel(sequelize);
+ProductsGenresModel(sequelize);
+ProductsStoresModel(sequelize);
+
 
 
 //**Relacionar los Modelos */
-const {Product, Platform, Genre, Image, Store} = sequelize.models;
+const {Product, Platform, Genre, Image, Store, ProductsPlatforms, ProductsGenres, ProductsStores} = sequelize.models;
 
 const ProductsPlatforms_Profile = sequelize.define('ProductsPlatforms', {}, { timestamps: false });
 Product.belongsToMany(Platform,{through:ProductsPlatforms_Profile});
