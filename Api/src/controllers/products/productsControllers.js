@@ -1,16 +1,22 @@
 const {Product, Platform, Image, Genre, Store} = require("../../db");
 const axios = require("axios");
+const { arrayStoresDet, arrayGenresDet, arrayPlatformsDet, arrayPlatforms, arrayGenres, arrayStores, arrayImagesDet, arrayIncludes} = require('./utils');
 const { Op } = require("sequelize");
-const { options,arrayStoresDet,arrayGenresDet,arrayPlatformsDet,arrayPlatforms,arrayGenres,arrayStores,arrayImagesDet
-} = require('./utils');
 
 const getAllProducts = async ()=>{
-
-    let productsListWithTrash = (await Product.findAll(options)).map(productWithTrash => productWithTrash.dataValues);
+    let productsListWithMoreTrash = await Product.findAll({
+        where:{state:true},
+        include:arrayIncludes
+    });
+    let productsListWithTrash=await productsListWithMoreTrash.map(productWithTrash => productWithTrash.dataValues);
     if (!productsListWithTrash.length){
         console.log("Entro a Carga Inicial");
         await loadProductsInDB();
-        productsListWithTrash = (await Product.findAll(options).map(productWithTrash => productWithTrash.dataValues));
+        let productsListWithMoreTrash = await Product.findAll({
+            where:{state:true},
+            include:arrayIncludes
+        });
+        let productsListWithTrash=await productsListWithMoreTrash.map(productWithTrash => productWithTrash.dataValues);
         let productListClean = cleaningProcess(await productsListWithTrash);
         return productListClean;
     };
@@ -19,14 +25,103 @@ const getAllProducts = async ()=>{
 };
 
 const getProductById = async id =>{
+    if (!id) throw Error("Error: Debe existir un valor ID, ID=null..!");
     try {
-        const productWithTrash = await Product.findByPk(id,options);
+        const productWithTrash = await Product.findOne({
+            where:{id:Number(id), state:true},
+            include:arrayIncludes
+        });
+        if (!productWithTrash) throw Error(`Error: ID=${id} no encontrado..!!`);
         const productClean = cleaningProcessToOneProduct(productWithTrash);
         return productClean;
     } catch (error) {
-        throw Error("Error: No se encontro el ID en la BD de Productos!!")
+        throw Error(error.message)
     };
 };
+
+const getProductsByPlatform = async (arrayPlatforms) => {
+    try {
+        let productsListWithMoreTrash = await Product.findAll({
+            include:[
+            {
+                model:Platform,
+                attributes:["name"],
+                where:{ id:arrayPlatforms},
+                through: { attributes: [] },
+            },
+            {
+                model: Image,
+                attributes: ["image_path"],
+            },
+            {
+                model: Genre,
+                attributes: ["name"],
+                through: { attributes: [] },
+            },
+            {
+                model: Store,
+                attributes: ["name"],
+                through: { attributes: [] },
+            },
+            ],
+        });
+        let productsListWithTrash=await productsListWithMoreTrash.map(productWithTrash => productWithTrash.dataValues);
+        let productListClean = cleaningProcess( await productsListWithTrash);
+        return productListClean;
+    } catch (error) {
+        return error.message;
+    };
+};
+
+const getProductsByCategory = async (name,filters,order) => {
+    const arrayOrder=[]
+    if (order.alphabetic) arrayOrder.push(["name",order.alphabetic])
+    if (order.price) arrayOrder.push(["price",order.price])
+    try {
+        let productsListWithMoreTrash = await Product.findAll({
+            where:{
+                name:{
+                    [Op.iLike]:`%${name}%`,
+                },
+                price:{
+                    [Op.gte]:filters.priceRange[0],
+                    [Op.lte]:filters.priceRange[1],
+                },
+            },
+            order:arrayOrder,
+            include:[
+            {
+                model:Platform,
+                attributes:["name"],
+                where: filters.platform.length>0 ? { id:filters.platform}: null,
+                through: { attributes: [] },
+            },
+            {
+                model: Image,
+                attributes: ["image_path"],
+            },
+            {
+                model: Genre,
+                attributes: ["name"],
+                where: filters.genres.length>0 ? { id:filters.genres} : null,
+                through: { attributes: [] },
+            },
+            {
+                model: Store,
+                attributes: ["name"],
+                through: { attributes: [] },
+            },
+            ],
+
+        });
+        let productsListWithTrash=await productsListWithMoreTrash.map(productWithTrash => productWithTrash.dataValues);
+        let productListClean = cleaningProcess( await productsListWithTrash);
+        return productListClean;
+    } catch (error) {
+        return error.message;
+    };
+};
+
 
 const getProductsByName = async nameForSeach => {
     try {
@@ -52,6 +147,7 @@ const getProductsByName = async nameForSeach => {
         return error.message;
     };
 };
+
 const getOrderAlphabeticalList = async orderType =>{
     const productList = await getAllProducts();
     console.log(orderType)
@@ -78,8 +174,8 @@ function cleaningProcessToOneProduct (productWithTrash) {
     propertyCleanplatform = productWithTrash.Platforms.map(propertyTrash => propertyTrash.name) ;
     propertyCleanGenres = productWithTrash.Genres.map(propertyTrash => propertyTrash.name);
     propertyCleanStores = productWithTrash.Stores.map(propertyTrash => propertyTrash.name);
-    const { id,name, background_image,rating,playtime,price,description } = productWithTrash;
-    const productClean = {id,name, background_image,rating,playtime,price,description} ;
+    const { id,name, background_image,rating,playtime,price,description,released } = productWithTrash;
+    const productClean = {id,name, background_image,rating,playtime,price,description,released} ;
     productClean.images = propertyCleanImages;
     productClean.platforms = propertyCleanplatform;
     productClean.genres = propertyCleanGenres;
@@ -188,6 +284,7 @@ async function getDataRestProducts () {
                 playtime: parseInt(c.playtime),
                 price: isNaN(parseFloat(c.price)) ? 0.00 : parseFloat(c.price),
                 description: c.description,
+                released:c.released
             };
             return reg;
         });
@@ -211,4 +308,4 @@ function alphabeticalOrderZA(a,b){
     if( frst > second ) return -1;
      if( frst < second) return 1;
 };
-module.exports = {getAllProducts, getProductById, getProductsByName,getOrderAlphabeticalList};
+module.exports = {getAllProducts, getProductById, getProductsByName, getOrderAlphabeticalList, getProductsByPlatform, getProductsByCategory};
