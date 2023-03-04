@@ -1,4 +1,4 @@
-const { getAllProducts, getProductById, getProductsByName,getOrderAlphabeticalList } = require("../controllers/products/productsControllers");
+const { getAllProducts, getProductById, getProductsByName, getOrderAlphabeticalList, getProductsByPlatform, getProductsByCategory } = require("../controllers/products/productsControllers");
 
 const productsList = async (req,res)=>{
     const { name }= req.query;
@@ -40,4 +40,25 @@ const productOrder = async (req,res) =>{
     }
 };
 
-module.exports = { productsList, productID, productOrder };
+const productsListByPlatforms = async (req,res)=>{
+    const { arrayPlatforms }= req.body;
+    try {
+        let products = await getProductsByPlatform(arrayPlatforms);
+        res.status(200).json(products);
+    } catch (error) {
+        res.status(400).json({error:error.message});
+    };
+};
+
+const productsListByCategory = async (req,res)=>{
+    const { name, filters, order }= req.body;
+    try {
+        let products = await getProductsByCategory(name, filters, order);
+        res.status(200).json(products);
+    } catch (error) {
+        res.status(400).json({error:error.message});
+    };
+};
+
+
+module.exports = { productsList, productID, productOrder, productsListByPlatforms, productsListByCategory };
