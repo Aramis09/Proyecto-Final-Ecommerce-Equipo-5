@@ -7,6 +7,7 @@ import { getListGenres } from "../../redux/actions/genresAction";
 import { getListPlatforms } from "../../redux/actions/platformAction";
 import { Card } from "../../components/Card/Card";
 import styles from "./Products.module.scss";
+import { Link } from "react-router-dom";
 
 export const Products = () => {
 
@@ -31,13 +32,16 @@ export const Products = () => {
           ?
           searchedData.map((item: any, index: number) => {
             return (<div key={index}>
-              <Card
-                key={index}
-                name={item.name}
-                background_image={item.background_image}
-                platforms={item.platforms}
-                price={item.price}
-              />
+              <Link to={`/${item.id}`}>
+                <Card
+                  key={index}
+                  name={item.name}
+                  background_image={item.background_image}
+                  platforms={item.platforms}
+                  price={item.price}
+                />
+              </Link>
+              
             </div>)
           })
           :

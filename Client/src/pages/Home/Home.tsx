@@ -19,7 +19,7 @@ export const Home = () => {
       <h2>TOP GAMES</h2>
       <Product/>
       <Link to={'/products'}>
-      <button className={styles['More-products-btn']}>More</button>
+        <button className={styles['More-products-btn']}>More</button>
       </Link>
     </>
   );
