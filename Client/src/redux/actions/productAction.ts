@@ -21,6 +21,7 @@ export const getProductsByFilters =  (filters: {}) => async (dispatch: any) => {
     let listProducts: object[];
     try{
         listProducts = (await axios.post(LIST_PRODUCTS_BY_FILTERS, filters)).data;
+        console.log(listProducts.length)
         dispatch(searchObject(filters))
         dispatch(productsByFilters(listProducts));
     }catch(error){

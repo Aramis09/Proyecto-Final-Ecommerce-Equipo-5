@@ -17,7 +17,6 @@ export const PriceSlider = () => {
 
   useEffect(() => {
     dispatch(selectedFilterPriceRange(priceRange))
-    console.log(priceRange)
   }, [priceRange])
 
   return (

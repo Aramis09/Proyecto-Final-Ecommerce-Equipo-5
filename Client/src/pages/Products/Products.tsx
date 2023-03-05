@@ -11,15 +11,13 @@ import { Link } from "react-router-dom";
 
 export const Products = () => {
 
-  let searchedData = useAppSelector((state) => state.productReducer.searchedData.slice(0, 6));
+  let searchedData = useAppSelector((state) => state.productReducer.searchedData);
   const dispatch = useAppDispatch()
 
   useEffect(() => {
     dispatch(getListGenres());
     dispatch(getListPlatforms(''));
   }, [])
-
-  console.log('debug', searchedData)
   
   return (
     <>
