@@ -29,7 +29,7 @@ export const Products = () => {
           //<Product />
           (searchedData.length && searchedData.length>0)
           ?
-          searchedData.map((item: object, index: number) => {
+          searchedData.map((item: any, index: number) => {
             return (<div key={index}>
               <Card
                 key={index}

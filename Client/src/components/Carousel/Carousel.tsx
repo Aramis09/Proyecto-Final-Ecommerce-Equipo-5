@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useAppSelector } from "../../redux/hooks/hooks";
+import { Link } from "react-router-dom";
 import styles from "./Carousel.module.scss";
 
 export const Carousel = () => {
@@ -20,7 +21,7 @@ export const Carousel = () => {
   return (
     <>
       <section className={styles["carousel-container"]}>
-        {carouselData.map((item, index) => {
+        {carouselData.map((item: any, index) => {
           return (
             <div key={index} className={styles["card-carousel"]}>
               <div className={styles["img-carousel"]}>
@@ -34,7 +35,7 @@ export const Carousel = () => {
                     <div className={styles.description}>
                       <h2>{item.name}</h2>
                       {item.description}
-                      <button>Go</button>
+                      <Link to={`/${item.id}`}><button>Go</button></Link>
                     </div>
                   </>
                 ) : null}

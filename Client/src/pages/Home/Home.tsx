@@ -2,17 +2,10 @@ import { Carousel } from "../../components/Carousel/Carousel";
 import { NavBar } from "../../components/NavBar/NavBar";
 import { Product } from "../../components/Product/Product";
 import { Link } from "react-router-dom";
-import { eraseSearchedData } from "../../redux/reducer/productReducer";
-import { useAppDispatch } from "../../redux/hooks/hooks";
+
 import styles from "./Home.module.scss";
 
 export const Home = () => {
-
-  const dispatch = useAppDispatch()
-
-  const eraseSearch = () => {
-    dispatch(eraseSearchedData())
-  }
 
   return (
     <>
@@ -26,7 +19,7 @@ export const Home = () => {
       <h2>TOP GAMES</h2>
       <Product/>
       <Link to={'/products'}>
-      <button className={styles['More-products-btn']} onClick={eraseSearch}>More</button>
+      <button className={styles['More-products-btn']}>More</button>
       </Link>
     </>
   );

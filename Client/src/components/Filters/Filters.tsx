@@ -52,10 +52,7 @@ export const Filters = () => {
 			}
 			));
   }
-
-
   
-
   //console.log('plat', listPlatforms, 'gen', listGenres)
   //console.log()
 

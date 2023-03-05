@@ -87,6 +87,9 @@ export const productReducer = createSlice({
         },
         searchName: (state, action) => {
             state.searchedName = action.payload
+        },
+        eraseItemById: (state) => {
+            state.details = {}
         }
 
     }
@@ -107,7 +110,8 @@ export const {
     selectedFilterPriceRange,
     selectedAlphabeticOrder,
     selectedPriceOrder,
-    searchName
+    searchName,
+    eraseItemById
 } = productReducer.actions;
 
 export default productReducer.reducer
