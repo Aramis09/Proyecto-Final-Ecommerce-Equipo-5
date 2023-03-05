@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { genresReducerState } from "../interfaces/genresInterface";
 
 const initialState: genresReducerState = {
-    all: [],
+    listGenresData: [],
     idDetails: {},
     successMsg: "",
     errorMsg: ""
@@ -14,7 +14,7 @@ export const genresReducer = createSlice({
     initialState,
     reducers:{
         listGenres: (state, action) => {
-            state.all = action.payload;
+            state.listGenresData = action.payload;
         },
         genresByID: (state, action) => {
             state.idDetails = action.payload;

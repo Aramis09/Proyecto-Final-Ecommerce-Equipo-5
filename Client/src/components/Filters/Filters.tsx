@@ -5,7 +5,7 @@ import { selectedFilterGenre, selectedFilterPlatform, selectedAlphabeticOrder } 
 import { getProductsByFilters } from "../../redux/actions/productAction";
 import styles from "./Filters.module.scss";
 
-const optionOrder = ["ASC", "DESC"]; //"ASC" "DESC"
+const optionOrder = ["ASC", "DESC"];
 
 export const Filters = () => {
 
@@ -14,8 +14,8 @@ export const Filters = () => {
   const [platformsOpen, setPlatformsOpen] = useState(false);
   const [orderOpen, setOrderOpen] = useState(false);
 
-  let listPlatforms = useAppSelector((state) => state.platformReducer.all)
-  let listGenres = useAppSelector((state => state.genresReducer.all))
+  let listPlatforms = useAppSelector((state) => state.platformReducer.listPlatformsData)
+  let listGenres = useAppSelector((state => state.genresReducer.listGenresData))
   let searchedName = useAppSelector((state) => state.productReducer.searchedName)
   let selectedFilterGenreData = useAppSelector((state) => state.productReducer.selectedFilterGenreData)
   let selectedFilterPlatformData = useAppSelector((state) => state.productReducer.selectedFilterPlatformData)
@@ -53,9 +53,7 @@ export const Filters = () => {
 			));
   }
   
-  //console.log('plat', listPlatforms, 'gen', listGenres)
-  //console.log()
-
+  
   return (
     <aside className={styles["filters-container"]}>
       <div className={styles["options-container"]}>

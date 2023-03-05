@@ -1,19 +1,20 @@
-//import { allGames } from "../../get";
 import { NavBar } from "../NavBar/NavBar";
 import { Rating } from "../Rating/Rating";
 import { DetailCarousel } from "./DetailCarousel";
 import { useParams } from "react-router-dom";
+import { getProductByID } from "../../redux/actions/productAction";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks/hooks";
 import { useEffect } from "react";
-import { getProductByID } from "../../redux/actions/productAction";
 import { eraseItemById } from "../../redux/reducer/productReducer";
 import styles from "./Detail.module.scss";
+//los import comentados de abajo no los toquen que son para implementar los botones al futuro
+//import { getListGenres } from "../../redux/actions/genresAction";
+//import { getListPlatforms } from "../../redux/actions/platformAction";
 
 export const Detail = () => {
-  //const game = allGames.slice(3, 4);
   const {id} = useParams()
   const dispatch = useAppDispatch();
-  const game = useAppSelector((state) => state.productReducer.details)
+  const game:any = useAppSelector((state) => state.productReducer.details)
 
   useEffect(() => {
     dispatch(getProductByID(parseInt(id)))
@@ -22,8 +23,6 @@ export const Detail = () => {
       dispatch(eraseItemById())
     }
   }, [])
-
-  console.log(game)
 
   return (
     <>
@@ -52,7 +51,7 @@ export const Detail = () => {
                     <div className={styles["button-container"]}>
                       {
                         
-                        game.genres.map((item, index) => (
+                        game.genres.map((item:any, index:number) => (
                           <button key={index}>{item}</button>
                         ))
                         
@@ -64,7 +63,7 @@ export const Detail = () => {
                     <div className={styles["button-container"]}>
                       {
                         
-                        game.platforms.slice(0, 3).map((item, index) => (
+                        game.platforms.slice(0, 3).map((item:any, index:number) => (
                           <button key={index}>{item}</button>
                         ))
                         

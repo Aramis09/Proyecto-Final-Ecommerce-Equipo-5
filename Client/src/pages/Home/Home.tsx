@@ -4,13 +4,12 @@ import { Product } from "../../components/Product/Product";
 import { useAppDispatch } from "../../redux/hooks/hooks";
 import { getProductsByFilters } from "../../redux/actions/productAction";
 import { Link } from "react-router-dom";
-
 import styles from "./Home.module.scss";
 
 export const Home = () => {
 
   const dispatch = useAppDispatch()
-
+  
   const toTheSearchList = (e) => {
     let num;
     let data = e.target.value;
@@ -22,7 +21,6 @@ export const Home = () => {
     } else {
       num = [parseInt(data)]
     }
-    console.log(num, typeof num)
     
     dispatch(getProductsByFilters({
       name:'',
@@ -38,7 +36,6 @@ export const Home = () => {
 				price:''
 			}    
     }))
-    
   }
 
   return (

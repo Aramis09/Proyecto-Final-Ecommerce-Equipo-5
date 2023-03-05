@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { platformReducerState } from "../interfaces/platformInterface";
 
 const initialState: platformReducerState = {
-    all: [],
+    listPlatformsData: [],
     details: {},
     successMsg: "",
     errorMsg: ""
@@ -14,7 +14,7 @@ export const platformReducer = createSlice({
     initialState,
     reducers:{
         listPlatforms: (state, action) => {
-            state.all = action.payload;
+            state.listPlatformsData = action.payload;
         },
         platformByID: (state, action) => {
             state.details = action.payload;

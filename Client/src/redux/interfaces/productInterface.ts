@@ -1,10 +1,9 @@
 export interface productReducerState{
-    //all: Array<object>,
-    searchObject: object
-    details: object,
-    carouselData: Array<object>,
     searchedData: Array<object>,
+    details: object,
     topProductsData: Array<object>,
+    carouselData: Array<object>,
+    searchObject: object
     searchedName: string,
     selectedFilterGenreData: Array<object>,
     selectedFilterPlatformData: Array<object>,

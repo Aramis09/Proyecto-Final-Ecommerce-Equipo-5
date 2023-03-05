@@ -1,6 +1,5 @@
 import { Filters } from "../../components/Filters/Filters";
 import { NavBar } from "../../components/NavBar/NavBar";
-//import { Product } from "../../components/Product/Product";
 import { useEffect } from "react";
 import { useAppSelector, useAppDispatch } from "../../redux/hooks/hooks";
 import { getListGenres } from "../../redux/actions/genresAction";
@@ -25,7 +24,6 @@ export const Products = () => {
       <div className={styles["page-container"]}>
         <Filters />
         {
-          //<Product />
           (searchedData.length && searchedData.length>0)
           ?
           searchedData.map((item: any, index: number) => {

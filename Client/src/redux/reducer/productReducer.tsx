@@ -5,12 +5,11 @@ import { productReducerState } from "../interfaces/productInterface";
 
 
 const initialState: productReducerState = {
-    //all: [],
-    searchObject: {},
-    details: {},
-    carouselData: [],
     searchedData: [],
+    details: {},
     topProductsData: [],
+    carouselData: [],
+    searchObject: {},
     searchedName: '',
     selectedFilterGenreData: [],
     selectedFilterPlatformData: [],
@@ -27,23 +26,14 @@ export const productReducer = createSlice({
     name: "productReducer",
     initialState,
     reducers:{
-        listProducts: (state, action) => { //en desuso??
+        listProducts: (state, action) => {
             state.searchedData = action.payload;
         },
-        /*productsByPlatform: (state, action) => {
-            state.all = action.payload;
-        },*/
-        productsByFilters: (state, action) => { //en desuso??
+        productsByFilters: (state, action) => {
             state.searchedData = action.payload;
         },       
         productByID: (state, action) => {
             state.details = action.payload;
-        },      
-        successMsg: (state, action) => {
-            state.successMsg = action.payload
-        },
-        errorMsg: (state, action) => {
-            state.errorMsg = action.payload
         },
         saveTopRatedProducts: (state, action) => {
             state.topProductsData = action.payload
@@ -51,17 +41,11 @@ export const productReducer = createSlice({
         carouselPicks: (state, action) => {
             state.carouselData = action.payload
         },
-        eraseSearchedData: (state) => {
-            state.searchedData = [],
-            state.searchedName = '',
-            state.selectedFilterGenreData = [],
-            state.selectedFilterPlatformData = [],
-            state.selectedFilterPriceRangeData = [],
-            state.selectedAlphabeticOrderData = '',
-            state.selectedPriceOrderData = ''
-        },
         searchObject: (state, action) => {
             state.searchObject = action.payload
+        },
+        searchName: (state, action) => {
+            state.searchedName = action.payload
         },
         selectedFilterGenre: (state, action) => {
             console.log('red', state.selectedFilterGenreData, typeof action.payload, action.payload)
@@ -85,11 +69,23 @@ export const productReducer = createSlice({
         selectedPriceOrder: (state, action) => {
             state.selectedPriceOrderData = action.payload
         },
-        searchName: (state, action) => {
-            state.searchedName = action.payload
+        eraseSearchedData: (state) => {
+            state.searchedData = [],
+            state.searchedName = '',
+            state.selectedFilterGenreData = [],
+            state.selectedFilterPlatformData = [],
+            state.selectedFilterPriceRangeData = [],
+            state.selectedAlphabeticOrderData = '',
+            state.selectedPriceOrderData = ''
         },
         eraseItemById: (state) => {
             state.details = {}
+        },     
+        successMsg: (state, action) => { //falta implementar
+            state.successMsg = action.payload
+        },
+        errorMsg: (state, action) => { //falta implementar
+            state.errorMsg = action.payload
         }
 
     }

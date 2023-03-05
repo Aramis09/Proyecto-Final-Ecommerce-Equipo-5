@@ -3,20 +3,7 @@ import axios from 'axios';
 import {listProducts, productByID, errorMsg, carouselPicks, productsByFilters, saveTopRatedProducts, searchObject} from "../reducer/productReducer";
 import { LIST_PRODUCTS, LIST_PRODUCTS_BY_FILTERS, LIST_PRODUCTS_BY_PLATFORMS } from "../../utils/constants";
 
-
-//Obtener listado de productos
-export const getListProducts =  (name: string) => async (dispatch: any) => {
-    let arrayProducts: object[];
-    try{
-        arrayProducts = (await axios.get(LIST_PRODUCTS + "?name=" + name)).data;
-        dispatch(listProducts(arrayProducts));
-    }catch(error){
-        dispatch(errorMsg("Ocurrio un error...intentelo mas tarde"));
-        console.log("Exception - getListProducts: " + error);
-    }
-}
-
-//Obtener listado de productos por filtros
+//Obtener listado de productos por filtros (actual funcion de busqueda para productos. Si no sabes como se usa, pregunta a aramis o nahuel :D)
 export const getProductsByFilters =  (filters: {}) => async (dispatch: any) => {
     let listProducts: object[];
     try{
@@ -42,8 +29,8 @@ export const getProductByID =  (id: number) => async (dispatch: any) => {
     }
 }
 
-//Obtiene el listado de los productos mas gustados (esto deposita los datos para el carousel y
-//el resto de juegos top que se ve en la pagina principal).
+//Obtiene el listado de los productos mas gustados 
+//Datos para el carousel y el resto de juegos top que se ve en la pagina principal.
 export const getTopRatedProducts =  () => async (dispatch: any) => {
     try{
         let all: object[] = (await axios.get(LIST_PRODUCTS)).data;

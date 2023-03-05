@@ -1,5 +1,5 @@
 export interface platformReducerState{
-    all: Array<object>,
+    listPlatformsData: Array<object>,
     details: object,
     successMsg: string,
     errorMsg: string
