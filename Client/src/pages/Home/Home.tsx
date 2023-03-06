@@ -1,8 +1,12 @@
 import { Carousel } from "../../components/Carousel/Carousel";
 import { NavBar } from "../../components/NavBar/NavBar";
 import { Product } from "../../components/Product/Product";
+<<<<<<< HEAD
 import { useAppDispatch } from "../../redux/hooks/hooks";
 import { getProductsByFilters } from "../../redux/actions/productAction";
+=======
+import { ShoppingCart } from "../../components/ShoppingCart/ShoppingCart";
+>>>>>>> d10492820e45e4c8554d07edf04c3fc949548391
 import { Link } from "react-router-dom";
 import styles from "./Home.module.scss";
 
@@ -41,6 +45,7 @@ export const Home = () => {
   return (
     <>
       <NavBar />
+      <ShoppingCart />
       <Carousel />
       <section className={styles["buttons-platforms"]}>
       <Link to={'/products'}>
