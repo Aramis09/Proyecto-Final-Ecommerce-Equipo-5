@@ -34,6 +34,7 @@ export const PriceSlider = () => {
       </div>
       <div>
         <span>{`Desde: $ ${priceRange[0]}`}</span>
+        <br />
         <span>{`Hasta: $ ${priceRange[1]}`} </span>
       </div>
     </div>
