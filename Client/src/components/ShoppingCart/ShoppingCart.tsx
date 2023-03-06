@@ -29,7 +29,8 @@ export const ShoppingCart = () => {
                 <div className={style.modalContent}>
                     <button
                         className={style.closeModalButton}
-                        onClick={ev => handleCloseModal(ev)}>X</button>
+                        onClick={ev => handleCloseModal(ev)}>X
+                    </button>
                     <p>PRODUCTOS</p>
                     <p>PRECIO</p>
                     <p>TOTAL</p>
