@@ -10,7 +10,7 @@ const productsRouter = Router();
 
 productsRouter.get("/",productsList);
 productsRouter.get("/platforms",productsListByPlatforms);
-productsRouter.get("/multiple",productsListByCategory);
+productsRouter.post("/multiple",productsListByCategory);
 productsRouter.get("/:id",productID);
 
 //productsRouter.post("/",createProductHandler);
