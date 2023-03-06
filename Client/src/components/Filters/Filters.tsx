@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks/hooks";
 import { PriceSlider } from "../PriceSlider/PriceSlider";
 import { selectedFilterGenre, selectedFilterPlatform, selectedAlphabeticOrder } from "../../redux/reducer/productReducer";
 import { getProductsByFilters } from "../../redux/actions/productAction";
+import { eraseSearchedName } from "../../redux/reducer/productReducer";
 import styles from "./Filters.module.scss";
 
 const optionOrder = ["ASC", "DESC"];
@@ -27,7 +28,7 @@ export const Filters = () => {
   }
 
   const selectPlatform = (dato: any) => {
-    dispatch(selectedFilterPlatform(parseInt(dato.target.value)))
+    dispatch(selectedFilterPlatform([parseInt(dato.target.value)]))
   }
 
   const selectAlphabeticOrder = (dato:any) => {
@@ -52,6 +53,12 @@ export const Filters = () => {
 			}
 			));
   }
+
+  useEffect(() => {
+    return () => {
+      dispatch(eraseSearchedName())
+    }
+  })
   
   
   return (

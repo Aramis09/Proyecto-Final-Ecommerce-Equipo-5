@@ -7,7 +7,7 @@ import { useAppDispatch, useAppSelector } from "../../redux/hooks/hooks";
 import { useEffect } from "react";
 import { eraseItemById } from "../../redux/reducer/productReducer";
 import styles from "./Detail.module.scss";
-//los import comentados de abajo no los toquen que son para implementar los botones al futuro
+//los import comentados de abajo no los toquen que son para implementar los botones a futuro
 //import { getListGenres } from "../../redux/actions/genresAction";
 //import { getListPlatforms } from "../../redux/actions/platformAction";
 

@@ -3,6 +3,7 @@
 .Input {
     font-family: 'Orbitron', sans-serif;
     border-radius: 20px;
+    padding: 10px;
 }
 
 .But {
@@ -10,11 +11,12 @@
     cursor: pointer;
     border-radius: 20px;
     border-color: white;
-    margin-right: 5px;
+    margin-left: 10px;
 }
 
 .But:hover {
     background-color: #004074;
     transition: 1s;
     color: #018dff;
+    
 }

@@ -69,6 +69,9 @@ export const productReducer = createSlice({
         selectedPriceOrder: (state, action) => {
             state.selectedPriceOrderData = action.payload
         },
+        eraseSearchedName: (state) => {
+            state.searchedName = ''
+        },
         eraseSearchedData: (state) => {
             state.searchedData = [],
             state.searchedName = '',
@@ -98,7 +101,8 @@ export const {
     successMsg, 
     errorMsg, 
     carouselPicks, 
-    saveTopRatedProducts, 
+    saveTopRatedProducts,
+    eraseSearchedName,
     eraseSearchedData,
     searchObject,
     selectedFilterGenre,

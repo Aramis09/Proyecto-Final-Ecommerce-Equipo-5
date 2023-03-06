@@ -18,7 +18,7 @@ export const NavBar = () => {
       <nav>
         <ul className={style.listContainer}>
           <li>
-            <Link to={"/"}>
+            <Link to="/">
               <img src={icon} alt="joystick_icon" onClick={eraseSearch}/>
             </Link>
           </li>

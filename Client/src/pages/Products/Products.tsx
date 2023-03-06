@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { useAppSelector, useAppDispatch } from "../../redux/hooks/hooks";
 import { getListGenres } from "../../redux/actions/genresAction";
 import { getListPlatforms } from "../../redux/actions/platformAction";
+import { eraseSearchedData } from "../../redux/reducer/productReducer";
 import { Card } from "../../components/Card/Card";
 import styles from "./Products.module.scss";
 import { Link } from "react-router-dom";
@@ -16,6 +17,10 @@ export const Products = () => {
   useEffect(() => {
     dispatch(getListGenres());
     dispatch(getListPlatforms(''));
+
+    return () => {
+      dispatch(eraseSearchedData())
+    }
   }, [])
   
   return (

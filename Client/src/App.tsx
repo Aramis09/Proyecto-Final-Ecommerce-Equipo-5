@@ -11,19 +11,21 @@ import { getTopRatedProducts } from "./redux/actions/productAction";
 function App() {
 
   let searchedName = useAppSelector((state) => state.productReducer.searchedName)
-
   const dispatch = useAppDispatch();
+
+  
   useEffect(() => {
     dispatch(getTopRatedProducts())
   }, [])
   
+
   return (
     <BrowserRouter>
       <div className="App">
         <Routes>
-          <Route path="/" element={ searchedName? <Navigate to='/products' /> : <Home /> } />
+          <Route path="/" element={ searchedName? <Navigate to='/products' /> : <Home /> } /> 
           <Route path="/products" element={<Products />} />
-          <Route path="/:id" element={<Detail />} />
+          <Route path="/:id" element={searchedName? <Navigate to='/products' /> : <Detail />} />
           <Route path='/checkout' element={<CheckOut />} />
         </Routes>
       </div>
