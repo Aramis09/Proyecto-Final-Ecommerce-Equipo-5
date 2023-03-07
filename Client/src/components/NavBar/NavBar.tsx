@@ -26,7 +26,7 @@ export const NavBar = () => {
 					<li>
 						<SearchBar />
 					</li>
-					<li className={style.Shopping}>
+					<li>
 						<ShoppingCart />
 					</li>
 					<li>
