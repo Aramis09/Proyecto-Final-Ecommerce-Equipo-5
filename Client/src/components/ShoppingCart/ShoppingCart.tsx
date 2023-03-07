@@ -34,6 +34,7 @@ export const ShoppingCart = () => {
                     <p>PRODUCTOS</p>
                     <p>PRECIO</p>
                     <p>TOTAL</p>
+                    <button>COMPRAR</button>
                 </div>
             </div>
             }
