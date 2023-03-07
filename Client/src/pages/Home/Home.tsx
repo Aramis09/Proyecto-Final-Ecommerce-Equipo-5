@@ -39,7 +39,7 @@ export const Home = () => {
   }
 
   return (
-    <>
+    <div className={styles.container}>
       <NavBar />
       <Carousel />
       <section className={styles["buttons-platforms"]}>
@@ -58,6 +58,6 @@ export const Home = () => {
       <Link to={'/products'}>
         <button className={styles['More-products-btn']} value='0' onClick={toTheSearchList}>More</button>
       </Link>
-    </>
+    </div>
   );
 };

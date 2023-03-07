@@ -26,13 +26,15 @@ export const Products = () => {
   return (
     <>
       <NavBar />
+      <Filters />
       <div className={styles["page-container"]}>
         <Filters />
         {
           (searchedData.length && searchedData.length>0)
           ?
           searchedData.map((item: any, index: number) => {
-            return (<div key={index}>
+            return (
+            <div key={index} className={styles.productList}>
               <Link to={`/${item.id}`}>
                 <Card
                   key={index}
@@ -46,7 +48,7 @@ export const Products = () => {
             </div>)
           })
           :
-          <p>cargando</p>
+          <p>Cargando</p>
         }
       </div>
       

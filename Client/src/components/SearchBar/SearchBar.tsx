@@ -3,12 +3,14 @@ import { useAppDispatch } from '../../redux/hooks/hooks';
 import { searchName } from '../../redux/reducer/productReducer';
 import { getProductsByFilters } from '../../redux/actions/productAction';
 import style from './SearchBar.module.scss';
+import iconSearch from './images/icon_search.png';
+import { Link } from 'react-router-dom';
+
 
 
 export const SearchBar = () => {
 	const [Search, setSearch] = useState('');
 	const dispatch = useAppDispatch();
-
 	const handleClickSubmit = (event: any) => {
 		event.preventDefault();
 		dispatch(searchName(Search))
@@ -35,19 +37,23 @@ export const SearchBar = () => {
 	};
 
 	return (
-		<div className='Search'>
+		<div className={style.containerSearch}>
 			<input
 				className={style.Input}
 				type='text'
-				placeholder='Search Video Games'
+				placeholder='  Search Video Games'
 				onChange={(event) => handleInputChange(event)}
 			/>
-				<button
-					className={style.But}
-					type='submit'
-					onClick={(event) => handleClickSubmit(event)}>
-					SEARCH
-				</button>
+
+			<button
+				className={style.But}
+				type='submit'
+				onClick={(event) => handleClickSubmit(event)}>
+				<Link to = '/products'><p className={style.textSearch}>SEARCH</p></Link>
+				<Link to = '/products'><img className={style.iconSearch} src={iconSearch} alt="iconSearch" /></Link>
+			</button>
+			
 		</div>
 	);
 };
+

@@ -18,5 +18,63 @@
     background-color: #004074;
     transition: 1s;
     color: #018dff;
+}
+
+.textSearch{
+    color: #000;
+}
     
+@media (min-width:320px) and (max-width:960px){
+    .containerSearch{
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: right;
+        align-self: center;        
+    }
+    .textSearch{
+        display: none;
+    }
+    .But {
+        background-color: #018dff;
+        cursor: pointer;
+        border-radius: 20px;
+        border-color: white;
+        margin-left: 10px;
+    }
+
+    .iconSearch{
+        width: 30px;
+        margin: 0px;
+        background-color: #018dff;
+    }
+    .Input{
+        width: 100%;
+        border-radius: 10rem;
+    }
+}
+
+@media (min-width:961px){
+    .iconSearch{
+        display: none;
+    }
+    .Input {
+        font-family: 'Orbitron', sans-serif;
+        border-radius: 20px;
+        padding: 10px;
+    }
+
+    .But {
+        background-color: #018dff;
+        cursor: pointer;
+        border-radius: 20rem;
+        border-color: white;
+        margin-left: 10px;
+    }
+
+    .But:hover {
+        background-color: #004074;
+        transition: 1s;
+        color: #018dff;
+    }
 }

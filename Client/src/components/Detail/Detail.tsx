@@ -44,7 +44,7 @@ export const Detail = () => {
               </div>
               <div className={styles["right-section"]}>
               <div>
-                <p>{game.description}</p>
+                <p className={styles.description}>{game.description}</p>
                 <div className={styles["right-section-info"]} >
                   <div className={styles["gender-section"]}>
                     <h4>Generos</h4>
