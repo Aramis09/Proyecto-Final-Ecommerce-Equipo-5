@@ -52,8 +52,10 @@ const productsListByPlatforms = async (req,res)=>{
 
 const productsListByCategory = async (req,res)=>{
     const { name, filters, order }= req.body;
+    console.log('req.body', req.body)
     try {
         let products = await getProductsByCategory(name, filters, order);
+        //console.log('back', products)
         res.status(200).json(products);
     } catch (error) {
         res.status(400).json({error:error.message});

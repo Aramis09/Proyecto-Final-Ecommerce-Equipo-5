@@ -1,14 +1,14 @@
 const {Genre} = require("../../db");
 
 const getAllGenres = async ()=>{
-    console.log( 'entreeooo')
+    //console.log( 'entreeooo')
     try {
         let genresList = await Genre.findAll({
             attributes:['id','name'],
             where:{state:true},
         });
-        console.log(genresList,'<-------------')
-        if (!genresList.length)  throw Error("Error: No existen Registros en la Tabla Genres"); 
+        //console.log(genresList,'<-------------')
+        if (!genresList.length) throw Error("Error: No existen Registros en la Tabla Genres"); 
         return genresList;
     } catch (error) {
         return {error:error.message}
