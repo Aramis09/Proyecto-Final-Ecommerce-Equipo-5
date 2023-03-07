@@ -1,39 +1,77 @@
 @import '../../styles/global-vars.scss';
 
-.mainContainer {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    margin: 0;
-    padding: 0;
-    z-index: 1;
+
+@media (min-width:320px) and (max-width:767px){
+    .mainContainer {
+        width: 100%;
+        height: 100px;
+        position: fixed;
+        top: 0;
+        left: 0;
+        margin: 0;
+        padding: 0;
+        z-index: 1;
+        background-color:rgb(1, 4, 15);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        
+    }
+    .listContainer {
+        width: 90%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .searchBar{
+    }
+    .loginButton{
+        display: none;
+    }
+    .mainContainer img {
+        margin-right: 10px;
+    }
+
 }
 
-.listContainer {
-    list-style: none;
-    background-color: black;
-    box-shadow: 5px 5px 15px 0 $shadow-purple-color-dark;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    height: 70px;
-    margin: 0px;
-    margin-bottom: 0px;
-    font-family: 'Orbitron', sans-serif;
-}
 
-.loginButton {
-    background-color: #018dff;
-    cursor: pointer;
-    border-radius: 20px;
-    border-color: white;
-    margin-right: 5px;
-}
+@media (min-width:961px){
+    .mainContainer {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        z-index: 1;
+    }
 
-.loginButton:hover {
-    background-color: #004074;
-    transition: 1s;
-    color: #018dff;
+    .listContainer {
+        list-style: none;
+        background-color: black;
+        box-shadow: 5px 5px 15px 0 $shadow-purple-color-dark;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        height: 70px;
+        margin: 0px;
+        margin-bottom: 0px;
+        font-family: 'Orbitron', sans-serif;
+    }
+
+    .loginButton {
+        background-color: #018dff;
+        cursor: pointer;
+        border-radius: 20px;
+        border-color: white;
+        margin-right: 5px;
+    }
+
+    .loginButton:hover {
+        background-color: #004074;
+        transition: 1s;
+        color: #018dff;
+    }
 }
