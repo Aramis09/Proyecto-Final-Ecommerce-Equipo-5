@@ -3,7 +3,6 @@ import { NavBar } from "../../components/NavBar/NavBar";
 import { Product } from "../../components/Product/Product";
 import { useAppDispatch } from "../../redux/hooks/hooks";
 import { getProductsByFilters } from "../../redux/actions/productAction";
-import { ShoppingCart } from "../../components/ShoppingCart/ShoppingCart";
 import { Link } from "react-router-dom";
 import styles from "./Home.module.scss";
 
@@ -42,7 +41,6 @@ export const Home = () => {
   return (
     <>
       <NavBar />
-      <ShoppingCart />
       <Carousel />
       <section className={styles["buttons-platforms"]}>
       <Link to={'/products'}>
