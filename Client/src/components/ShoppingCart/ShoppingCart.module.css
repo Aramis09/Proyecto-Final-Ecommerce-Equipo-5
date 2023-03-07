@@ -20,8 +20,8 @@
 
     .modalContainer {
         position: absolute;
-        top: 20%;
-        left: 85%;
+        top: 85%;
+        left: 80%;
     }
 
     .modalContent {
@@ -40,7 +40,7 @@
     }
 }
 
-@media (min-width:960px) {
+@media (min-width:961px) {
 .cartButton {
     background-color: #018dff;
     border-radius: 40%;
@@ -63,7 +63,7 @@
 .modalContainer {
     position: absolute;
     top: 20%;
-    left: 85%;
+    left: 80%;
 }
 
 .modalContent {
