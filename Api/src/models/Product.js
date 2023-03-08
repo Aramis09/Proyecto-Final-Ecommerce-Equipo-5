@@ -28,10 +28,18 @@ module.exports = (sequelize)=>{
             type:DataTypes.TEXT,
             allowNull:false,
         },
+        released:{
+            type:DataTypes.STRING,
+            allowNull:false,
+        },
         created:{
             type:DataTypes.BOOLEAN,
             defaultValue:true
-        }
+        },
+        state:{
+            type:DataTypes.BOOLEAN,
+            defaultValue:true
+        },
     },
     {timestamps:false}
     )

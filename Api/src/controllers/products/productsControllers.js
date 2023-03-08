@@ -1,16 +1,31 @@
 const {Product, Platform, Image, Genre, Store} = require("../../db");
 const axios = require("axios");
 const { Op } = require("sequelize");
-const { options,arrayStoresDet,arrayGenresDet,arrayPlatformsDet,arrayPlatforms,arrayGenres,arrayStores,arrayImagesDet
+const { options,
+    arrayStoresDet,
+    arrayGenresDet,
+    arrayPlatformsDet,
+    arrayPlatforms,
+    arrayGenres,
+    arrayStores,
+    arrayImagesDet, 
+    arrayIncludes
 } = require('./utils');
 
 const getAllProducts = async ()=>{
-
-    let productsListWithTrash = (await Product.findAll(options)).map(productWithTrash => productWithTrash.dataValues);
+    let productsListWithMoreTrash = await Product.findAll({
+        where:{state:true},
+        include:arrayIncludes
+    });
+    let productsListWithTrash=await productsListWithMoreTrash.map(productWithTrash => productWithTrash.dataValues);
     if (!productsListWithTrash.length){
         console.log("Entro a Carga Inicial");
         await loadProductsInDB();
-        productsListWithTrash = (await Product.findAll(options).map(productWithTrash => productWithTrash.dataValues));
+        let productsListWithMoreTrash = await Product.findAll({
+            where:{state:true},
+            include:arrayIncludes
+        });
+        let productsListWithTrash=await productsListWithMoreTrash.map(productWithTrash => productWithTrash.dataValues);
         let productListClean = cleaningProcess(await productsListWithTrash);
         return productListClean;
     };
@@ -19,12 +34,17 @@ const getAllProducts = async ()=>{
 };
 
 const getProductById = async id =>{
+    if (!id) throw Error("Error: Debe existir un valor ID, ID=null..!");
     try {
-        const productWithTrash = await Product.findByPk(id,options);
+        const productWithTrash = await Product.findOne({
+            where:{id:Number(id), state:true},
+            include:arrayIncludes
+        });
+        if (!productWithTrash) throw Error(`Error: ID=${id} no encontrado..!!`);
         const productClean = cleaningProcessToOneProduct(productWithTrash);
         return productClean;
     } catch (error) {
-        throw Error("Error: No se encontro el ID en la BD de Productos!!")
+        throw Error(error.message)
     };
 };
 
@@ -78,8 +98,8 @@ function cleaningProcessToOneProduct (productWithTrash) {
     propertyCleanplatform = productWithTrash.Platforms.map(propertyTrash => propertyTrash.name) ;
     propertyCleanGenres = productWithTrash.Genres.map(propertyTrash => propertyTrash.name);
     propertyCleanStores = productWithTrash.Stores.map(propertyTrash => propertyTrash.name);
-    const { id,name, background_image,rating,playtime,price,description } = productWithTrash;
-    const productClean = {id,name, background_image,rating,playtime,price,description} ;
+    const { id,name, background_image,rating,playtime,price,description,released } = productWithTrash;
+    const productClean = {id,name, background_image,rating,playtime,price,description,released} ;
     productClean.images = propertyCleanImages;
     productClean.platforms = propertyCleanplatform;
     productClean.genres = propertyCleanGenres;
@@ -188,6 +208,7 @@ async function getDataRestProducts () {
                 playtime: parseInt(c.playtime),
                 price: isNaN(parseFloat(c.price)) ? 0.00 : parseFloat(c.price),
                 description: c.description,
+                released:c.released
             };
             return reg;
         });
