@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import cart from '../../assets/carrito.png';
 import style from './ShoppingCart.module.css';
 import { useAppSelector } from "../../redux/hooks/hooks";
+import { Link } from "react-router-dom";
 
 export const ShoppingCart = () => {
     const [modalOpen, setModalOpen] = useState(false);
@@ -43,7 +44,7 @@ export const ShoppingCart = () => {
                                 <tr><td>MONTO A PAGAR: </td><td>$/{totalAmount}</td></tr>
                             </tbody>
                         </table>
-                        <button>CHECKOUT</button>
+                        <button><Link to = '/checkout'><p>CHECKOUT</p></Link></button>
                     </div>
                 </div>
                 }

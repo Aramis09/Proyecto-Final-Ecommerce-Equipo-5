@@ -1,9 +1,8 @@
 import { Card } from "../Card/Card";
-import { useAppSelector } from "../../redux/hooks/hooks";
+import { useAppSelector, useAppDispatch } from "../../redux/hooks/hooks";
 import styles from "./Product.module.scss";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
-import { useAppDispatch } from "../../redux/hooks/hooks";
 import { setSuccessMsg } from "../../redux/actions/shoppingCartAction";
 
 export const Product = () => {

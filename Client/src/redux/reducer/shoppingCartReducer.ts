@@ -23,7 +23,10 @@ export const shoppingCartReducer = createSlice({
             }else{
                 state.successMsg = "Ya esta en el carrito";
             }
-        },     
+        },
+        deletingItemShoppingCart: (state, action) => {
+            state.listProductsShoppingCart = state.listProductsShoppingCart.filter(item => parseInt(item.id) !== parseInt(action.payload));
+        },   
         successMsg: (state, action) => {
             state.successMsg = action.payload
         },
@@ -35,6 +38,7 @@ export const shoppingCartReducer = createSlice({
 
 export const {
     addingToShoppingCart, 
+    deletingItemShoppingCart,
     successMsg, 
     errorMsg, 
 } = shoppingCartReducer.actions;
