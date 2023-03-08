@@ -6,23 +6,28 @@ import { getProductByID } from "../../redux/actions/productAction";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks/hooks";
 import { useEffect } from "react";
 import { eraseItemById } from "../../redux/reducer/productReducer";
+import { addShoppingCart } from "../../redux/actions/shoppingCartAction";
 import styles from "./Detail.module.scss";
 //los import comentados de abajo no los toquen que son para implementar los botones a futuro
 //import { getListGenres } from "../../redux/actions/genresAction";
 //import { getListPlatforms } from "../../redux/actions/platformAction";
 
 export const Detail = () => {
-  const {id} = useParams()
+  const { id } = useParams();
   const dispatch = useAppDispatch();
   const game:any = useAppSelector((state) => state.productReducer.details)
 
   useEffect(() => {
     dispatch(getProductByID(parseInt(id)))
-
     return () => {
       dispatch(eraseItemById())
     }
   }, [])
+
+  const addingToShoppingCart = (e: any) => {
+    dispatch(addShoppingCart(game));
+  }
+  const successMg: string = useAppSelector((state) => state.shoppingCartReducer.successMsg);
 
   return (
     <>
@@ -40,6 +45,8 @@ export const Detail = () => {
                   <h3>{game.name}</h3>
                   <p>${game.price}</p>
                   <Rating value={game.rating} />
+                  <button type="button" onClick={addingToShoppingCart}>Agregar al carrito</button>
+                  <p>{successMg}</p>
                 </div>
               </div>
               <div className={styles["right-section"]}>

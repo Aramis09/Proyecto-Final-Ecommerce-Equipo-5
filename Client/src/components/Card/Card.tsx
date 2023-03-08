@@ -1,8 +1,13 @@
 import { CardProps } from "../../types";
 import carIcon from "../../assets/shopping-cart-add-button_icon-icons.com_56132.svg";
 import styles from "./Card.module.scss";
+import { useAppDispatch } from "../../redux/hooks/hooks";
+import { addShoppingCart } from "../../redux/actions/shoppingCartAction";
+import { Link } from "react-router-dom";
+import { useState, useEffect } from 'react';
 
 export const Card = ({
+  id,
   name,
   background_image,
   platforms,
@@ -10,7 +15,24 @@ export const Card = ({
 }: CardProps) => {
   const platformsSlice = platforms.slice(0, 3);
 
+  const dispatch = useAppDispatch();
+  const [successMsg, setSuccessMsg] = useState("");
+
+  const addingToShoppingCart = (e: any) => {
+    const game: object = {
+      id,
+      name,
+      background_image,
+      platforms,
+      price,      
+    }
+    dispatch(addShoppingCart(game));
+    setSuccessMsg("Agregado al carrito");
+  }
+
   return (
+    <div>
+    <Link to={`/${id}`}>
     <div className={styles["card-container"]}>
       <div className={styles.card}>
         <img src={background_image} alt={name} />
@@ -34,6 +56,10 @@ export const Card = ({
         </div>
         {price === "free" ? <p>{`${price}`}</p> : <p>{`$${price}`}</p>}
       </div>
+    </div>
+    </Link>
+    <button type="button" onClick={addingToShoppingCart}>Agregar al carrito</button>
+    <p>{successMsg}</p>
     </div>
   );
 };
