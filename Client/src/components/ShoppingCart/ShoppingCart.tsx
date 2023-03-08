@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import cart from '../../assets/carrito.png';
 import style from './ShoppingCart.module.css';
+import { ShoppingCartModal } from '../ShoppingCartModal/ShoppingCartModal';
 
 export const ShoppingCart = () => {
     const [modalOpen, setModalOpen] = useState(false);
@@ -25,18 +26,14 @@ export const ShoppingCart = () => {
                     src={cart}
                     alt="cart_icon" />
             </button>
-            {modalOpen && <div className={style.modalContainer}>
-                <div className={style.modalContent}>
-                    <button
-                        className={style.closeModalButton}
-                        onClick={ev => handleCloseModal(ev)}>X
-                    </button>
-                    <p>PRODUCTOS</p>
-                    <p>PRECIO</p>
-                    <p>TOTAL</p>
-                    <button>COMPRAR</button>
-                </div>
-            </div>
+            {modalOpen && <>
+                <ShoppingCartModal />
+                <button
+                    className={style.closeModalButton}
+                    onClick={ev => handleCloseModal(ev)}>
+                    X
+                </button>
+            </>
             }
         </div>
     );
