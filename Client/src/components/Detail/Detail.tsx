@@ -58,7 +58,7 @@ export const Detail = () => {
                       }
                     </div>
                   </div>
-                  <div className={styles["platforms-section"]}>
+                  {/* <div className={styles["platforms-section"]}>
                     <h4>Plataformas</h4>
                     <div className={styles["button-container"]}>
                       {
@@ -69,7 +69,7 @@ export const Detail = () => {
                         
                       }
                   </div>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>
