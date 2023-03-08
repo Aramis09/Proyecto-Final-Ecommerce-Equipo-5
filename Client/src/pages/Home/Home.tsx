@@ -5,7 +5,7 @@ import { useAppDispatch } from "../../redux/hooks/hooks";
 import { getProductsByFilters } from "../../redux/actions/productAction";
 import { Link } from "react-router-dom";
 import styles from "./Home.module.scss";
-
+import MPButton from "../../components/ButtonPayMP/buttonMP";
 export const Home = () => {
 
   const dispatch = useAppDispatch()
@@ -53,6 +53,7 @@ export const Home = () => {
         <button value='3,5,14,18' onClick={toTheSearchList}>XBOX</button>
       </Link>
       </section>
+      <MPButton />
       <h2>TOP GAMES</h2>
       <Product/>
       <Link to={'/products'}>

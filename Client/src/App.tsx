@@ -7,6 +7,7 @@ import { CheckOut } from "./pages/CheckOut/CheckOut";
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "./redux/hooks/hooks";
 import { getTopRatedProducts } from "./redux/actions/productAction";
+import MPButton  from "./components/ButtonPayMP/buttonMP";
 
 function App() {
 
@@ -25,6 +26,7 @@ function App() {
           <Route path="/products" element={<Products />} />
           <Route path="/:id" element={<Detail />} />
           <Route path='/checkout' element={<CheckOut />} />
+          <Route path='/pay' element={<MPButton />} />
         </Routes>
       </div>
     </BrowserRouter>

@@ -18,7 +18,7 @@ const StoreModel = require("./models/Store");
 const ProductsPlatformsModel = require("./models/ProductsPlatforms");
 const ProductsGenresModel = require("./models/ProductsGenres");
 const ProductsStoresModel = require("./models/ProductsStores");
-//
+
 /**Instancias que definen los modelos, crea el .models: */
 ProductModel(sequelize);
 PlatformModel(sequelize);
