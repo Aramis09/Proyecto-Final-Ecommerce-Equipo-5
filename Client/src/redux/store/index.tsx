@@ -1,9 +1,15 @@
 import { configureStore } from "@reduxjs/toolkit";
-import sliceOne from "../reducer/sliceOne";
+import productReducer from "../reducer/productReducer";
+import platformReducer from "../reducer/platformReducer";
+import genresReducer from "../reducer/genresReducer";
+import shoppingCartReducer from "../reducer/shoppingCartReducer";
 
 export const store = configureStore({
     reducer: {
-        reducerOne: sliceOne
+        productReducer: productReducer,
+        platformReducer: platformReducer,
+        genresReducer: genresReducer,
+        shoppingCartReducer: shoppingCartReducer
     }
 })
 

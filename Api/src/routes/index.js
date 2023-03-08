@@ -8,4 +8,4 @@ mainRouter.use("/products",productsRouter);
 mainRouter.use("/platforms",platformsRouter);
 mainRouter.use("/genres",genresRouter);
 
-module.exports = mainRouter;
+module.exports = mainRouter;    

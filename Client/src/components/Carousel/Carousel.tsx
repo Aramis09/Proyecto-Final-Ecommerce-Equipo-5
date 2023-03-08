@@ -1,14 +1,15 @@
 import { useEffect, useState } from "react";
-import { allGames } from "../../get";
+import { useAppSelector } from "../../redux/hooks/hooks";
+import { Link } from "react-router-dom";
 import styles from "./Carousel.module.scss";
 
 export const Carousel = () => {
-  const sliceItems = allGames.slice(10, 15);
   const [currentImage, setCurrentImage] = useState(0);
+  let carouselData = useAppSelector((state) => state.productReducer.carouselData);
 
   const handleChangeImage = () => {
     setCurrentImage(
-      currentImage === sliceItems.length - 1 ? 0 : currentImage + 1
+      currentImage === carouselData.length - 1 ? 0 : currentImage + 1
     );
   };
 
@@ -20,7 +21,7 @@ export const Carousel = () => {
   return (
     <>
       <section className={styles["carousel-container"]}>
-        {sliceItems.map((item, index) => {
+        {carouselData.map((item: any, index) => {
           return (
             <div key={index} className={styles["card-carousel"]}>
               <div className={styles["img-carousel"]}>
@@ -34,7 +35,7 @@ export const Carousel = () => {
                     <div className={styles.description}>
                       <h2>{item.name}</h2>
                       {item.description}
-                      <button>Go</button>
+                      <Link to={`/${item.id}`}><button>Go</button></Link>
                     </div>
                   </>
                 ) : null}
@@ -47,6 +48,7 @@ export const Carousel = () => {
         <button onClick={handleChangeImage}>←</button>
         <button onClick={handleChangeImage}>→</button>
       </div>
+      
     </>
   );
 };

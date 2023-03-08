@@ -1,57 +1,92 @@
-import { allGames } from "../../get";
 import { NavBar } from "../NavBar/NavBar";
 import { Rating } from "../Rating/Rating";
-import styles from "./Detail.module.scss";
 import { DetailCarousel } from "./DetailCarousel";
+import { useParams } from "react-router-dom";
+import { getProductByID } from "../../redux/actions/productAction";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks/hooks";
+import { useEffect } from "react";
+import { eraseItemById } from "../../redux/reducer/productReducer";
+import { addShoppingCart } from "../../redux/actions/shoppingCartAction";
+import styles from "./Detail.module.scss";
+//los import comentados de abajo no los toquen que son para implementar los botones a futuro
+//import { getListGenres } from "../../redux/actions/genresAction";
+//import { getListPlatforms } from "../../redux/actions/platformAction";
 
 export const Detail = () => {
-  const game = allGames.slice(3, 4);
+  const { id } = useParams();
+  const dispatch = useAppDispatch();
+  const game:any = useAppSelector((state) => state.productReducer.details)
+
+  useEffect(() => {
+    dispatch(getProductByID(parseInt(id)))
+    return () => {
+      dispatch(eraseItemById())
+    }
+  }, [])
+
+  const addingToShoppingCart = (e: any) => {
+    dispatch(addShoppingCart(game));
+  }
+  const successMg: string = useAppSelector((state) => state.shoppingCartReducer.successMsg);
 
   return (
     <>
       <NavBar />
-      <section className={styles["background-image"]}>
-        {game.map((item, index) => (
-          <img key={index} src={item.background_image} alt={item.name} />
-        ))}
-      </section>
-      <section className={styles["info-container"]}>
-        <div className={styles["left-section"]}>
-          {game.map((item) => (
-            <div key={item.id}>
-              <h3>{item.name}</h3>
-              <p>${item.price}</p>
-              <Rating value={item.rating} />
-            </div>
-          ))}
-        </div>
-        <div className={styles["right-section"]}>
-          {game.map(({ id, description, genres, platforms }, index) => (
-            <div key={id}>
-              <p>{description}</p>
-              <div className={styles["right-section-info"]} key={index}>
-                <div className={styles["gender-section"]}>
-                  <h4>Generos</h4>
-                  <div className={styles["button-container"]}>
-                    {genres.map((item, index) => (
-                      <button key={index}>{item}</button>
-                    ))}
-                  </div>
+      <div>
+        {
+          game.name &&
+          <div>
+            <section className={styles["background-image"]}>
+              <img src={game.background_image} alt={game.name} />
+            </section>      
+            <section className={styles["info-container"]}>
+              <div className={styles["left-section"]}>
+                <div key={game.id}>
+                  <h3>{game.name}</h3>
+                  <p>${game.price}</p>
+                  <Rating value={game.rating} />
+                  <button type="button" onClick={addingToShoppingCart}>Agregar al carrito</button>
+                  <p>{successMg}</p>
                 </div>
-                <div className={styles["platforms-section"]} key={index}>
-                  <h4>Plataformas</h4>
-                  <div className={styles["button-container"]}>
-                    {platforms.slice(0, 3).map((item) => (
-                      <button>{item}</button>
-                    ))}
+              </div>
+              <div className={styles["right-section"]}>
+              <div>
+                <p className={styles.description}>{game.description}</p>
+                <div className={styles["right-section-info"]} >
+                  <div className={styles["gender-section"]}>
+                    <h4>Generos</h4>
+                    <div className={styles["button-container"]}>
+                      {
+                        
+                        game.genres.map((item:any, index:number) => (
+                          <button key={index}>{item}</button>
+                        ))
+                        
+                      }
+                    </div>
+                  </div>
+                  <div className={styles["platforms-section"]}>
+                    <h4>Plataformas</h4>
+                    <div className={styles["button-container"]}>
+                      {
+                        
+                        game.platforms.slice(0, 3).map((item:any, index:number) => (
+                          <button key={index}>{item}</button>
+                        ))
+                        
+                      }
+                  </div>
                   </div>
                 </div>
               </div>
             </div>
-          ))}
-        </div>
-      </section>
-      <DetailCarousel />
+            </section>
+            <DetailCarousel images={game.images}/>
+          </div>
+        
+        }
+
+      </div>
     </>
   );
 };
