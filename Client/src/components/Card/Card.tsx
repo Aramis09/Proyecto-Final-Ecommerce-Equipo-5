@@ -32,8 +32,10 @@ export const Card = ({
                 );
               })}
         </div> */}
-				{price === 'free' ? <p>{`${price}`}</p> : <p>{`$${price}`}</p>}
-				<button className={styles['form-button']}>Agregar Al Carrito</button>
+        {price === 'free' ? <p>{`${price}`}</p> : <p>{`$${price}`}</p>}
+        <Link to={`/checkout`}>
+				  <button className={styles['form-button']}>Agregar Al Carrito</button>
+        </Link>
 			</div>
 		</div>
 	);
