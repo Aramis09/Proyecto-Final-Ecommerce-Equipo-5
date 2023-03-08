@@ -6,59 +6,66 @@ import { getProductByID } from "../../redux/actions/productAction";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks/hooks";
 import { useEffect } from "react";
 import { eraseItemById } from "../../redux/reducer/productReducer";
+import { addShoppingCart } from "../../redux/actions/shoppingCartAction";
 import styles from "./Detail.module.scss";
 //los import comentados de abajo no los toquen que son para implementar los botones a futuro
 //import { getListGenres } from "../../redux/actions/genresAction";
 //import { getListPlatforms } from "../../redux/actions/platformAction";
 
 export const Detail = () => {
-  const {id} = useParams()
+  const { id } = useParams();
   const dispatch = useAppDispatch();
   const game:any = useAppSelector((state) => state.productReducer.details)
 
   useEffect(() => {
     dispatch(getProductByID(parseInt(id)))
-
     return () => {
       dispatch(eraseItemById())
     }
   }, [])
 
+  const addingToShoppingCart = (e: any) => {
+    dispatch(addShoppingCart(game));
+  }
+  const successMg: string = useAppSelector((state) => state.shoppingCartReducer.successMsg);
+
   return (
-		<>
-			<NavBar />
-			<div>
-				{game.name && (
-					<div>
-						<section className={styles['background-image']}>
-							<img src={game.background_image} alt={game.name} />
-						</section>
-						<section className={styles['info-container']}>
-							<div className={styles['left-section']}>
-								<div key={game.id}>
-									<h3>{game.name}</h3>
-									<p>${game.price}</p>
-									<Rating value={game.rating} />
-								</div>
-							</div>
-							<div className={styles['right-section']}>
-								<div>
-									<p className={styles.description}>{game.description}</p>
-									<div className={styles['right-section-info']}>
-										<div className={styles['gender-section']}>
-											<h4>Generos</h4>
-											<div className={styles['button-container']}>
-												{game.genres.map((item: any, index: number) => (
-													<button key={index}>{item}</button>
-												))}
-											</div>
-										</div>
-												<Link to={`/checkout`}>
-													<button className={styles['form-button']}>
-														Agregar Al Carrito
-													</button>
-												</Link>
-										{/* <div className={styles["platforms-section"]}>
+    <>
+      <NavBar />
+      <div>
+        {
+          game.name &&
+          <div>
+            <section className={styles["background-image"]}>
+              <img src={game.background_image} alt={game.name} />
+            </section>      
+            <section className={styles["info-container"]}>
+              <div className={styles["left-section"]}>
+                <div key={game.id}>
+                  <h3>{game.name}</h3>
+                  <p>${game.price}</p>
+                  <Rating value={game.rating} />
+                  <button type="button" onClick={addingToShoppingCart}>Agregar al carrito</button>
+                  <p>{successMg}</p>
+                </div>
+              </div>
+              <div className={styles["right-section"]}>
+              <div>
+                <p className={styles.description}>{game.description}</p>
+                <div className={styles["right-section-info"]} >
+                  <div className={styles["gender-section"]}>
+                    <h4>Generos</h4>
+                    <div className={styles["button-container"]}>
+                      {
+                        
+                        game.genres.map((item:any, index:number) => (
+                          <button key={index}>{item}</button>
+                        ))
+                        
+                      }
+                    </div>
+                  </div>
+                  {/* <div className={styles["platforms-section"]}>
                     <h4>Plataformas</h4>
                     <div className={styles["button-container"]}>
                       {
@@ -70,14 +77,16 @@ export const Detail = () => {
                       }
                   </div>
                   </div> */}
-									</div>
-								</div>
-							</div>
-						</section>
-						<DetailCarousel images={game.images} />
-					</div>
-				)}
-			</div>
-		</>
-	);
+                </div>
+              </div>
+            </div>
+            </section>
+            <DetailCarousel images={game.images}/>
+          </div>
+        
+        }
+
+      </div>
+    </>
+  );
 };

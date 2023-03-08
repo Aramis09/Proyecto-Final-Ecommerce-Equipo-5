@@ -1,21 +1,43 @@
 import { CardProps } from "../../types";
+import carIcon from "../../assets/shopping-cart-add-button_icon-icons.com_56132.svg";
 import styles from "./Card.module.scss";
-import { Link } from 'react-router-dom';
+import { useAppDispatch } from "../../redux/hooks/hooks";
+import { addShoppingCart } from "../../redux/actions/shoppingCartAction";
+import { Link } from "react-router-dom";
+import { useState, useEffect } from 'react';
 
 export const Card = ({
+  id,
   name,
   background_image,
-  // platforms,
+  platforms,
   price,
 }: CardProps) => {
-  // const platformsSlice = platforms.slice(0, 3);
+  const platformsSlice = platforms.slice(0, 3);
+
+  const dispatch = useAppDispatch();
+  const [successMsg, setSuccessMsg] = useState("");
+
+  const addingToShoppingCart = (e: any) => {
+    const game: object = {
+      id,
+      name,
+      background_image,
+      price,      
+    }
+    dispatch(addShoppingCart(game));
+    setSuccessMsg("Agregado al carrito");
+  }
 
   return (
-		<div className={styles['card-container']}>
-			<div className={styles.card}>
-				<img src={background_image} alt={name} />
-				<h3>{name}</h3>
-				{/* <div className={styles["platforms-container"]}>
+    <div>
+    <div className={styles["card-container"]}>
+      <div className={styles.card}>
+    <Link to={`/${id}`}>
+        <img src={background_image} alt={name} />
+    </Link>
+        <h3>{name}</h3>
+        {/* <div className={styles["platforms-container"]}>
           {platforms.length > 3
             ? platformsSlice.map((platform: any, index: any) => {
                 return (
@@ -32,11 +54,11 @@ export const Card = ({
                 );
               })}
         </div> */}
-        {price === 'free' ? <p>{`${price}`}</p> : <p>{`$${price}`}</p>}
-        <Link to={`/checkout`}>
-				  <button className={styles['form-button']}>Agregar Al Carrito</button>
-        </Link>
-			</div>
-		</div>
-	);
+        {price === "free" ? <p>{`${price}`}</p> : <p>{`$${price}`}</p>}
+      </div>
+    </div>
+    <button type="button" onClick={addingToShoppingCart}>Agregar al carrito</button>
+    <p>{successMsg}</p>
+    </div>
+  );
 };

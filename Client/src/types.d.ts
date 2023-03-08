@@ -13,6 +13,7 @@ export interface Game {
 }
 
 export interface CardProps {
+  id: string | number;
   name: string;
   background_image: string;
   platforms: string[];
