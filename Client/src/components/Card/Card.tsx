@@ -1,10 +1,11 @@
 import { CardProps } from "../../types";
 import carIcon from "../../assets/shopping-cart-add-button_icon-icons.com_56132.svg";
 import styles from "./Card.module.scss";
-import { useAppDispatch } from "../../redux/hooks/hooks";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks/hooks";
 import { addShoppingCart } from "../../redux/actions/shoppingCartAction";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from 'react';
+import { ADDED_TO_CART, ALREADY_IN_THE_CART } from "../../utils/constants";
 
 export const Card = ({
   id,
@@ -16,6 +17,7 @@ export const Card = ({
   const platformsSlice = platforms.slice(0, 3);
 
   const dispatch = useAppDispatch();
+  let listProductsShoppingCart: object[] = useAppSelector((state) => state.shoppingCartReducer.listProductsShoppingCart);
   const [successMsg, setSuccessMsg] = useState("");
 
   const addingToShoppingCart = (e: any) => {
@@ -25,8 +27,13 @@ export const Card = ({
       background_image,
       price,      
     }
-    dispatch(addShoppingCart(game));
-    setSuccessMsg("Agregado al carrito");
+    const item = listProductsShoppingCart.find(item => item.id == parseInt(id));
+    if(!item){
+      dispatch(addShoppingCart(game));
+      setSuccessMsg(ADDED_TO_CART);
+    }else{
+      setSuccessMsg(ALREADY_IN_THE_CART);
+    }
   }
 
   return (

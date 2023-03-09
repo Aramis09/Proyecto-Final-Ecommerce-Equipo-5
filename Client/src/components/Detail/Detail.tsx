@@ -4,10 +4,11 @@ import { DetailCarousel } from "./DetailCarousel";
 import { Link, useParams } from "react-router-dom";
 import { getProductByID } from "../../redux/actions/productAction";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks/hooks";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { eraseItemById } from "../../redux/reducer/productReducer";
 import { addShoppingCart } from "../../redux/actions/shoppingCartAction";
 import styles from "./Detail.module.scss";
+import { ADDED_TO_CART, ALREADY_IN_THE_CART } from "../../utils/constants";
 //los import comentados de abajo no los toquen que son para implementar los botones a futuro
 //import { getListGenres } from "../../redux/actions/genresAction";
 //import { getListPlatforms } from "../../redux/actions/platformAction";
@@ -24,10 +25,19 @@ export const Detail = () => {
     }
   }, [])
 
+  let listProductsShoppingCart: object[] = useAppSelector((state) => state.shoppingCartReducer.listProductsShoppingCart);
+  const [successMsg, setSuccessMsg] = useState("");
+
   const addingToShoppingCart = (e: any) => {
-    dispatch(addShoppingCart(game));
+    const item = listProductsShoppingCart.find(item => item.id == parseInt(id));
+    if(!item){
+      dispatch(addShoppingCart(game));
+      setSuccessMsg(ADDED_TO_CART);
+    }else{
+      setSuccessMsg(ALREADY_IN_THE_CART);
+    }
+    
   }
-  const successMg: string = useAppSelector((state) => state.shoppingCartReducer.successMsg);
 
   return (
     <>
@@ -46,7 +56,7 @@ export const Detail = () => {
                   <p>${game.price}</p>
                   <Rating value={game.rating} />
                   <button type="button" onClick={addingToShoppingCart}>Agregar al carrito</button>
-                  <p>{successMg}</p>
+                  <p>{successMsg}</p>
                 </div>
               </div>
               <div className={styles["right-section"]}>

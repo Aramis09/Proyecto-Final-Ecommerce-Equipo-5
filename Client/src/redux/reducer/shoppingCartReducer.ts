@@ -15,15 +15,28 @@ export const shoppingCartReducer = createSlice({
     initialState,
     reducers:{
         addingToShoppingCart: (state, action) => {
-            const item = state.listProductsShoppingCart.find(item => item.id == action.payload.id);
-            if(!item){
-                state.listProductsShoppingCart.push(action.payload);
-                state.totalAmount = state.totalAmount + Number(action.payload.price);
-                state.successMsg = "Agregado al carrito";
-            }else{
-                state.successMsg = "Ya esta en el carrito";
+            state.listProductsShoppingCart.push(action.payload);
+            state.totalAmount = Number((state.totalAmount + Number(action.payload.price)).toFixed(2));
+        },
+        deletingItemShoppingCart: (state, action) => {
+            //Se busca el juego en el carrito de compras con el id
+            let temp = state.listProductsShoppingCart.find(item => parseInt(item.id) === parseInt(action.payload));
+
+            if(temp){
+                //Se elimina el juego del carrito de compras
+                state.listProductsShoppingCart = state.listProductsShoppingCart.filter(item => parseInt(item.id) !== parseInt(action.payload));
+                //Se actualiza el monto a pagar
+                state.totalAmount = Number((state.totalAmount - Number(temp.price)).toFixed(2));
             }
-        },     
+        },
+        gettingShoppingCartFromDB: (state, action) => {
+            state.listProductsShoppingCart = action.payload;
+            if(state.listProductsShoppingCart.length > 0){
+                for(let i = 0; i < state.listProductsShoppingCart.length; i++) {
+                    state.totalAmount = Number((state.totalAmount + Number(action.payload.price)).toFixed(2));
+                }
+            }
+        }, 
         successMsg: (state, action) => {
             state.successMsg = action.payload
         },
@@ -35,6 +48,8 @@ export const shoppingCartReducer = createSlice({
 
 export const {
     addingToShoppingCart, 
+    deletingItemShoppingCart,
+    gettingShoppingCartFromDB,
     successMsg, 
     errorMsg, 
 } = shoppingCartReducer.actions;
