@@ -20,7 +20,11 @@ export const NavBar = () => {
 				<ul className={style.listContainer}>
 					<li>
 						<Link to='/'>
-							<img src={icon} alt='joystick_icon' onClick={eraseSearch} />
+							<img
+							className={style.navbarIcon} 
+							src={icon} 
+							alt='joystick_icon' 
+							onClick={eraseSearch} />
 						</Link>
 					</li>
 					<li>
