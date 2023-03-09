@@ -13,10 +13,10 @@ export const Carousel = () => {
     );
   };
 
-  // useEffect(() => {
-  //   const intervalId = setInterval(handleChangeImage, 5000);
-  //   return () => clearInterval(intervalId);
-  // }, []);
+  useEffect(() => {
+    const intervalId = setInterval(handleChangeImage, 5000);
+    return () => clearInterval(intervalId);
+  }, []);
 
   return (
     <>

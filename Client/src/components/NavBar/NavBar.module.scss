@@ -18,20 +18,21 @@
         
     }
     .listContainer {
-        width: 100%;
+        width: 90%;
         display: flex;
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
-        list-style: none;
     }
-    
-    .loginButton {
-        color: black;
-        background-color: #018dff;
-        cursor: pointer;
-        border-radius: 20px;
+    .searchBar{
     }
+    .loginButton{
+        display: none;
+    }
+    .mainContainer img {
+        margin-right: 10px;
+    }
+
 }
 
 
@@ -64,7 +65,8 @@
         background-color: #018dff;
         cursor: pointer;
         border-radius: 20px;
-        color: black;
+        border-color: white;
+        margin-right: 5px;
     }
 
     .loginButton:hover {

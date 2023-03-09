@@ -19,17 +19,20 @@ function App() {
   }, [])
   
   return (
-    <BrowserRouter>
-      <div className="App">
-        <Routes>
-          <Route path="/" element={ searchedName? <Navigate to='/products' /> : <Home /> } /> 
-          <Route path="/products" element={<Products />} />
-          <Route path="/:id" element={searchedName? <Navigate to='/products' /> : <Detail />} />
-          <Route path='/checkout' element={<CheckOut />} />
-        </Routes>
-      </div>
-    </BrowserRouter>
-  );
+		<BrowserRouter>
+			<div className='App'>
+				<Routes>
+					<Route
+						path='/'
+						element={searchedName ? <Navigate to='/products' /> : <Home />}
+					/>
+					<Route path='/products' element={<Products />} />
+					<Route path='/:id' element={<Detail />} />
+					<Route path='/checkout' element={<CheckOut />} />
+				</Routes>
+			</div>
+		</BrowserRouter>
+	);
 }
 
 export default App;

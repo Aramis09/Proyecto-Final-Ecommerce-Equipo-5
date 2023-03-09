@@ -26,7 +26,7 @@ export const Products = () => {
   return (
     <>
       <NavBar />
-      <Filters />
+      {/* <Filters /> */}
       <div className={styles["page-container"]}>
         <Filters />
         {
