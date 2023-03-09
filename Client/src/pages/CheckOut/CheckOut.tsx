@@ -8,6 +8,7 @@ import { deleteItemShoppingCart } from "../../redux/actions/shoppingCartAction";
 export const CheckOut = () => {
   //const gameSlice = allGames.slice(0, 3);
   let listProductsShoppingCart: object[] = useAppSelector((state) => state.shoppingCartReducer.listProductsShoppingCart);
+  let totalAmount: number = useAppSelector((state) => state.shoppingCartReducer.totalAmount);
 
   const dispatch = useAppDispatch();
   const deleteItem = (e: any) => {
@@ -46,6 +47,7 @@ export const CheckOut = () => {
                     <button value={game.id} onClick={deleteItem}>x</button>
                   </div>
                 ))}
+                <p>MONTO A PAGAR: $/{totalAmount}</p>
               </div>
             </div>
           </div>
