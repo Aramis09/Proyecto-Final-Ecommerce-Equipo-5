@@ -18,8 +18,8 @@ const StoreModel = require("./models/Store");
 const ProductsPlatformsModel = require("./models/ProductsPlatforms");
 const ProductsGenresModel = require("./models/ProductsGenres");
 const ProductsStoresModel = require("./models/ProductsStores");
-const UserModel = require("./models/User");
-
+const UserModel = require("./models/User");   
+const FriendModel = require("./models/Friends");
 /**Instancias que definen los modelos, crea el .models: */
 ProductModel(sequelize);
 PlatformModel(sequelize);
@@ -30,11 +30,12 @@ ProductsPlatformsModel(sequelize);
 ProductsGenresModel(sequelize);
 ProductsStoresModel(sequelize);
 UserModel(sequelize);
+FriendModel(sequelize);
 
 
 
 //**Relacionar los Modelos */
-const {Product, Platform, Genre, Image, Store,User, ProductsPlatforms, ProductsGenres, ProductsStores} = sequelize.models;
+const {Product, Platform, Genre,Friend, Image, Store,User, ProductsPlatforms, ProductsGenres, ProductsStores} = sequelize.models;
 
 const ProductsPlatforms_Profile = sequelize.define('ProductsPlatforms', {}, { timestamps: false });
 Product.belongsToMany(Platform,{through:ProductsPlatforms_Profile});
@@ -56,20 +57,17 @@ Image.belongsTo(Product);
 const ShoppingCart = sequelize.define('ShoppingCart', {}, { timestamps: false });
 User.belongsToMany(Product, { through: ShoppingCart });
 Product.belongsToMany(User, { through: ShoppingCart });
-////////////////////////relaciones de carrito ////////////////////////////////////////
-
-////////////////////////relaciones de amigos ////////////////////////////////////////
-// const Friend = sequelize.define('Friend', {}, { timestamps: false });
-// User.belongsToMany(User, { through: Friend });
-
-
-////////////////////////relaciones de carrito ////////////////////////////////////////
-
 
 
 //borrar lo de abajo.
-// const Wish = sequelize.define('Wish', {}, { timestamps: false });
-// User.belongsToMany(Product, { through: Wish });
-// Product.belongsToMany(User, { through: Wish });
+const WishlistProduct = sequelize.define('WishlistProduct', {}, { timestamps: false });
+User.belongsToMany(Product, { through: WishlistProduct, as: 'Wishlist' });
+Product.belongsToMany(User, { through: WishlistProduct });
+
+// const FriendUser = sequelize.define('FriendUser', {}, { timestamps: false });
+// User.belongsToMany(User, { through: FriendUser, as: 'FriendToList' });
 //**Exportarla para poder trabajar con los modelos en los controllers */
+Friend.belongsTo(User);
 module.exports={sequelize, ...sequelize.models};
+
+

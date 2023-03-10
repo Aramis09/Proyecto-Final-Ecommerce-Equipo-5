@@ -1,4 +1,4 @@
-const { getAllUsers,addUser,addProductInShoppingCartForUser,addFriends } = require('../controllers/users/userController');
+const { getAllUsers,addUser,addProductInShoppingCartForUser,addFriends,addWishToList } = require('../controllers/users/userController');
 
 const addNewUser = async (req,res) => {
     try {
@@ -48,8 +48,13 @@ const userList = async (req,res) => {
     };
 };
 
+const addWish = async (req,res) => {
+    const {user, product} = req.query;
+    const prueba = await addWishToList(user,product);
+    return res.status(200).send(prueba);
+};
 const userID = async (req,res) => {
 
 };
 
-module.exports = { userList,userID,addNewUser,addNewProductInShoppingCart,addNewFriend };
+module.exports = { userList,userID,addNewUser,addNewProductInShoppingCart,addNewFriend,addWish };

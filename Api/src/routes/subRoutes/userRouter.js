@@ -1,5 +1,5 @@
 const {Router}=require("express");
-const { userList, userID,addNewUser,addNewProductInShoppingCart,addNewFriend } = require("../../handlers/usersHanlders");
+const { userList, userID,addNewUser,addNewProductInShoppingCart,addNewFriend,addWish } = require("../../handlers/usersHanlders");
 
 const userRouter = Router();
 
@@ -11,8 +11,9 @@ const userRouter = Router();
 
 userRouter.get("/",userList);
 userRouter.get("/userNew",addNewUser);
-userRouter.get("/NewFriend",addNewFriend);
-userRouter.get("/NewProductInShoppingCart",addNewProductInShoppingCart);
+userRouter.get("/newFriend",addNewFriend);
+userRouter.get("/newProductInShoppingCart",addNewProductInShoppingCart);
+userRouter.get("/newWish",addWish);
 userRouter.get("/:id",userID);
 
 module.exports= userRouter;

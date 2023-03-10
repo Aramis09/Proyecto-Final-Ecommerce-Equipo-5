@@ -1,4 +1,4 @@
-const { User,ShoppingCart,Product } = require('../../db');
+const { User,ShoppingCart,Product,Friend,WishlistProduct,FriendUser } = require('../../db');
 
 
 const addUser = async email => {
@@ -12,24 +12,37 @@ const addUser = async email => {
     };
 };
 const addFriends = async (emailUser,emailFriend)=> {
-    // const user = await User.findByPk(emailUser);
-    // const friendForAdd = await User.findByPk(emailFriend);
-    const user = (await User.findByPk('indra@gmail.com')).dataValues;
-    const friendForAdd = (await User.findByPk('aramisjaime@48gmail.com')).dataValues;
-    console.log(user,'----------------',friendForAdd);
-    // await user.addUser(friendForAdd);
-    // await user.addFriend(friendForAdd);
-    await friendForAdd.addUser(user);
-};
+    try {
+        console.log(emailUser,emailFriend)
+        const user = await User.findByPk(emailUser);
+        const friend = await Friend.create({emailFriend});
+        await friend.setUser(user);
+    } catch (error) {
+        return {error:error.message}
+    }
 
+};
+// const addFriends = async (emailUser,emailFriend)=> {
+//     try {
+//         console.log(emailUser,emailFriend)
+//         const user = await User.findByPk(emailUser);
+//         const friend = await Friend.create({emailFriend});
+//         await user.addFriendToList(friend,{
+//             through: 'FriendUser'
+//         });
+//     } catch (error) {
+//         return {error:error.message};
+//     };
+// };
 
 const getAllUsers = async () =>{
     try {
         const userList = await User.findAll({
             include: [{
               model: Product,
-              through: { model: ShoppingCart }
-            }]
+              through: { model: ShoppingCart },
+            },
+            ]
           });
         return userList;
     } catch (error) {
@@ -43,7 +56,7 @@ const addProductInShoppingCartForUser = async (pkUser,pkProduct) => {
         const  porductToAdd = await Product.findByPk(pkProduct);
         await user.addProduct(porductToAdd, {
             // especificar la tabla intermedia a utilizar
-            joinTableName: ShoppingCart
+            through: { ShoppingCart: pkProduct } 
         });
         const userWithProduct = await User.findByPk(pkUser);
         return userWithProduct;
@@ -52,6 +65,23 @@ const addProductInShoppingCartForUser = async (pkUser,pkProduct) => {
     }
 };
 
-module.exports = {addFriends,getAllUsers,addUser,addProductInShoppingCartForUser};
+const addWishToList = async (pkUser,pkProduct) => {
+    try {
+        const user = await User.findByPk(pkUser);
+        const productToAdd = await Product.findByPk(pkProduct);
+        await user.addWishlist(productToAdd, {
+            through: 'WishlistProduct' // especificar la tabla intermedia a utilizar
+        });
+        // const wishlist = await user.getProducts({
+        //     through: { model: WishlistProduct, as: 'Wishlist' } // especificar la tabla intermedia a utilizar
+        // });
+        // return wishlist;
+    } catch (error) {
+        return {error:error.message};
+    };
+};
+
+
+module.exports = {addFriends,getAllUsers,addUser,addProductInShoppingCartForUser,addWishToList};
 
 
