@@ -1,7 +1,7 @@
 //**Crea la conexion con la base de datos (con sequelize) */
 const { Sequelize } = require("sequelize");
 require("dotenv").config(); //**La variables de entorno quedan dispobnibles .env */
-// const { DB_DATA } = process.env;
+const { DB_DATA } = process.env;
 const sequelize = new Sequelize(`postgres://postgres:postgres@localhost/ecommerce`, { logging: false });
 
 //**Definicion de modelos (con sequelize)*/
