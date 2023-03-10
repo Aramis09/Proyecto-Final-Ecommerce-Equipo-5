@@ -4,6 +4,7 @@ import { useAppDispatch } from "../../redux/hooks/hooks";
 import style from "./NavBar.module.scss";
 import { SearchBar } from "../SearchBar/SearchBar";
 import icon from "../../assets/joystick_icon.png";
+import { Transaccion } from "../../pages/mercadoPagoTesting/mpLink";
 
 export const NavBar = () => {
 
@@ -23,6 +24,7 @@ export const NavBar = () => {
             </Link>
           </li>
           <li><SearchBar /></li>
+          <li><Link to='/mptest'>Transaccion</Link></li>
           <li>
             <button className={style.loginButton}>LOGIN</button>
           </li>
