@@ -20,7 +20,7 @@ export const ShoppingCart = () => {
     let listProductsShoppingCart: object[] = useAppSelector((state) => state.shoppingCartReducer.listProductsShoppingCart);
     let totalAmount: number = useAppSelector((state) => state.shoppingCartReducer.totalAmount);
 
-    if(listProductsShoppingCart.length > 0){
+    if (listProductsShoppingCart.length > 0) {
         return (
             <div>
                 <button
@@ -37,20 +37,20 @@ export const ShoppingCart = () => {
                             className={style.closeModalButton}
                             onClick={ev => handleCloseModal(ev)}>X
                         </button>
-    
+
                         <table>
                             <tbody>
-                                { listProductsShoppingCart.map( (item, index) =>  <tr key={index}><td>{item.name}</td><td>$/{item.price}</td></tr>) }
+                                {listProductsShoppingCart.map((item, index) => <tr key={index}><td>{item.name}</td><td>$/{item.price}</td></tr>)}
                                 <tr><td>MONTO A PAGAR: </td><td>$/{totalAmount}</td></tr>
                             </tbody>
                         </table>
-                        <button><Link to = '/checkout'><p>CHECKOUT</p></Link></button>
+                        <button><Link to='/checkout'><p>CHECKOUT</p></Link></button>
                     </div>
                 </div>
                 }
             </div>
         );
-    }else{
+    } else {
         return (
             <div>
                 <button
@@ -67,7 +67,7 @@ export const ShoppingCart = () => {
                             className={style.closeModalButton}
                             onClick={ev => handleCloseModal(ev)}>X
                         </button>
-    
+
                         <p>CARRITO VACIO</p>
                     </div>
                 </div>
