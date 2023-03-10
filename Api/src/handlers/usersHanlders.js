@@ -1,4 +1,4 @@
-const { getAllUsers,addUser,addProductInShoppingCartForUser,addFriends,addWishToList } = require('../controllers/users/userController');
+const { getAllWishes,getAllUsers,addUser,addProductInShoppingCartForUser,addFriends,addWishToList,getAllFriends,getAllProductsInShoppingCart } = require('../controllers/users/userController');
 
 const addNewUser = async (req,res) => {
     try {
@@ -19,8 +19,8 @@ const addNewFriend = async (req,res) => {
    try {
     const {emailUser,emailFriend} = req.query;
     const userAddedFriend = await addFriends(emailUser,emailFriend);
-    if(userAddedFriend.error) throw new Error(userAddedFriend.error);
-    return res.status(200).json('Friend was added');
+    // if(userAddedFriend.error) throw new Error(userAddedFriend.error);
+    return res.status(200).json(userAddedFriend);
    } catch (error) {
     return res.status(400).json(error.message);
    };
@@ -57,4 +57,36 @@ const userID = async (req,res) => {
 
 };
 
-module.exports = { userList,userID,addNewUser,addNewProductInShoppingCart,addNewFriend,addWish };
+const friendsList = async (req,res) => {
+    try {
+        const { email } = req.query;
+        const friendsList = await getAllFriends(email);
+        if(friendsList.error) throw new Error(friendsList.error);
+        return res.status(200).json(friendsList);
+    } catch (error) {
+        return res.status(400).json(error.message);
+    }
+};
+
+const productsListShoppingCart = async (req,res)=> {
+    try {
+        const { email } = req.query;
+        const productList = await getAllProductsInShoppingCart(email);
+        if(productList.error) throw new Error(productList.error);
+        return res.status(200).json(productList);
+    } catch (error) {
+        return res.status(400).json(error.message);
+    }
+};
+
+const wishesList = async (req,res) => {
+    try {
+        const { email } = req.query;
+        const productList = await getAllWishes(email);
+        if(productList.error) throw new Error(productList.error);
+        return res.status(200).json(productList);
+    } catch (error) {
+        return res.status(400).json(error.message);
+    }
+};
+module.exports = { userList,userID,addNewUser,addNewProductInShoppingCart,addNewFriend,addWish,friendsList,productsListShoppingCart,wishesList };

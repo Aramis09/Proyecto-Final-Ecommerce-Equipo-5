@@ -19,7 +19,7 @@ const ProductsPlatformsModel = require("./models/ProductsPlatforms");
 const ProductsGenresModel = require("./models/ProductsGenres");
 const ProductsStoresModel = require("./models/ProductsStores");
 const UserModel = require("./models/User");   
-const FriendModel = require("./models/Friends");
+const CommentModel = require("./models/Comment");
 /**Instancias que definen los modelos, crea el .models: */
 ProductModel(sequelize);
 PlatformModel(sequelize);
@@ -30,7 +30,7 @@ ProductsPlatformsModel(sequelize);
 ProductsGenresModel(sequelize);
 ProductsStoresModel(sequelize);
 UserModel(sequelize);
-FriendModel(sequelize);
+CommentModel(sequelize);
 
 
 
@@ -64,10 +64,10 @@ const WishlistProduct = sequelize.define('WishlistProduct', {}, { timestamps: fa
 User.belongsToMany(Product, { through: WishlistProduct, as: 'Wishlist' });
 Product.belongsToMany(User, { through: WishlistProduct });
 
-// const FriendUser = sequelize.define('FriendUser', {}, { timestamps: false });
-// User.belongsToMany(User, { through: FriendUser, as: 'FriendToList' });
+const FriendUser = sequelize.define('FriendUser', {}, { timestamps: false });
+User.belongsToMany(User, { through: FriendUser, as: 'FriendInList' });
 //**Exportarla para poder trabajar con los modelos en los controllers */
-Friend.belongsTo(User);
+// Friend.belongsTo(User);
 module.exports={sequelize, ...sequelize.models};
 
 
