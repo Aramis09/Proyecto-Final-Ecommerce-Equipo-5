@@ -5,7 +5,7 @@ import { useAppDispatch } from "../../redux/hooks/hooks";
 import { getProductsByFilters } from "../../redux/actions/productAction";
 import { Link } from "react-router-dom";
 import styles from "./Home.module.scss";
-import MPButton from "../../components/ButtonPayMP/buttonMP";
+// import MPButton from "../../components/ButtonPayMP/buttonMP";
 export const Home = () => {
 
   const dispatch = useAppDispatch()
@@ -42,18 +42,7 @@ export const Home = () => {
     <div className={styles.container}>
       <NavBar />
       <Carousel />
-      <section className={styles["buttons-platforms"]}>
-      <Link to={'/products'}>
-        <button value='2' onClick={toTheSearchList}>PC</button>
-      </Link>
-      <Link to={'/products'}>
-        <button value='4,6,15,16' onClick={toTheSearchList}>PLAYSTATION</button>
-      </Link>
-      <Link to={'/products'}>
-        <button value='3,5,14,18' onClick={toTheSearchList}>XBOX</button>
-      </Link>
-      </section>
-      <MPButton />
+      {/* <MPButton /> */}
       <h2>TOP GAMES</h2>
       <Product/>
       <Link to={'/products'}>

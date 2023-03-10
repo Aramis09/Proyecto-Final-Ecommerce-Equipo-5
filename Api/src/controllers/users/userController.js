@@ -29,6 +29,11 @@ const addFriends = async (emailUser,emailFriend)=> {
         await user.addFriendInList(friend,{  
             through: 'FriendUser'
         });
+        await friend.addFriendInList(user,{  
+            through: 'FriendUser'
+        });
+        console.log('llegue aqui')
+
         const FriendsAll = await FriendUser.findAll();
         console.log(FriendsAll)
         return FriendsAll;
@@ -55,10 +60,13 @@ const getAllUsers = async () =>{
         return {error:error.message};
     };
 };
-const getAllFriends = async email => {
+const getAllFriends = async email => {/////////////////////////////////////////
     try {
         const user = await User.findByPk(email);
         const friendList = await user.getFriendInList();
+        // const prueba = await FriendUser.findAll({where:{FriendInListEmail:email}});
+        // const allFriends = friendList.concat(prueba);
+        // return friendList;   // no borrar
         return friendList;
     } catch (error) {
         return {error:error.message};
@@ -94,10 +102,7 @@ const addWishToList = async (pkUser,pkProduct) => {
         await user.addWishlist(productToAdd, {
             through: 'WishlistProduct' // especificar la tabla intermedia a utilizar
         });
-        // const wishlist = await user.getProducts({
-        //     through: { model: WishlistProduct, as: 'Wishlist' } // especificar la tabla intermedia a utilizar
-        // });
-        // return wishlist;
+        return 'product add in wishList';
     } catch (error) {
         return {error:error.message};
     };

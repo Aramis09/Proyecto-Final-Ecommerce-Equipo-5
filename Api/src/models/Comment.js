@@ -6,10 +6,12 @@ module.exports = (sequelize)=>{
             allowNull: false,
         },
         Date:{
-            type:DataTypes.DATE
+            type:DataTypes.DATE,
+            allowNull: false,
         },
         Hour:{
-            type:DataTypes.DATE
+            type:DataTypes.DATE,
+            allowNull: false,
         } 
     },
     {timestamps:false}
