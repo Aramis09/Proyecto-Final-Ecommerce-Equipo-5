@@ -18,6 +18,7 @@ const StoreModel = require("./models/Store");
 const ProductsPlatformsModel = require("./models/ProductsPlatforms");
 const ProductsGenresModel = require("./models/ProductsGenres");
 const ProductsStoresModel = require("./models/ProductsStores");
+const UserModel = require("./models/User");
 
 /**Instancias que definen los modelos, crea el .models: */
 ProductModel(sequelize);
@@ -28,11 +29,12 @@ StoreModel(sequelize);
 ProductsPlatformsModel(sequelize);
 ProductsGenresModel(sequelize);
 ProductsStoresModel(sequelize);
+UserModel(sequelize);
 
 
 
 //**Relacionar los Modelos */
-const {Product, Platform, Genre, Image, Store, ProductsPlatforms, ProductsGenres, ProductsStores} = sequelize.models;
+const {Product, Platform, Genre, Image, Store,User, ProductsPlatforms, ProductsGenres, ProductsStores} = sequelize.models;
 
 const ProductsPlatforms_Profile = sequelize.define('ProductsPlatforms', {}, { timestamps: false });
 Product.belongsToMany(Platform,{through:ProductsPlatforms_Profile});
@@ -49,5 +51,25 @@ Store.belongsToMany(Product,{through:ProductsStores_Profile});
 Product.hasMany(Image);
 Image.belongsTo(Product);
 
+
+////////////////////////relaciones de carrito ////////////////////////////////////////
+const ShoppingCart = sequelize.define('ShoppingCart', {}, { timestamps: false });
+User.belongsToMany(Product, { through: ShoppingCart });
+Product.belongsToMany(User, { through: ShoppingCart });
+////////////////////////relaciones de carrito ////////////////////////////////////////
+
+////////////////////////relaciones de amigos ////////////////////////////////////////
+// const Friend = sequelize.define('Friend', {}, { timestamps: false });
+// User.belongsToMany(User, { through: Friend });
+
+
+////////////////////////relaciones de carrito ////////////////////////////////////////
+
+
+
+//borrar lo de abajo.
+// const Wish = sequelize.define('Wish', {}, { timestamps: false });
+// User.belongsToMany(Product, { through: Wish });
+// Product.belongsToMany(User, { through: Wish });
 //**Exportarla para poder trabajar con los modelos en los controllers */
 module.exports={sequelize, ...sequelize.models};

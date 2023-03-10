@@ -3,11 +3,13 @@ const productsRouter = require("./subRoutes/productsRouter");
 const platformsRouter = require("./subRoutes/platformsRouter");
 const genresRouter = require("./subRoutes/genresRouter");
 const paymentRouter = require("./subRoutes/paymentRouter");
+const userRouter = require("./subRoutes/userRouter");
 const mainRouter = Router();
 
 mainRouter.use("/products",productsRouter);
 mainRouter.use("/platforms",platformsRouter);
 mainRouter.use("/genres",genresRouter);
+mainRouter.use("/user",userRouter);
 mainRouter.use("/paymant",paymentRouter);
 
 module.exports = mainRouter;
