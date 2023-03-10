@@ -1,4 +1,4 @@
-const { getAllWishes,getAllUsers,addUser,addProductInShoppingCartForUser,addFriends,addWishToList,getAllFriends,getAllProductsInShoppingCart } = require('../controllers/users/userController');
+const { getAllWishes,getAllUsers,addUser,addProductInShoppingCartForUser,addFriends,addWishToList,getAllFriends,getAllProductsInShoppingCart,addNewComment,getAllCommentOfUser,getAllCommentOfProduct } = require('../controllers/users/userController');
 
 const addNewUser = async (req,res) => {
     try {
@@ -89,4 +89,37 @@ const wishesList = async (req,res) => {
         return res.status(400).json(error.message);
     }
 };
-module.exports = { userList,userID,addNewUser,addNewProductInShoppingCart,addNewFriend,addWish,friendsList,productsListShoppingCart,wishesList };
+
+const addComment = async (req,res) => {
+    try {
+        const { email,comment,product } = req.query;
+        const newComment = await addNewComment(email,comment,product );
+        return res.status(200).json(newComment);
+    } catch (error) {
+        return res.status(400).json(error.message);
+    };
+};
+
+
+const commentListOfUser = async (req,res) => {
+    try {
+        const { email } = req.query;
+        const commentList = await getAllCommentOfUser(email);
+        return res.status(200).json(commentList);
+    } catch (error) {
+        return res.status(400).json(error.message);
+    };
+};
+
+
+const commentListOfProduct= async (req,res) => {
+    try {
+        const { idProduct } = req.query;
+        const commentList = await getAllCommentOfProduct(idProduct);
+        return res.status(200).json(commentList);
+    } catch (error) {
+        return res.status(400).json(error.message);
+    };
+};
+
+module.exports = { userList,userID,addNewUser,addNewProductInShoppingCart,addNewFriend,addWish,friendsList,productsListShoppingCart,wishesList,addComment,commentListOfUser,commentListOfProduct };

@@ -4,7 +4,13 @@ module.exports = (sequelize)=>{
         Comment:{
             type:DataTypes.TEXT,
             allowNull: false,
-        }, 
+        },
+        Date:{
+            type:DataTypes.DATE
+        },
+        Hour:{
+            type:DataTypes.DATE
+        } 
     },
     {timestamps:false}
     );

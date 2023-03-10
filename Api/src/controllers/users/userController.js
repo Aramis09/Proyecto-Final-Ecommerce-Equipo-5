@@ -1,4 +1,4 @@
-const { User,ShoppingCart,Product,Friend,WishlistProduct,FriendUser } = require('../../db');
+const { User,ShoppingCart,Product,Friend,WishlistProduct,FriendUser,Comment } = require('../../db');
 
 
 const addUser = async email => {
@@ -112,6 +112,35 @@ const getAllWishes = async email => {
     }
 };
 
-module.exports = {addFriends,getAllUsers,addUser,addProductInShoppingCartForUser,addWishToList,getAllFriends,getAllProductsInShoppingCart,getAllWishes};
+const addNewComment = async (email,comment,product ) => {
+    // const now = sequelize.literal('CURRENT_TIMESTAMP');
+    const now = new Date();
+    console.log(email,product,comment);
+    const newComment = await Comment.build({ //tengo que mejorar esto porque no anda
+        Comment: comment,
+        Hour:now,
+        Date:now,
+        userId: email,
+        productId: product,
+    });
+    await newComment.save();
+    return newComment;
+};
+
+const getAllCommentOfUser = async email => {
+    const commentOfUser = await Comment.findAll({
+        where: {userId:email}
+    });
+    return commentOfUser;
+};
+
+const getAllCommentOfProduct = async idProduct => {
+    const commentOfUser = await Comment.findAll({
+        where: {productId:idProduct}
+    });
+    return commentOfUser;
+};
+
+module.exports = {addFriends,getAllUsers,addUser,addProductInShoppingCartForUser,addWishToList,getAllFriends,getAllProductsInShoppingCart,getAllWishes,addNewComment,getAllCommentOfUser,getAllCommentOfProduct};
 
 

@@ -41,7 +41,7 @@ export default function MPButton() {
         // @ts-ignore
         
         // Here we create the button, setting the container, our public key and the ID of the preference that Mercado Pago API returns in its response
-        const mp = new window.MercadoPago('TEST-75923ebd-9e40-42c2-8ab3-cf9799279917', {
+        const mp = new window.MercadoPago('TEST-5bbaf9c6-7285-45e4-966a-83819d381b76', {
           locale: 'es-AR'
         })
         // console.log(process.env.REACT_APP_MP_PUBLIC_KEY)

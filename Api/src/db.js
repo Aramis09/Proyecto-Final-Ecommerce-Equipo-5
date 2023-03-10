@@ -35,7 +35,7 @@ CommentModel(sequelize);
 
 
 //**Relacionar los Modelos */
-const {Product, Platform, Genre,Friend, Image, Store,User, ProductsPlatforms, ProductsGenres, ProductsStores} = sequelize.models;
+const {Product, Platform, Genre,Comment, Image, Store,User, ProductsPlatforms, ProductsGenres, ProductsStores} = sequelize.models;
 
 const ProductsPlatforms_Profile = sequelize.define('ProductsPlatforms', {}, { timestamps: false });
 Product.belongsToMany(Platform,{through:ProductsPlatforms_Profile});
@@ -66,8 +66,15 @@ Product.belongsToMany(User, { through: WishlistProduct });
 
 const FriendUser = sequelize.define('FriendUser', {}, { timestamps: false });
 User.belongsToMany(User, { through: FriendUser, as: 'FriendInList' });
+
+User.hasMany(Comment, { foreignKey: 'userId' });
+Comment.belongsTo(User, { foreignKey: 'userId' });
+
+Comment.belongsTo(Product, { foreignKey: 'productId' });
+Product.hasMany(Comment, { foreignKey: 'productId' });
+
 //**Exportarla para poder trabajar con los modelos en los controllers */
-// Friend.belongsTo(User);
+
 module.exports={sequelize, ...sequelize.models};
 
 
