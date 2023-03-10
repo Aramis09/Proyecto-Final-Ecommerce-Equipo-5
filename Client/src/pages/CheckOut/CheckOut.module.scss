@@ -1,132 +1,192 @@
+/** @format */
+
 @import '../../styles/global-vars.scss';
 
 .checkout-container {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  margin-top: 70px;
-  gap: 80px;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	margin-top: 70px;
+	gap: 80px;
 }
 
 .form-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  width: 500px;
-  height: 500px;
-  background-color: rgb(18, 18, 18);
-  border-radius: 20px;
-  box-shadow: 0 0 15px 5px $shadow-blue-color;
-  gap: 20px;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
+	width: 500px;
+	height: 500px;
+	background-color: rgb(18, 18, 18);
+	border-radius: 20px;
+	box-shadow: 0 0 15px 5px $shadow-blue-color;
+	gap: 20px;
 }
 
-.form-container {
-  font-size: 1.3rem;
-  font-weight: 700;
+.form-container h4 {
+	font-size: 1.3rem;
+	font-weight: 700;
+	margin-top: 15px;
 }
 
 .form {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  gap: 20px;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	gap: 20px;
 }
 
 .dataContainer {
-  display: flex;
-  flex-direction: column;
-  padding-top: 100px;
-  gap: 20px;
+	display: flex;
+	justify-content: center;
+	flex-direction: row;
+	padding-top: 100px;
+	flex-wrap: wrap;
+	gap: 20px;
 }
 
 .dataContainer input {
-  height: 30px;
-  border: 1px transparent;
-  border-radius: 10px;
+	height: 30px;
+	border: 1px transparent;
+	border-radius: 10px;
 }
 
 .dataContainer input:hover {
-  box-shadow: 0 0 8px 5px $shadow-purple-color;
+	box-shadow: 0 0 8px 5px $shadow-purple-color;
 }
 
 .dataContainer input::placeholder {
-  text-align: center;
-  font-size: medium;
-  color: rgb(175, 175, 175);
+	text-align: center;
+	font-size: medium;
+	color: rgb(175, 175, 175);
 }
 
 .dataContainer input:focus {
-  border: 1px $shadow-purple-color;
-  box-shadow: 0 0 8px 5px $shadow-purple-color;
+	border: 1px $shadow-purple-color;
+	box-shadow: 0 0 8px 5px $shadow-purple-color;
 }
 
 .form-button {
-  width: 300px;
-  background-color: rgb(22, 22, 22);
+	width: 300px;
+	background-color: rgb(22, 22, 22);
 }
 
 .form-button:hover {
-  box-shadow: 0 0 15px 2px $shadow-blue-color;
-  border: none;
+	box-shadow: 0 0 15px 2px $shadow-blue-color;
+	border: none;
 }
 
 .form-button:focus {
-  background-color: $shadow-blue-color;
+	background-color: $shadow-blue-color;
 }
 
 .items-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  width: 500px;
-  height: 500px;
-  background-color: rgb(18, 18, 18);
-  border-radius: 20px;
-  gap: 20px;
-  box-shadow: 0 0 15px 8px $shadow-purple-color;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
+	width: auto;
+	height: auto;
+	background-color: rgb(18, 18, 18);
+	border-radius: 20px;
+	gap: 20px;
+	box-shadow: 0 0 15px 8px $shadow-purple-color;
+	padding: 10px;
 }
 
 .items-container h4 {
-  font-size: 1.3rem;
-  font-weight: 700;
+	font-size: 1.3rem;
+	font-weight: 700;
+	margin-top: 15px;
 }
 
 .card-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
 }
 
 .card-item {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  width: 450px;
-  background-color: rgb(22, 22, 22);
-  border-radius: 30px;
-  margin-bottom: 20px;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	width: 450px;
+	background-color: rgb(22, 22, 22);
+	border-radius: 30px;
+	margin-bottom: 20px;
 }
 
 .card-item img {
-  border-radius: 20px;
-  width: 150px;
+	border-radius: 20px;
+	width: 150px;
 }
 
 .card-item button {
-  background-color: rgb(22, 22, 22);
-  font-size: 1.3rem;
+	background-color: rgb(22, 22, 22);
+	font-size: 1.3rem;
 }
 
 .card-item button:hover {
-  border: none;
-  color: red;
+	border: none;
+	color: red;
 }
 
 .card-item:hover {
-  box-shadow: 0 0 15px 2px $shadow-blue-color;
+	box-shadow: 0 0 15px 2px $shadow-blue-color;
+}
+
+@media (min-width: 320px) and (max-width: 960px) {
+  .checkout-container {
+      display: flex;
+      flex-direction:column-reverse;
+      justify-content: center;
+      align-items: center;
+      margin-top: 70px;
+      gap: 80px;
+  }
+
+    .dataContainer {
+      display: flex;
+      flex-direction: column;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      gap: 20px;
+    }
+
+	.form-container h4 {
+		font-size: 1.3rem;
+		font-weight: 700;
+		margin-top: 15px;
+	}
+    
+	.items-container {
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-start;
+		align-items: center;
+		width: auto;
+		height: auto;
+		background-color: rgb(18, 18, 18);
+		border-radius: 20px;
+		gap: 20px;
+		box-shadow: 0 0 15px 8px $shadow-purple-color;
+		padding: 10px;
+	}
+	
+	.items-container h4 {
+		font-size: 1.3rem;
+		font-weight: 700;
+		margin-top: 15px;
+	}
+
+	.card-container {
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-start;
+		align-items: center;
+	}
+
 }

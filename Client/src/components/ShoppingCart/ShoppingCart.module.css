@@ -15,73 +15,78 @@
     }
 
     .cartIcon {
-        margin: auto;
+        margin: 0px;
     }
 
     .modalContainer {
         position: absolute;
-        top: 200%;
-        left: 35%;
+        top: 25vh;
+        left: 50vw;
+        right: 50vw;
+        display: flex;
+        justify-content: center;
     }
 
     .modalContent {
         background-color: #004074;
         padding: 1rem;
         border-radius: 10%;
-        height: 15rem;
-        width: 15rem;
+        height: auto;
+        width: auto;
     }
 
     .closeModalButton {
         background-color: #018dff;
         border-radius: 50%;
-        padding: 0;
+        padding: 3px;
         margin: 5px;
-        height: 10%;
-        width: 10%;
+        height: auto;
+        width: auto;
     }
 }
 
 @media (min-width:961px) {
-.cartButton {
-    background-color: #018dff;
-    border-radius: 40%;
-    float: right;
-    margin-left: 0px;
-    padding: 0;
-    height: 3rem;
-    width: 3rem;
-}
+    .cartButton {
+        background-color: #018dff;
+        border-radius: 40%;
+        float: right;
+        margin-left: 0px;
+        padding: 0;
+        height: 3rem;
+        width: 3rem;
+    }
 
-.cartButton:hover {
-    background-color: #004074;
-    transition: 1s;
-}
+    .cartButton:hover {
+        background-color: #004074;
+        transition: 1s;
+    }
 
-.cartIcon {
-    margin: auto;
-}
+    .cartIcon {
+        margin: auto;
+    }
 
-.modalContainer {
-    position: absolute;
-    top: 200%;
-    left: 41%;
-}
+    .modalContainer {
+        position: absolute;
+        top: 25vh;
+        left: 50vw;
+        right: 50vw;
+        display: flex;
+        justify-content: center;
+    }
 
-.modalContent {
-    background-color: #004074;
-    padding: 1rem;
-    border-radius: 10%;
-    height: 20rem;
-    width: 20rem;
-}
+    .modalContent {
+        background-color: #004074;
+        padding: 1rem;
+        border-radius: 10%;
+        height: auto;
+        width: auto;
+    }
 
-.closeModalButton {
-    background-color: #018dff;
-    border-radius: 50%;
-    padding: 0;
-    margin: 5px;
-    height: 10%;
-    width: 10%;
-}
+    .closeModalButton {
+        background-color: #018dff;
+        border-radius: 50%;
+        padding: 3px;
+        margin: 5px;
+        
+    }
 }

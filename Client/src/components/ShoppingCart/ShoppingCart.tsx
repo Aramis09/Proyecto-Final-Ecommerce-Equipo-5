@@ -35,13 +35,14 @@ export const ShoppingCart = () => {
                     <div className={style.modalContent}>
                         <button
                             className={style.closeModalButton}
-                            onClick={ev => handleCloseModal(ev)}>X
+                            onClick={ev => handleCloseModal(ev)}>x
                         </button>
     
                         <table>
                             <tbody>
-                                { listProductsShoppingCart.map( (item, index) =>  <tr key={index}><td>{item.name}</td><td>$/{item.price}</td></tr>) }
-                                <tr><td>MONTO A PAGAR: </td><td>$/{totalAmount}</td></tr>
+                                {listProductsShoppingCart.map((item, index) => <tr key={index}><td>{item.name} </td><td> ${item.price}</td></tr>)}
+                                <br />
+                                <tr><td>MONTO A PAGAR: </td><td>${totalAmount}</td></tr>
                             </tbody>
                         </table>
                         <button><Link to = '/checkout'><p>CHECKOUT</p></Link></button>
@@ -68,7 +69,7 @@ export const ShoppingCart = () => {
                             onClick={ev => handleCloseModal(ev)}>X
                         </button>
     
-                        <p>CARRITO VACIO</p>
+                        <p className={style.cartClean}>CARRITO VACIO</p>
                     </div>
                 </div>
                 }

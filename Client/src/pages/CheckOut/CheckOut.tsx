@@ -22,14 +22,12 @@ export const CheckOut = () => {
         <NavBar />
         <section className={styles["checkout-container"]}>
           <div className={styles["form-container"]}>
-            <h4>Datos de Compra</h4>
+            <h4>Datos de Facturación</h4>
             <form className={styles.form}>
               <div className={styles.dataContainer}>
                 <input type="text" placeholder="Nombre" />
-                <input type="email" placeholder="Email" />
-              </div>
-              <div className={styles.dataContainer}>
                 <input type="text" placeholder="Apellido" />
+                <input type="email" placeholder="Email" />
                 <input type="text" placeholder="Celular" />
               </div>
             </form>
@@ -39,7 +37,7 @@ export const CheckOut = () => {
             <div className={styles["items-container"]}>
               <h4>Productos</h4>
               <div className={styles["card-container"]}>
-                {listProductsShoppingCart.map((game) => (
+                {listProductsShoppingCart.map((game, index) => (
                   <div className={styles["card-item"]}>
                     <img src={game.background_image} />
                     <h5>{game.name}</h5>
@@ -47,7 +45,7 @@ export const CheckOut = () => {
                     <button value={game.id} onClick={deleteItem}>x</button>
                   </div>
                 ))}
-                <p>MONTO A PAGAR: $/{totalAmount}</p>
+                <p className={styles.price}>MONTO A PAGAR: $/{totalAmount}</p>
               </div>
             </div>
           </div>

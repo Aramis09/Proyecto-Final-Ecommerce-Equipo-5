@@ -26,7 +26,7 @@ export const NavBar = () => {
             <img src={icon} alt="joystick_icon" />
           </Link>
           <SearchBar/>
-		  <ShoppingCart />
+		      <ShoppingCart />
 
          { isAuthenticated ? <button className={style.loginButton} onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}>LOG OUT</button> :
          <button className={style.loginButton}  onClick={() => loginWithRedirect()}>LOGIN</button>}
