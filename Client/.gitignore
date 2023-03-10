@@ -24,4 +24,4 @@ dist-ssr
 *.sw?
 
 # Files .js
-db.js
+Api\src\db.js
