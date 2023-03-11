@@ -3,6 +3,7 @@ import cart from '../../assets/carrito.png';
 import style from './ShoppingCart.module.css';
 import { useAppSelector } from "../../redux/hooks/hooks";
 import { Link } from "react-router-dom";
+import { ShoppingCartModal } from '../ShoppingCartModal/ShoppingCartModal';
 
 export const ShoppingCart = () => {
     const [modalOpen, setModalOpen] = useState(false);

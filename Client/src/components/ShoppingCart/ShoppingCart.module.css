@@ -1,5 +1,5 @@
 @media (min-width:320px) and (max-width:960px) {
-.cartButton {
+    .cartButton {
         background-color: #018dff;
         border-radius: 40%;
         float: center;

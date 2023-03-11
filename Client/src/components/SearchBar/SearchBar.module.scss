@@ -8,9 +8,11 @@
         justify-content: center;
         align-self: center;        
     }
-    .textSearch{
+
+    .textSearch {
         display: none;
     }
+
     .But {
         background-color: #018dff;
         cursor: pointer;
@@ -24,16 +26,18 @@
         margin: 0px;
         background-color: #018dff;
     }
-    .Input{
+
+    .Input {
         width: 100%;
         border-radius: 10rem;
     }
 }
 
-@media (min-width:961px){
-    .iconSearch{
+@media (min-width:961px) {
+    .iconSearch {
         display: none;
     }
+
     .Input {
         font-family: 'Orbitron', sans-serif;
         border-radius: 20px;
