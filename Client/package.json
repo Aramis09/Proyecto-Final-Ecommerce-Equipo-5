@@ -4,8 +4,8 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
+    "dev": "vite && react-dotenv",
+    "build": "tsc && vite build && react-dotenv",
     "preview": "vite preview",
     "start": "react-scripts start"
   },
@@ -14,6 +14,8 @@
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
     "@mui/material": "^5.11.11",
+    "dotenv": "^16.0.3",
+    "mercadopago": "^1.5.15",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.8.2",

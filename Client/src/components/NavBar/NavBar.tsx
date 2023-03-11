@@ -7,6 +7,7 @@ import { ShoppingCart } from '../../components/ShoppingCart/ShoppingCart';
 import icon from "../../assets/joystick_icon.png";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Button } from "@mui/material";
+import axios from "axios";
 
 
 export const NavBar = () => {
@@ -18,6 +19,11 @@ export const NavBar = () => {
   }
   
   const { loginWithRedirect, user, logout, isAuthenticated } = useAuth0();
+  
+  if(typeof user !== 'undefined'){
+    //axios.post('llamado al backend', {user.email});
+    //console.log('hello')
+  }
 
   return (
       <nav className={style.mainContainer}>

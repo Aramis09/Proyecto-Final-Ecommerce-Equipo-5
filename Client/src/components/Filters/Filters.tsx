@@ -23,7 +23,7 @@ export const Filters = () => {
   let selectedFilterPlatformData = useAppSelector((state) => state.productReducer.selectedFilterPlatformData)
   let selectedFilterPriceRangeData = useAppSelector((state) => state.productReducer.selectedFilterPriceRangeData)
   let selectedAlphabeticOrderData = useAppSelector((state) => state.productReducer.selectedAlphabeticOrderData)
-  console.log(selectAttribute)
+  //console.log(selectAttribute)
   useEffect(() => {
     function handleResize() {
       setSelectAttribute(window.innerWidth > 767);

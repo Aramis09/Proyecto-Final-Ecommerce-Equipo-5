@@ -17,7 +17,7 @@ export const Products = () => {
   useEffect(() => {
     dispatch(getListGenres());
     dispatch(getListPlatforms(''));
-
+ 
     return () => {
       dispatch(eraseSearchedData())
     }

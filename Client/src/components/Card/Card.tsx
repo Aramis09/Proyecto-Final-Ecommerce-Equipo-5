@@ -13,7 +13,7 @@ export const Card = ({
   background_image,
   platforms,
   price,
-}: CardProps) => {
+  }: CardProps) => {
   const platformsSlice = platforms.slice(0, 3);
 
   const dispatch = useAppDispatch();

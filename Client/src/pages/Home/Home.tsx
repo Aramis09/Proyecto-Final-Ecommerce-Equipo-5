@@ -15,7 +15,7 @@ export const Home = () => {
     let data = e.target.value;
     if(data.length>1){
     data = data.split(',')
-    num = data.map(item => parseInt(item))
+    num = data.map((item:any) => parseInt(item))
     } else if (data === '0'){
       num = []
     } else {
@@ -37,7 +37,7 @@ export const Home = () => {
 			}    
     }))
   }
-
+  
   return (
     <div className={styles.container}>
       <NavBar />
