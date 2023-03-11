@@ -1,4 +1,51 @@
 @import '../../styles/global-vars.scss';
+@media (min-width:320px) and (max-width:960px){
+  .carouselContainer{
+    display: none;
+  }
+}
+
+@media (min-width:961px){
+  .carousel-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    height: 300px;
+    width: 100%;
+    padding: 60px 0;
+    font-family: 'Orbitron', sans-serif;
+  }
+}
+
+
+  .card-carousel {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+  }
+
+  .img-carousel {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .img-carousel img {
+    border-radius: 20px;
+    height: 100%;
+    width: 100%;
+    max-width: 700px;
+    object-fit: cover;
+  }
+
+.carousel-buttons--change {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+  gap: 10px;
+}
 
 .carousel-container {
   display: flex;
@@ -55,4 +102,16 @@
   justify-content: center;
   margin-top: 10px;
   gap: 10px;
+}
+
+.carousel-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  height: 300px;
+  width: 100%;
+  padding: 60px 0;
+  font-family: 'Orbitron', sans-serif;
+
 }

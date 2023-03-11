@@ -1,3 +1,5 @@
+import { style } from "@mui/system";
+import styles from "./PriceSlider.module.scss";
 import { useState, useEffect } from "react";
 import { useAppDispatch } from "../../redux/hooks/hooks";
 import { selectedFilterPriceRange } from "../../redux/reducer/productReducer";
@@ -41,9 +43,9 @@ export const PriceSlider = () => {
           }
         />
       </div>
-      <div>
+      <div className={styles.PriceRange}>
         <span>{`Desde: $ ${priceRange[0]}`}</span>
-        <br />
+        <br/>
         <span>{`Hasta: $ ${priceRange[1]}`} </span>
       </div>
     </div>

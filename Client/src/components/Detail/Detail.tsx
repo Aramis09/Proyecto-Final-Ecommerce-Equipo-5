@@ -1,28 +1,43 @@
 import { NavBar } from "../NavBar/NavBar";
 import { Rating } from "../Rating/Rating";
 import { DetailCarousel } from "./DetailCarousel";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { getProductByID } from "../../redux/actions/productAction";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks/hooks";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { eraseItemById } from "../../redux/reducer/productReducer";
+import { addShoppingCart } from "../../redux/actions/shoppingCartAction";
 import styles from "./Detail.module.scss";
+import { ADDED_TO_CART, ALREADY_IN_THE_CART } from "../../utils/constants";
 //los import comentados de abajo no los toquen que son para implementar los botones a futuro
 //import { getListGenres } from "../../redux/actions/genresAction";
 //import { getListPlatforms } from "../../redux/actions/platformAction";
 
 export const Detail = () => {
-  const {id} = useParams()
+  const { id } = useParams();
   const dispatch = useAppDispatch();
   const game:any = useAppSelector((state) => state.productReducer.details)
 
   useEffect(() => {
     dispatch(getProductByID(parseInt(id)))
-
     return () => {
       dispatch(eraseItemById())
     }
   }, [])
+
+  let listProductsShoppingCart: object[] = useAppSelector((state) => state.shoppingCartReducer.listProductsShoppingCart);
+  const [successMsg, setSuccessMsg] = useState("");
+
+  const addingToShoppingCart = (e: any) => {
+    const item = listProductsShoppingCart.find(item => item.id == parseInt(id));
+    if(!item){
+      dispatch(addShoppingCart(game));
+      setSuccessMsg(ADDED_TO_CART);
+    }else{
+      setSuccessMsg(ALREADY_IN_THE_CART);
+    }
+    
+  }
 
   return (
     <>
@@ -40,11 +55,13 @@ export const Detail = () => {
                   <h3>{game.name}</h3>
                   <p>${game.price}</p>
                   <Rating value={game.rating} />
+                  <button type="button" onClick={addingToShoppingCart}>Agregar al carrito</button>
+                  <p>{successMsg}</p>
                 </div>
               </div>
               <div className={styles["right-section"]}>
               <div>
-                <p>{game.description}</p>
+                <p className={styles.description}>{game.description}</p>
                 <div className={styles["right-section-info"]} >
                   <div className={styles["gender-section"]}>
                     <h4>Generos</h4>
@@ -58,7 +75,7 @@ export const Detail = () => {
                       }
                     </div>
                   </div>
-                  <div className={styles["platforms-section"]}>
+                  {/* <div className={styles["platforms-section"]}>
                     <h4>Plataformas</h4>
                     <div className={styles["button-container"]}>
                       {
@@ -69,7 +86,7 @@ export const Detail = () => {
                         
                       }
                   </div>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>

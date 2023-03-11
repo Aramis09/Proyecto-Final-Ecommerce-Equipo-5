@@ -1,5 +1,10 @@
-const { access_token } = require("./keysAndTokensMP"); //CAMBIAR A .ENV!!!
+//const { access_token } = require("./keysAndTokensMP"); //CAMBIAR A .ENV!!!
+require("dotenv").config();
+const {ACCES_TOKEN} = process.env;
 const mercadopago = require("mercadopago");
+
+
+const mercadoPagoUrl = "https://api.mercadopago.com/checkout";
 
 
 const createPaymentMercadoPago = async (items, client) => { //async/await?
@@ -16,7 +21,7 @@ const createPaymentMercadoPago = async (items, client) => { //async/await?
     //luego deberia mandar al array con detalles a la funcion createPaymentMercadoPago.
     const preference = {
         items,
-        external_reference: "Proyecto E-commerce - Henry Grupo V - FT33-b", //podemos poner cualquier cosa aca
+        //external_reference: "Proyecto E-commerce - Henry Grupo V - FT33-b", //podemos poner cualquier cosa aca
         payer: {
             name: clientName,
             surname: clientSurname,
@@ -30,47 +35,44 @@ const createPaymentMercadoPago = async (items, client) => { //async/await?
                 street_name: "calle falsa",
                 street_number: 123
             }
-        },
-        payment_methods: {
-            // declaramos el método de pago y sus restricciones
-            default_payment_method_id: 'naranja',
-            excluded_payment_methods: [
-                {
-                    "id": "cobroexpress",
-                }
-            ], // aca podemos excluir metodos de pagos, tengan en cuenta que es un array de objetos, ej: //excluded_payment_methods: [{id: "amex"}], amex siendo american express.
-            excluded_payment_types: [
-                {
-                    "id": "atm",
-                }
-            ], // aca podemos excluir TIPOS de pagos, es un array de objetos, ejemplo: excluded_payment_types: [{ id: "atm" }], 
-            
-            installments: 1, // limite superior de cantidad de cuotas permitidas //lo dejo en uno por el momento
-            default_installments: 1 // la cantidad de cuotas que van a aparecer por defecto //lo dejo en uno por el momento
-        },
+        }, //si modificas metodos de pago, las cosas se pueden romper...
+        //payment_methods: {
+        //    // declaramos el método de pago y sus restricciones
+        //    default_payment_method_id: 'naranja',
+        //    excluded_payment_methods: [
+        //        {
+        //            "id": "cobroexpress",
+        //        }
+        //    ], // aca podemos excluir metodos de pagos, tengan en cuenta que es un array de objetos, ej: //excluded_payment_methods: [{id: "amex"}], amex siendo american express.
+        //    excluded_payment_types: [
+        //        {
+        //            "id": "atm",
+        //        }
+        //    ], // aca podemos excluir TIPOS de pagos, es un array de objetos, ejemplo: excluded_payment_types: [{ id: "atm" }], 
+        //    
+        //    installments: 1, // limite superior de cantidad de cuotas permitidas //lo dejo en uno por el momento
+        //    default_installments: 1 // la cantidad de cuotas que van a aparecer por defecto //lo dejo en uno por el momento
+        //},
         back_urls: {
             // declaramos las urls de redireccionamiento
-            //success: "https://localhost:3001/payment/response",
-            success: "https://localhost:3001/payment/responseMP", //esto es de prueba, despues lo cambio
+            success: "http://127.0.0.1:5173/",//"https://localhost:3001/payment/responseMP", //esto es de prueba, despues lo cambio
             // url que va a redireccionar si sale todo bien
-            //pending: "https://localhost:3001/payment/pending",
-            pending: "https://localhost:3001/payment/responseMP", //esto es de prueba, despues lo cambio
+            pending: "http://127.0.0.1:5173/", //"https://localhost:3001/payment/responseMP", //esto es de prueba, despues lo cambio
             // url a la que va a redireccionar si decide pagar en efectivo por ejemplo
-            //failure: "https://localhost:3001/payment/error"
-            failure: "https://localhost:3001/payment/responseMP" //esto es de prueba, despues lo cambio
+            failure: "http://127.0.0.1:5173/carrito", //"https://localhost:3001/payment/responseMP" //esto es de prueba, despues lo cambio
             // url a la que va a redireccionar si falla el pago
         },
-        binary_mode: true,
-        notification_url: "https://localhost:3001/payment/webhook", // declaramos nuestra url donde recibiremos las notificaciones
         auto_return: "approved", // si la compra es exitosa automaticamente redirige a "success" de back_urls
-        redirect_urls: { failure: 'https://www.google.com/', pending: 'https://www.google.com/', success: 'https://www.google.com/' } //en testeo
+        binary_mode: true,
+        //notification_url: "https://localhost:3001/payment/webhook?source_news=webhooks", // declaramos nuestra url donde recibiremos las notificaciones
+        //esta variable de notificacion no va a funcionar a menos que tengamos el proyecto deployado en alguna pagina?
+
     }
 
-    
 
     try {
         mercadopago.configure({
-            access_token: access_token
+            access_token: ACCES_TOKEN
         });
         const response = await mercadopago.preferences.create(preference);
         //console.log('rrr', response)
@@ -117,7 +119,7 @@ const reshapeProductInItems = (items) => {
             description: item.description,
             category_id: "virtualKey", //needed
             quantity: 1, //needed
-            currency_id: "USD", //needed
+            currency_id: "ARS", //needed
         }
 
         //return {

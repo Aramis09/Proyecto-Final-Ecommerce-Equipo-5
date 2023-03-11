@@ -1,0 +1,92 @@
+@media (min-width:320px) and (max-width:960px) {
+.cartButton {
+        background-color: #018dff;
+        border-radius: 40%;
+        float: center;
+        margin: 5px;
+        padding: 0;
+        height: 3rem;
+        width: 3rem;
+    }
+
+    .cartButton:hover {
+        background-color: #004074;
+        transition: 1s;
+    }
+
+    .cartIcon {
+        margin: 0px;
+    }
+
+    .modalContainer {
+        position: absolute;
+        top: 25vh;
+        left: 50vw;
+        right: 50vw;
+        display: flex;
+        justify-content: center;
+    }
+
+    .modalContent {
+        background-color: #004074;
+        padding: 1rem;
+        border-radius: 10%;
+        height: auto;
+        width: auto;
+    }
+
+    .closeModalButton {
+        background-color: #018dff;
+        border-radius: 50%;
+        padding: 3px;
+        margin: 5px;
+        height: auto;
+        width: auto;
+    }
+}
+
+@media (min-width:961px) {
+    .cartButton {
+        background-color: #018dff;
+        border-radius: 40%;
+        float: right;
+        margin-left: 0px;
+        padding: 0;
+        height: 3rem;
+        width: 3rem;
+    }
+
+    .cartButton:hover {
+        background-color: #004074;
+        transition: 1s;
+    }
+
+    .cartIcon {
+        margin: auto;
+    }
+
+    .modalContainer {
+        position: absolute;
+        top: 25vh;
+        left: 50vw;
+        right: 50vw;
+        display: flex;
+        justify-content: center;
+    }
+
+    .modalContent {
+        background-color: #004074;
+        padding: 1rem;
+        border-radius: 10%;
+        height: auto;
+        width: auto;
+    }
+
+    .closeModalButton {
+        background-color: #018dff;
+        border-radius: 50%;
+        padding: 3px;
+        margin: 5px;
+        
+    }
+}

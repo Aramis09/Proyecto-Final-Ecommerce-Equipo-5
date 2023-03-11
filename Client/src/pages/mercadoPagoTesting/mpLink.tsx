@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { NavBar } from "../../components/NavBar/NavBar";
-
 import axios from "axios";
 import { MERCADO_PAGO_LINK } from "../../utils/constants";
+
 
 export const Transaccion = () => {
 
@@ -62,3 +62,18 @@ export const Transaccion = () => {
     </div>
     )
 }
+
+
+/*
+manolito_cliente:
+user: TEST_USER_1585688432
+pass: s8Eh7LiWiP
+
+manolito_vendedor:
+user: TEST_USER_167492806
+pass: ZXmXuKF2b9
+*/
+
+/*
+
+*/

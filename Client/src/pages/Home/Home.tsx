@@ -10,12 +10,12 @@ export const Home = () => {
 
   const dispatch = useAppDispatch()
   
-  const toTheSearchList = (e) => {
+  const toTheSearchList = (e: any) => {
     let num;
     let data = e.target.value;
     if(data.length>1){
     data = data.split(',')
-    num = data.map(item => parseInt(item))
+    num = data.map((item:any) => parseInt(item))
     } else if (data === '0'){
       num = []
     } else {
@@ -37,27 +37,16 @@ export const Home = () => {
 			}    
     }))
   }
-
+  
   return (
-    <>
+    <div className={styles.container}>
       <NavBar />
       <Carousel />
-      <section className={styles["buttons-platforms"]}>
-      <Link to={'/products'}>
-        <button value='2' onClick={toTheSearchList}>PC</button>
-      </Link>
-      <Link to={'/products'}>
-        <button value='4,6,15,16' onClick={toTheSearchList}>PLAYSTATION</button>
-      </Link>
-      <Link to={'/products'}>
-        <button value='3,5,14,18' onClick={toTheSearchList}>XBOX</button>
-      </Link>
-      </section>
-      <h2>TOP GAMES</h2>
+      <h2 className={styles.title}>TOP GAMES</h2>
       <Product/>
       <Link to={'/products'}>
         <button className={styles['More-products-btn']} value='0' onClick={toTheSearchList}>More</button>
       </Link>
-    </>
+    </div>
   );
 };
