@@ -32,6 +32,10 @@
     margin: 1%;
   }
 
+  .msg {
+    margin-top: 10px;
+  }
+
 }
 
 
@@ -92,18 +96,21 @@
     width: 100%;
   }
 
-.button-container {
-  display: flex;
-  flex-direction: row;
-}
-.background-image {
-  height: 400px;
-  width: 100%;
-  position: relative;
-  margin-top: 50px;
-  padding-bottom: 10px;
-  overflow: hidden;
-}
+  .button-container {
+    display: flex;
+    flex-direction: row;
+  }
+  .background-image {
+    height: 400px;
+    width: 100%;
+    position: relative;
+    margin-top: 50px;
+    padding-bottom: 10px;
+    overflow: hidden;
+  }
+  .msg{
+    margin-top: 10px;
+  }
 }
 
 @media (min-width:961px){
@@ -182,5 +189,9 @@
 
   .button-container button {
     margin-right: 10px;
+  }
+
+  .msg {
+    margin-top: 10px;
   }
 }

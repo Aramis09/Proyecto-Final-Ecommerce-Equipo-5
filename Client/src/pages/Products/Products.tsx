@@ -34,10 +34,10 @@ export const Products = () => {
           ?
           searchedData.map((item: any, index: number) => {
             return (
-            <div key={index} className={styles.productList}>
+              <div key={index} className={styles.productList}>
               {/* <Link to={`/${item.id}`}> */}
                 <Card
-                  id={index}
+                  id={item.id}
                   key={index}
                   name={item.name}
                   background_image={item.background_image}
@@ -45,7 +45,6 @@ export const Products = () => {
                   price={item.price}
                 />
               {/* </Link> */}
-              
             </div>)
           })
           :

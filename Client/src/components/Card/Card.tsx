@@ -64,8 +64,8 @@ export const Card = ({
         {price === "free" ? <p>{`${price}`}</p> : <p>{`$${price}`}</p>}
       </div>
     </div>
-    <button type="button" onClick={addingToShoppingCart}>Agregar al carrito</button>
-    <p>{successMsg}</p>
+    <button type="button" onClick={addingToShoppingCart}>Add To Cart</button>
+    <p className={styles.msg}>{successMsg}</p>
     </div>
   );
 };

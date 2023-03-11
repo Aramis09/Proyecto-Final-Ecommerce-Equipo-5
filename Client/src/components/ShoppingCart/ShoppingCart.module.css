@@ -66,10 +66,11 @@
     }
 
     .modalContainer {
-        position: absolute;
+        position: fixed;
         top: 25vh;
         left: 50vw;
-        right: 50vw;
+        right: 50vw; 
+        position: absolute;
         display: flex;
         justify-content: center;
     }
@@ -80,6 +81,7 @@
         border-radius: 10%;
         height: auto;
         width: auto;
+        min-width: 300px;
     }
 
     .closeModalButton {
@@ -87,6 +89,5 @@
         border-radius: 50%;
         padding: 3px;
         margin: 5px;
-        
     }
 }
