@@ -90,4 +90,14 @@
         padding: 3px;
         margin: 5px;
     }
+
+    .table{
+        display: flex;
+        justify-content: center;
+    }
+
+    .priceTotal{
+        display: flex;
+        justify-content: center;
+    }
 }

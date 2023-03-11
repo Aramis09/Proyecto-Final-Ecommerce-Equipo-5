@@ -38,11 +38,11 @@ export const ShoppingCart = () => {
                             onClick={ev => handleCloseModal(ev)}>x
                         </button>
     
-                        <table>
+                        <table className={style.table}>
                             <tbody>
                                 {listProductsShoppingCart.map((item, index) => <tr key={index}><td>{item.name} </td><td> ${item.price}</td></tr>)}
                                 <br />
-                                <tr><td>MONTO A PAGAR: </td><td>${totalAmount}</td></tr>
+                                <tr className={style.priceTotal}><td>MONTO A PAGAR: </td><td>${totalAmount}</td></tr>
                             </tbody>
                         </table>
                         <button><Link to = '/checkout'><p>CHECKOUT</p></Link></button>
