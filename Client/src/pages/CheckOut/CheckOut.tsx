@@ -32,7 +32,7 @@ export const CheckOut = () => {
 								<input type='text' placeholder='Name' />
 								<input type='text' placeholder='Last Name' />
 								<input type='email' placeholder='Email' />
-								<input type='text' placeholder='Phone Number' />
+								<input type="tel" placeholder='Phone Number' />
 							</div>
 						</form>
 						{user?.email_verified ? (
