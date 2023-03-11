@@ -28,7 +28,7 @@ export const NavBar = () => {
           <SearchBar/>
 		      <ShoppingCart />
 
-         { isAuthenticated ? <button className={style.loginButton} onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}>LOG OUT</button> :
+          { isAuthenticated ? <button className={style.loginButton} onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}>LOG OUT</button> :
          <button className={style.loginButton}  onClick={() => loginWithRedirect()}>LOGIN</button>}
 
         </div>

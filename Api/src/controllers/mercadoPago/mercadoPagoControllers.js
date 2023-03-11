@@ -2,8 +2,6 @@
 require("dotenv").config();
 const {ACCES_TOKEN} = process.env;
 const mercadopago = require("mercadopago");
-
-
 const mercadoPagoUrl = "https://api.mercadopago.com/checkout";
 
 
