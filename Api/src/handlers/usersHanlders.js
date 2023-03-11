@@ -1,4 +1,4 @@
-const { getAllWishes,getAllUsers,addUser,addProductInShoppingCartForUser,addFriends,addWishToList,getAllFriends,getAllProductsInShoppingCart,addNewComment,getAllCommentOfUser,getAllCommentOfProduct } = require('../controllers/users/userController');
+const { getAllWishes,getAllUsers,addUser,addProductInShoppingCartForUser,addFriends,addWishToList,getAllFriends,getAllProductsInShoppingCart,addNewComment,getAllCommentOfUser,getAllCommentOfProduct,deleteProductinShoppingCart } = require('../controllers/users/userController');
 
 const addNewUser = async (req,res) => {
     try {
@@ -37,6 +37,17 @@ const addNewProductInShoppingCart = async (req,res) => {
         return res.status(400).json(error.message);
     };
 };
+const removeProductoInShoppingCar = async (req,res) => { 
+    try {
+        const {email,idProduct} = req.query;
+        const newList = await deleteProductinShoppingCart(email,idProduct);
+        if(newList.error) throw new Error(newList.error);
+        return res.status(200).json(newList);
+    } catch (error) {
+        return res.status(400).json(error.message);
+    };
+};
+
 
 const userList = async (req,res) => {
     try {
@@ -122,4 +133,4 @@ const commentListOfProduct= async (req,res) => {
     };
 };
 
-module.exports = { userList,userID,addNewUser,addNewProductInShoppingCart,addNewFriend,addWish,friendsList,productsListShoppingCart,wishesList,addComment,commentListOfUser,commentListOfProduct };
+module.exports = { userList,userID,addNewUser,addNewProductInShoppingCart,addNewFriend,addWish,friendsList,productsListShoppingCart,wishesList,addComment,commentListOfUser,commentListOfProduct,removeProductoInShoppingCar };

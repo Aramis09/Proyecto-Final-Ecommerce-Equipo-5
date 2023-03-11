@@ -11,16 +11,7 @@ const addUser = async email => {
        return {error:error.message}; 
     };
 };
-// const addFriends = async (emailUser,emailFriend)=> {
-//     try {
-//         console.log(emailUser,emailFriend)
-//         const user = await User.findByPk(emailUser);
-//         const friend = await Friend.create({emailFriend});
-//         await friend.setUser(user);
-//     } catch (error) {
-//         return {error:error.message}
-//     };
-// };
+
 const addFriends = async (emailUser,emailFriend)=> {
     try {
     
@@ -60,13 +51,10 @@ const getAllUsers = async () =>{
         return {error:error.message};
     };
 };
-const getAllFriends = async email => {/////////////////////////////////////////
+const getAllFriends = async email => {
     try {
         const user = await User.findByPk(email);
         const friendList = await user.getFriendInList();
-        // const prueba = await FriendUser.findAll({where:{FriendInListEmail:email}});
-        // const allFriends = friendList.concat(prueba);
-        // return friendList;   // no borrar
         return friendList;
     } catch (error) {
         return {error:error.message};
@@ -80,11 +68,11 @@ const addProductInShoppingCartForUser = async (pkUser,pkProduct) => {
             // especificar la tabla intermedia a utilizar
             through: { ShoppingCart: pkProduct } 
         });
-        const userWithProduct = await User.findByPk(pkUser);
-        return userWithProduct;
+        const newList = await getAllProductsInShoppingCart(pkUser);
+        return newList;
     } catch (error) {
         return {error:error.message};
-    }
+    };
 };
 const getAllProductsInShoppingCart = async email=> {
     try {
@@ -93,7 +81,21 @@ const getAllProductsInShoppingCart = async email=> {
         return productList;
     } catch (error) {
         return {error:error.message};
-    }
+    };
+};
+const deleteProductinShoppingCart = async (email,idProduct) => {
+    try {
+        const user = await User.findByPk(email);
+        const  porductToAdd = await Product.findByPk(idProduct);
+        await user.removeProduct(porductToAdd, {
+            // especificar la tabla intermedia a utilizar
+            through: { ShoppingCart: idProduct } 
+        });
+        const newList = await getAllProductsInShoppingCart(email);
+        return newList;
+    } catch (error) {
+        return {error:error.message};
+    };
 };
 const addWishToList = async (pkUser,pkProduct) => {
     try {
@@ -146,6 +148,6 @@ const getAllCommentOfProduct = async idProduct => {
     return commentOfUser;
 };
 
-module.exports = {addFriends,getAllUsers,addUser,addProductInShoppingCartForUser,addWishToList,getAllFriends,getAllProductsInShoppingCart,getAllWishes,addNewComment,getAllCommentOfUser,getAllCommentOfProduct};
+module.exports = {addFriends,getAllUsers,addUser,addProductInShoppingCartForUser,addWishToList,getAllFriends,getAllProductsInShoppingCart,getAllWishes,addNewComment,getAllCommentOfUser,getAllCommentOfProduct,deleteProductinShoppingCart};
 
 
