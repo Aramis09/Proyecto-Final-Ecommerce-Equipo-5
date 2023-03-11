@@ -1,3 +1,5 @@
+
+
 import { NavBar } from "../../components/NavBar/NavBar";
 //import { allGames } from "../../get";
 import styles from "./CheckOut.module.scss";
@@ -5,6 +7,8 @@ import { useAppSelector, useAppDispatch } from "../../redux/hooks/hooks";
 import { deleteItemShoppingCart } from "../../redux/actions/shoppingCartAction";
 import axios from "axios";
 import { MERCADO_PAGO_LINK } from "../../utils/constants";
+import { useAuth0 } from "@auth0/auth0-react";
+
 
 
 export const CheckOut = () => {
@@ -13,7 +17,8 @@ export const CheckOut = () => {
   let totalAmount: number = useAppSelector((state) => state.shoppingCartReducer.totalAmount);
   console.log('CJECKOUT CARRITO', listProductsShoppingCart)
   let items = listProductsShoppingCart
-  let client = {}
+  let {user}: any = useAuth0();
+  
 
   const dispatch = useAppDispatch();
   const deleteItem = (e: any) => {
@@ -22,15 +27,19 @@ export const CheckOut = () => {
   }
 
   const fetchCheckout = async () => {
-    console.log('items?', listProductsShoppingCart)
+    //console.log('items?', listProductsShoppingCart)
+    let client = {
+      name: user.name,
+      email: user.email
+    }
     // data.global is the ID that MP returns from the API, it comes from our backend route
     let redirectLink:any = (await axios.post(MERCADO_PAGO_LINK, {items, client})).data.response
-    console.log('red', redirectLink)
-    if(redirectLink.id) {
+    //console.log('red', await redirectLink)
+    if(await redirectLink.id) {
         const script = document.createElement('script') // Here we create the empty script tag
         script.type = 'text/javascript' // The type of the script
         script.src = 'https://sdk.mercadopago.com/js/v2' // The link where the script is hosted //script.src = 'https://sdk.mercadopago.com/js/v2'
-        script.setAttribute('data-preference-id', redirectLink.id) // Here we set its data-preference-id to the ID that the Mercado Pago API gives us
+        script.setAttribute('data-preference-id', await redirectLink.id) // Here we set its data-preference-id to the ID that the Mercado Pago API gives us
         document.body.appendChild(script) // Here we append it to the body of our page
 
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -40,11 +49,11 @@ export const CheckOut = () => {
         const mp = new window.MercadoPago('TEST-5bbaf9c6-7285-45e4-966a-83819d381b76', {
             locale: 'es-AR'
         })
-        // console.log(process.env.REACT_APP_MP_PUBLIC_KEY)
+        
         // The ".checkout" is the function that creates the connection between the button and the platform
         mp.checkout({
             preference: {
-            id: redirectLink.id
+            id: await redirectLink.id
             },
             render: {
             container: '.cho-container',
@@ -54,7 +63,8 @@ export const CheckOut = () => {
     };
   };
 
-
+  
+  
   if(listProductsShoppingCart.length > 0){
     return (
       <>
@@ -99,16 +109,37 @@ export const CheckOut = () => {
 NOTAS:
 
 _hacer dotenv para credencial PUBLIC de mercadopago.
+
 _hacer que el boton de mercado pago se genere sin desincronizacion (a veces no aparece)
 _hacer que el boton de mercado pago funcione bien, sin duplicaciones.
+
 _en caso de pago aprobadom, llevar a componente de "aprovado", (en este componente se hara una copia de los productos
 para guardar en db y se borrara los datos del carrito del store)
 _en caso de pago "pendiente"?
 _en caso de pago "rechazado", volver al carrito de compras.
+
+
 _buscar como hacer para recibir las notificaciones del comprobante de compra.
 
 _dejar la moneda en peso o dolar?
--agregar limitaciones de pago?
+_agregar limitaciones de pago?
 _
+
+
+
+
+
+*/
+
+/*
+if (!user.email){
+    
+    return(
+      <div>
+        <NavBar />
+        La cuenta ingresada no soporta pagos, porfavor deslogueate
+      </div>
+    )
+  } else
 
 */

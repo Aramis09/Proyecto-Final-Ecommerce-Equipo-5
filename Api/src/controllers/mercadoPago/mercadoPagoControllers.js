@@ -13,6 +13,7 @@ const createPaymentMercadoPago = async (items, client) => { //async/await?
     clientName = clientFullName.clientName;
     clientSurname = clientFullName.clientSurname;
     //console.log('client name surname', clientName, clientSurname)
+    //console.log(client.email)
 
     items = reshapeProductInItems(items);
     //console.log('b', items)
@@ -53,11 +54,11 @@ const createPaymentMercadoPago = async (items, client) => { //async/await?
         //},
         back_urls: {
             // declaramos las urls de redireccionamiento
-            success: "http://127.0.0.1:5173/",//"https://localhost:3001/payment/responseMP", //esto es de prueba, despues lo cambio
+            success: "http://127.0.0.1:3000/success",//"https://localhost:3001/payment/responseMP", //esto es de prueba, despues lo cambio
             // url que va a redireccionar si sale todo bien
-            pending: "http://127.0.0.1:5173/", //"https://localhost:3001/payment/responseMP", //esto es de prueba, despues lo cambio
+            pending: "http://127.0.0.1:3000/", //"https://localhost:3001/payment/responseMP", //esto es de prueba, despues lo cambio
             // url a la que va a redireccionar si decide pagar en efectivo por ejemplo
-            failure: "http://127.0.0.1:5173/carrito", //"https://localhost:3001/payment/responseMP" //esto es de prueba, despues lo cambio
+            failure: "http://127.0.0.1:3000/failure", //"https://localhost:3001/payment/responseMP" //esto es de prueba, despues lo cambio
             // url a la que va a redireccionar si falla el pago
         },
         auto_return: "approved", // si la compra es exitosa automaticamente redirige a "success" de back_urls
@@ -67,7 +68,7 @@ const createPaymentMercadoPago = async (items, client) => { //async/await?
 
     }
 
-
+    console.log('acct', ACCES_TOKEN)
     try {
         mercadopago.configure({
             access_token: ACCES_TOKEN
@@ -86,6 +87,11 @@ const selectNameSurname = (client) => {
     let clientSurname;
     let clientFullName = client.name.split(' ');
     //console.log('clientFullName', clientFullName)
+    
+    if(clientFullName.length === 1){
+        clientName = clientFullName[0];
+        clientSurname = 'No_tiene';
+    }
     if(clientFullName.length === 2){
         clientName = clientFullName[0];
         clientSurname = clientFullName[1];
@@ -114,7 +120,7 @@ const reshapeProductInItems = (items) => {
             title: item.name,
             picture_url: item.background_image,
             unit_price: parseFloat(item.price),
-            description: item.description,
+            //description: item.description,
             category_id: "virtualKey", //needed
             quantity: 1, //needed
             currency_id: "ARS", //needed

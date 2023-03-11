@@ -3,13 +3,13 @@ const { createPaymentMercadoPago } = require("../controllers/mercadoPago/mercado
 const getMercadoPagoLink = async (req, res) => {
 
   let {items, client} = req.body;
-  client = {
-      name: "nombre nombre apellido",
-      email: "cualquiercosa@gmail.com"
-    }
+  //client = {
+  //    name: "nombre nombre apellido",
+  //    email: "cualquiercosa@gmail.com"
+  //  }
   let paymentCreated = await createPaymentMercadoPago(items, client)
   //console.log('response payment created: ', paymentCreated) //paymentCreated.init_point?
-  console.log('response payment created: ', paymentCreated);
+  //console.log('response payment created: ', paymentCreated);
   res.status(200).send(paymentCreated)
 }
 
