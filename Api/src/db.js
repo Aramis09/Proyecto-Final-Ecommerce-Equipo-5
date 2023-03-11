@@ -2,7 +2,7 @@
 const { Sequelize } = require("sequelize");
 require("dotenv").config(); //**La variables de entorno quedan dispobnibles .env */
 // const { DB_DATA } = process.env;
-const sequelize = new Sequelize(`postgres://postgres:postgres@localhost/ecommerce`, { logging: false });
+const sequelize = new Sequelize(`postgres://postgres:123456@localhost/ecommerce`, { logging: false });
 
 //**Definicion de modelos (con sequelize)*/
 const ProductModel = require("./models/Product");

@@ -1,5 +1,5 @@
 @media (min-width:320px) and (max-width:960px) {
-.cartButton {
+    .cartButton {
         background-color: #018dff;
         border-radius: 40%;
         float: center;
@@ -18,17 +18,17 @@
         margin: auto;
     }
 
-    .modalContainer {
+    /* .modalContainer {
         position: absolute;
         top: 85%;
         left: 80%;
-    }
+    } */
 
-    .modalContent {
+    /* .modalContent {
         background-color: #004074;
         padding: 1rem;
         border-radius: 10%;
-    }
+    } */
 
     .closeModalButton {
         background-color: #018dff;
@@ -36,31 +36,31 @@
         padding: 0;
         margin: 5px;
         height: 50%;
-        width: 20%;
+        width: 50%;
     }
 }
 
 @media (min-width:961px) {
-.cartButton {
-    background-color: #018dff;
-    border-radius: 40%;
-    float: right;
-    margin-left: 0px;
-    padding: 0;
-    height: 3rem;
-    width: 3rem;
-}
+    .cartButton {
+        background-color: #018dff;
+        border-radius: 40%;
+        float: right;
+        margin-left: 0px;
+        padding: 0;
+        height: 3rem;
+        width: 3rem;
+    }
 
-.cartButton:hover {
-    background-color: #004074;
-    transition: 1s;
-}
+    .cartButton:hover {
+        background-color: #004074;
+        transition: 1s;
+    }
 
-.cartIcon {
-    margin: auto;
-}
+    .cartIcon {
+        margin: auto;
+    }
 
-.modalContainer {
+    /* .modalContainer {
     position: absolute;
     top: 20%;
     left: 80%;
@@ -70,14 +70,14 @@
     background-color: #004074;
     padding: 1rem;
     border-radius: 10%;
-}
+}*/
 
-.closeModalButton {
-    background-color: #018dff;
-    border-radius: 50%;
-    padding: 0;
-    margin: 5px;
-    height: 50%;
-    width: 20%;
-}
+    .closeModalButton {
+        background-color: #018dff;
+        border-radius: 50%;
+        padding: 0;
+        margin: 5px;
+        height: 50%;
+        width: 50%;
+    }
 }
