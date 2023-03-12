@@ -18,7 +18,8 @@ const StoreModel = require("./models/Store");
 const ProductsPlatformsModel = require("./models/ProductsPlatforms");
 const ProductsGenresModel = require("./models/ProductsGenres");
 const ProductsStoresModel = require("./models/ProductsStores");
-
+const UserModel = require("./models/User");   
+const CommentModel = require("./models/Comment");
 /**Instancias que definen los modelos, crea el .models: */
 ProductModel(sequelize);
 PlatformModel(sequelize);
@@ -28,11 +29,13 @@ StoreModel(sequelize);
 ProductsPlatformsModel(sequelize);
 ProductsGenresModel(sequelize);
 ProductsStoresModel(sequelize);
+UserModel(sequelize);
+CommentModel(sequelize);
 
 
 
 //**Relacionar los Modelos */
-const {Product, Platform, Genre, Image, Store, ProductsPlatforms, ProductsGenres, ProductsStores} = sequelize.models;
+const {Product, Platform, Genre,Comment, Image, Store,User, ProductsPlatforms, ProductsGenres, ProductsStores} = sequelize.models;
 
 const ProductsPlatforms_Profile = sequelize.define('ProductsPlatforms', {}, { timestamps: false });
 Product.belongsToMany(Platform,{through:ProductsPlatforms_Profile});
@@ -48,6 +51,27 @@ Store.belongsToMany(Product,{through:ProductsStores_Profile});
 
 Product.hasMany(Image);
 Image.belongsTo(Product);
+
+
+////////////////////////relaciones de carrito ////////////////////////////////////////
+const ShoppingCart = sequelize.define('ShoppingCart', {}, { timestamps: false });
+User.belongsToMany(Product, { through: ShoppingCart });
+Product.belongsToMany(User, { through: ShoppingCart });
+
+
+//borrar lo de abajo.
+const WishlistProduct = sequelize.define('WishlistProduct', {}, { timestamps: false });
+User.belongsToMany(Product, { through: WishlistProduct, as: 'Wishlist' });
+Product.belongsToMany(User, { through: WishlistProduct });
+
+const FriendUser = sequelize.define('FriendUser', {}, { timestamps: false });
+User.belongsToMany(User, { through: FriendUser, as: 'FriendInList' });
+
+User.hasMany(Comment, { foreignKey: 'userId' });
+Comment.belongsTo(User, { foreignKey: 'userId' });
+
+Comment.belongsTo(Product, { foreignKey: 'productId' });
+Product.hasMany(Comment, { foreignKey: 'productId' });
 
 //**Exportarla para poder trabajar con los modelos en los controllers */
 module.exports={sequelize, ...sequelize.models};

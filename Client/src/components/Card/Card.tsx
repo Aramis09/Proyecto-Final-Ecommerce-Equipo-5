@@ -3,21 +3,32 @@ import carIcon from "../../assets/shopping-cart-add-button_icon-icons.com_56132.
 import styles from "./Card.module.scss";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks/hooks";
 import { addShoppingCart } from "../../redux/actions/shoppingCartAction";
+import { addNewProductInShoppingCart } from "../../redux/actions/shoppingCartAction";
+import { addAmountForShoppingCartUser, restAmountForShoppingCartUser } from "../../redux/reducer/shoppingCartReducer";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from 'react';
 import { ADDED_TO_CART, ALREADY_IN_THE_CART } from "../../utils/constants";
+import { useAuth0 } from "@auth0/auth0-react";
+
 
 export const Card = ({
   id,
   name,
   background_image,
-  platforms,
+  //platforms,
   price,
-  }: CardProps) => {
-  const platformsSlice = platforms.slice(0, 3);
-
+  }: any) => {
+    const {user}:any = useAuth0();
+  //const platformsSlice = platforms.slice(0, 3);
   const dispatch = useAppDispatch();
-  let listProductsShoppingCart: object[] = useAppSelector((state) => state.shoppingCartReducer.listProductsShoppingCart);
+
+
+  if(typeof user !== 'undefined'){
+    var listProductsShoppingCart: object[] = useAppSelector((state) => state.shoppingCartReducer.listProductsShoppingCartUser);
+  } else {
+    var listProductsShoppingCart: object[] = useAppSelector((state) => state.shoppingCartReducer.listProductsShoppingCartGuest);
+  }
+
   const [successMsg, setSuccessMsg] = useState("");
 
   const addingToShoppingCart = (e: any) => {
@@ -27,10 +38,17 @@ export const Card = ({
       background_image,
       price,      
     }
-    const item = listProductsShoppingCart.find(item => item.id == parseInt(id));
+    const item = listProductsShoppingCart.find((item: any) => item.id == parseInt(id));
     
     if(!item){
-      dispatch(addShoppingCart(game));
+
+      if(typeof user !== 'undefined'){
+        dispatch(addNewProductInShoppingCart(id, user.email));
+        dispatch(addAmountForShoppingCartUser(price));
+      } else {
+        dispatch(addShoppingCart(game));
+      }
+
       setSuccessMsg(ADDED_TO_CART);
     }else{
       setSuccessMsg(ALREADY_IN_THE_CART);

@@ -7,14 +7,18 @@ import { useAppDispatch, useAppSelector } from "../../redux/hooks/hooks";
 import { useEffect, useState } from "react";
 import { eraseItemById } from "../../redux/reducer/productReducer";
 import { addShoppingCart } from "../../redux/actions/shoppingCartAction";
+import { addNewProductInShoppingCart } from "../../redux/actions/shoppingCartAction";
 import styles from "./Detail.module.scss";
 import { ADDED_TO_CART, ALREADY_IN_THE_CART } from "../../utils/constants";
+import { addAmountForShoppingCartUser } from "../../redux/reducer/shoppingCartReducer";
+import { useAuth0 } from "@auth0/auth0-react";
 //los import comentados de abajo no los toquen que son para implementar los botones a futuro
 //import { getListGenres } from "../../redux/actions/genresAction";
 //import { getListPlatforms } from "../../redux/actions/platformAction";
 
 export const Detail = () => {
-  const { id } = useParams();
+  const {user}:any = useAuth0();
+  const { id }:any = useParams();
   const dispatch = useAppDispatch();
   const game:any = useAppSelector((state) => state.productReducer.details)
 
@@ -25,13 +29,24 @@ export const Detail = () => {
     }
   }, [])
 
-  let listProductsShoppingCart: object[] = useAppSelector((state) => state.shoppingCartReducer.listProductsShoppingCart);
+  if(typeof user !== 'undefined'){
+    var listProductsShoppingCart: object[] = useAppSelector((state) => state.shoppingCartReducer.listProductsShoppingCartUser);
+  } else {
+    var listProductsShoppingCart: object[] = useAppSelector((state) => state.shoppingCartReducer.listProductsShoppingCartGuest);
+  }
   const [successMsg, setSuccessMsg] = useState("");
 
   const addingToShoppingCart = (e: any) => {
-    const item = listProductsShoppingCart.find(item => item.id == parseInt(id));
+    const item:any = listProductsShoppingCart.find((item:any) => item.id == parseInt(id));
+    //console.log('detail item', item)
     if(!item){
-      dispatch(addShoppingCart(game));
+
+      if(typeof user !== 'undefined'){
+        dispatch(addNewProductInShoppingCart(id, user.email));
+        dispatch(addAmountForShoppingCartUser(item.price))
+      } else {
+        dispatch(addShoppingCart(game));
+      }
       setSuccessMsg(ADDED_TO_CART);
     }else{
       setSuccessMsg(ALREADY_IN_THE_CART);

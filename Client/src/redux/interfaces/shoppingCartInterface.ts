@@ -1,6 +1,7 @@
 export interface shoppingCartReducerState{
-    listProductsShoppingCart: Array<object>,
+    listProductsShoppingCartUser: Array<object>,
     totalAmount: number, 
     successMsg: string,
-    errorMsg: string
+    errorMsg: string,
+    listProductsShoppingCartGuest: Array<object>,
 }
