@@ -1,14 +1,20 @@
 import { Carousel } from "../../components/Carousel/Carousel";
 import { NavBar } from "../../components/NavBar/NavBar";
 import { Product } from "../../components/Product/Product";
-import { useAppDispatch } from "../../redux/hooks/hooks";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks/hooks";
 import { getProductsByFilters } from "../../redux/actions/productAction";
+//import { getShoppingCartUserFromDB } from "../../redux/actions/shoppingCartAction";
 import { Link } from "react-router-dom";
 import styles from "./Home.module.scss";
+//import { useAuth0 } from "@auth0/auth0-react";
+
 
 export const Home = () => {
 
-  const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch();
+
+  
+
   
   const toTheSearchList = (e: any) => {
     let num;

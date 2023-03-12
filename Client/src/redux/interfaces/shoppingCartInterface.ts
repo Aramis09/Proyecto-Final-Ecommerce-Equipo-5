@@ -4,4 +4,5 @@ export interface shoppingCartReducerState{
     successMsg: string,
     errorMsg: string,
     listProductsShoppingCartGuest: Array<object>,
+    emptyUserDBShoppingCart: boolean
 }

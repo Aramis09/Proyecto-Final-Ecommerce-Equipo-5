@@ -8,7 +8,8 @@ const initialState: shoppingCartReducerState = {
     totalAmount: 0.00,
     successMsg: "",
     errorMsg: "",
-    listProductsShoppingCartGuest: []
+    listProductsShoppingCartGuest: [],
+    emptyUserDBShoppingCart: false
 }
 
 export const shoppingCartReducer = createSlice({
@@ -45,22 +46,27 @@ export const shoppingCartReducer = createSlice({
             state.totalAmount = 0.00;
         },
         updateShoppingCartUser: (state, action) => {
+            state.totalAmount = 0.00;
+            action.payload.forEach((item:any) => state.totalAmount += parseFloat(item.price))
             state.listProductsShoppingCartUser = action.payload
         },
         addAmountForShoppingCartUser: (state, action) => {
-            state.totalAmount += parseFloat(action.payload)
+            state.totalAmount = Number((state.totalAmount + Number(action.payload)).toFixed(2));
         },
         restAmountForShoppingCartUser: (state, action) => {
-            state.totalAmount -= parseFloat(action.payload)
+            state.totalAmount = Number((state.totalAmount - Number(action.payload)).toFixed(2));
         },
-        gettingShoppingCartFromDBUser: (state, action) => {
-            state.listProductsShoppingCartUser = action.payload;
-            if(state.listProductsShoppingCartUser.length > 0){
-                for(let i = 0; i < state.listProductsShoppingCartUser.length; i++) {
-                    state.totalAmount = Number((state.totalAmount + Number(action.payload.price)).toFixed(2));
-                }
-            }
+        userShoppingDBemptyByHand: (state, action) => {
+            state.emptyUserDBShoppingCart = action.payload
         },
+        //gettingShoppingCartFromDBUser: (state, action) => {
+        //    state.listProductsShoppingCartUser = action.payload;
+        //    if(state.listProductsShoppingCartUser.length > 0){
+        //        for(let i = 0; i < state.listProductsShoppingCartUser.length; i++) {
+        //            state.totalAmount = Number((state.totalAmount + Number(action.payload.price)).toFixed(2));
+        //        }
+        //    }
+        //},
         successMsg: (state, action) => {
             state.successMsg = action.payload
         },
@@ -80,7 +86,8 @@ export const {
     addAmountForShoppingCartUser,
     restAmountForShoppingCartUser,
     eraseGuestShoppingCart,
-    gettingShoppingCartFromDBUser
+    //  gettingShoppingCartFromDBUser,
+    userShoppingDBemptyByHand
 } = shoppingCartReducer.actions;
 
 export default shoppingCartReducer.reducer

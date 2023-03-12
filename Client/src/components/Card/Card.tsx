@@ -4,7 +4,7 @@ import styles from "./Card.module.scss";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks/hooks";
 import { addShoppingCart } from "../../redux/actions/shoppingCartAction";
 import { addNewProductInShoppingCart } from "../../redux/actions/shoppingCartAction";
-import { addAmountForShoppingCartUser, restAmountForShoppingCartUser } from "../../redux/reducer/shoppingCartReducer";
+import { addAmountForShoppingCartUser } from "../../redux/reducer/shoppingCartReducer";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from 'react';
 import { ADDED_TO_CART, ALREADY_IN_THE_CART } from "../../utils/constants";

@@ -1,6 +1,7 @@
 import { NavBar } from "../../components/NavBar/NavBar";
 //import { allGames } from "../../get";
 import styles from "./CheckOut.module.scss";
+import { useEffect } from "react";
 import { useAppSelector, useAppDispatch } from "../../redux/hooks/hooks";
 import { deleteItemShoppingCart } from "../../redux/actions/shoppingCartAction";
 import { removeProductoInShoppingCar } from "../../redux/actions/shoppingCartAction";
@@ -10,20 +11,21 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { restAmountForShoppingCartUser } from "../../redux/reducer/shoppingCartReducer";
 
 
-
 export const CheckOut = () => {
   //const gameSlice = allGames.slice(0, 3);
-  let {user}: any = useAuth0();
+  const dispatch = useAppDispatch();
+
+  const {user}: any = useAuth0();
   if(typeof user !== 'undefined'){
     var listProductsShoppingCart: object[] = useAppSelector((state) => state.shoppingCartReducer.listProductsShoppingCartUser);
   } else {
       var listProductsShoppingCart: object[] = useAppSelector((state) => state.shoppingCartReducer.listProductsShoppingCartGuest);
   }
   let totalAmount: number = useAppSelector((state) => state.shoppingCartReducer.totalAmount);
-  let items = listProductsShoppingCart
+  totalAmount = Math.round(totalAmount * 100) / 100
+  let items:any = listProductsShoppingCart
   console.log('checkout items', items)
 
-  const dispatch = useAppDispatch();
   const deleteItem = (e: any) => {
     console.log("El id a enviar es: " + e.target.value);
     let lessPrice = items.filter((i:any) => i.id === parseInt(e.target.value))[0].price
@@ -71,6 +73,12 @@ export const CheckOut = () => {
     };
   };
 
+
+  //useEffect(() => {
+  //  if(typeof user !== 'undefined'){
+  //    console.log('yes')
+  //  } 
+  //}, [])
   
   
   if(listProductsShoppingCart.length > 0){
