@@ -12,7 +12,7 @@ export const ShoppingCartItem = () => {
                 <table>
                     <tbody>
                         {listProductsShoppingCart.map((item, index) => <tr key={index}><td>{item.name}</td><td>${item.price}</td></tr>)}
-                        <tr><td>MONTO A PAGAR: </td><td>${totalAmount}</td></tr>
+                        <tr><td>Amount Payable: </td><td>${totalAmount}</td></tr>
                     </tbody>
                 </table>
                 <button>
@@ -23,7 +23,7 @@ export const ShoppingCartItem = () => {
     } else {
         return (
             <div>
-                <p>CARRITO VACIO</p>
+                <p>Empty Shopping Car</p>
             </div>
         );
     };
