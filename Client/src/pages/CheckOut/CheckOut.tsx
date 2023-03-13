@@ -12,7 +12,6 @@ import { restAmountForShoppingCartUser } from "../../redux/reducer/shoppingCartR
 
 
 export const CheckOut = () => {
-  //const gameSlice = allGames.slice(0, 3);
   const dispatch = useAppDispatch();
   const { user, isAuthenticated, loginWithPopup, logout }: any = useAuth0();
 
@@ -68,7 +67,7 @@ export const CheckOut = () => {
         },
         render: {
           container: '.cho-container',
-          label: 'Pagar',
+          label: 'Pay',
         }
       });
     };
@@ -96,7 +95,7 @@ export const CheckOut = () => {
 									onClick={fetchCheckout}>
 									Generate Payment Link
 								</button>
-								<p className='cho-container'></p>
+								<p className='.cho-container'></p>
 							</>
 						) : (
 							<button
