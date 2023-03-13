@@ -9,11 +9,11 @@ import { useEffect } from "react";
 import { useAppDispatch } from "./redux/hooks/hooks";
 import { getTopRatedProducts } from "./redux/actions/productAction";
 
+
 function App() {
 
-
   const dispatch = useAppDispatch();
-
+  
   
   useEffect(() => {
     dispatch(getTopRatedProducts())

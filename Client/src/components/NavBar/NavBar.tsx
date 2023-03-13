@@ -6,7 +6,8 @@ import { SearchBar } from "../SearchBar/SearchBar";
 import { ShoppingCart } from '../../components/ShoppingCart/ShoppingCart';
 import icon from "../../assets/joystick_icon.png";
 import { useAuth0 } from "@auth0/auth0-react";
-
+import { useEffect } from 'react';
+import axios from "axios";
 
 
 export const NavBar = () => {
@@ -18,11 +19,15 @@ export const NavBar = () => {
   }
   
   const { loginWithRedirect, user, logout, isAuthenticated } = useAuth0();
-  
-  if(typeof user !== 'undefined'){
-    //axios.post('llamado al backend', {user.email});
-    //console.log('hello')
-  }
+
+  useEffect(() => {
+    const addNewUser = async () => {
+      if(typeof user !== 'undefined'){
+        await axios.get(`http://localhost:3001/user/userNew?email=${user.email}`);
+      }
+    }
+    addNewUser()
+  })
 
   return (
 		<nav className={style.mainContainer}>

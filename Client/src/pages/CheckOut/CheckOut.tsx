@@ -1,26 +1,38 @@
 import { NavBar } from "../../components/NavBar/NavBar";
-//import { allGames } from "../../get";
 import styles from "./CheckOut.module.scss";
 import { useAppSelector, useAppDispatch } from "../../redux/hooks/hooks";
 import { deleteItemShoppingCart } from "../../redux/actions/shoppingCartAction";
-import { useAuth0 } from '@auth0/auth0-react';
 import style from "../../components/NavBar/NavBar.module.scss";
+import { Navigate } from "react-router-dom";
+import { removeProductoInShoppingCar } from "../../redux/actions/shoppingCartAction";
 import axios from "axios";
 import { MERCADO_PAGO_LINK } from "../../utils/constants";
-import { Navigate } from "react-router-dom";
+import { useAuth0 } from "@auth0/auth0-react";
+import { restAmountForShoppingCartUser } from "../../redux/reducer/shoppingCartReducer";
+
 
 export const CheckOut = () => {
   //const gameSlice = allGames.slice(0, 3);
-  let listProductsShoppingCart: object[] = useAppSelector((state) => state.shoppingCartReducer.listProductsShoppingCart);
-  let totalAmount: number = useAppSelector((state) => state.shoppingCartReducer.totalAmount);
-  console.log('CHECKOUT CARRITO', listProductsShoppingCart)
-  let items = listProductsShoppingCart
-  const { user, isAuthenticated, loginWithPopup, logout }: any = useAuth0()
-
-  
   const dispatch = useAppDispatch();
+  const { user, isAuthenticated, loginWithPopup, logout }: any = useAuth0();
+
+  if(typeof user !== 'undefined'){
+    var listProductsShoppingCart: object[] = useAppSelector((state) => state.shoppingCartReducer.listProductsShoppingCartUser);
+  } else {
+      var listProductsShoppingCart: object[] = useAppSelector((state) => state.shoppingCartReducer.listProductsShoppingCartGuest);
+  }
+  let totalAmount: number = useAppSelector((state) => state.shoppingCartReducer.totalAmount);
+  totalAmount = Math.round(totalAmount * 100) / 100
+  let items:any = listProductsShoppingCart
+  console.log('checkout items', items)
+
   const deleteItem = (e: any) => {
     console.log("El id a enviar es: " + e.target.value);
+    let lessPrice = items.filter((i:any) => i.id === parseInt(e.target.value))[0].price
+    if(typeof user !== 'undefined'){
+      dispatch(removeProductoInShoppingCar(e.target.value, user.email))
+      dispatch(restAmountForShoppingCartUser(lessPrice))
+    }
     dispatch(deleteItemShoppingCart(e.target.value));
   }
 

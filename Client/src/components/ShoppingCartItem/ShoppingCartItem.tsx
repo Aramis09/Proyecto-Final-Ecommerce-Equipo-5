@@ -1,11 +1,22 @@
 import { useAppSelector } from "../../redux/hooks/hooks";
 import { Link } from "react-router-dom";
 import style from './ShoppingCartItem.module.css';
+import { useAuth0 } from '@auth0/auth0-react';
+
 
 
 export const ShoppingCartItem = () => {
+    const { user }: any = useAuth0();
 
-    let listProductsShoppingCart: object[] = useAppSelector((state) => state.shoppingCartReducer.listProductsShoppingCart);
+    if (typeof user !== 'undefined') {
+			var listProductsShoppingCart: object[] = useAppSelector(
+				(state) => state.shoppingCartReducer.listProductsShoppingCartUser,
+			);
+		} else {
+			var listProductsShoppingCart: object[] = useAppSelector(
+				(state) => state.shoppingCartReducer.listProductsShoppingCartGuest,
+			);
+		}
     let totalAmount: number = useAppSelector((state) => state.shoppingCartReducer.totalAmount);
 
     if (listProductsShoppingCart.length > 0) {

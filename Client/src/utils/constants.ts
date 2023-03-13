@@ -8,3 +8,7 @@ export const ADDED_TO_CART='Added To Cart';
 export const ALREADY_IN_THE_CART='It´s Already In The Cart';
 export const MERCADO_PAGO_LINK = 'http://localhost:3001/payment/new'
 
+export const PRODUCTS_LIST_SHOPPING_CART = 'http://localhost:3001/user/shoppingCart'
+export const ADD_NEW_PRODUCT_IN_SHOPPING_CART = 'http://localhost:3001/user/newProductInShoppingCart'
+export const REMOVE_PRODUCT_IN_SHOPPING_CART = 'http://localhost:3001/user/removeProductInShoppingCart';
+

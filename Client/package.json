@@ -4,8 +4,8 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite && react-dotenv",
-    "build": "tsc && vite build && react-dotenv",
+    "dev": "vite",
+    "build": "tsc && vite buildv",
     "preview": "vite preview",
     "start": "react-scripts start"
   },
