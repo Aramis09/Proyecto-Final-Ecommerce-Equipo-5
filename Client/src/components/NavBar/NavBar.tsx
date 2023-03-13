@@ -6,8 +6,7 @@ import { SearchBar } from "../SearchBar/SearchBar";
 import { ShoppingCart } from '../../components/ShoppingCart/ShoppingCart';
 import icon from "../../assets/joystick_icon.png";
 import { useAuth0 } from "@auth0/auth0-react";
-import { Button } from "@mui/material";
-import axios from "axios";
+
 
 
 export const NavBar = () => {
@@ -26,18 +25,30 @@ export const NavBar = () => {
   }
 
   return (
-      <nav className={style.mainContainer}>
-        <div className={style.listContainer}>
-          <Link to ="/">
-            <img src={icon} alt="joystick_icon" />
-          </Link>
-          <SearchBar/>
-		      <ShoppingCart />
+		<nav className={style.mainContainer}>
+			<div className={style.listContainer}>
+				<Link to='/'>
+					<img className={style.home} src={icon} alt='joystick_icon' />
+				</Link>
+				<SearchBar />
+				<ShoppingCart />
 
-         { isAuthenticated ? <button className={style.loginButton} onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}>LOG OUT</button> :
-         <button className={style.loginButton}  onClick={() => loginWithRedirect()}>LOGIN</button>}
-
-        </div>
-      </nav>
-  );
+				{isAuthenticated ? (
+					<button
+						className={style.loginButton}
+						onClick={() =>
+							logout({ logoutParams: { returnTo: window.location.origin } })
+						}>
+						LOG OUT
+					</button>
+				) : (
+					<button
+						className={style.loginButton}
+						onClick={() => loginWithRedirect()}>
+						LOG IN
+					</button>
+				)}
+			</div>
+		</nav>
+	);
 };

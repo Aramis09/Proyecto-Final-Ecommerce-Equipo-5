@@ -7,9 +7,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 import style from "../../components/NavBar/NavBar.module.scss";
 import axios from "axios";
 import { MERCADO_PAGO_LINK } from "../../utils/constants";
-
-
-
+import { Navigate } from "react-router-dom";
 
 export const CheckOut = () => {
   //const gameSlice = allGames.slice(0, 3);
@@ -18,9 +16,8 @@ export const CheckOut = () => {
   console.log('CHECKOUT CARRITO', listProductsShoppingCart)
   let items = listProductsShoppingCart
   const { user, isAuthenticated, loginWithPopup, logout }: any = useAuth0()
-  
-  
 
+  
   const dispatch = useAppDispatch();
   const deleteItem = (e: any) => {
     console.log("El id a enviar es: " + e.target.value);
@@ -65,7 +62,7 @@ export const CheckOut = () => {
     };
   };
   
-  if (listProductsShoppingCart.length > 0) {
+    if (listProductsShoppingCart.length > 0) {
     return (
 			<>
 				<NavBar />
@@ -80,7 +77,7 @@ export const CheckOut = () => {
 								<input type='tel' placeholder='Phone Number' />
 							</div>
 						</form>
-						{user?.email_verified ? (
+						{user?.email_verified && isAuthenticated ? (
 							<>
 								<button
 									className={styles['form-button']}
@@ -89,14 +86,6 @@ export const CheckOut = () => {
 								</button>
 								<p className='cho-container'></p>
 							</>
-						) : isAuthenticated ? (
-							<button
-								className={style.loginButton}
-								onClick={() =>
-									logout({ logoutParams: { returnTo: window.location.origin } })
-								}>
-								LOG OUT
-							</button>
 						) : (
 							<button
 								className={style.loginButton}
@@ -113,20 +102,27 @@ export const CheckOut = () => {
 									<div key={index} className={styles['card-item']}>
 										<img src={game.background_image} />
 										<h5>{game.name}</h5>
-										<p>$ {game.price}</p>
+										<p>${game.price}</p>
 										<button value={game.id} onClick={deleteItem}>
 											x
 										</button>
 									</div>
 								))}
-								<p className={styles.price}>Amount Payable: $/{totalAmount}</p>
+								<p className={styles.price}>Amount Payable: ${totalAmount}</p>
 							</div>
 						</div>
 					</div>
 				</section>
 			</>
 		);
-  }
+	}
+  	else {
+		return (
+			<div>
+				{!listProductsShoppingCart.length ? <Navigate to="/"/> : <></>}
+			</div>
+		)
+	}
 }
 
 // NOTAS:

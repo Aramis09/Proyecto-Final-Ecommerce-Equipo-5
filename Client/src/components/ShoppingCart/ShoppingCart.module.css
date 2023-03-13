@@ -7,6 +7,7 @@
         padding: 0;
         height: 3rem;
         width: 3rem;
+        border: 1px solid white;
     }
 
     .cartButton:hover {
@@ -16,23 +17,6 @@
 
     .cartIcon {
         margin: 0px;
-    }
-
-    .modalContainer {
-        position: absolute;
-        top: 25vh;
-        left: 50vw;
-        right: 50vw;
-        display: flex;
-        justify-content: center;
-    }
-
-    .modalContent {
-        background-color: #004074;
-        padding: 1rem;
-        border-radius: 10%;
-        height: auto;
-        width: auto;
     }
 
     .closeModalButton {
@@ -54,6 +38,7 @@
         padding: 0;
         height: 3rem;
         width: 3rem;
+        border: 1px solid white;
     }
 
     .cartButton:hover {
@@ -65,39 +50,14 @@
         margin: auto;
     }
 
-    .modalContainer {
+    .closeModalButton {
         position: fixed;
         top: 25vh;
-        left: 50vw;
-        right: 50vw; 
-        position: absolute;
-        display: flex;
-        justify-content: center;
-    }
-
-    .modalContent {
-        background-color: #004074;
-        padding: 1rem;
-        border-radius: 10%;
-        height: auto;
-        width: auto;
-        min-width: 300px;
-    }
-
-    .closeModalButton {
+        left: 49vw;
         background-color: #018dff;
         border-radius: 50%;
         padding: 3px;
         margin: 5px;
     }
 
-    .table{
-        display: flex;
-        justify-content: center;
-    }
-
-    .priceTotal{
-        display: flex;
-        justify-content: center;
-    }
 }
