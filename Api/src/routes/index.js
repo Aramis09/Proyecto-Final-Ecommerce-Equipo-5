@@ -7,7 +7,6 @@ const userRouter = require("./subRoutes/userRouter");
 //const paymentRouter = require("./subRoutes/paymentRouter");
 const mainRouter = Router();
 
-
 mainRouter.use("/products",productsRouter);
 mainRouter.use("/platforms",platformsRouter);
 mainRouter.use("/genres",genresRouter);

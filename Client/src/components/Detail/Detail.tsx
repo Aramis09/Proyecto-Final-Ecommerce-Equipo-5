@@ -87,18 +87,6 @@ export const Detail = () => {
 												))}
 											</div>
 										</div>
-										{/* <div className={styles["platforms-section"]}>
-                    <h4>Plataformas</h4>
-                    <div className={styles["button-container"]}>
-                      {
-                        
-                        game.platforms.slice(0, 3).map((item:any, index:number) => (
-                          <button key={index}>{item}</button>
-                        ))
-                        
-                      }
-                  </div>
-                  </div> */}
 									</div>
 								</div>
 							</div>

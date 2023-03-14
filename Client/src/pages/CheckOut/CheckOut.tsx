@@ -35,7 +35,6 @@ export const CheckOut = () => {
     dispatch(deleteItemShoppingCart(e.target.value));
   }
 
-
   const fetchCheckout = async () => {
     //console.log('items?', listProductsShoppingCart)
     let client = {
@@ -43,37 +42,38 @@ export const CheckOut = () => {
       email: user.email
     }
     // data.global is the ID that MP returns from the API, it comes from our backend route
-    let redirectLink: any = (await axios.post(MERCADO_PAGO_LINK, { items, client })).data.response
+    let redirectLink:any = (await axios.post(MERCADO_PAGO_LINK, {items, client})).data.response
     //console.log('red', await redirectLink)
-    if (await redirectLink.id) {
-      const script = document.createElement('script') // Here we create the empty script tag
-      script.type = 'text/javascript' // The type of the script
-      script.src = 'https://sdk.mercadopago.com/js/v2' // The link where the script is hosted //script.src = 'https://sdk.mercadopago.com/js/v2'
-      script.setAttribute('data-preference-id', await redirectLink.id) // Here we set its data-preference-id to the ID that the Mercado Pago API gives us
-      document.body.appendChild(script) // Here we append it to the body of our page
+    if(await redirectLink.id) {
+        const script = document.createElement('script') // Here we create the empty script tag
+        script.type = 'text/javascript' // The type of the script
+        script.src = 'https://sdk.mercadopago.com/js/v2' // The link where the script is hosted //script.src = 'https://sdk.mercadopago.com/js/v2'
+        script.setAttribute('data-preference-id', await redirectLink.id) // Here we set its data-preference-id to the ID that the Mercado Pago API gives us
+        document.body.appendChild(script) // Here we append it to the body of our page
+
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
         
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
+        // Here we create the button, setting the container, our public key and the ID of the preference that Mercado Pago API returns in its response
+        const mp = new window.MercadoPago('TEST-5bbaf9c6-7285-45e4-966a-83819d381b76', {
+            locale: 'es-AR'
+        })
         
-      // Here we create the button, setting the container, our public key and the ID of the preference that Mercado Pago API returns in its response
-      const mp = new window.MercadoPago('TEST-5bbaf9c6-7285-45e4-966a-83819d381b76', {
-        locale: 'es-AR'
-      })
-        
-      // The ".checkout" is the function that creates the connection between the button and the platform
-      mp.checkout({
-        preference: {
-          id: await redirectLink.id
-        },
-        render: {
-          container: '.cho-container',
-          label: 'Pay',
-        }
-      });
+        // The ".checkout" is the function that creates the connection between the button and the platform
+        mp.checkout({
+            preference: {
+            id: await redirectLink.id
+            },
+            render: {
+            container: '.cho-container',
+            label: 'Pagar',
+            }
+        });
     };
   };
+
   
-    if (listProductsShoppingCart.length > 0) {
+  if (listProductsShoppingCart.length > 0) {
     return (
 			<>
 				<NavBar />
@@ -95,7 +95,7 @@ export const CheckOut = () => {
 									onClick={fetchCheckout}>
 									Generate Payment Link
 								</button>
-								<p className='.cho-container'></p>
+								<p className='cho-container'></p>
 							</>
 						) : (
 							<button
@@ -109,7 +109,7 @@ export const CheckOut = () => {
 						<div className={styles['items-container']}>
 							<h4>Products</h4>
 							<div className={styles['card-container']}>
-								{listProductsShoppingCart.map((game, index) => (
+								{listProductsShoppingCart.map((game:any, index) => (
 									<div key={index} className={styles['card-item']}>
 										<img src={game.background_image} />
 										<h5>{game.name}</h5>
@@ -136,32 +136,41 @@ export const CheckOut = () => {
 	}
 }
 
-// NOTAS:
+/*
+NOTAS:
 
-// _hacer dotenv para credencial PUBLIC de mercadopago.
+_hacer dotenv para credencial PUBLIC de mercadopago.
 
-// _hacer que el boton de mercado pago se genere sin desincronizacion (a veces no aparece)
-// _hacer que el boton de mercado pago funcione bien, sin duplicaciones.
+_hacer que el boton de mercado pago se genere sin desincronizacion (a veces no aparece)
+_hacer que el boton de mercado pago funcione bien, sin duplicaciones.
 
-// _en caso de pago aprobadom, llevar a componente de "aprovado", (en este componente se hara una copia de los productos
-// para guardar en db y se borrara los datos del carrito del store)
-// _en caso de pago "pendiente"?
-// _en caso de pago "rechazado", volver al carrito de compras.
-
-
-// _buscar como hacer para recibir las notificaciones del comprobante de compra.
-
-// _dejar la moneda en peso o dolar?
-// _agregar limitaciones de pago?
-// _
+_en caso de pago aprobadom, llevar a componente de "aprovado", (en este componente se hara una copia de los productos
+para guardar en db y se borrara los datos del carrito del store)
+_en caso de pago "pendiente"?
+_en caso de pago "rechazado", volver al carrito de compras.
 
 
-// if (!user.email){
+_buscar como hacer para recibir las notificaciones del comprobante de compra.
+
+_dejar la moneda en peso o dolar?
+_agregar limitaciones de pago?
+_
+
+
+
+
+
+*/
+
+/*
+if (!user.email){
     
-//     return(
-//       <div>
-//         <NavBar />
-//         La cuenta ingresada no soporta pagos, porfavor deslogueate
-//       </div>
-//     )
-//   } else
+    return(
+      <div>
+        <NavBar />
+        La cuenta ingresada no soporta pagos, porfavor deslogueate
+      </div>
+    )
+  } else
+
+*/

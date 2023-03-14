@@ -1,6 +1,4 @@
 import { Link } from "react-router-dom";
-import { eraseSearchedData } from "../../redux/reducer/productReducer";
-import { useAppDispatch } from "../../redux/hooks/hooks";
 import style from "./NavBar.module.scss";
 import { SearchBar } from "../SearchBar/SearchBar";
 import { ShoppingCart } from '../../components/ShoppingCart/ShoppingCart';
@@ -11,12 +9,6 @@ import axios from "axios";
 
 
 export const NavBar = () => {
-
-  const dispatch = useAppDispatch()
-
-  const eraseSearch = () => {
-    dispatch(eraseSearchedData())
-  }
   
   const { loginWithRedirect, user, logout, isAuthenticated } = useAuth0();
 

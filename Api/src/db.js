@@ -1,12 +1,17 @@
 //**Crea la conexion con la base de datos (con sequelize) */
-const { Sequelize } = require("sequelize");
+const {Sequelize} = require("sequelize");
+const { DataTypes }= require("sequelize");
 require("dotenv").config(); //**La variables de entorno quedan dispobnibles .env */
-// const { DB_DATA } = process.env;
 const { DB_USER, DB_PASSWORD, DB_HOST, DB_PORT, DB_NAME } = process.env;
 const sequelize = new Sequelize(
 	`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}`,
 	{ logging: false },
 );
+//las lineas 7 y 8 es para que pueda correrlo en mi pc, agradeceria que lo dejen comentado nomas (nicrus27)
+// const {DB_USER, DB_PASSWORD, DB_HOST, DB_NAME}= process.env;
+// const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME}`, {
+//     logging: false,
+// });
 
 //**Definicion de modelos (con sequelize)*/
 const ProductModel = require("./models/Product");
@@ -63,7 +68,13 @@ const WishlistProduct = sequelize.define('WishlistProduct', {}, { timestamps: fa
 User.belongsToMany(Product, { through: WishlistProduct, as: 'Wishlist' });
 Product.belongsToMany(User, { through: WishlistProduct });
 
-const FriendUser = sequelize.define('FriendUser', {}, { timestamps: false });
+const FriendUser = sequelize.define('FriendUser', {
+    accept:{
+        type:DataTypes.STRING,
+        allowNull: true,
+    } 
+}, 
+{ timestamps: false });
 User.belongsToMany(User, { through: FriendUser, as: 'FriendInList' });
 
 User.hasMany(Comment, { foreignKey: 'userId' });
@@ -74,4 +85,3 @@ Product.hasMany(Comment, { foreignKey: 'productId' });
 
 //**Exportarla para poder trabajar con los modelos en los controllers */
 module.exports={sequelize, ...sequelize.models};
-

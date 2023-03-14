@@ -19,6 +19,7 @@ function App() {
     dispatch(getTopRatedProducts())
   }, [])
   
+
   return (
     <BrowserRouter>
       <div className="App">
