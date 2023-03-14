@@ -23,7 +23,6 @@ const addFriends = async (emailUser,emailFriend)=> {
         await friend.addFriendInList(user,{  
             through: {model:'FriendUser', accept:'false'}
         });
-        console.log('llegue aqui')
         const FriendsAll = await FriendUser.findAll();
         return FriendsAll;
     } catch (error) {
@@ -54,7 +53,7 @@ const acceptFriend = async (email,emailFriend) => {
         return 'Your friend was added';
     } catch (error) {
         return {error:error.message};
-    }
+    };
 
 };    
 const removeOrRejectedFriend = async (email,emailFriend,response) => {
@@ -170,7 +169,6 @@ const deleteProductinShoppingCart = async (email,idProduct) => {
             const newList = await getAllProductsInShoppingCart(email);
             return newList;
         };
-        console.log('aqui estoy')
         await user.setProducts([], { through: ShoppingCart });
         const newList = await getAllProductsInShoppingCart(email);
         return newList;
@@ -185,7 +183,8 @@ const addWishToList = async (pkUser,pkProduct) => {
         await user.addWishlist(productToAdd, {
             through: 'WishlistProduct' // especificar la tabla intermedia a utilizar
         });
-        return 'product add in wishList';
+        const listWish = await getAllWishes(pkUser);
+        return listWish;
     } catch (error) {
         return {error:error.message};
     };
