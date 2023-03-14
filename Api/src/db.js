@@ -21,6 +21,7 @@ const ProductsGenresModel = require("./models/ProductsGenres");
 const ProductsStoresModel = require("./models/ProductsStores");
 const UserModel = require("./models/User");   
 const CommentModel = require("./models/Comment");
+const TransactionModel = require("./models/Transaction");
 /**Instancias que definen los modelos, crea el .models: */
 ProductModel(sequelize);
 PlatformModel(sequelize);
@@ -32,11 +33,11 @@ ProductsGenresModel(sequelize);
 ProductsStoresModel(sequelize);
 UserModel(sequelize);
 CommentModel(sequelize);
-
+TransactionModel(sequelize);
 
 
 //**Relacionar los Modelos */
-const {Product, Platform, Genre,Comment, Image, Store,User, ProductsPlatforms, ProductsGenres, ProductsStores} = sequelize.models;
+const {Product, Platform, Genre,Comment, Image, Store, User, ProductsPlatforms, ProductsGenres, ProductsStores, Transaction} = sequelize.models;
 
 const ProductsPlatforms_Profile = sequelize.define('ProductsPlatforms', {}, { timestamps: false });
 Product.belongsToMany(Platform,{through:ProductsPlatforms_Profile});
@@ -79,6 +80,12 @@ Comment.belongsTo(User, { foreignKey: 'userId' });
 
 Comment.belongsTo(Product, { foreignKey: 'productId' });
 Product.hasMany(Comment, { foreignKey: 'productId' });
+
+Product.hasMany(Transaction);
+Transaction.belongsTo(Product);
+
+User.hasMany(Transaction);
+Transaction.belongsTo(User);
 
 //**Exportarla para poder trabajar con los modelos en los controllers */
 module.exports={sequelize, ...sequelize.models};
