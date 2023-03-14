@@ -1,4 +1,6 @@
+
 import style from './ShoppingCartModal.module.scss';
+
 import { ShoppingCartItem } from '../ShoppingCartItem/ShoppingCartItem';
 
 

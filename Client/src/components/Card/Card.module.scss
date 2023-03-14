@@ -1,5 +1,6 @@
 @import '../../styles/global-vars.scss';
 
+
 @media (min-width:320px) and (max-width:960px){
   .card-container{
     display: flex;
@@ -118,4 +119,5 @@
   .form-button:focus {
     background-color: $shadow-blue-color;
   }
+
 }

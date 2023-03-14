@@ -2,7 +2,9 @@ import { useAppSelector, useAppDispatch } from "../../redux/hooks/hooks";
 import { Link } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import { getShoppingCartUserFromDB } from '../../redux/actions/shoppingCartAction';
+
 import style from './ShoppingCartItem.module.scss';
+
 
 
 export const ShoppingCartItem = () => {
@@ -40,7 +42,9 @@ export const ShoppingCartItem = () => {
 									</tr>
 								))}
 								<tr className={style.priceTotal}>
+
 									<td>Amount Payable{` $${totalAmount}`}</td>
+
 								</tr>
 							</tbody>
 						</table>
