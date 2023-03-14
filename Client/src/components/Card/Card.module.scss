@@ -83,10 +83,12 @@
     flex-direction: column;
     background-color: $background-color;
     border-radius: 1rem;
+    width: 20rem;
+    padding: 0.2%;
   }
   .card{
     display: grid;
-    grid-template-rows: 170px 160px 80px;
+    grid-template-rows: 170px 120px 80px;
   }
   .containerTittleAndPrice{
     grid-row: 2/3;
