@@ -20,7 +20,7 @@ userRouter.get("/shoppingCart",productsListShoppingCart);
 userRouter.get("/removeProductInShoppingCart",removeProductoInShoppingCar);
 userRouter.get("/newWish",addWish);
 userRouter.get("/wishes",wishesList);
-userRouter.get("/newComment",addComment);
+userRouter.post("/newComment",addComment);
 userRouter.get("/commentUser",commentListOfUser);  
 userRouter.get("/commentProduct",commentListOfProduct); 
 userRouter.get("/:id",userID);
