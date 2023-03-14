@@ -17,7 +17,7 @@ export const Products = () => {
   useEffect(() => {
     dispatch(getListGenres());
     dispatch(getListPlatforms(''));
-
+ 
     return () => {
       dispatch(eraseSearchedData())
     }
@@ -26,7 +26,7 @@ export const Products = () => {
   return (
     <>
       <NavBar />
-      <Filters />
+      {/* <Filters /> */}
       <div className={styles["page-container"]}>
         <Filters />
         {
@@ -35,15 +35,16 @@ export const Products = () => {
           searchedData.map((item: any, index: number) => {
             return (
             <div key={index} className={styles.productList}>
-              <Link to={`/${item.id}`}>
+              {/* <Link to={`/${item.id}`}> */}
                 <Card
+                  id={item.id}
                   key={index}
                   name={item.name}
                   background_image={item.background_image}
                   platforms={item.platforms}
                   price={item.price}
                 />
-              </Link>
+              {/* </Link> */}
               
             </div>)
           })

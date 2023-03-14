@@ -1,37 +1,12 @@
 @import '../../styles/global-vars.scss';
-
-.Input {
-    font-family: 'Orbitron', sans-serif;
-    border-radius: 20px;
-    border: inherit;
-    padding: 10px;
-}
-
-.But {
-    background-color: #018dff;
-    cursor: pointer;
-    border-radius: 20px;
-    border: inherit;
-    margin-left: 10px;
-}
-
-.But:hover {
-    background-color: #004074;
-    transition: 1s;
-    color: #018dff;
-}
-
-.textSearch {
-    color: black;
-}
-
-@media (min-width:320px) and (max-width:960px) {
-    .containerSearch {
+    
+@media (min-width:320px) and (max-width:960px){
+    .containerSearch{
         width: 100%;
         display: flex;
         flex-direction: row;
-        justify-content: right;
-        align-self: center;
+        justify-content: center;
+        align-self: center;        
     }
 
     .textSearch {
@@ -46,8 +21,8 @@
         margin-left: 10px;
     }
 
-    .iconSearch {
-        width: 30px;
+    .iconSearch{
+        width: 25px;
         margin: 0px;
         background-color: #018dff;
     }
@@ -81,5 +56,9 @@
         background-color: #004074;
         transition: 1s;
         color: #018dff;
+    }
+
+    .textSearch{
+        color: white;
     }
 }

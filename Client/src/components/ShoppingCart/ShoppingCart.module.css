@@ -7,6 +7,7 @@
         padding: 0;
         height: 3rem;
         width: 3rem;
+        border: 1px solid white;
     }
 
     .cartButton:hover {
@@ -15,28 +16,16 @@
     }
 
     .cartIcon {
-        margin: auto;
+        margin: 0px;
     }
-
-    /* .modalContainer {
-        position: absolute;
-        top: 85%;
-        left: 80%;
-    } */
-
-    /* .modalContent {
-        background-color: #004074;
-        padding: 1rem;
-        border-radius: 10%;
-    } */
 
     .closeModalButton {
         background-color: #018dff;
         border-radius: 50%;
-        padding: 0;
+        padding: 3px;
         margin: 5px;
-        height: 50%;
-        width: 50%;
+        height: auto;
+        width: auto;
     }
 }
 
@@ -49,6 +38,7 @@
         padding: 0;
         height: 3rem;
         width: 3rem;
+        border: 1px solid white;
     }
 
     .cartButton:hover {
@@ -60,24 +50,14 @@
         margin: auto;
     }
 
-    /* .modalContainer {
-    position: absolute;
-    top: 20%;
-    left: 80%;
-}
-
-.modalContent {
-    background-color: #004074;
-    padding: 1rem;
-    border-radius: 10%;
-}*/
-
     .closeModalButton {
+        position: fixed;
+        top: 25vh;
+        left: 49vw;
         background-color: #018dff;
         border-radius: 50%;
-        padding: 0;
+        padding: 3px;
         margin: 5px;
-        height: 50%;
-        width: 50%;
     }
+
 }

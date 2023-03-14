@@ -13,42 +13,42 @@ export const Carousel = () => {
     );
   };
 
-  // useEffect(() => {
-  //   const intervalId = setInterval(handleChangeImage, 5000);
-  //   return () => clearInterval(intervalId);
-  // }, []);
+  useEffect(() => {
+    const intervalId = setInterval(handleChangeImage, 5000);
+    return () => clearInterval(intervalId);
+  }, []);
 
   return (
-    <>
-      <section className={styles["carousel-container"]}>
-        {carouselData.map((item: any, index) => {
-          return (
-            <div key={index} className={styles["card-carousel"]}>
-              <div className={styles["img-carousel"]}>
-                {currentImage === index ? (
-                  <img src={item.background_image} alt={item.name} />
-                ) : null}
-              </div>
-              <div className={styles["description-carousel"]}>
-                {currentImage === index ? (
-                  <>
-                    <div className={styles.description}>
-                      <h2>{item.name}</h2>
-                      {item.description}
-                      <Link to={`/${item.id}`}><button>Go</button></Link>
-                    </div>
-                  </>
-                ) : null}
-              </div>
-            </div>
-          );
-        })}
-      </section>
-      <div className={styles["carousel-buttons--change"]}>
-        <button onClick={handleChangeImage}>←</button>
-        <button onClick={handleChangeImage}>→</button>
-      </div>
-      
-    </>
-  );
+		<div className={styles.carouselContainer}>
+			{carouselData.map((item: any, index) => {
+				return (
+					<div key={index} className={styles['card-carousel']}>
+						<div className={styles['img-carousel']}>
+							{currentImage === index ? (
+								<img src={item.background_image} alt={item.name} />
+							) : null}
+						</div>
+						<div className={styles['description-carousel']}>
+							{currentImage === index ? (
+								<>
+									<div className={styles.description}>
+										<h2>{item.name}</h2>
+										<p>{item.description}</p>
+										<br />
+										<Link to={`/${item.id}`}>
+											<button>Go</button>
+										</Link>
+									</div>
+								</>
+							) : null}
+						</div>
+					</div>
+				);
+			})}
+			<div className={styles['carousel-buttons--change']}>
+				<button onClick={handleChangeImage}>←</button>
+				<button onClick={handleChangeImage}>→</button>
+			</div>
+		</div>
+	);
 };
