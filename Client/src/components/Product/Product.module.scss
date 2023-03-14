@@ -10,6 +10,8 @@
     background-color: $background-color;
     margin: 20px;
     border-radius: 0.5rem;
+    padding: 10%;
+    
   }
 }
 
@@ -53,6 +55,7 @@
     background-color: $background-color;
     box-shadow: 5px 5px 15px 0 $light-blue-color;
     font-family: 'Orbitron', sans-serif;
+    
   }
   
   .card:hover {
