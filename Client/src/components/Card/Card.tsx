@@ -10,6 +10,9 @@ import { useState, useEffect } from 'react';
 import { ADDED_TO_CART, ALREADY_IN_THE_CART } from "../../utils/constants";
 import { useAuth0 } from "@auth0/auth0-react";
 
+import { style } from "@mui/system";
+
+
 
 export const Card = ({
   id,
@@ -54,18 +57,23 @@ export const Card = ({
   }
 
   return (
-    <div>
+
+    <>
     <div className={styles["card-container"]}>
       <div className={styles.card}>
     <Link to={`/${id}`}>
         <img src={background_image} alt={name} />
     </Link>
-        <h3>{name}</h3>
-        {price === "free" ? <p>{`${price}`}</p> : <p>{`$${price}`}</p>}
+      <div className={styles.containerTittleAndPrice}>
+          <h3>{name}</h3>
+          {price === "free" ? <p>{`${price}`}</p> : <p>{`$${price}`}</p>}
+        </div>
       </div>
-    </div>
-    <button type="button" onClick={addingToShoppingCart}>Add To Cart</button>
-    <p className={styles.msg}>{successMsg}</p>
-    </div>
+    </div >
+    <div className={styles.addShoppingCart}>
+      <button type="button" onClick={addingToShoppingCart}>Add To Cart</button>
+      <p className={styles.msg}>{successMsg}</p>
+     </div>
+    </>
   );
 };

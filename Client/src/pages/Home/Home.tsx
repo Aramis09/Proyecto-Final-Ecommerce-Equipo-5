@@ -12,10 +12,7 @@ import styles from "./Home.module.scss";
 export const Home = () => {
 
   const dispatch = useAppDispatch();
-
-  
-
-  
+ 
   const toTheSearchList = (e:any) => {
     let num;
     let data = e.target.value;
