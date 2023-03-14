@@ -1,21 +1,23 @@
 import { NavBar } from "../../components/NavBar/NavBar";
+import style from "../../components/NavBar/NavBar.module.scss";
 //import { allGames } from "../../get";
 import styles from "./CheckOut.module.scss";
-import { useEffect } from "react";
 import { useAppSelector, useAppDispatch } from "../../redux/hooks/hooks";
 import { deleteItemShoppingCart } from "../../redux/actions/shoppingCartAction";
 import { removeProductoInShoppingCar } from "../../redux/actions/shoppingCartAction";
-import axios from "axios";
+import { restAmountForShoppingCartUser } from "../../redux/reducer/shoppingCartReducer";
 import { MERCADO_PAGO_LINK } from "../../utils/constants";
 import { useAuth0 } from "@auth0/auth0-react";
-import { restAmountForShoppingCartUser } from "../../redux/reducer/shoppingCartReducer";
+import axios from "axios";
+import { Navigate } from "react-router-dom";
+
 
 
 export const CheckOut = () => {
   //const gameSlice = allGames.slice(0, 3);
   const dispatch = useAppDispatch();
 
-  const {user}: any = useAuth0();
+  const { user, isAuthenticated, loginWithPopup, logout }: any = useAuth0()
   if(typeof user !== 'undefined'){
     var listProductsShoppingCart: object[] = useAppSelector((state) => state.shoppingCartReducer.listProductsShoppingCartUser);
   } else {
@@ -73,53 +75,69 @@ export const CheckOut = () => {
     };
   };
 
-
-  //useEffect(() => {
-  //  if(typeof user !== 'undefined'){
-  //    console.log('yes')
-  //  } 
-  //}, [])
   
-  
-  if(listProductsShoppingCart.length > 0){
+  if (listProductsShoppingCart.length > 0) {
     return (
-      <>
-        <NavBar />
-        <section className={styles["checkout-container"]}>
-          <div className={styles["form-container"]}>
-            <h4>Datos de Facturación</h4>
-            <form className={styles.form}>
-              <div className={styles.dataContainer}>
-                <input type="text" placeholder="Nombre" />
-                <input type="text" placeholder="Apellido" />
-                <input type="email" placeholder="Email" />
-                <input type="text" placeholder="Celular" />
-              </div>
-            </form>
-            <button className={styles['form-button']} onClick={fetchCheckout}>generar link de pago</button>
-            <p className="cho-container" ></p>
-          </div>
-          <div>
-            <div className={styles["items-container"]}>
-              <h4>Productos</h4>
-              <div className={styles["card-container"]}>
-                {listProductsShoppingCart.map((game: any, index) => (
-                  <div className={styles["card-item"]}>
-                    <img src={game.background_image} />
-                    <h5>{game.name}</h5>
-                    <p>$ {game.price}</p>
-                    <button value={game.id} onClick={deleteItem}>x</button>
-                  </div>
-                ))}
-                <p className={styles.price}>MONTO A PAGAR: $/{totalAmount}</p>
-              </div>
-            </div>
-          </div>
-        </section>
-      </>
-    );
-  }
-};
+			<>
+				<NavBar />
+				<section className={styles['checkout-container']}>
+					<div className={styles['form-container']}>
+						<h4>Billing Information</h4>
+						<form className={styles.form}>
+							<div className={styles.dataContainer}>
+								<input type='text' placeholder='Name' />
+								<input type='text' placeholder='Last Name' />
+								<input type='email' placeholder='Email' />
+								<input type='tel' placeholder='Phone Number' />
+							</div>
+						</form>
+						{user?.email_verified && isAuthenticated ? (
+							<>
+								<button
+									className={styles['form-button']}
+									onClick={fetchCheckout}>
+									Generate Payment Link
+								</button>
+								<p className='cho-container'></p>
+							</>
+						) : (
+							<button
+								className={style.loginButton}
+								onClick={() => loginWithPopup()}>
+								Sign Up
+							</button>
+						)}
+					</div>
+					<div>
+						<div className={styles['items-container']}>
+							<h4>Products</h4>
+							<div className={styles['card-container']}>
+								{listProductsShoppingCart.map((game:any, index) => (
+									<div key={index} className={styles['card-item']}>
+										<img src={game.background_image} />
+										<h5>{game.name}</h5>
+										<p>${game.price}</p>
+										<button value={game.id} onClick={deleteItem}>
+											x
+										</button>
+									</div>
+								))}
+								<p className={styles.price}>Amount Payable: ${totalAmount}</p>
+							</div>
+						</div>
+					</div>
+				</section>
+			</>
+		);
+	}
+  	else {
+		return (
+			<div>
+				{!listProductsShoppingCart.length ? <Navigate to="/"/> : <></>}
+			</div>
+		)
+	}
+}
 
 /*
 NOTAS:
