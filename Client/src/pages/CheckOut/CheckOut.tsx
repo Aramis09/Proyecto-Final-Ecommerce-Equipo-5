@@ -9,6 +9,7 @@ import axios from "axios";
 import { MERCADO_PAGO_LINK } from "../../utils/constants";
 import { useAuth0 } from "@auth0/auth0-react";
 import { restAmountForShoppingCartUser } from "../../redux/reducer/shoppingCartReducer";
+import { useState } from "react";
 
 
 export const CheckOut = () => {
@@ -66,12 +67,22 @@ export const CheckOut = () => {
             },
             render: {
             container: '.cho-container',
-            label: 'Pagar',
+            label: 'Pay',
             }
         });
     };
   };
 
+  const [butOpen, setButOpen] = useState(false);
+
+  const handleButOpen = (ev: any) => {
+    ev.preventDefault();
+    setButOpen(true);
+  }
+  const handleSubmit = (ev: any) => {
+    ev.preventDefault();
+    alert('Email Modified')
+  }
   
   if (listProductsShoppingCart.length > 0) {
     return (
@@ -79,37 +90,43 @@ export const CheckOut = () => {
 				<NavBar />
 				<section className={styles['checkout-container']}>
 					<div className={styles['form-container']}>
-						<h4>Billing Information</h4>
-						<form className={styles.form}>
-							<div className={styles.dataContainer}>
-								<input type='text' placeholder='Name' />
-								<input type='text' placeholder='Last Name' />
-								<input type='email' placeholder='Email' />
-								<input type='tel' placeholder='Phone Number' />
-							</div>
-						</form>
 						{user?.email_verified && isAuthenticated ? (
 							<>
+								<h4>¿Do you want to make the purchase?</h4>
 								<button
 									className={styles['form-button']}
 									onClick={fetchCheckout}>
 									Generate Payment Link
 								</button>
 								<p className='cho-container'></p>
+								<h4>¿Do you want to use a new email for the purchase?</h4>
+                <button className={styles['form-button']} onClick={(ev) => handleButOpen(ev)}>Yes</button>
+                {butOpen && (
+                  <form className={styles.form}>
+                    <div className={styles.dataContainer}>
+                      <label htmlFor="email">Email: </label>
+                      <input type='email' name="email" placeholder='Email' />
+                      <button type="submit" onClick={handleSubmit}>Send</button>
+                    </div>
+                  </form>
+                )}
 							</>
 						) : (
-							<button
-								className={style.loginButton}
-								onClick={() => loginWithPopup()}>
-								Sign Up
-							</button>
+							<>
+								<h4>Please register to be able to make a purchase.</h4>
+								<button
+									className={style.loginButton}
+									onClick={() => loginWithPopup()}>
+									Sign Up
+								</button>
+							</>
 						)}
 					</div>
 					<div>
 						<div className={styles['items-container']}>
 							<h4>Products</h4>
 							<div className={styles['card-container']}>
-								{listProductsShoppingCart.map((game:any, index) => (
+								{listProductsShoppingCart.map((game: any, index) => (
 									<div key={index} className={styles['card-item']}>
 										<img src={game.background_image} />
 										<h5>{game.name}</h5>
