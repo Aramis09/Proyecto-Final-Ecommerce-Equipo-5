@@ -1,5 +1,6 @@
 //**Crea la conexion con la base de datos (con sequelize) */
 const {Sequelize} = require("sequelize");
+const { DataTypes }= require("sequelize");
 require("dotenv").config(); //**La variables de entorno quedan dispobnibles .env */
 const {DB_DATA}= process.env;
 const sequelize = new Sequelize(DB_DATA,{logging:false});
@@ -64,7 +65,13 @@ const WishlistProduct = sequelize.define('WishlistProduct', {}, { timestamps: fa
 User.belongsToMany(Product, { through: WishlistProduct, as: 'Wishlist' });
 Product.belongsToMany(User, { through: WishlistProduct });
 
-const FriendUser = sequelize.define('FriendUser', {}, { timestamps: false });
+const FriendUser = sequelize.define('FriendUser', {
+    accept:{
+        type:DataTypes.STRING,
+        allowNull: true,
+    } 
+}, 
+{ timestamps: false });
 User.belongsToMany(User, { through: FriendUser, as: 'FriendInList' });
 
 User.hasMany(Comment, { foreignKey: 'userId' });
@@ -74,7 +81,4 @@ Comment.belongsTo(Product, { foreignKey: 'productId' });
 Product.hasMany(Comment, { foreignKey: 'productId' });
 
 //**Exportarla para poder trabajar con los modelos en los controllers */
-
 module.exports={sequelize, ...sequelize.models};
-
-

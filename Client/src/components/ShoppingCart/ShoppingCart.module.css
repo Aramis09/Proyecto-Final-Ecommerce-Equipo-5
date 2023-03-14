@@ -1,0 +1,63 @@
+@media (min-width:320px) and (max-width:960px) {
+    .cartButton {
+        background-color: #018dff;
+        border-radius: 40%;
+        float: center;
+        margin: 5px;
+        padding: 0;
+        height: 3rem;
+        width: 3rem;
+        border: 1px solid white;
+    }
+
+    .cartButton:hover {
+        background-color: #004074;
+        transition: 1s;
+    }
+
+    .cartIcon {
+        margin: 0px;
+    }
+
+    .closeModalButton {
+        background-color: #018dff;
+        border-radius: 50%;
+        padding: 3px;
+        margin: 5px;
+        height: auto;
+        width: auto;
+    }
+}
+
+@media (min-width:961px) {
+    .cartButton {
+        background-color: #018dff;
+        border-radius: 40%;
+        float: right;
+        margin-left: 0px;
+        padding: 0;
+        height: 3rem;
+        width: 3rem;
+        border: 1px solid white;
+    }
+
+    .cartButton:hover {
+        background-color: #004074;
+        transition: 1s;
+    }
+
+    .cartIcon {
+        margin: auto;
+    }
+
+    .closeModalButton {
+        position: fixed;
+        top: 25vh;
+        left: 49vw;
+        background-color: #018dff;
+        border-radius: 50%;
+        padding: 3px;
+        margin: 5px;
+    }
+
+}
