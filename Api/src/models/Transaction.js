@@ -23,11 +23,9 @@ module.exports = (sequelize)=>{
         },
         serialOfGame:{
             type:DataTypes.STRING,
-            allowNull:false,
         },
         numberPayment:{
             type:DataTypes.STRING,
-            allowNull:false,
         },
         gift:{
             type:DataTypes.BOOLEAN,

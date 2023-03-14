@@ -54,12 +54,10 @@ Store.belongsToMany(Product,{through:ProductsStores_Profile});
 Product.hasMany(Image);
 Image.belongsTo(Product);
 
-
 ////////////////////////relaciones de carrito ////////////////////////////////////////
 const ShoppingCart = sequelize.define('ShoppingCart', {}, { timestamps: false });
 User.belongsToMany(Product, { through: ShoppingCart });
 Product.belongsToMany(User, { through: ShoppingCart });
-
 
 //borrar lo de abajo.
 const WishlistProduct = sequelize.define('WishlistProduct', {}, { timestamps: false });
@@ -83,9 +81,7 @@ Product.hasMany(Comment, { foreignKey: 'productId' });
 
 Product.hasMany(Transaction);
 Transaction.belongsTo(Product);
-
 User.hasMany(Transaction);
 Transaction.belongsTo(User);
-
 //**Exportarla para poder trabajar con los modelos en los controllers */
 module.exports={sequelize, ...sequelize.models};
