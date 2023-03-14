@@ -1,29 +1,40 @@
 import { Card } from "../Card/Card";
-import { allGames } from "../../get";
+import { useAppSelector, useAppDispatch } from "../../redux/hooks/hooks";
 import styles from "./Product.module.scss";
+//import { Link } from "react-router-dom";
+//import { useEffect } from "react";
+//import { setSuccessMsg } from "../../redux/actions/shoppingCartAction";
 
-interface Props {
-  limit: number;
-}
+export const Product = () => {
+  
+  let topProductsData = useAppSelector((state) => state.productReducer.topProductsData)
 
-export const Product = ({ limit }: Props) => {
-  const cardSlice = allGames.slice(0, limit);
+  /*
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(setSuccessMsg(""))
+  }, [])
+  */
   
   return (
     <div
-      className={cardSlice.length > 6 ? styles["cards-products"] : styles.cards}
+      className={topProductsData.length > 6 ? styles["cards-products"] : styles.cards}
     >
       {" "}
-      {cardSlice.map((product, index) => {
+      {topProductsData.map((product, index) => {
         return (
           <div key={index} className={styles.card}>
-            <Card
-              key={index}
-              name={product.name}
-              background_image={product.background_image}
-              platforms={product.platforms}
-              price={product.price}
-            />
+            {/* <Link to={`/${product.id}`}> */}
+              <Card
+                key={index}
+                id={product.id}
+                name={product.name}
+                background_image={product.background_image}
+                platforms={product.platforms}
+                price={product.price}
+              />
+            {/* </Link> */}
+            
           </div>
         );
       })}

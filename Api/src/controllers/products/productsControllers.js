@@ -1,16 +1,7 @@
 const {Product, Platform, Image, Genre, Store} = require("../../db");
 const axios = require("axios");
+const { arrayStoresDet, arrayGenresDet, arrayPlatformsDet, arrayPlatforms, arrayGenres, arrayStores, arrayImagesDet, arrayIncludes} = require('./utils');
 const { Op } = require("sequelize");
-const { options,
-    arrayStoresDet,
-    arrayGenresDet,
-    arrayPlatformsDet,
-    arrayPlatforms,
-    arrayGenres,
-    arrayStores,
-    arrayImagesDet, 
-    arrayIncludes
-} = require('./utils');
 
 const getAllProducts = async ()=>{
     let productsListWithMoreTrash = await Product.findAll({
@@ -48,6 +39,90 @@ const getProductById = async id =>{
     };
 };
 
+const getProductsByPlatform = async (arrayPlatforms) => {
+    try {
+        let productsListWithMoreTrash = await Product.findAll({
+            include:[
+            {
+                model:Platform,
+                attributes:["name"],
+                where:{ id:arrayPlatforms},
+                through: { attributes: [] },
+            },
+            {
+                model: Image,
+                attributes: ["image_path"],
+            },
+            {
+                model: Genre,
+                attributes: ["name"],
+                through: { attributes: [] },
+            },
+            {
+                model: Store,
+                attributes: ["name"],
+                through: { attributes: [] },
+            },
+            ],
+        });
+        let productsListWithTrash=await productsListWithMoreTrash.map(productWithTrash => productWithTrash.dataValues);
+        let productListClean = cleaningProcess( await productsListWithTrash);
+        return productListClean;
+    } catch (error) {
+        return error.message;
+    };
+};
+
+const getProductsByCategory = async (name,filters,order) => {
+    const arrayOrder=[]
+    if (order.alphabetic) arrayOrder.push(["name",order.alphabetic])
+    if (order.price) arrayOrder.push(["price",order.price])
+    try {
+        let productsListWithMoreTrash = await Product.findAll({
+            where:{
+                name:{
+                    [Op.iLike]:`%${name}%`,
+                },
+                price:{
+                    [Op.gte]:filters.priceRange[0],
+                    [Op.lte]:filters.priceRange[1],
+                },
+            },
+            order:arrayOrder,
+            include:[
+            {
+                model:Platform,
+                attributes:["name"],
+                where: filters.platform.length>0 ? { id:filters.platform}: null,
+                through: { attributes: [] },
+            },
+            {
+                model: Image,
+                attributes: ["image_path"],
+            },
+            {
+                model: Genre,
+                attributes: ["name"],
+                where: filters.genres.length>0 ? { id:filters.genres} : null,
+                through: { attributes: [] },
+            },
+            {
+                model: Store,
+                attributes: ["name"],
+                through: { attributes: [] },
+            },
+            ],
+
+        });
+        let productsListWithTrash=await productsListWithMoreTrash.map(productWithTrash => productWithTrash.dataValues);
+        let productListClean = cleaningProcess( await productsListWithTrash);
+        return productListClean;
+    } catch (error) {
+        return error.message;
+    };
+};
+
+
 const getProductsByName = async nameForSeach => {
     try {
         const listOfProducts = await getAllProducts();
@@ -72,6 +147,7 @@ const getProductsByName = async nameForSeach => {
         return error.message;
     };
 };
+
 const getOrderAlphabeticalList = async orderType =>{
     const productList = await getAllProducts();
     console.log(orderType)
@@ -232,4 +308,4 @@ function alphabeticalOrderZA(a,b){
     if( frst > second ) return -1;
      if( frst < second) return 1;
 };
-module.exports = {getAllProducts, getProductById, getProductsByName,getOrderAlphabeticalList};
+module.exports = {getAllProducts, getProductById, getProductsByName, getOrderAlphabeticalList, getProductsByPlatform, getProductsByCategory};
