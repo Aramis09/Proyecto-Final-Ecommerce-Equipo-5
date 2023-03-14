@@ -26,7 +26,7 @@ const Comments = () => {
         url: 'http://localhost:3001/user/newComment',
         data
       });
-    } catch (error: Error) {
+    } catch (error: any) {
       const date = new Date()
       console.log('soy el error del axios',error.response, 'horario del error', date)
     }

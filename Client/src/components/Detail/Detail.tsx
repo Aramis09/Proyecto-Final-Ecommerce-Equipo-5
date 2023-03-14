@@ -93,6 +93,7 @@ export const Detail = () => {
 							</div>
 						</section>
             <DetailCarousel images={game.images} />
+            <br />
             <Comments/>
 					</div>
 				)}
