@@ -1,0 +1,44 @@
+const {DataTypes} = require("sequelize");
+module.exports = (sequelize)=>{
+    sequelize.define("Transaction",{
+        id:{
+            type:DataTypes.INTEGER,
+            primaryKey:true,
+            autoIncrement:true,
+        },
+        date:{
+            type:DataTypes.DATEONLY,
+        },
+        priceUnit:{
+            type:DataTypes.DECIMAL(10,2),
+            allowNull:false,
+        },
+        specialDiscount:{
+            type:DataTypes.DECIMAL(10,2),
+            allowNull:false,
+        },
+        priceUnitNet:{
+            type:DataTypes.DECIMAL(10,2),
+            allowNull:false,
+        },
+        serialOfGame:{
+            type:DataTypes.STRING,
+        },
+        numberPayment:{
+            type:DataTypes.STRING,
+        },
+        gift:{
+            type:DataTypes.BOOLEAN,
+            defaultValue:false
+        },
+        userEmailGift:{
+            type:DataTypes.STRING,
+        },
+        state:{
+            type:DataTypes.BOOLEAN,
+            defaultValue:true
+        },
+    },
+    {timestamps:false}
+    )
+}
