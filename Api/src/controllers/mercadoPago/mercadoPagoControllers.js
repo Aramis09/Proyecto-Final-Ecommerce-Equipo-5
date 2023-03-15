@@ -175,6 +175,7 @@ module.exports = {
 }
 
 
+
 //NOTAS:
 
 /* este es el array ITEMS que tiene que llevar los siguientes elementos:
@@ -187,7 +188,6 @@ module.exports = {
     currency_id: "ARS",
     unit_price: parseFloat(price)
 */
-
 
 /* NO BORRAR
                 //excluded_payment_methods
