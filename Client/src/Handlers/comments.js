@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 const getAllProductComments = async (productId) => {
   const productComments = await axios.get(
     `http://localhost:3001/user/commentProduct?productId=${productId}`
