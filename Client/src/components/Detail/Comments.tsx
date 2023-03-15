@@ -1,13 +1,31 @@
 import { useAppSelector } from "../../redux/hooks/hooks";
 import { useAuth0 } from "@auth0/auth0-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
-import { useEffect } from "react";
+
+interface Comment {
+    id: number;
+    userId: string;
+    productId: number;
+    Comment: string;
+    date: string;
+  }
+
+interface State {
+    userComment: string;
+    allComments: Comment[];
+  }
+ 
 
 const Comments = () => {
+  //Estado Global
   const game: any = useAppSelector((state) => state.productReducer.details);
+
+  //Estados locales
   const [userComment, setComment] = useState("");
   const [allComments, setAllComments] = useState([]);
+
+  //Para enviar por body
   const { user } = useAuth0();
   const email = user?.email;
   const productId = game.id;
@@ -68,7 +86,7 @@ const Comments = () => {
       </div>
       <div className="show-comments-container">
         {allComments &&
-          allComments.map((c) => (
+          allComments.map((c: Comment) => (
             <>
               <div>User: {c.userId}</div>
               <div>Comment: {c.Comment}</div>
