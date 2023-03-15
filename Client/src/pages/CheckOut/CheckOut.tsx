@@ -16,25 +16,33 @@ export const CheckOut = () => {
   const dispatch = useAppDispatch();
   const { user, isAuthenticated, loginWithPopup, logout }: any = useAuth0();
 
-  if(typeof user !== 'undefined'){
-    var listProductsShoppingCart: object[] = useAppSelector((state) => state.shoppingCartReducer.listProductsShoppingCartUser);
+  if (typeof user !== "undefined") {
+    var listProductsShoppingCart: object[] = useAppSelector(
+      (state) => state.shoppingCartReducer.listProductsShoppingCartUser
+    );
   } else {
-      var listProductsShoppingCart: object[] = useAppSelector((state) => state.shoppingCartReducer.listProductsShoppingCartGuest);
+    var listProductsShoppingCart: object[] = useAppSelector(
+      (state) => state.shoppingCartReducer.listProductsShoppingCartGuest
+    );
   }
-  let totalAmount: number = useAppSelector((state) => state.shoppingCartReducer.totalAmount);
-  totalAmount = Math.round(totalAmount * 100) / 100
-  let items:any = listProductsShoppingCart
-  console.log('checkout items', items)
+  let totalAmount: number = useAppSelector(
+    (state) => state.shoppingCartReducer.totalAmount
+  );
+  totalAmount = Math.round(totalAmount * 100) / 100;
+  let items: any = listProductsShoppingCart;
+  console.log("checkout items", items);
 
   const deleteItem = (e: any) => {
     console.log("El id a enviar es: " + e.target.value);
-    let lessPrice = items.filter((i:any) => i.id === parseInt(e.target.value))[0].price
-    if(typeof user !== 'undefined'){
-      dispatch(removeProductoInShoppingCar(e.target.value, user.email))
-      dispatch(restAmountForShoppingCartUser(lessPrice))
+    let lessPrice = items.filter(
+      (i: any) => i.id === parseInt(e.target.value)
+    )[0].price;
+    if (typeof user !== "undefined") {
+      dispatch(removeProductoInShoppingCar(e.target.value, user.email));
+      dispatch(restAmountForShoppingCartUser(lessPrice));
     }
     dispatch(deleteItemShoppingCart(e.target.value));
-  }
+  };
 
   const fetchCheckout = async () => {
     //console.log('items?', listProductsShoppingCart)

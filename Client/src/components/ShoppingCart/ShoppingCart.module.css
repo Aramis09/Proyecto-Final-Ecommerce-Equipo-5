@@ -31,22 +31,29 @@
 
 @media (min-width:961px) {
     .cartButton {
-        background-color: #018dff;
+        background-color: black;
+        
         border-radius: 40%;
         float: right;
         margin-left: 0px;
         padding: 0;
         height: 3rem;
         width: 3rem;
-        border: 1px solid white;
+        /* border: 1px solid white; */
     }
 
+    .prueba {
+        display: flex;
+        flex-direction: row;
+    }
+    
     .cartButton:hover {
         background-color: #004074;
         transition: 1s;
     }
-
+    
     .cartIcon {
+        filter: invert(1);
         margin: auto;
     }
 
