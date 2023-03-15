@@ -30,9 +30,6 @@ export const NavBar = () => {
 				</Link>
 				<SearchBar />
 				<ShoppingCart />
-				<div>
-					
-				</div>
 				{isAuthenticated ? (
 					<button
 						className={style.loginButton}
