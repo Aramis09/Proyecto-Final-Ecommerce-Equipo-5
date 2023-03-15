@@ -24,19 +24,18 @@ function App() {
     <BrowserRouter>
       <div className="App">
         <Routes>
-          {admin === true ? (
+          {admin && (
             <>
               <Route path="/" element={<Home />} />
               <Route path="/products" element={<Products />} />
               <Route path="/:id" element={<Detail />} />
               <Route path="/checkout" element={<CheckOut />} />
               <Route path="/mptest" element={<Transaccion />} />
-              <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/users" element={<DashboardUser />} />
               <Route path="/productsList" element={<DashboardProducts />} />
-
             </>
-          ) : (
+          )}
+          {!admin && (
             <>
               <Route path="/" element={<Home />} />
               <Route path="/products" element={<Products />} />
