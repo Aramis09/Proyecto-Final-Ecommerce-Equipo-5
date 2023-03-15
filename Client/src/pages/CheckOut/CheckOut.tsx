@@ -12,7 +12,6 @@ import axios from "axios";
 import { Navigate } from "react-router-dom";
 
 
-
 export const CheckOut = () => {
   //const gameSlice = allGames.slice(0, 3);
   const dispatch = useAppDispatch();
@@ -46,7 +45,7 @@ export const CheckOut = () => {
     }
     // data.global is the ID that MP returns from the API, it comes from our backend route
     let redirectLink:any = (await axios.post(MERCADO_PAGO_LINK, {items, client})).data.response
-    //console.log('red', await redirectLink)
+    console.log('red', await redirectLink)
     if(await redirectLink.id) {
         const script = document.createElement('script') // Here we create the empty script tag
         script.type = 'text/javascript' // The type of the script
@@ -58,7 +57,7 @@ export const CheckOut = () => {
         // @ts-ignore
         
         // Here we create the button, setting the container, our public key and the ID of the preference that Mercado Pago API returns in its response
-        const mp = new window.MercadoPago('TEST-5bbaf9c6-7285-45e4-966a-83819d381b76', {
+        const mp = new window.MercadoPago('APP_USR-ae00b250-26a9-4302-ae63-f7a219cd7767', { //anterior: TEST-5bbaf9c6-7285-45e4-966a-83819d381b76
             locale: 'es-AR'
         })
         
@@ -140,7 +139,7 @@ export const CheckOut = () => {
 }
 
 /*
-NOTAS:
+NOTAS (nicrus27): 
 
 _hacer dotenv para credencial PUBLIC de mercadopago.
 
@@ -160,20 +159,16 @@ _agregar limitaciones de pago?
 _
 
 
-
-
-
 */
 
-/*
-if (!user.email){
-    
-    return(
-      <div>
-        <NavBar />
-        La cuenta ingresada no soporta pagos, porfavor deslogueate
-      </div>
-    )
-  } else
 
+/* NO BORRAR (nicrus27)
+manolito_cliente:
+user: TEST_USER_1585688432
+pass: s8Eh7LiWiP
+
+manolito_vendedor:
+user: TEST_USER_167492806
+pass: ZXmXuKF2b9
 */
+

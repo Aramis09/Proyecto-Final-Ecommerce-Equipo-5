@@ -1,5 +1,5 @@
 const {Router}=require("express");
-const { userList, userID,addNewUser,addNewProductInShoppingCart,addNewFriend,addWish,friendsList,productsListShoppingCart,wishesList,addComment,commentListOfUser,commentListOfProduct,removeProductoInShoppingCar } = require("../../handlers/usersHanlders");
+const { userList, userID,addNewUser,addNewProductInShoppingCart,addNewFriend,addWish,friendsList,productsListShoppingCart,wishesList,addComment,commentListOfUser,commentListOfProduct,removeProductoInShoppingCar,responseRequestNewFriend,friendsPendingList } = require("../../handlers/usersHanlders");
 
 const userRouter = Router();
 
@@ -11,16 +11,20 @@ const userRouter = Router();
 
 userRouter.get("/",userList);
 userRouter.get("/userNew",addNewUser);
-userRouter.get("/newFriend",addNewFriend);
-userRouter.get("/friends",friendsList);
+userRouter.get("/newFriendRequest",addNewFriend);
+userRouter.get("/responseRequestFriend",responseRequestNewFriend);
+userRouter.get("/friendsConfirmed",friendsList);
+userRouter.get("/friendsPending",friendsPendingList);
 userRouter.get("/newProductInShoppingCart",addNewProductInShoppingCart);
 userRouter.get("/shoppingCart",productsListShoppingCart);   
 userRouter.get("/removeProductInShoppingCart",removeProductoInShoppingCar);
 userRouter.get("/newWish",addWish);
 userRouter.get("/wishes",wishesList);
-userRouter.get("/newComment",addComment);
+userRouter.post("/newComment",addComment);
 userRouter.get("/commentUser",commentListOfUser);  
 userRouter.get("/commentProduct",commentListOfProduct); 
 userRouter.get("/:id",userID);
-
+//lista de compras ya hechas.(facil);
+//poder regalar algo a un amigo.(dificil);
+//crear rutas de admin. (dificil);
 module.exports= userRouter;
