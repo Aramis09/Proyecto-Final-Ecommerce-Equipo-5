@@ -30,7 +30,7 @@ const addNewProductInShoppingCart = async (req,res) => {
 };
 const removeProductoInShoppingCar = async (req,res) => { 
     try {
-        const {email,idProduct} = req.query;
+        const {email,idProduct} = req.query; all
         if(!email || !idProduct) throw new Error('send me all data please');
         const newList = await deleteProductinShoppingCart(email,idProduct);
         if(newList.error) throw new Error(newList.error);
