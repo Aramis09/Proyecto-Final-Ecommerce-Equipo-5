@@ -23,7 +23,6 @@ const addFriends = async (emailUser,emailFriend)=> {
         await friend.addFriendInList(user,{  
             through: {model:'FriendUser', accept:'false'}
         });
-        console.log('llegue aqui')
         const FriendsAll = await FriendUser.findAll();
         return FriendsAll;
     } catch (error) {
@@ -54,7 +53,7 @@ const acceptFriend = async (email,emailFriend) => {
         return 'Your friend was added';
     } catch (error) {
         return {error:error.message};
-    }
+    };
 
 };    
 const removeOrRejectedFriend = async (email,emailFriend,response) => {
@@ -161,11 +160,16 @@ const getAllProductsInShoppingCart = async email=> {
 const deleteProductinShoppingCart = async (email,idProduct) => {
     try {
         const user = await User.findByPk(email);
-        const  porductToAdd = await Product.findByPk(idProduct);
-        await user.removeProduct(porductToAdd, {
-            // especificar la tabla intermedia a utilizar
-            through: { ShoppingCart: idProduct } 
-        });
+        if(idProduct !== 'all'){
+            const  porductToAdd = await Product.findByPk(idProduct);
+            await user.removeProduct(porductToAdd, {
+                // especificar la tabla intermedia a utilizar
+                through: { ShoppingCart: idProduct } 
+            });
+            const newList = await getAllProductsInShoppingCart(email);
+            return newList;
+        };
+        await user.setProducts([], { through: ShoppingCart });
         const newList = await getAllProductsInShoppingCart(email);
         return newList;
     } catch (error) {
@@ -179,7 +183,8 @@ const addWishToList = async (pkUser,pkProduct) => {
         await user.addWishlist(productToAdd, {
             through: 'WishlistProduct' // especificar la tabla intermedia a utilizar
         });
-        return 'product add in wishList';
+        const listWish = await getAllWishes(pkUser);
+        return listWish;
     } catch (error) {
         return {error:error.message};
     };
@@ -194,16 +199,23 @@ const getAllWishes = async email => {
     }
 };
 
-const addNewComment = async (email,comment,product ) => {
+const addNewComment = async (email,comment,productId ) => {
     // const now = sequelize.literal('CURRENT_TIMESTAMP');
     const now = new Date();
-    console.log(email,product,comment);
+    console.log(
+        "Yo le llego a:userController a la funcion addNewComment y recibo estos parametros: email--->",
+        email,
+        "productId:-->",
+        productId,
+        "comment-->",
+        comment
+      );
     const newComment = await Comment.build({ //tengo que mejorar esto porque no anda
         Comment: comment,
         Hour:now,
         Date:now,
         userId: email,
-        productId: product,
+        productId: productId,
     });
     await newComment.save();
     return newComment;

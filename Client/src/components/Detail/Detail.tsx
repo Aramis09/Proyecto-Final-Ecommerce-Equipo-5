@@ -12,6 +12,7 @@ import styles from "./Detail.module.scss";
 import { ADDED_TO_CART, ALREADY_IN_THE_CART } from "../../utils/constants";
 import { addAmountForShoppingCartUser } from "../../redux/reducer/shoppingCartReducer";
 import { useAuth0 } from "@auth0/auth0-react";
+import Comments from './Comments'
 //los import comentados de abajo no los toquen que son para implementar los botones a futuro
 //import { getListGenres } from "../../redux/actions/genresAction";
 //import { getListPlatforms } from "../../redux/actions/platformAction";
@@ -107,6 +108,7 @@ export const Detail = () => {
             </div>
             </section>
             <DetailCarousel images={game.images}/>
+            <Comments/>
           </div>
         
         }
