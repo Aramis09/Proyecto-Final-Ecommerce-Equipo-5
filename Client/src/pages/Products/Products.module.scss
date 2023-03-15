@@ -1,7 +1,7 @@
 
 @media (min-width:320px) and (max-width:960px){
   .productList{
-    margin-top: 30%;
+    margin-top: 20%;
     
   }
 }
@@ -9,7 +9,6 @@
 @media (min-width:961px){
   .page-container {
     margin-top: 7%;
-    margin-left: 20%;
     display: grid;
     grid-template-columns: auto auto auto;
     column-gap: 2%;

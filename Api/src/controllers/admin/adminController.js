@@ -1,4 +1,6 @@
-const { Product,Genre } = require("../../db");
+const { where } = require("sequelize");
+const { Product,Genre,Image } = require("../../db");
+
 
 
 const changePropertyProducts = async (propertys) => {
@@ -40,7 +42,7 @@ const changePropertyProducts = async (propertys) => {
         productByModify.created = created;
         await productByModify.save();
     };
-    await associationGenresWithProduct(productByModify,genres);
+    if(genres) await associationGenresWithProduct(productByModify,genres);    
     return productByModify;
 };
 
@@ -48,10 +50,11 @@ const associationGenresWithProduct = async (productByModify,genres) => {
     await productByModify.setGenres([]);
     const genresArrayModify = genres.map(nameGenre => ({name:nameGenre}));
     await Promise.all(genresArrayModify.map(async genre => {
-    return Genre.findOrCreate({ where: { name: genre.name } })
-    .then(([genre])=> productByModify.addGenre(genre));
+        return Genre.findOrCreate({ where: { name: genre.name } })
+        .then(([genre])=> productByModify.addGenre(genre));
    }));
 };
+
 module.exports = {
     changePropertyProducts
 };
