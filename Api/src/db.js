@@ -5,7 +5,6 @@ require("dotenv").config(); //**La variables de entorno quedan dispobnibles .env
 const {DB_DATA}= process.env;
 const sequelize = new Sequelize(DB_DATA,{logging:false});
 
-
 //**Definicion de modelos (con sequelize)*/
 const ProductModel = require("./models/Product");
 const PlatformModel = require("./models/Platform");
@@ -34,7 +33,6 @@ PurchaseModel(sequelize);
 
 //**Relacionar los Modelos */
 const {Product, Platform, Genre,Comment, Image, Store, User, ProductsPlatforms, ProductsGenres, ProductsStores, Purchase} = sequelize.models;
-
 
 const ProductsPlatforms_Profile = sequelize.define('ProductsPlatforms', {}, { timestamps: false });
 Product.belongsToMany(Platform,{through:ProductsPlatforms_Profile});

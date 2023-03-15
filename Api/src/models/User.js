@@ -6,6 +6,18 @@ module.exports = (sequelize)=>{
             primaryKey:true,
             allowNull: false,
             unique: true
+        },
+        admin:{
+            type:DataTypes.BOOLEAN,
+            allowNull: false,
+        },
+        blocked:{
+            type:DataTypes.BOOLEAN,
+            allowNull: false,
+        },
+        secret:{
+            type:DataTypes.STRING,
+            allowNull: false,
         }
     },
     {timestamps:false}

@@ -4,7 +4,10 @@ const { User,ShoppingCart,Product,Friend,WishlistProduct,FriendUser,Comment } = 
 const addUser = async email => {
     try {
         const createUser = await User.create({
-            email  
+            email,
+            admin:false,
+            blocked:false,
+            secret:''
         });
         return createUser;
     } catch (error) {
@@ -199,9 +202,9 @@ const getAllWishes = async email => {
     }
 };
 
-const addNewComment = async (email,comment,productId ) => {
+const addNewComment = async (email,comment,productId,date ) => {
     // const now = sequelize.literal('CURRENT_TIMESTAMP');
-    const now = new Date();
+ 
     console.log(
         "Yo le llego a:userController a la funcion addNewComment y recibo estos parametros: email--->",
         email,
@@ -211,9 +214,8 @@ const addNewComment = async (email,comment,productId ) => {
         comment
       );
     const newComment = await Comment.build({ //tengo que mejorar esto porque no anda
-        Comment: comment,
-        Hour:now,
-        Date:now,
+        comment: comment,
+        date,
         userId: email,
         productId: productId,
     });
@@ -228,9 +230,9 @@ const getAllCommentOfUser = async email => {
     return commentOfUser;
 };
 
-const getAllCommentOfProduct = async idProduct => {
+const getAllCommentOfProduct = async productId => {
     const commentOfUser = await Comment.findAll({
-        where: {productId:idProduct}
+        where: {productId:productId}
     });
     return commentOfUser;
 };
