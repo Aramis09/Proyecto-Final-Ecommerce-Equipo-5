@@ -1,6 +1,45 @@
 const { where } = require("sequelize");
-const { Product,Genre,Image } = require("../../db");
+const { Product,Genre,Image,User } = require("../../db");
 
+const verifyIsAdmin = async (emailAdmin,secret) => {
+    console.log('verificando si es admin');
+    if(!secret) return false;
+    const adminFound = await User.findByPk(emailAdmin);
+    console.log("verificandoooo--->",adminFound)
+    if(!adminFound.admin) return false;
+    if(adminFound.secret === secret){
+        console.log('si es admin');
+
+        return true;
+    };
+    return false;
+};
+const createFirstAdmin = async (emailAdmin,secret) => {
+   
+    const adminList = await User.findAll({where:{admin:true}});
+    if(adminList.length) return false;
+    const firstAdmin = await User.findByPk(emailAdmin);
+    firstAdmin.admin = true;
+    firstAdmin.secret = secret;
+    await firstAdmin.save();
+    console.log('creando primer admin');
+    return firstAdmin;
+};
+const blockedUser = async (emailUser) => {
+    const userByBlock = await User.findByPk(emailUser);
+    userByBlock.blocked = true;
+    await userByBlock.save();
+    const userBlockedList = await User.findAll({where:{blocked:true}});
+    return userBlockedList;
+};
+const makeAdmin = async (emailUser,newSecret) => {
+    const newAdmin = await User.findByPk(emailUser);
+    newAdmin.admin = true;
+    newAdmin.secret = newSecret;
+    await newAdmin.save();
+    const userAdminList = await User.findAll({where:{admin:true}});
+    return userAdminList;
+};
 
 
 const changePropertyProducts = async (propertys) => {
@@ -56,7 +95,11 @@ const associationGenresWithProduct = async (productByModify,genres) => {
 };
 
 module.exports = {
-    changePropertyProducts
+    changePropertyProducts,
+    blockedUser,
+    makeAdmin,
+    verifyIsAdmin,
+    createFirstAdmin
 };
 
 // https://pbs.twimg.com/profile_images/1069252636950609925/XR1jBAn6_400x400.jpg
