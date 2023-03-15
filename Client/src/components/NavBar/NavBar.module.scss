@@ -1,6 +1,6 @@
 @import '../../styles/global-vars.scss';
 
-@media (min-width:320px) and (max-width:960px){
+@media (min-width:320px) and (max-width:960px) {
     .mainContainer {
         width: 100%;
         height: 100px;
@@ -10,12 +10,13 @@
         margin: 0;
         padding: 0;
         z-index: 1;
-        background-color:rgb(1, 4, 15);
+        background-color: rgb(1, 4, 15);
         display: flex;
         justify-content: center;
         align-items: center;
-        
+
     }
+
     .listContainer {
         width: 90%;
         display: flex;
@@ -23,25 +24,24 @@
         justify-content: space-between;
         align-items: center;
     }
-   
+
     .loginButton {
-        // background-color: #018dff;
+        background-color: #018dff;
         cursor: pointer;
         border-radius: 20px;
-        border-color: white;
         margin-right: 5px;
     }
-    
+
     .loginButton:hover {
         background-color: #004074;
         transition: 1s;
-        color: #018dff;
+        color: white;
     }
 
 }
 
 
-@media (min-width:961px){
+@media (min-width:961px) {
     .mainContainer {
         position: fixed;
         top: 0;
@@ -67,15 +67,15 @@
     }
 
     .loginButton {
-        background-color: black;
+        background-color: #018dff;
         cursor: pointer;
         border-radius: 20px;
-        // border-color: white;
         margin-right: 5px;
     }
 
     .loginButton:hover {
         background-color: #004074;
         transition: 1s;
+        color: white;
     }
 }

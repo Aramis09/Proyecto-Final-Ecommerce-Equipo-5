@@ -7,7 +7,7 @@ import { addNewProductInShoppingCart } from "../../redux/actions/shoppingCartAct
 import { addAmountForShoppingCartUser } from "../../redux/reducer/shoppingCartReducer";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { ADDED_TO_CART, ALREADY_IN_THE_CART } from "../../utils/constants";
+import { ADDED_TO_CART, ALREADY_IN_THE_CART, ADDED_TO_WISH_LIST, ALREADY_IN_THE_WISH_LIST } from "../../utils/constants";
 import { useAuth0 } from "@auth0/auth0-react";
 
 import { style } from "@mui/system";
@@ -19,7 +19,7 @@ export const Card = ({
   //platforms,
   price,
 }: any) => {
-  const { user }: any = useAuth0();
+  const { user, isAuthenticated }: any = useAuth0();
   //const platformsSlice = platforms.slice(0, 3);
   const dispatch = useAppDispatch();
 
@@ -60,6 +60,16 @@ export const Card = ({
     }
   };
 
+  const addToWishList = (ev: any) => {
+    ev.prevenDefault();
+    const game: object = {
+      id,
+      name,
+      background_image,
+      price,
+    };
+  }
+
   return (
     <>
       <div className={styles["card-container"]}>
@@ -76,6 +86,9 @@ export const Card = ({
               Agregar al carrito
             </button>
             <p>{successMsg}</p>
+            <button type="button" onClick={ev => addToWishList(ev)}>
+              Add to wish list
+            </button>
           </div>
         </div>
       </div>

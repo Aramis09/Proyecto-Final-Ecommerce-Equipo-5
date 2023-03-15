@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import style from "./NavBar.module.scss";
 import { SearchBar } from "../SearchBar/SearchBar";
 import { ShoppingCart } from '../../components/ShoppingCart/ShoppingCart';
+import { WishList } from "../WishList/WishList";
 import icon from "../../assets/joystick_icon.png";
 import { useAuth0 } from "@auth0/auth0-react";
 //import { Button } from "@mui/material";
@@ -11,18 +12,18 @@ import axios from "axios";
 
 export const NavBar = () => {
 
-  const { loginWithRedirect, user, logout, isAuthenticated } = useAuth0();
+	const { loginWithRedirect, user, logout, isAuthenticated } = useAuth0();
 
-  useEffect(() => {
-    const addNewUser = async () => {
-      if(typeof user !== 'undefined'){
-        await axios.get(`http://localhost:3001/user/userNew?email=${user.email}`);
-      }
-    }
-    addNewUser()
-  })
+	useEffect(() => {
+		const addNewUser = async () => {
+			if (typeof user !== 'undefined') {
+				await axios.get(`http://localhost:3001/user/userNew?email=${user.email}`);
+			}
+		}
+		addNewUser()
+	})
 
-  return (
+	return (
 		<nav className={style.mainContainer}>
 			<div className={style.listContainer}>
 				<Link to='/'>
@@ -31,16 +32,19 @@ export const NavBar = () => {
 				<SearchBar />
 				<ShoppingCart />
 				<div>
-					
+
 				</div>
 				{isAuthenticated ? (
-					<button
-						className={style.loginButton}
-						onClick={() =>
-							logout({ logoutParams: { returnTo: window.location.origin } })
-						}>
-						LOG OUT
-					</button>
+					<>
+						<WishList />
+						<button
+							className={style.loginButton}
+							onClick={() =>
+								logout({ logoutParams: { returnTo: window.location.origin } })
+							}>
+							LOG OUT
+						</button>
+					</>
 				) : (
 					<button
 						className={style.loginButton}

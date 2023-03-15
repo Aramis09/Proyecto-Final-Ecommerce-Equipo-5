@@ -11,3 +11,6 @@ export const REMOVE_PRODUCT_IN_SHOPPING_CART = 'http://localhost:3001/user/remov
 
 export const ADDED_TO_CART='Agregado al carrito';
 export const ALREADY_IN_THE_CART='Ya esta en el carrito';
+
+export const ADDED_TO_WISH_LIST='Agregado a lista de deseos';
+export const ALREADY_IN_THE_WISH_LIST='Ya esta en tu lista de deseos';
