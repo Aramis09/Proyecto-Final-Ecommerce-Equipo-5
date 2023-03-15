@@ -11,14 +11,15 @@
 }
 
 @media (min-width:961px) {
-    .tbody {
+    .tbody{
         padding-top: 15px;
         padding-bottom: 10px;
     }
 
-    .item {
+    .item{
         border-bottom: 1px solid white;
         padding: 5px;
+
     }
 
     .table {
@@ -31,7 +32,7 @@
         justify-content: center;
     }
 
-    .cartClean {
+    .cartClean{
         margin-top: 15px;
     }
 }

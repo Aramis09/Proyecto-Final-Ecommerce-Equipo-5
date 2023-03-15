@@ -8,11 +8,9 @@
         justify-content: center;
         align-self: center;        
     }
-
-    .textSearch {
+    .textSearch{
         display: none;
     }
-
     .But {
         background-color: #018dff;
         cursor: pointer;
@@ -26,8 +24,7 @@
         margin: 0px;
         background-color: #018dff;
     }
-
-    .Input {
+    .Input{
         width: 100%;
         border-radius: 10rem;
     }
@@ -38,7 +35,6 @@
         filter: invert(1);
         width: 15px;
     }
-
     .Input {
         font-family: 'Orbitron', sans-serif;
         border-radius: 20px;
