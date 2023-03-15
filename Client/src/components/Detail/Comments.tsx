@@ -2,20 +2,10 @@ import { useAppSelector } from "../../redux/hooks/hooks";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { Comment } from '../../types'
+import { getAllProductComments, postComment } from '../../Handlers/comments';
 
-interface Comment {
-    id: number;
-    userId: string;
-    productId: number;
-    Comment: string;
-    date: string;
-  }
 
-interface State {
-    userComment: string;
-    allComments: Comment[];
-  }
- 
 
 const Comments = () => {
   //Estado Global
@@ -30,40 +20,7 @@ const Comments = () => {
   const email = user?.email;
   const productId = game.id;
 
-  const postComment = async (e: any) => {
-    e.preventDefault();
-    const data = {
-      email,
-      productId,
-      comment: userComment,
-    };
-    //console.log("estoy en el front y soy la data", data);
 
-    try {
-      await axios({
-        method: "post",
-        url: "http://localhost:3001/user/newComment",
-        data,
-      });
-      await getAllProductComments();
-    } catch (error: any) {
-      console.log(
-        "soy el error del axios",
-        error.response,
-        "horario del error:",
-        new Date()
-      );
-    }
-  };
-
-  const getAllProductComments = async () => {
-    const productComments = await axios.get(
-      `http://localhost:3001/user/commentProduct?productId=${productId}`
-    ); //productComments.data => [ {Comment: '' , date, id , productId, userId}, {…}, {…}, … ]
-    console.log(new Date(), "productComments: ", productComments.data);
-    setAllComments(productComments.data);
-    console.log("allComments", new Date(), allComments);
-  };
 
     useEffect(() => {
       getAllProductComments();
@@ -73,7 +30,7 @@ const Comments = () => {
     <>
       <div className="create-comment-container">
         <h3>Form to leave a Comment...</h3>
-        <form onSubmit={postComment}>
+        <form onSubmit={postComment(e, email, productId, userComment)}>
           <label>Comment: </label>
           <input
             type="text"
