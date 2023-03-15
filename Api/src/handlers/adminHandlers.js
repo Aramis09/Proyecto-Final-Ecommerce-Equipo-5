@@ -30,11 +30,12 @@ const blockUser = async (req,res) => {
 const makeUserAdmin = async (req,res) => {
     try {
         const { emailAdmin,emailUser,secret,newSecret } = req.query; // falta verificar si el usuario es administrador
-        if(!emailAdmin || !emailUser || !secret || !newSecret)  throw new Error ('you are not admin, if you try again will blocked')
+        if(!emailAdmin || !emailUser )  throw new Error ('you are not admin, if you try again will blocked');
         const firstAdmin = await createFirstAdmin(emailAdmin,secret);
         if(firstAdmin) return res.status(200).json(firstAdmin);
         let adminFound = await verifyIsAdmin(emailAdmin,secret);
-        if(!adminFound) throw new Error ('you are not admin, if you try again will blocked')
+        if(!adminFound) throw new Error ('you are not admin, if you try again will blocked');
+        if(!emailUser || !newSecret )  throw new Error ('emailUser or newSecret is missing.');
         const userAdminList = await makeAdmin(emailUser,newSecret);
         return res.status(200).json(userAdminList);
     } catch (error) {
