@@ -1,6 +1,5 @@
 @import '../../styles/global-vars.scss';
 
-
 @media (min-width:320px) and (max-width:960px){
     .mainContainer {
         width: 100%;
@@ -26,7 +25,7 @@
     }
    
     .loginButton {
-        background-color: #018dff;
+        // background-color: #018dff;
         cursor: pointer;
         border-radius: 20px;
         border-color: white;
@@ -37,9 +36,6 @@
         background-color: #004074;
         transition: 1s;
         color: #018dff;
-    }
-    .mainContainer img {
-        margin-right: 10px;
     }
 
 }
@@ -71,16 +67,15 @@
     }
 
     .loginButton {
-        background-color: #018dff;
+        background-color: black;
         cursor: pointer;
         border-radius: 20px;
-        border-color: white;
+        // border-color: white;
         margin-right: 5px;
     }
 
     .loginButton:hover {
         background-color: #004074;
         transition: 1s;
-        color: #018dff;
     }
 }
