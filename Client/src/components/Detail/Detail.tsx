@@ -1,7 +1,7 @@
 import { NavBar } from "../NavBar/NavBar";
 import { Rating } from "../Rating/Rating";
 import { DetailCarousel } from "./DetailCarousel";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { getProductByID } from "../../redux/actions/productAction";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks/hooks";
 import { useEffect, useState } from "react";

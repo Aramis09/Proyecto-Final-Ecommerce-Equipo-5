@@ -6,7 +6,7 @@ import { addShoppingCart } from "../../redux/actions/shoppingCartAction";
 import { addNewProductInShoppingCart } from "../../redux/actions/shoppingCartAction";
 import { addAmountForShoppingCartUser } from "../../redux/reducer/shoppingCartReducer";
 import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { ADDED_TO_CART, ALREADY_IN_THE_CART } from "../../utils/constants";
 import { useAuth0 } from "@auth0/auth0-react";
 
