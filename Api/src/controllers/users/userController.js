@@ -4,7 +4,10 @@ const { User,ShoppingCart,Product,Friend,WishlistProduct,FriendUser,Comment } = 
 const addUser = async email => {
     try {
         const createUser = await User.create({
-            email  
+            email,
+            admin:false,
+            blocked:false,
+            secret:''
         });
         return createUser;
     } catch (error) {
