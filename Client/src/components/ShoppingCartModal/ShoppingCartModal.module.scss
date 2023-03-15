@@ -6,7 +6,6 @@
         right: 50vw;
         display: flex;
         justify-content: center;
-        
     }
 
     .modalContent {
@@ -15,7 +14,6 @@
         border-radius: 10%;
         height: auto;
         width: auto;
-        
     }
 }
 
@@ -28,8 +26,6 @@
         position: absolute;
         display: flex;
         justify-content: center;
-        text-align: left;
-        
     }
 
     .modalContent {
@@ -39,7 +35,5 @@
         height: auto;
         width: auto;
         min-width: 300px;
-        text-align: left;
-        margin-left: 5%;
     }
 }

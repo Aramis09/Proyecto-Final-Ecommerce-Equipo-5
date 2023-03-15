@@ -16,11 +16,9 @@ export const Card = ({
   id,
   name,
   background_image,
-  //platforms,
   price,
-}: any) => {
-  const { user }: any = useAuth0();
-  //const platformsSlice = platforms.slice(0, 3);
+  }: any) => {
+    const {user}:any = useAuth0();
   const dispatch = useAppDispatch();
 
   if (typeof user !== "undefined") {
@@ -58,27 +56,25 @@ export const Card = ({
     } else {
       setSuccessMsg(ALREADY_IN_THE_CART);
     }
-  };
+  }
 
   return (
     <>
-      <div className={styles["card-container"]}>
-        <div className={styles.card}>
-          <Link to={`/${id}`}>
-            <img src={background_image} alt={name} />
-          </Link>
-          <div className={styles.containerTittleAndPrice}>
-            <h3>{name}</h3>
-            {price === "free" ? <p>{`${price}`}</p> : <p>{`$${price}`}</p>}
-          </div>
-          <div className={styles.addShoppingCart}>
-            <button type="button" onClick={addingToShoppingCart}>
-              Agregar al carrito
-            </button>
-            <p>{successMsg}</p>
-          </div>
+    <div className={styles["card-container"]}>
+      <div className={styles.card}>
+    <Link to={`/${id}`}>
+        <img src={background_image} alt={name} />
+    </Link>
+      <div className={styles.containerTittleAndPrice}>
+          <h3>{name}</h3>
+          {price === "free" ? <p>{`${price}`}</p> : <p>{`$${price}`}</p>}
+        </div>
+    <div className={styles.addShoppingCart}>
+      <button type="button" onClick={addingToShoppingCart}>Add To Cart</button>
+      <p className={styles.msg}>{successMsg}</p>
         </div>
       </div>
+    </div >
     </>
   );
 };

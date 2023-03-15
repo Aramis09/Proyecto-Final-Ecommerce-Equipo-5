@@ -136,7 +136,6 @@ const getAllUsers = async () =>{
         return {error:error.message};
     };
 };
-
 const addProductInShoppingCartForUser = async (pkUser,pkProduct) => {
     try {
         const user = await User.findByPk(pkUser);

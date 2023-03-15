@@ -66,6 +66,17 @@
 }
 
 
+.card p {
+  color: $neon-color;
+  margin: 0;
+  font-weight: 600;
+  font-size: 1.2rem;
+  padding-bottom: 10px;
+}
+
+.msg{
+  margin-top: 10px;
+}
 @media (min-width:961px){
   .card-container{
     display: flex;
@@ -88,6 +99,14 @@
 
   }
 
+.platforms {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1vh;
+  text-decoration: none;
+}
   .card img {
     width: 100%;
     max-height: 170px;
@@ -121,4 +140,8 @@
   .form-button:focus {
     background-color: $shadow-blue-color;
   }
+
+.form-button:focus {
+  background-color: $shadow-blue-color;
+}
 }
