@@ -1,6 +1,5 @@
 @import '../../styles/global-vars.scss';
 
-
 @media (min-width:320px) and (max-width:960px){
     .mainContainer {
         width: 100%;
@@ -11,15 +10,14 @@
         margin: 0;
         padding: 0;
         z-index: 1;
-        background-color: rgb(1, 4, 15);
+        background-color:rgb(1, 4, 15);
         display: flex;
         justify-content: center;
         align-items: center;
-
+        
     }
-
     .listContainer {
-        width: 100%;
+        width: 90%;
         display: flex;
         flex-direction: row;
         justify-content: space-between;
@@ -27,7 +25,7 @@
     }
    
     .loginButton {
-        background-color: #018dff;
+        // background-color: #018dff;
         cursor: pointer;
         border-radius: 20px;
         border-color: white;
@@ -39,20 +37,11 @@
         transition: 1s;
         color: #018dff;
     }
-    .mainContainer img {
-        margin-right: 10px;
-
-    .loginButton {
-        color: black;
-        background-color: #018dff;
-        cursor: pointer;
-        border-radius: 20px;
-    }
 
 }
 
 
-@media (min-width:961px) {
+@media (min-width:961px){
     .mainContainer {
         position: fixed;
         top: 0;
@@ -77,16 +66,11 @@
         font-family: 'Orbitron', sans-serif;
     }
 
-    .navbarIcon {
-        margin-top: 5px;
-        margin-left: 5px;
-    }
-
     .loginButton {
-        background-color: #018dff;
+        background-color: black;
         cursor: pointer;
         border-radius: 20px;
-        color: black;
+        // border-color: white;
         margin-right: 5px;
     }
 

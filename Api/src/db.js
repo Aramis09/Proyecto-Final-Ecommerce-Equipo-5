@@ -2,8 +2,13 @@
 const {Sequelize} = require("sequelize");
 const { DataTypes }= require("sequelize");
 require("dotenv").config(); //**La variables de entorno quedan dispobnibles .env */
-// const { DB_DATA } = process.env;
-const sequelize = new Sequelize(`postgres://postgres:123456@localhost/ecommerce`, { logging: false });
+const {DB_DATA}= process.env;
+const sequelize = new Sequelize(DB_DATA,{logging:false});
+//las lineas 7 y 8 es para que pueda correrlo en mi pc, agradeceria que lo dejen comentado nomas (nicrus27)
+// const {DB_USER, DB_PASSWORD, DB_HOST, DB_NAME}= process.env;
+// const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME}`, {
+//     logging: false,
+// });
 
 //**Definicion de modelos (con sequelize)*/
 const ProductModel = require("./models/Product");
@@ -16,6 +21,7 @@ const ProductsGenresModel = require("./models/ProductsGenres");
 const ProductsStoresModel = require("./models/ProductsStores");
 const UserModel = require("./models/User");   
 const CommentModel = require("./models/Comment");
+const PurchaseModel = require("./models/Purchase");
 /**Instancias que definen los modelos, crea el .models: */
 ProductModel(sequelize);
 PlatformModel(sequelize);
@@ -27,33 +33,31 @@ ProductsGenresModel(sequelize);
 ProductsStoresModel(sequelize);
 UserModel(sequelize);
 CommentModel(sequelize);
-
+PurchaseModel(sequelize);
 
 
 //**Relacionar los Modelos */
-const {Product, Platform, Genre,Comment, Image, Store,User, ProductsPlatforms, ProductsGenres, ProductsStores} = sequelize.models;
+const {Product, Platform, Genre,Comment, Image, Store, User, ProductsPlatforms, ProductsGenres, ProductsStores, Purchase} = sequelize.models;
 
 const ProductsPlatforms_Profile = sequelize.define('ProductsPlatforms', {}, { timestamps: false });
-Product.belongsToMany(Platform, { through: ProductsPlatforms_Profile });
-Platform.belongsToMany(Product, { through: ProductsPlatforms_Profile });
+Product.belongsToMany(Platform,{through:ProductsPlatforms_Profile});
+Platform.belongsToMany(Product,{through:ProductsPlatforms_Profile});
 
 const ProductsGenres_Profile = sequelize.define('ProductsGenres', {}, { timestamps: false });
-Product.belongsToMany(Genre, { through: ProductsGenres_Profile });
-Genre.belongsToMany(Product, { through: ProductsGenres_Profile });
+Product.belongsToMany(Genre,{through:ProductsGenres_Profile});
+Genre.belongsToMany(Product,{through:ProductsGenres_Profile});
 
 const ProductsStores_Profile = sequelize.define('ProductsStores', {}, { timestamps: false });
-Product.belongsToMany(Store, { through: ProductsStores_Profile });
-Store.belongsToMany(Product, { through: ProductsStores_Profile });
+Product.belongsToMany(Store,{through:ProductsStores_Profile});
+Store.belongsToMany(Product,{through:ProductsStores_Profile});
 
 Product.hasMany(Image);
 Image.belongsTo(Product);
-
 
 ////////////////////////relaciones de carrito ////////////////////////////////////////
 const ShoppingCart = sequelize.define('ShoppingCart', {}, { timestamps: false });
 User.belongsToMany(Product, { through: ShoppingCart });
 Product.belongsToMany(User, { through: ShoppingCart });
-
 
 //borrar lo de abajo.
 const WishlistProduct = sequelize.define('WishlistProduct', {}, { timestamps: false });
@@ -75,5 +79,9 @@ Comment.belongsTo(User, { foreignKey: 'userId' });
 Comment.belongsTo(Product, { foreignKey: 'productId' });
 Product.hasMany(Comment, { foreignKey: 'productId' });
 
+Product.hasMany(Purchase);
+Purchase.belongsTo(Product);
+User.hasMany(Purchase);
+Purchase.belongsTo(User);
 //**Exportarla para poder trabajar con los modelos en los controllers */
-module.exports = { sequelize, ...sequelize.models };
+module.exports={sequelize, ...sequelize.models};

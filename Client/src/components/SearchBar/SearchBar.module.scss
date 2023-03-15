@@ -8,11 +8,9 @@
         justify-content: center;
         align-self: center;        
     }
-
-    .textSearch {
+    .textSearch{
         display: none;
     }
-
     .But {
         background-color: #018dff;
         cursor: pointer;
@@ -26,18 +24,17 @@
         margin: 0px;
         background-color: #018dff;
     }
-
-    .Input {
+    .Input{
         width: 100%;
         border-radius: 10rem;
     }
 }
 
-@media (min-width:961px) {
-    .iconSearch {
-        display: none;
+@media (min-width:961px){
+    .iconSearch{
+        filter: invert(1);
+        width: 15px;
     }
-
     .Input {
         font-family: 'Orbitron', sans-serif;
         border-radius: 20px;
@@ -45,10 +42,9 @@
     }
 
     .But {
-        background-color: #018dff;
+        background-color: black;
         cursor: pointer;
         border-radius: 20rem;
-        border-color: white;
         margin-left: 10px;
     }
 
@@ -60,5 +56,6 @@
 
     .textSearch{
         color: white;
+        display: none;
     }
 }

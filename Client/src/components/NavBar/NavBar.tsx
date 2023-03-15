@@ -1,6 +1,4 @@
 import { Link } from "react-router-dom";
-import { eraseSearchedData } from "../../redux/reducer/productReducer";
-import { useAppDispatch } from "../../redux/hooks/hooks";
 import style from "./NavBar.module.scss";
 import { SearchBar } from "../SearchBar/SearchBar";
 import { ShoppingCart } from '../../components/ShoppingCart/ShoppingCart';
@@ -32,7 +30,9 @@ export const NavBar = () => {
 				</Link>
 				<SearchBar />
 				<ShoppingCart />
-
+				<div>
+					
+				</div>
 				{isAuthenticated ? (
 					<button
 						className={style.loginButton}
