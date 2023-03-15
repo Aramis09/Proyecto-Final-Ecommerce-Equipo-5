@@ -34,7 +34,8 @@ export const Products = () => {
           ?
           searchedData.map((item: any, index: number) => {
             return (
-              <div key={index} className={styles.productList}>
+            <div key={index} className={styles.productList}>
+              {/* <Link to={`/${item.id}`}> */}
                 <Card
                   id={item.id}
                   key={index}
@@ -43,6 +44,8 @@ export const Products = () => {
                   platforms={item.platforms}
                   price={item.price}
                 />
+              {/* </Link> */}
+              
             </div>)
           })
           :
