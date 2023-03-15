@@ -29,6 +29,6 @@ export interface Comment {
     id: number;
     userId: string;
     productId: number;
-    Comment: string;
+    comment: string;
     date: string;
   }
