@@ -99,35 +99,45 @@ export const CheckOut = () => {
 				<section className={styles['checkout-container']}>
 					<div className={styles['form-container']}>
 						{user?.email_verified && isAuthenticated ? (
-							<>
-								<h4>¿Do you want to make the purchase?</h4>
+							<div className={styles.checked}>
+								<h4 className={styles.title}>
+									¿Do you want to make the purchase?
+								</h4>
 								<button
 									className={styles['form-button']}
 									onClick={fetchCheckout}>
 									Generate Payment Link
 								</button>
 								<p className='cho-container'></p>
-								<h4>¿Do you want to use a new email for the purchase?</h4>
-                <button className={styles['form-button']} onClick={(ev) => handleButOpen(ev)}>Yes</button>
-                {butOpen && (
-                  <form className={styles.form}>
-                    <div className={styles.dataContainer}>
-                      <label htmlFor="email">Email: </label>
-                      <input type='email' name="email" placeholder='Email' />
-                      <button type="submit" onClick={handleSubmit}>Send</button>
-                    </div>
-                  </form>
-                )}
-							</>
+								<h4 className={styles.title}>
+									¿Do you want to use a new email for the purchase?
+								</h4>
+								<button
+									className={styles['form-button']}
+									onClick={(ev) => handleButOpen(ev)}>
+									Yes
+								</button>
+								{butOpen && (
+									<form className={styles.form}>
+										<div className={styles.dataContainer}>
+											<label htmlFor='email'>Email: </label>
+											<input type='email' name='email' placeholder='Email' />
+											<button type='submit' onClick={handleSubmit}>
+												Send
+											</button>
+										</div>
+									</form>
+								)}
+							</div>
 						) : (
-							<>
+							<div className={styles.noRegister}>
 								<h4>Please register to be able to make a purchase.</h4>
 								<button
-									className={style.loginButton}
+									className={styles.loginButton}
 									onClick={() => loginWithPopup()}>
 									Sign Up
 								</button>
-							</>
+							</div>
 						)}
 					</div>
 					<div>
