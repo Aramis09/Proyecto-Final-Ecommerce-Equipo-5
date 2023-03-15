@@ -1,25 +1,38 @@
 import { DashboardNav } from "../Nav/DashboardNav";
+import { useAppDispatch, useAppSelector } from "../../../redux/hooks/hooks";
+import { listUser, userByID } from "../../../redux/reducer/userReducer";
+import { getListUsers } from "../../../redux/actions/userAction";
 import { usersExample } from "../userExample";
-import styles from './DashboardUsers.module.css'
+import styles from "./DashboardUsers.module.css";
+import { useEffect } from "react";
 
 export const DashboardUser = () => {
+  const dispatch = useAppDispatch();
+  let listUsersData = useAppSelector(
+    (state) => state.userReducer.listUsersData
+  );
+
+  useEffect(() => {
+    dispatch(getListUsers());
+  }, []);
+
   return (
     <>
       <DashboardNav />
-      <section className={styles['user-container']}>
+      <section className={styles["user-container"]}>
         <h3>Users</h3>
-        <div className={styles['user-info'] }>
+        <div className={styles["user-info"]}>
           <p>id</p>
           <p>name</p>
           <p>email</p>
           <p>Admin</p>
         </div>
-        {usersExample.map(({ id, name, email, admin }) => (
-          <div className={styles['user-items']} key={id}>
-            <p>{id}</p>
-            <p>{name}</p>
-            <p>{email}</p>
+        {listUsersData.map(({admin, email, blocked}, index) => (
+          <div className={styles["user-items"]} key={index}>
             <p>{admin}</p>
+            <p>{blocked}</p>
+            <p>{email}</p>
+            <p></p>
           </div>
         ))}
       </section>
