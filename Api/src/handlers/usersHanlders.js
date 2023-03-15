@@ -140,9 +140,9 @@ const wishesList = async (req,res) => {
 
 const addComment = async (req,res) => {
     try {
-        const { email,comment,productId } = req.body;
+        const { email,comment,productId, date } = req.body;
         if(!email || !comment || !productId) throw new Error('email or comment or productId is missing. Send data correctly please...');
-        const newComment = await addNewComment(email,comment,productId );
+        const newComment = await addNewComment(email,comment,productId, date );
         return res.status(200).json(newComment);
     } catch (error) {
         return res.status(400).json(error.message);

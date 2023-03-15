@@ -1,0 +1,34 @@
+import axios from "axios";
+import { Comment } from "../types";
+
+export const getAllProductComments = async (game: any) => {
+  const productComments = await axios.get(
+    `http://localhost:3001/user/commentProduct?productId=${game.id}`
+  ); //productComments.data => [ {Comment: '' , date:'', id:number , productId:number, userId}, {…}, {…}, … ]
+  const allCommentsObject: Comment = await productComments.data;
+  return allCommentsObject;
+};
+
+export const postComment = async (
+  game: any,
+  userComment: string,
+  user: any
+) => {
+  //Para enviar por body
+  const email = user?.email;
+
+  const data = {
+    email,
+    productId: game.id,
+    comment: userComment,
+    date: String(new Date()).slice(0,21),
+  };
+
+  await axios({
+    method: "post",
+    url: "http://localhost:3001/user/newComment",
+    data,
+  });
+  const newCommentObject = await getAllProductComments(game);
+  return newCommentObject;
+};
