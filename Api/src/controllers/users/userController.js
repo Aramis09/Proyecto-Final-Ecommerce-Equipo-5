@@ -223,9 +223,9 @@ const getAllCommentOfUser = async email => {
     return commentOfUser;
 };
 
-const getAllCommentOfProduct = async idProduct => {
+const getAllCommentOfProduct = async productId => {
     const commentOfUser = await Comment.findAll({
-        where: {productId:idProduct}
+        where: {productId:productId}
     });
     return commentOfUser;
 };

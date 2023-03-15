@@ -164,9 +164,9 @@ const commentListOfUser = async (req,res) => {
 
 const commentListOfProduct= async (req,res) => {
     try {
-        const { idProduct } = req.query;
-        if(!idProduct) throw new Error('send me all data please');
-        const commentList = await getAllCommentOfProduct(idProduct);
+        const { productId } = req.query;
+        if(!productId) throw new Error('send me a productId');
+        const commentList = await getAllCommentOfProduct(productId);
         return res.status(200).json(commentList);
     } catch (error) {
         return res.status(400).json(error.message);
