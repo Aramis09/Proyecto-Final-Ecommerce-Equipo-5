@@ -1,6 +1,12 @@
 @import '../../styles/global-vars.scss';
 
-@media (min-width:320px) and (max-width:960px){
+
+@media (min-width:320px) and (max-width:960px) {
+    .home {
+        border: 1px solid white;
+        border-radius: 40px;
+    }
+
     .mainContainer {
         width: 100%;
         height: 100px;
@@ -10,12 +16,13 @@
         margin: 0;
         padding: 0;
         z-index: 1;
-        background-color:rgb(1, 4, 15);
+        background-color: rgb(1, 4, 15);
         display: flex;
         justify-content: center;
         align-items: center;
-        
+
     }
+
     .listContainer {
         width: 90%;
         display: flex;
@@ -41,7 +48,13 @@
 }
 
 
-@media (min-width:961px){
+@media (min-width:961px) {
+
+    .home{
+        border: 1px solid white;
+        border-radius: 40px;
+    }
+
     .mainContainer {
         position: fixed;
         top: 0;
@@ -64,6 +77,11 @@
         margin: 0px;
         margin-bottom: 0px;
         font-family: 'Orbitron', sans-serif;
+    }
+
+    .navbarIcon {
+        margin-top: 5px;
+        margin-left: 5px;
     }
 
     .loginButton {

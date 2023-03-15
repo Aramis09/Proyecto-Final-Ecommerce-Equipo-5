@@ -1,6 +1,10 @@
 require("dotenv").config();
 const {ACCES_TOKEN} = process.env;
+
+// ACCES_TOKEN ='TEST-7852724530725730-030822-11e5a4398074067b6c6bc5f2afe9b7f1-1326341565';
+
 const axios = require('axios');
+
 const mercadopago = require("mercadopago");
 
 const createPaymentMercadoPago = async (items, client) => {

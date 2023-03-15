@@ -22,4 +22,4 @@ mainRouter.use("/payment", mercadoPagoRouter); //paymentRouter (esto comentado e
 mainRouter.use("/purchase",purchaseTransactionRouter);
 
 
-module.exports = mainRouter;
+module.exports = mainRouter;    

@@ -4,13 +4,12 @@ import { SearchBar } from "../SearchBar/SearchBar";
 import { ShoppingCart } from '../../components/ShoppingCart/ShoppingCart';
 import icon from "../../assets/joystick_icon.png";
 import { useAuth0 } from "@auth0/auth0-react";
-//import { Button } from "@mui/material";
 import { useEffect } from 'react';
 import axios from "axios";
 
 
 export const NavBar = () => {
-
+  
   const { loginWithRedirect, user, logout, isAuthenticated } = useAuth0();
 
   useEffect(() => {
