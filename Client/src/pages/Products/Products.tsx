@@ -3,7 +3,6 @@ import { NavBar } from "../../components/NavBar/NavBar";
 import { useEffect } from "react";
 import { useAppSelector, useAppDispatch } from "../../redux/hooks/hooks";
 import { getListGenres } from "../../redux/actions/genresAction";
-import { getListPlatforms } from "../../redux/actions/platformAction";
 import { eraseSearchedData } from "../../redux/reducer/productReducer";
 import { Card } from "../../components/Card/Card";
 import styles from "./Products.module.scss";
@@ -16,7 +15,6 @@ export const Products = () => {
 
   useEffect(() => {
     dispatch(getListGenres());
-    dispatch(getListPlatforms(''));
  
     return () => {
       dispatch(eraseSearchedData())
@@ -41,7 +39,6 @@ export const Products = () => {
                   key={index}
                   name={item.name}
                   background_image={item.background_image}
-                  platforms={item.platforms}
                   price={item.price}
                 />
               {/* </Link> */}

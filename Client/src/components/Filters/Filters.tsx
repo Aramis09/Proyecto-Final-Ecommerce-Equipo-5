@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks/hooks";
 import { PriceSlider } from "../PriceSlider/PriceSlider";
-import { selectedFilterGenre, selectedAlphabeticOrder } from "../../redux/reducer/productReducer";
+import { selectedFilterGenre, selectedAlphabeticOrder, eraseSearchedName } from "../../redux/reducer/productReducer";
 import { getProductsByFilters } from "../../redux/actions/productAction";
 import styles from "./Filters.module.scss";
 
@@ -17,7 +17,6 @@ export const Filters = () => {
   let listGenres = useAppSelector((state => state.genresReducer.listGenresData))
   let searchedName = useAppSelector((state) => state.productReducer.searchedName)
   let selectedFilterGenreData = useAppSelector((state) => state.productReducer.selectedFilterGenreData)
-  let selectedFilterPlatformData = useAppSelector((state) => state.productReducer.selectedFilterPlatformData)
   let selectedFilterPriceRangeData = useAppSelector((state) => state.productReducer.selectedFilterPriceRangeData)
   let selectedAlphabeticOrderData = useAppSelector((state) => state.productReducer.selectedAlphabeticOrderData)
   //console.log(selectAttribute)
@@ -50,7 +49,7 @@ export const Filters = () => {
 			filters:
 				{
 				genres: selectedFilterGenreData,
-				platform: selectedFilterPlatformData,
+				platform: [],
 				priceRange: selectedFilterPriceRangeData
 				},
 			order:
