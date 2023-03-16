@@ -145,6 +145,8 @@ const getAllUsers = async () => {
 
 const addProductInShoppingCartForUser = async (pkUser, pkProduct) => {
   try {
+    console.log("pkUser",pkUser,"pkProduct",pkProduct);
+
     const user = await User.findByPk(pkUser);
     const porductToAdd = await Product.findByPk(pkProduct);
     await user.addProduct(porductToAdd, {
@@ -157,6 +159,27 @@ const addProductInShoppingCartForUser = async (pkUser, pkProduct) => {
     return { error: error.message };
   }
 };
+
+
+
+const addAllProductInShoppingCartForUser = async (arrayProuductsShoppingcart) => {
+  try {
+    console.log("arrayProuductsShoppingcart",arrayProuductsShoppingcart, Array.isArray(arrayProuductsShoppingcart));
+    let pkUser = "";
+    await Promise.all(
+      arrayProuductsShoppingcart.map(async (element)=>{
+        pkUser = element.UserEmail;
+        await addProductInShoppingCartForUser(element.UserEmail,element.ProductId);
+        })
+      );
+    const newList = await getAllProductsInShoppingCart(pkUser);
+    return newList;
+  } catch (error) {
+    return { error: error.message };
+  }
+};
+
+
 const getAllProductsInShoppingCart = async (email) => {
   try {
     const user = await User.findByPk(email);
@@ -260,4 +283,5 @@ module.exports = {
   acceptFriend,
   removeOrRejectedFriend,
   getAllFriendsPending,
+  addAllProductInShoppingCartForUser,
 };
