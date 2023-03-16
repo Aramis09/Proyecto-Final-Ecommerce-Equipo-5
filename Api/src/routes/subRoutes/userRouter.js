@@ -1,5 +1,5 @@
 const {Router}=require("express");
-const { userList, userID,addNewUser,addNewProductInShoppingCart,addNewFriend,addWish,friendsList,productsListShoppingCart,wishesList,addComment,commentListOfUser,commentListOfProduct,removeProductoInShoppingCar,responseRequestNewFriend,friendsPendingList } = require("../../handlers/usersHanlders");
+const { userList, userID,addNewUser,addNewProductInShoppingCart,addNewFriend,addWish,friendsList,productsListShoppingCart,wishesList,addComment,commentListOfUser,commentListOfProduct,removeProductoInShoppingCar,responseRequestNewFriend,friendsPendingList,addAllProductInShoppingCart } = require("../../handlers/usersHanlders");
 
 const userRouter = Router();
 
@@ -16,6 +16,7 @@ userRouter.get("/responseRequestFriend",responseRequestNewFriend);
 userRouter.get("/friendsConfirmed",friendsList);
 userRouter.get("/friendsPending",friendsPendingList);
 userRouter.get("/newProductInShoppingCart",addNewProductInShoppingCart);
+userRouter.post("/allProductInShoppingCart",addAllProductInShoppingCart);
 userRouter.get("/shoppingCart",productsListShoppingCart);   
 userRouter.get("/removeProductInShoppingCart",removeProductoInShoppingCar);
 userRouter.get("/newWish",addWish);
