@@ -40,6 +40,7 @@ const createPaymentMercadoPago = async (items, client) => {
         //esta variable de notificacion se tiene que cambiar depende si es para recibir por deploy o por la herramienta "ngrok",
         //la cual CADA vez que se levanta para recibir notificaciones con el repo, cambia de url, asi que OJO!
         ///payment/responseMP?source_news=webhooks
+        //scarme la uda
     }
 
     //console.log('si esto esta undefined, es porque no tenes el acces token en .env: ', ACCES_TOKEN)
