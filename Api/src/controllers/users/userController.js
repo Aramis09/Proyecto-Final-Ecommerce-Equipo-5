@@ -72,8 +72,11 @@ const addAllProductInShoppingCartForUser = async (arrayProuductsShoppingcart) =>
       );
     const newList = await getAllProductsInShoppingCart(pkUser);
     return newList;
+  }
+  catch(error){
+    return { error: error.message };
+  };
 };
-
 const acceptFriend = async (email, emailFriend) => {
   try {
     const userOne = await FriendUser.findOne({
