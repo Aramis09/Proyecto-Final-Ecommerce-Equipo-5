@@ -13,23 +13,13 @@ export const Home = () => {
   const dispatch = useAppDispatch();
 
   const toTheSearchList = (e: any) => {
-    let num;
-    let data = e.target.value;
-    if(data.length>1){
-    data = data.split(',')
-    num = data.map((item:any) => parseInt(item))
-    } else if (data === '0'){
-      num = []
-    } else {
-      num = [parseInt(data)]
-    }
     
     dispatch(getProductsByFilters({
       name:'',
 			filters:
 				{
 				genres:[],
-				platform: num,
+				platform: [],
 				priceRange:[0,100]
 				},
 			order:

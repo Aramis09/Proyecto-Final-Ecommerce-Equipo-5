@@ -23,31 +23,29 @@ export const NavBar = () => {
   });
 
   return (
-    <nav className={style.mainContainer}>
-      <div className={style.listContainer}>
-        <Link to="/">
-          <img className={style.home} src={icon} alt="joystick_icon" />
-        </Link>
-        <SearchBar />
-        <ShoppingCart />
-        {isAuthenticated ? (
-          <button
-            className={style.loginButton}
-            onClick={() =>
-              logout({ logoutParams: { returnTo: window.location.origin } })
-            }
-          >
-            LOG OUT
-          </button>
-        ) : (
-          <button
-            className={style.loginButton}
-            onClick={() => loginWithRedirect()}
-          >
-            LOG IN
-          </button>
-        )}
-      </div>
-    </nav>
-  );
+		<nav className={style.mainContainer}>
+			<div className={style.listContainer}>
+				<Link to='/'>
+					<img className={style.home} src={icon} alt='joystick_icon' />
+				</Link>
+				<SearchBar />
+				<ShoppingCart />
+				{isAuthenticated ? (
+					<button
+						className={style.loginButton}
+						onClick={() =>
+							logout({ logoutParams: { returnTo: window.location.origin } })
+						}>
+						LOG OUT
+					</button>
+				) : (
+					<button
+						className={style.loginButton}
+						onClick={() => loginWithRedirect()}>
+						LOG IN
+					</button>
+				)}
+			</div>
+		</nav>
+	);
 };
