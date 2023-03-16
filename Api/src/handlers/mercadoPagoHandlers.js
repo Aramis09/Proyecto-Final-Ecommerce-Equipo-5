@@ -1,4 +1,3 @@
-
 const { createPaymentMercadoPago, notificationData } = require("../controllers/mercadoPago/mercadoPagoControllers");
 
 const getMercadoPagoLink = async (req, res) => {
