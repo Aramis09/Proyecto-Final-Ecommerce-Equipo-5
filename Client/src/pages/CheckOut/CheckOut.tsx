@@ -67,7 +67,7 @@ export const CheckOut = () => {
 
       // Here we create the button, setting the container, our public key and the ID of the preference that Mercado Pago API returns in its response
       const mp = new window.MercadoPago(
-        "TEST-5bbaf9c6-7285-45e4-966a-83819d381b76",
+        "APP_USR-ae00b250-26a9-4302-ae63-f7a219cd7767",
         {
           locale: "es-AR",
         }
