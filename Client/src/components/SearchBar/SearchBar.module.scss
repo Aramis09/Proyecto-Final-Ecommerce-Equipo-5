@@ -32,7 +32,8 @@
 
 @media (min-width:961px){
     .iconSearch{
-        display: none;
+        filter: invert(1);
+        width: 15px;
     }
     .Input {
         font-family: 'Orbitron', sans-serif;
@@ -41,10 +42,9 @@
     }
 
     .But {
-        background-color: #018dff;
+        background-color: black;
         cursor: pointer;
         border-radius: 20rem;
-        border-color: white;
         margin-left: 10px;
     }
 
@@ -56,5 +56,6 @@
 
     .textSearch{
         color: white;
+        display: none;
     }
 }

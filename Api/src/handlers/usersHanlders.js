@@ -2,9 +2,9 @@ const { getAllWishes,getAllUsers,addUser,addProductInShoppingCartForUser,addFrie
 
 const addNewUser = async (req,res) => {
     try {
-        const { email } = req.query;
+        const { email, name, image } = req.query;
         if(!email) throw new Error('please send me a user email.');
-        const addedUser = await addUser(email);
+        const addedUser = await addUser(email, name, image);
         console.log(addedUser)
         console.log(email)
         return res.status(200).json(addedUser);
@@ -140,9 +140,9 @@ const wishesList = async (req,res) => {
 
 const addComment = async (req,res) => {
     try {
-        const { email,comment,product } = req.query;
-        if(!email || !comment || !product) throw new Error('send me all data please');
-        const newComment = await addNewComment(email,comment,product );
+        const { email,comment,productId, date } = req.body;
+        if(!email || !comment || !productId) throw new Error('email or comment or productId is missing. Send data correctly please...');
+        const newComment = await addNewComment(email,comment,productId, date );
         return res.status(200).json(newComment);
     } catch (error) {
         return res.status(400).json(error.message);
@@ -164,9 +164,9 @@ const commentListOfUser = async (req,res) => {
 
 const commentListOfProduct= async (req,res) => {
     try {
-        const { idProduct } = req.query;
-        if(!idProduct) throw new Error('send me all data please');
-        const commentList = await getAllCommentOfProduct(idProduct);
+        const { productId } = req.query;
+        if(!productId) throw new Error('send me a productId');
+        const commentList = await getAllCommentOfProduct(productId);
         return res.status(200).json(commentList);
     } catch (error) {
         return res.status(400).json(error.message);

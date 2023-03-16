@@ -1,12 +1,9 @@
-//const { access_token } = require("./keysAndTokensMP"); //CAMBIAR A .ENV!!!
 require("dotenv").config();
 const {ACCES_TOKEN} = process.env;
+const axios = require('axios');
 const mercadopago = require("mercadopago");
-const mercadoPagoUrl = "https://api.mercadopago.com/checkout";
 
-
-const createPaymentMercadoPago = async (items, client) => { //async/await?
-
+const createPaymentMercadoPago = async (items, client) => {
     let clientName; 
     let clientSurname;
     let clientFullName = selectNameSurname(client);
@@ -15,12 +12,9 @@ const createPaymentMercadoPago = async (items, client) => { //async/await?
     //console.log('client name surname', clientName, clientSurname)
     //console.log(client.email)
 
-    items = reshapeProductInItems(items);
-    //console.log('b', items)
-    //luego deberia mandar al array con detalles a la funcion createPaymentMercadoPago.
+    items = reshapeProductInItems(items, client.email);
     const preference = {
         items,
-        //external_reference: "Proyecto E-commerce - Henry Grupo V - FT33-b", //podemos poner cualquier cosa aca
         payer: {
             name: clientName,
             surname: clientSurname,
@@ -34,52 +28,87 @@ const createPaymentMercadoPago = async (items, client) => { //async/await?
                 street_name: "calle falsa",
                 street_number: 123
             }
-        }, //si modificas metodos de pago, las cosas se pueden romper...
-        //payment_methods: {
-        //    // declaramos el método de pago y sus restricciones
-        //    default_payment_method_id: 'naranja',
-        //    excluded_payment_methods: [
-        //        {
-        //            "id": "cobroexpress",
-        //        }
-        //    ], // aca podemos excluir metodos de pagos, tengan en cuenta que es un array de objetos, ej: //excluded_payment_methods: [{id: "amex"}], amex siendo american express.
-        //    excluded_payment_types: [
-        //        {
-        //            "id": "atm",
-        //        }
-        //    ], // aca podemos excluir TIPOS de pagos, es un array de objetos, ejemplo: excluded_payment_types: [{ id: "atm" }], 
-        //    
-        //    installments: 1, // limite superior de cantidad de cuotas permitidas //lo dejo en uno por el momento
-        //    default_installments: 1 // la cantidad de cuotas que van a aparecer por defecto //lo dejo en uno por el momento
-        //},
+        },
         back_urls: {
-            // declaramos las urls de redireccionamiento
-            success: "http://127.0.0.1:3000/",//"https://localhost:3001/payment/responseMP", //esto es de prueba, despues lo cambio
-            // url que va a redireccionar si sale todo bien
-            pending: "http://127.0.0.1:3000/", //"https://localhost:3001/payment/responseMP", //esto es de prueba, despues lo cambio
-            // url a la que va a redireccionar si decide pagar en efectivo por ejemplo
-            failure: "http://127.0.0.1:3000/", //"https://localhost:3001/payment/responseMP" //esto es de prueba, despues lo cambio
-            // url a la que va a redireccionar si falla el pago
+            success: "http://localhost:3000/",
+            pending: "http://127.0.0.1:3000/",
+            failure: "http://127.0.0.1:3000/",
         },
         auto_return: "approved", // si la compra es exitosa automaticamente redirige a "success" de back_urls
-        binary_mode: true,
-        //notification_url: "https://localhost:3001/payment/webhook?source_news=webhooks", // declaramos nuestra url donde recibiremos las notificaciones
-        //esta variable de notificacion no va a funcionar a menos que tengamos el proyecto deployado en alguna pagina?
+        binary_mode: true, //esto permite que el resultado de la compra sea solo 'failure' o solo 'success'
 
+        //notification_url: "https://e270-186-130-48-237.sa.ngrok.io/payment/responseMP?source_news=webhooks",
+
+        //esta variable de notificacion se tiene que cambiar depende si es para recibir por deploy o por la herramienta "ngrok",
+        //la cual CADA vez que se levanta para recibir notificaciones con el repo, cambia de url, asi que OJO!
+        ///payment/responseMP?source_news=webhooks
     }
 
-    console.log('acct', ACCES_TOKEN)
+    //console.log('si esto esta undefined, es porque no tenes el acces token en .env: ', ACCES_TOKEN)
     try {
         mercadopago.configure({
             access_token: ACCES_TOKEN
         });
         const response = await mercadopago.preferences.create(preference);
-        console.log('rrr', response)
+        //console.log('rrr', response)
         return response
     } catch (err) {
         console.log('error createPaymentMP', err)
     }
 }
+
+
+
+const notificationData = async (query)  => {
+
+    const topic =  query.topic || query.type;
+  var merchantOrder;
+  switch(topic){
+    case "payment":
+      const paymentId = query.id || query['data.id'];
+      const payment = await mercadopago.payment.findById(paymentId);
+      merchantOrder = await mercadopago.merchant_orders.findById(payment.body.order.id);
+      break;
+    case "merchant_order":
+      const orderId = query.id;
+      merchantOrder = await mercadopago.merchant_orders.findById(orderId)
+      break;
+
+  }
+  //console.log('merch test', merchantOrder.body)
+  
+  ////para visualizar el ejemplo:
+  var userMailFromDescription = merchantOrder.body.items[0].description;
+
+  var transactionDataObject;
+  var dbItem;
+  merchantOrder.body.payments.forEach( async (item, index) => {
+    dbItem = (await axios.get(`http://localhost:3001/products/${merchantOrder.body.items[index].id}`)).data
+
+    var date = item.date_approved.slice(0, 10).split('-');
+    transactionDataObject = {
+        dateTransaction: date[2]+'/'+date[1]+'/'+date[0], //modificar la fecha para que sea 'mm/dd/aa'
+        priceUnit: parseFloat(dbItem.price), //esto debe venir de un llamado a la db
+        specialDiscount: 0.1, //esto debe venir de un llamado a la db cuando este implementado
+        priceUnitNet: item.total_paid_amount,
+        serialOfGame: 'asnsdghnakjsdkjasdnkfdf', //lo inventamos con un hash?
+        numberPayment: item.id,
+        giftGame: false, //falta implementar,
+        userEmailGift: '',
+        ProductId: merchantOrder.body.items[index].id,
+        UserEmail: userMailFromDescription, //lamentablemente el mail lo pusimos en la descripcion de los items porque no teniamos 
+        //otra manera de verlo (la documentacion de mercadopago no es amigable >:C)
+      //id: merchantOrder.body.id,
+      //state: true //esto debe venir de la db
+    };
+    //console.log(transactionDataObject)
+    await axios.post(`http://localhost:3001/purchase/create`, {transactionDataObject})
+  })
+  await axios.get(`http://localhost:3001/user/removeProductInShoppingCart?email=${userMailFromDescription}&idProduct=${'all'}`)
+
+}
+
+
 
 const selectNameSurname = (client) => {
 
@@ -112,7 +141,9 @@ const selectNameSurname = (client) => {
     return {clientName, clientSurname}
 }
 
-const reshapeProductInItems = (items) => {
+
+
+const reshapeProductInItems = (items, email) => {
 
     let itemsReady = items.map(item => {
         return {
@@ -120,7 +151,7 @@ const reshapeProductInItems = (items) => {
             title: item.name,
             picture_url: item.background_image,
             unit_price: parseFloat(item.price),
-            //description: item.description,
+            description: email,
             category_id: "virtualKey", //needed
             quantity: 1, //needed
             currency_id: "ARS", //needed
@@ -140,8 +171,10 @@ const reshapeProductInItems = (items) => {
 
 
 module.exports = {
-    createPaymentMercadoPago
+    createPaymentMercadoPago,
+    notificationData
 }
+
 
 
 //NOTAS:

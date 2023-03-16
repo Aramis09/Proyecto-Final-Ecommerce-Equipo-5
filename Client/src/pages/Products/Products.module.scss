@@ -1,13 +1,18 @@
 @media (min-width:320px) and (max-width:960px){
   .productList{
-    margin-top: 30%;
+    margin-top: 20%;
+    
   }
 }
 
-
-.page-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+@media (min-width:961px){
+  .page-container {
+    margin-top: 7%;
+    display: grid;
+    grid-template-columns: auto auto auto;
+    column-gap: 2%;
+    row-gap: 0.5%;
+    justify-content: center;
+    align-items: center;
+  }
 }

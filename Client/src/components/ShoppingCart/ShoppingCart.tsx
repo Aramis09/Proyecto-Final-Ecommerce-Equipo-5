@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import cart from '../../assets/carrito.png';
+import shoppingCart from '../../assets/shopping-cart-discount.svg'
 import style from './ShoppingCart.module.css';
 //import { Link } from "react-router-dom";
 //import { useAuth0 } from "@auth0/auth0-react";
@@ -26,7 +27,7 @@ export const ShoppingCart = () => {
 			<button
 				className={style.cartButton}
 				onClick={(ev) => handleOpenModal(ev)}>
-				<img className={style.cartIcon} src={cart} alt='cart_icon' />
+				<img className={style.cartIcon} src={shoppingCart} alt='cart_icon' />
 			</button>
 			{modalOpen && (
 				<div>
