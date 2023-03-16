@@ -25,7 +25,7 @@ export const productReducer = createSlice({
     initialState,
     reducers:{
         listProducts: (state, action) => {
-            state.searchedData = action.payload;
+            state.allProductsData= action.payload;
         },
         productsByFilters: (state, action) => {
             state.searchedData = action.payload;
