@@ -1,19 +1,15 @@
 const {DataTypes} = require("sequelize");
 module.exports = (sequelize)=>{
     sequelize.define("Comment",{
-        Comment:{
+        comment:{
             type:DataTypes.TEXT,
             allowNull: false,
         },
-        Date:{
-            type:DataTypes.DATE,
+        date:{
+            type:DataTypes.STRING,
             allowNull: false,
         },
-        Hour:{
-            type:DataTypes.DATE,
-            allowNull: false,
-        } 
-    },
+       },
     {timestamps:false}
     );
 };

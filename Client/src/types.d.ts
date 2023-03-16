@@ -24,3 +24,18 @@ export interface CardProps2 extends CardProps {
   description: string;
   image: string[];
 }
+
+export interface Comment {
+    id: number;
+    userId: string;
+    productId: number;
+    comment: string;
+    date: string;
+  }
+
+  export interface User {
+    email: string,
+		admin: boolean,
+		blocked: boolean,
+		secret: string,
+  }

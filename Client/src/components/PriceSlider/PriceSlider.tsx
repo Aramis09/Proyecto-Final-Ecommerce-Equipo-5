@@ -1,4 +1,3 @@
-import { style } from "@mui/system";
 import styles from "./PriceSlider.module.scss";
 import { useState, useEffect } from "react";
 import { useAppDispatch } from "../../redux/hooks/hooks";

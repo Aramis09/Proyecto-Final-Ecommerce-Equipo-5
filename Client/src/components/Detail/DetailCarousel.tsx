@@ -1,19 +1,15 @@
 import { useState } from "react";
 import styles from "./DetailCarousel.module.scss";
 
-export const DetailCarousel = ({images}) => {
+export const DetailCarousel = ({ images }) => {
   const [currentImage, setCurrentImage] = useState(0);
 
   const handleChangeImageNext = () => {
-    setCurrentImage(
-      currentImage === images.length - 1 ? 0 : currentImage + 1
-    );
+    setCurrentImage(currentImage === images.length - 1 ? 0 : currentImage + 1);
   };
 
   const handleChangeImagePrev = () => {
-    setCurrentImage(
-      currentImage === 0 ? images.length - 1 : currentImage - 1
-    );
+    setCurrentImage(currentImage === 0 ? images.length - 1 : currentImage - 1);
   };
 
   return (
