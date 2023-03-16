@@ -10,12 +10,8 @@ import styles from "./Home.module.scss";
 
 
 export const Home = () => {
-
   const dispatch = useAppDispatch();
 
-  
-
-  
   const toTheSearchList = (e: any) => {
     let num;
     let data = e.target.value;
@@ -48,6 +44,9 @@ export const Home = () => {
     <div className={styles.container}>
       <NavBar />
       <Carousel />
+      <Link to={'/users'}>
+      <button>Dashboard</button>
+      </Link>
       <h2 className={styles.title}>TOP GAMES</h2>
       <Product/>
       <Link to={'/products'}>

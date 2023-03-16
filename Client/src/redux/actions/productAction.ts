@@ -1,9 +1,20 @@
 import axios from 'axios';
 
 import {listProducts, productByID, errorMsg, carouselPicks, productsByFilters, saveTopRatedProducts, searchObject} from "../reducer/productReducer";
-import { LIST_PRODUCTS, LIST_PRODUCTS_BY_FILTERS, LIST_PRODUCTS_BY_PLATFORMS } from "../../utils/constants";
+import { LIST_PRODUCTS, LIST_PRODUCTS_BY_FILTERS } from "../../utils/constants";
 
 //Obtener listado de productos por filtros (actual funcion de busqueda para productos. Si no sabes como se usa, pregunta a aramis o nahuel :D)
+export const getAllProducts = () => async (dispatch:any) => {
+    let arrayProducts: object[];
+    try {
+        arrayProducts = (await axios.get(LIST_PRODUCTS)).data;
+        dispatch(listProducts(arrayProducts))
+    } catch (error) {
+        dispatch(errorMsg("Ocurrio un error...intentelo mas tarde"))
+        console.log("Exception - getAllProducts: " + error);
+    }
+}
+
 export const getProductsByFilters =  (filters: {}) => async (dispatch: any) => {
     let listProducts: object[];
     try{
