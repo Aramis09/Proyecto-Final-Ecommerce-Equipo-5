@@ -36,7 +36,9 @@ const createPaymentMercadoPago = async (items, client) => {
         },
         auto_return: "approved", // si la compra es exitosa automaticamente redirige a "success" de back_urls
         binary_mode: true, //esto permite que el resultado de la compra sea solo 'failure' o solo 'success'
+
         //notification_url: "https://87f7-186-130-48-237.sa.ngrok.io/payment/responseMP?source_news=webhooks",
+
         //esta variable de notificacion se tiene que cambiar depende si es para recibir por deploy o por la herramienta "ngrok",
         //la cual CADA vez que se levanta para recibir notificaciones con el repo, cambia de url, asi que OJO!
         ///payment/responseMP?source_news=webhooks
@@ -71,15 +73,18 @@ const notificationData = async (query)  => {
       const orderId = query.id;
       merchantOrder = await mercadopago.merchant_orders.findById(orderId)
       break;
+
   }
   //console.log('merch test', merchantOrder.body)
   
   ////para visualizar el ejemplo:
   var userMailFromDescription = merchantOrder.body.items[0].description;
+
   var transactionDataObject;
   var dbItem;
   merchantOrder.body.payments.forEach( async (item, index) => {
     dbItem = (await axios.get(`http://localhost:3001/products/${merchantOrder.body.items[index].id}`)).data
+
     var date = item.date_approved.slice(0, 10).split('-');
     transactionDataObject = {
         dateTransaction: date[2]+'/'+date[1]+'/'+date[0], //modificar la fecha para que sea 'mm/dd/aa'
@@ -169,6 +174,7 @@ module.exports = {
     createPaymentMercadoPago,
     notificationData
 }
+
 
 
 //NOTAS:

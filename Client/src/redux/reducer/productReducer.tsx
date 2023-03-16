@@ -3,24 +3,22 @@ import { access } from "fs";
 
 import { productReducerState } from "../interfaces/productInterface";
 
-
 const initialState: productReducerState = {
-    searchedData: [],
-    details: {},
-    topProductsData: [],
-    carouselData: [],
-    searchObject: {},
-    searchedName: '',
-    selectedFilterGenreData: [],
-    selectedFilterPlatformData: [],
-    selectedFilterPriceRangeData: [],
-    selectedAlphabeticOrderData: '',
-    selectedPriceOrderData: '',
-    successMsg: "",
-    errorMsg: ""
-
-}
-
+  allProductsData: [],
+  searchedData: [],
+  details: {},
+  topProductsData: [],
+  carouselData: [],
+  searchObject: {},
+  searchedName: "",
+  selectedFilterGenreData: [],
+  selectedFilterPlatformData: [],
+  selectedFilterPriceRangeData: [],
+  selectedAlphabeticOrderData: "",
+  selectedPriceOrderData: "",
+  successMsg: "",
+  errorMsg: "",
+};
 
 export const productReducer = createSlice({
     name: "productReducer",
@@ -110,5 +108,5 @@ export const {
     eraseItemById
 } = productReducer.actions;
 
-export default productReducer.reducer
+export default productReducer.reducer;
 //export const selectAll = (state: RootState) => state.productReducer;

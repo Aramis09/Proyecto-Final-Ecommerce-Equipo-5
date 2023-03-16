@@ -3,9 +3,7 @@ import { useAppDispatch, useAppSelector } from "../../redux/hooks/hooks";
 import { PriceSlider } from "../PriceSlider/PriceSlider";
 import { selectedFilterGenre, selectedAlphabeticOrder } from "../../redux/reducer/productReducer";
 import { getProductsByFilters } from "../../redux/actions/productAction";
-import { eraseSearchedName } from "../../redux/reducer/productReducer";
 import styles from "./Filters.module.scss";
-import { style } from "@mui/system";
 
 const optionOrder = ["ASC", "DESC"];
 

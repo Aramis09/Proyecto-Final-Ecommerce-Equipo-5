@@ -80,3 +80,4 @@ User.hasMany(Purchase);
 Purchase.belongsTo(User);
 //**Exportarla para poder trabajar con los modelos en los controllers */
 module.exports={sequelize, ...sequelize.models};
+
