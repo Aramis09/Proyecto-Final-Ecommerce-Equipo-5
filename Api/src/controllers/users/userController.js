@@ -38,11 +38,47 @@ const addFriends = async (emailUser, emailFriend) => {
     return FriendsAll;
   } catch (error) {
     return { error: error.message };
+  };
+};
+
+const addProductInShoppingCartForUser = async (pkUser, pkProduct) => {
+  try {
+    console.log("pkUser",pkUser,"pkProduct",pkProduct);
+
+    const user = await User.findByPk(pkUser);
+    const porductToAdd = await Product.findByPk(pkProduct);
+    await user.addProduct(porductToAdd, {
+      // especificar la tabla intermedia a utilizar
+      through: { ShoppingCart: pkProduct },
+    });
+    const newList = await getAllProductsInShoppingCart(pkUser);
+    return newList;
+  } catch (error) {
+    return { error: error.message };
+  };
+};
+
+
+
+const addAllProductInShoppingCartForUser = async (arrayProuductsShoppingcart) => {
+  try {
+    console.log("arrayProuductsShoppingcart",arrayProuductsShoppingcart, Array.isArray(arrayProuductsShoppingcart));
+    let pkUser = "";
+    await Promise.all(
+      arrayProuductsShoppingcart.map(async (element)=>{
+        pkUser = element.UserEmail;
+        await addProductInShoppingCartForUser(element.UserEmail,element.ProductId);
+        })
+      );
+    const newList = await getAllProductsInShoppingCart(pkUser);
+    return newList;
   }
+  catch(error){
+    return { error: error.message };
+  };
 };
 const acceptFriend = async (email, emailFriend) => {
   try {
-    console.log(email, "---------------------", emailFriend);
     const userOne = await FriendUser.findOne({
       where: {
         UserEmail: email,
@@ -66,6 +102,7 @@ const acceptFriend = async (email, emailFriend) => {
     return { error: error.message };
   }
 };
+
 const removeOrRejectedFriend = async (email, emailFriend, response) => {
   try {
     if (response === "remove") {
@@ -100,6 +137,7 @@ const removeOrRejectedFriend = async (email, emailFriend, response) => {
     return { error: error.message };
   }
 };
+
 const getAllFriends = async (email) => {
   try {
     const friendList = await FriendUser.findAll({
@@ -143,20 +181,6 @@ const getAllUsers = async () => {
   }
 };
 
-const addProductInShoppingCartForUser = async (pkUser, pkProduct) => {
-  try {
-    const user = await User.findByPk(pkUser);
-    const porductToAdd = await Product.findByPk(pkProduct);
-    await user.addProduct(porductToAdd, {
-      // especificar la tabla intermedia a utilizar
-      through: { ShoppingCart: pkProduct },
-    });
-    const newList = await getAllProductsInShoppingCart(pkUser);
-    return newList;
-  } catch (error) {
-    return { error: error.message };
-  }
-};
 const getAllProductsInShoppingCart = async (email) => {
   try {
     const user = await User.findByPk(email);
@@ -244,6 +268,7 @@ const getAllCommentOfProduct = async (productId) => {
   return commentOfUser;
 };
 
+
 module.exports = {
   addFriends,
   getAllUsers,
@@ -260,4 +285,5 @@ module.exports = {
   acceptFriend,
   removeOrRejectedFriend,
   getAllFriendsPending,
+  addAllProductInShoppingCartForUser,
 };
