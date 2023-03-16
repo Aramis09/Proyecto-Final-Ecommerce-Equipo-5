@@ -54,7 +54,7 @@ const createPaymentMercadoPago = async (items, client) => {
     //},
     back_urls: {
       // declaramos las urls de redireccionamiento
-      success: "http://127.0.0.1:3000/", //"https://localhost:3001/payment/responseMP", //esto es de prueba, despues lo cambio
+      success: "http://localhost:3000/", //"https://localhost:3001/payment/responseMP", //esto es de prueba, despues lo cambio
       // url que va a redireccionar si sale todo bien
       pending: "http://127.0.0.1:3000/", //"https://localhost:3001/payment/responseMP", //esto es de prueba, despues lo cambio
       // url a la que va a redireccionar si decide pagar en efectivo por ejemplo
