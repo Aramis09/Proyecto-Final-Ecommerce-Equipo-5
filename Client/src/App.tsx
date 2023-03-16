@@ -4,6 +4,7 @@ import { Products } from "./pages/Products/Products";
 import { Detail } from "./components/Detail/Detail";
 import { CheckOut } from "./pages/CheckOut/CheckOut";
 import { Transaccion } from "./pages/mercadoPagoTesting/mpLink";
+import { WishList } from './pages/WishList/WishList';
 import { useEffect } from "react";
 import { useAppDispatch } from "./redux/hooks/hooks";
 import { getTopRatedProducts } from "./redux/actions/productAction";
@@ -42,6 +43,7 @@ function App() {
               <Route path="/:id" element={<Detail />} />
               <Route path="/checkout" element={<CheckOut />} />
               <Route path="/mptest" element={<Transaccion />} />
+              <Route path="/wishList" element={<WishList />} />
             </>
           )}
         </Routes>

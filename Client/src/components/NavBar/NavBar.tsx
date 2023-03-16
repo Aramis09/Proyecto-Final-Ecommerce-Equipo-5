@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import style from "./NavBar.module.scss";
 import { SearchBar } from "../SearchBar/SearchBar";
 import { ShoppingCart } from '../../components/ShoppingCart/ShoppingCart';
-import { WishList } from "../WishList/WishList";
+import { WishList } from "../WishListButton/WishListButton";
 import icon from "../../assets/joystick_icon.png";
 import { useAuth0 } from "@auth0/auth0-react";
 //import { Button } from "@mui/material";

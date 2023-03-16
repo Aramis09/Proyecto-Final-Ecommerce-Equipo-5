@@ -27,6 +27,7 @@ export const Card = ({
     var listProductsShoppingCart: object[] = useAppSelector(
       (state) => state.shoppingCartReducer.listProductsShoppingCartUser
     );
+    // var wishListItems: object[] = useAppSelector(state => state.)
   } else {
     var listProductsShoppingCart: object[] = useAppSelector(
       (state) => state.shoppingCartReducer.listProductsShoppingCartGuest
@@ -86,9 +87,11 @@ export const Card = ({
               Agregar al carrito
             </button>
             <p>{successMsg}</p>
-            <button type="button" onClick={ev => addToWishList(ev)}>
-              Add to wish list
-            </button>
+            {isAuthenticated
+              ? <button type="button" onClick={ev => addToWishList(ev)}>
+                Add to wish list
+              </button>
+              : null}
           </div>
         </div>
       </div>
