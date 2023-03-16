@@ -95,10 +95,14 @@ export const CheckOut = () => {
             <h4>Billing Information</h4>
             <form className={styles.form}>
               <div className={styles.dataContainer}>
-                <input type="text" placeholder="Name" />
-                <input type="text" placeholder="Last Name" />
-                <input type="email" placeholder="Email" />
-                <input type="tel" placeholder="Phone Number" />
+                {
+                  /*
+                  <input type="text" placeholder="Name" />
+                  <input type="text" placeholder="Last Name" />
+                  <input type="email" placeholder="Email" />
+                  <input type="tel" placeholder="Phone Number" />
+                  */
+                }
               </div>
             </form>
             {user?.email_verified && isAuthenticated ? (
