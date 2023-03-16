@@ -30,7 +30,7 @@ export const DashboardUser = () => {
             <p>{admin}</p>
             <p>{blocked}</p>
             <p>{email}</p>
-            <p></p>
+            <button>{admin === true ? 'admin' : 'no Admin'}</button>
           </div>
         ))}
       </section>
