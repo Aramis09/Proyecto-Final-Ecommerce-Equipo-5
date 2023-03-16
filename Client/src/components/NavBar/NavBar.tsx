@@ -15,7 +15,7 @@ export const NavBar = () => {
     const addNewUser = async () => {
       if (typeof user !== "undefined") {
         await axios.get(
-          `http://localhost:3001/user/userNew?email=${user.email}`
+          `http://localhost:3001/user/userNew?email=${user.email}&name=${user.name}&image=${user.picture}`
         );
       }
     };

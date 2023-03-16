@@ -2,9 +2,9 @@ const { getAllWishes,getAllUsers,addUser,addProductInShoppingCartForUser,addFrie
 
 const addNewUser = async (req,res) => {
     try {
-        const { email } = req.query;
+        const { email, name, image } = req.query;
         if(!email) throw new Error('please send me a user email.');
-        const addedUser = await addUser(email);
+        const addedUser = await addUser(email, name, image);
         console.log(addedUser)
         console.log(email)
         return res.status(200).json(addedUser);
