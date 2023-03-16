@@ -1,8 +1,6 @@
 import { DashboardNav } from "../Nav/DashboardNav";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks/hooks";
-import { listUser, userByID } from "../../../redux/reducer/userReducer";
 import { getListUsers } from "../../../redux/actions/userAction";
-import { usersExample } from "../userExample";
 import styles from "./DashboardUsers.module.css";
 import { useEffect } from "react";
 

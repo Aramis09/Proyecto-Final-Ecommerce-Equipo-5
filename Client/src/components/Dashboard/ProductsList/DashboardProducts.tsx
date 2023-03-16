@@ -1,22 +1,17 @@
 import { DashboardNav } from "../Nav/DashboardNav";
-import { PRUEBA } from "../../../prueba";
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks/hooks";
-import { eraseSearchedData } from "../../../redux/reducer/productReducer";
-import { getListGenres } from "../../../redux/actions/genresAction";
+import { getAllProducts } from "../../../redux/actions/productAction";
 import styles from "./DashboardProducts.module.css";
 
 export const DashboardProducts = () => {
-  let searchedData = useAppSelector(
-    (state) => state.productReducer.searchedData
+  let listProducts = useAppSelector(
+    (state) => state.productReducer.allProductsData
   );
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(getListGenres());
-    return () => {
-      dispatch(eraseSearchedData());
-    };
+    dispatch(getAllProducts());
   }, []);
 
   return (
@@ -30,18 +25,14 @@ export const DashboardProducts = () => {
           <p>rating</p>
           <p>price</p>
         </div>
-        {searchedData.length && searchedData.length > 0 ? (
-          PRUEBA.map(({ id, name, price, rating }) => (
-            <div className={styles["product-item"]} key={id}>
-              <p>{id}</p>
-              <p>{name}</p>
-              <p>{rating}</p>
-              <p>${price}</p>
-            </div>
-          ))
-        ) : (
-          <p>lloralo</p>
-        )}
+        {listProducts.map(({name, rating, id, price}, index) => (
+          <div className={styles["product-item"]} key={index}>
+            <p>{id}</p>
+            <p>{name}</p>
+            <p>{rating}</p>
+            <p>{price}</p>
+          </div>
+        ))}
       </section>
     </>
   );
