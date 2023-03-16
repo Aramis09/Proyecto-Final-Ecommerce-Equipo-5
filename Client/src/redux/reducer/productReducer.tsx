@@ -57,9 +57,6 @@ export const productReducer = createSlice({
                 console.log(state.selectedFilterGenreData)
             }
         },
-        selectedFilterPlatform: (state, action) => {
-            state.selectedFilterPlatformData = action.payload
-        },
         selectedFilterPriceRange: (state, action) => {
             state.selectedFilterPriceRangeData = action.payload
         },
@@ -106,7 +103,6 @@ export const {
     eraseSearchedData,
     searchObject,
     selectedFilterGenre,
-    selectedFilterPlatform,
     selectedFilterPriceRange,
     selectedAlphabeticOrder,
     selectedPriceOrder,
