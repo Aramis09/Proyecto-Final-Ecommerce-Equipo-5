@@ -4,11 +4,6 @@ const { DataTypes }= require("sequelize");
 require("dotenv").config(); //**La variables de entorno quedan dispobnibles .env */
 const {DB_DATA}= process.env;
 const sequelize = new Sequelize(DB_DATA,{logging:false});
-//las lineas 7 y 8 es para que pueda correrlo en mi pc, agradeceria que lo dejen comentado nomas (nicrus27)
-// const {DB_USER, DB_PASSWORD, DB_HOST, DB_NAME}= process.env;
-// const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME}`, {
-//     logging: false,
-// });
 
 //**Definicion de modelos (con sequelize)*/
 const ProductModel = require("./models/Product");
@@ -85,3 +80,4 @@ User.hasMany(Purchase);
 Purchase.belongsTo(User);
 //**Exportarla para poder trabajar con los modelos en los controllers */
 module.exports={sequelize, ...sequelize.models};
+

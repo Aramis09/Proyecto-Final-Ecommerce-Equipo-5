@@ -26,10 +26,6 @@ module.exports = (sequelize)=>{
             type:DataTypes.STRING,
             defaultValue:""
         },
-        giftGame:{
-            type:DataTypes.BOOLEAN,
-            defaultValue:false
-        },
         userEmailGift:{
             type:DataTypes.STRING,
             defaultValue:""

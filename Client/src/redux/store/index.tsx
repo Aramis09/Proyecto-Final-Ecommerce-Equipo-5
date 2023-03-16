@@ -4,6 +4,7 @@ import platformReducer from "../reducer/platformReducer";
 import genresReducer from "../reducer/genresReducer";
 import mercadoLibreReducer from "../reducer/mercadoLibreReducer";
 import shoppingCartReducer from "../reducer/shoppingCartReducer";
+import userReducer from "../reducer/userReducer";
 
 export const store = configureStore({
     reducer: {
@@ -11,7 +12,8 @@ export const store = configureStore({
         platformReducer: platformReducer,
         genresReducer: genresReducer,
         mercadoLibreReducer: mercadoLibreReducer,
-        shoppingCartReducer: shoppingCartReducer
+        shoppingCartReducer: shoppingCartReducer,
+        userReducer: userReducer
     }
 })
 

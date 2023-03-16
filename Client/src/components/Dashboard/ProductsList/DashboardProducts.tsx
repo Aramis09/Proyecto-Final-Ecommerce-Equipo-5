@@ -1,8 +1,19 @@
 import { DashboardNav } from "../Nav/DashboardNav";
-import { PRUEBA } from "../../../prueba";
+import { useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "../../../redux/hooks/hooks";
+import { getAllProducts } from "../../../redux/actions/productAction";
 import styles from "./DashboardProducts.module.css";
 
 export const DashboardProducts = () => {
+  let listProducts = useAppSelector(
+    (state) => state.productReducer.allProductsData
+  );
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(getAllProducts());
+  }, []);
+
   return (
     <>
       <DashboardNav />
@@ -14,12 +25,12 @@ export const DashboardProducts = () => {
           <p>rating</p>
           <p>price</p>
         </div>
-        {PRUEBA.map(({ id, name, price, rating }) => (
-          <div className={styles['product-item']} key={id}>
+        {listProducts.map(({name, rating, id, price}, index) => (
+          <div className={styles["product-item"]} key={index}>
             <p>{id}</p>
             <p>{name}</p>
             <p>{rating}</p>
-            <p>${price}</p>
+            <p>{price}</p>
           </div>
         ))}
       </section>
