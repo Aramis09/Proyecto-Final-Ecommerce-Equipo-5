@@ -1,4 +1,7 @@
+import { Game } from "../../types";
+
 export interface productReducerState{
+    allProductsData: Game[]
     searchedData: Array<object>,
     details: object,
     topProductsData: Array<object>,

@@ -10,30 +10,16 @@ import styles from "./Home.module.scss";
 
 
 export const Home = () => {
-
   const dispatch = useAppDispatch();
 
-  
-
-  
   const toTheSearchList = (e: any) => {
-    let num;
-    let data = e.target.value;
-    if(data.length>1){
-    data = data.split(',')
-    num = data.map((item:any) => parseInt(item))
-    } else if (data === '0'){
-      num = []
-    } else {
-      num = [parseInt(data)]
-    }
     
     dispatch(getProductsByFilters({
       name:'',
 			filters:
 				{
 				genres:[],
-				platform: num,
+				platform: [],
 				priceRange:[0,100]
 				},
 			order:
@@ -48,6 +34,9 @@ export const Home = () => {
     <div className={styles.container}>
       <NavBar />
       <Carousel />
+      <Link to={'/users'}>
+      <button>Dashboard</button>
+      </Link>
       <h2 className={styles.title}>TOP GAMES</h2>
       <Product/>
       <Link to={'/products'}>

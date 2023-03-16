@@ -1,11 +1,9 @@
 import { useState, useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks/hooks";
 import { PriceSlider } from "../PriceSlider/PriceSlider";
-import { selectedFilterGenre, selectedFilterPlatform, selectedAlphabeticOrder } from "../../redux/reducer/productReducer";
+import { selectedFilterGenre, selectedAlphabeticOrder, eraseSearchedName } from "../../redux/reducer/productReducer";
 import { getProductsByFilters } from "../../redux/actions/productAction";
-import { eraseSearchedName } from "../../redux/reducer/productReducer";
 import styles from "./Filters.module.scss";
-import { style } from "@mui/system";
 
 const optionOrder = ["ASC", "DESC"];
 
@@ -16,11 +14,9 @@ export const Filters = () => {
   const [platformsOpen, setPlatformsOpen] = useState(false);
   const [orderOpen, setOrderOpen] = useState(false);
   const [selectAttribute, setSelectAttribute] = useState(true);
-  let listPlatforms = useAppSelector((state) => state.platformReducer.listPlatformsData)
   let listGenres = useAppSelector((state => state.genresReducer.listGenresData))
   let searchedName = useAppSelector((state) => state.productReducer.searchedName)
   let selectedFilterGenreData = useAppSelector((state) => state.productReducer.selectedFilterGenreData)
-  let selectedFilterPlatformData = useAppSelector((state) => state.productReducer.selectedFilterPlatformData)
   let selectedFilterPriceRangeData = useAppSelector((state) => state.productReducer.selectedFilterPriceRangeData)
   let selectedAlphabeticOrderData = useAppSelector((state) => state.productReducer.selectedAlphabeticOrderData)
   //console.log(selectAttribute)
@@ -40,9 +36,7 @@ export const Filters = () => {
     dispatch(selectedFilterGenre(parseInt(dato.target.value)))
   }
 
-  const selectPlatform = (dato: any) => {
-    dispatch(selectedFilterPlatform([parseInt(dato.target.value)]))
-  }
+
 
   const selectAlphabeticOrder = (dato:any) => {
     dispatch(selectedAlphabeticOrder(dato.target.value))
@@ -55,7 +49,7 @@ export const Filters = () => {
 			filters:
 				{
 				genres: selectedFilterGenreData,
-				platform: selectedFilterPlatformData,
+				platform: [],
 				priceRange: selectedFilterPriceRangeData
 				},
 			order:
@@ -113,17 +107,7 @@ export const Filters = () => {
 								setPlatformsOpen(!platformsOpen);
 							}
 						}}>
-						<p>Plataforma</p>
 					</label>
-					<select
-						multiple={selectAttribute}
-						className={platformsOpen ? styles.open : ''}>
-						{listPlatforms.map((item: any, index: number) => (
-							<option key={index} value={index} onClick={selectPlatform}>
-								{item.name}
-							</option>
-						))}
-					</select>
 				</div>
 				<div className={styles['options-container']}>
 					<label className={styles['label-tittle']}>Precio</label>

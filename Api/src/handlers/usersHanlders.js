@@ -2,9 +2,9 @@ const { getAllWishes,getAllUsers,addUser,addProductInShoppingCartForUser,addFrie
 
 const addNewUser = async (req,res) => {
     try {
-        const { email } = req.query;
+        const { email, name, image } = req.query;
         if(!email) throw new Error('please send me a user email.');
-        const addedUser = await addUser(email);
+        const addedUser = await addUser(email, name, image);
         console.log(addedUser)
         console.log(email)
         return res.status(200).json(addedUser);
@@ -30,7 +30,7 @@ const addNewProductInShoppingCart = async (req,res) => {
 };
 const removeProductoInShoppingCar = async (req,res) => { 
     try {
-        const {email,idProduct} = req.query; 
+        const {email,idProduct} = req.query;
         if(!email || !idProduct) throw new Error('send me all data please');
         const newList = await deleteProductinShoppingCart(email,idProduct);
         if(newList.error) throw new Error(newList.error);

@@ -32,3 +32,10 @@ export interface Comment {
     comment: string;
     date: string;
   }
+
+  export interface User {
+    email: string,
+		admin: boolean,
+		blocked: boolean,
+		secret: string,
+  }
