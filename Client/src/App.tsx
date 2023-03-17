@@ -60,7 +60,7 @@ function App() {
               <Route path="/:id" element={<Detail />} />
               <Route path="/checkout" element={<CheckOut />} />
               <Route path="/mptest" element={<Transaccion />} />
-              <Route path="friends" element={<Friends />} />
+              <Route path="/friends" element={<Friends />} />
             </>
           )}
         </Routes>
