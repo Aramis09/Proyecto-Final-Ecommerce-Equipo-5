@@ -8,7 +8,7 @@ const {
 
 const editProduct = async (req, res) => {
   try {
-    const { emailAdmin, secret } = req.query; // es para verificar si es administrador.
+    const { emailAdmin, secret } = req.body; // es para verificar si es administrador.
     const adminFound = await verifyIsAdmin(emailAdmin, secret);
     if (!adminFound)
       throw new Error("you are not admin, if you try again will blocked");
@@ -22,10 +22,9 @@ const editProduct = async (req, res) => {
       description,
       released,
       state,
-      created,
       genres,
       images,
-    } = req.body;
+    } = req.query;
     let propertys = {
       id,
       name,
@@ -38,7 +37,6 @@ const editProduct = async (req, res) => {
       description,
       released,
       state,
-      created,
     };
     const productModify = await changePropertyProducts(propertys);
     return res.status(200).json(productModify);
@@ -49,7 +47,7 @@ const editProduct = async (req, res) => {
 
 const blockUser = async (req, res) => {
   try {
-    const { emailAdmin, secret, emailUser } = req.query; // falta verificar si el usuario es administrador
+    const { emailAdmin, secret, emailUser } = req.body; // falta verificar si el usuario es administrador
     const adminFound = await verifyIsAdmin(emailAdmin, secret);
     if (!adminFound)
       throw new Error("you are not admin, if you try again will blocked");
@@ -62,7 +60,7 @@ const blockUser = async (req, res) => {
 
 const makeUserAdmin = async (req, res) => {
   try {
-    const { emailAdmin, emailUser, secret, newSecret } = req.query; // falta verificar si el usuario es administrador
+    const { emailAdmin, emailUser, secret, newSecret } = req.body; // falta verificar si el usuario es administrador
     if (!emailAdmin || !secret)
       throw new Error("you are not admin, if you try again will blocked");
     const firstAdmin = await createFirstAdmin(emailAdmin, secret);
