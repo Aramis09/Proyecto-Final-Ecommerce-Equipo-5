@@ -1,11 +1,11 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { friendsReducerState } from '../interfaces/friendsInterface';
+import { createSlice } from '@reduxjs/toolkit';
+import { friendsReducerState } from '../interfaces/friendInterface';
 
 const initialState: friendsReducerState = {
-	newFriendRequest: [],
-	responseRequest: [],
-	friendsConfirmed: [],
-	FriendsPending: []
+	newFriendRequest: '',
+	responseRequest: '',
+	friendsConfirmed: '',
+	FriendsPending: '',
 };
 
 export const friendReducer = createSlice({
@@ -27,6 +27,5 @@ export const friendReducer = createSlice({
 	},
 });
 
-export const { addFriends, resRequest, confirmFriend, pendFriend } =
-	friendReducer.actions;
+export const { addFriends, resRequest, confirmFriend, pendFriend } = friendReducer.actions;
 export default friendReducer.reducer;
