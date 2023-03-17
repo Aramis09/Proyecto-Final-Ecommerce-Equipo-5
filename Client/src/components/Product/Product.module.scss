@@ -27,7 +27,6 @@
     align-items: center;
     justify-content: center;
     width: 100%;
-    border-radius: 10px;
     padding: 70px;
     font-family: 'Orbitron', sans-serif;
    
@@ -53,11 +52,9 @@
     justify-content: center;
     align-items: center;
     width: 22rem;
-   
-    border-radius: 10px;
-    padding: 10px;
+    border-radius: 1rem;
     background-color:$background-color;
-    box-shadow: 5px 5px 15px 0 $light-blue-color;
+    // box-shadow: 1px 5px 25px 5px $light-blue-color;
     font-family: 'Orbitron', sans-serif;  
     
   }
