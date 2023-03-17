@@ -71,7 +71,7 @@ export const Detail = () => {
                   <h3>{game.name}</h3>
                   <p>${game.price}</p>
                   <Rating value={game.rating} />
-                  <button type="button" onClick={addingToShoppingCart}>Agregar al carrito</button>
+                  <button type="button" onClick={addingToShoppingCart}>Add To Cart</button>
                   <p>{successMsg}</p>
                 </div>
               </div>

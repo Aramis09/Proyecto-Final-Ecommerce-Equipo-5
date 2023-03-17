@@ -13,6 +13,7 @@ import { getTopRatedProducts } from "./redux/actions/productAction";
 import { DashboardUser } from "./components/Dashboard/Users/DashboardUser";
 import { DashboardProducts } from "./components/Dashboard/ProductsList/DashboardProducts";
 import "./App.css";
+import { Friends } from "./pages/Friends/Friends";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -61,6 +62,8 @@ function App() {
               <Route path="/checkout" element={<CheckOut />} />
               <Route path="/mptest" element={<Transaccion />} />
               <Route path="/wishList" element={<WishList />} />
+              <Route path="/friends" element={<Friends />} />
+
             </>
           )}
         </Routes>

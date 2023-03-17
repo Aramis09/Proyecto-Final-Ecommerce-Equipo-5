@@ -27,14 +27,14 @@ const createFirstAdmin = async (emailAdmin,secret) => {
 };
 const blockedUser = async (emailUser) => {
     const userByBlock = await User.findByPk(emailUser);
-    userByBlock.blocked = true;
+    userByBlock.blocked = !userByBlock.blocked;
     await userByBlock.save();
     const userBlockedList = await User.findAll({where:{blocked:true}});
     return userBlockedList;
 };
 const makeAdmin = async (emailUser,newSecret) => {
     const newAdmin = await User.findByPk(emailUser);
-    newAdmin.admin = true;
+    newAdmin.admin = !newAdmin.admin;
     newAdmin.secret = newSecret;
     await newAdmin.save();
     const userAdminList = await User.findAll({where:{admin:true}});
@@ -43,7 +43,7 @@ const makeAdmin = async (emailUser,newSecret) => {
 
 
 const changePropertyProducts = async (propertys) => {
-    const { id,name,background_image,rating,playtime,price,description,released,state,created,genres,images } = propertys;
+    const { id,name,background_image,rating,playtime,price,description,released,state,genres,images } = propertys;
     const productByModify = await  Product.findByPk(id);   
     if(name){
         productByModify.name = name;
@@ -75,10 +75,6 @@ const changePropertyProducts = async (propertys) => {
     };
     if(state){
         productByModify.state = state;
-        await productByModify.save();
-    };
-    if(created){
-        productByModify.created = created;
         await productByModify.save();
     };
     if(genres) await associationGenresWithProduct(productByModify,genres);    

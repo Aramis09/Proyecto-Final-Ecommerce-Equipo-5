@@ -5,12 +5,17 @@ import { ShoppingCart } from '../../components/ShoppingCart/ShoppingCart';
 import { WishList } from "../WishListButton/WishListButton";
 import icon from "../../assets/joystick_icon.png";
 import { useAuth0 } from "@auth0/auth0-react";
-//import { Button } from "@mui/material";
 import { useEffect } from "react";
 import axios from "axios";
 
 export const NavBar = () => {
-  const { loginWithRedirect, user, logout, isAuthenticated } = useAuth0();
+  const {
+    loginWithRedirect,
+    user,
+    logout,
+    isAuthenticated,
+    getAccessTokenSilently,
+  } = useAuth0();
 
   useEffect(() => {
     const addNewUser = async () => {
@@ -21,7 +26,11 @@ export const NavBar = () => {
       }
     };
     addNewUser();
-  });
+  }, []);
+
+  const saveToken = (getAccessTokenSilently: string) => {
+    window.localStorage.setItem("token", getAccessTokenSilently);
+  };
 
 	return (
 		<nav className={style.mainContainer}>

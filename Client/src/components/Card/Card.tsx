@@ -89,4 +89,24 @@ export const Card = ({
       </div>
     </>
   );
+		<>
+			<div className={styles['card-container']}>
+				<div className={styles.card}>
+					<Link to={`/${id}`}>
+						<img src={background_image} alt={name} />
+					</Link>
+					<div className={styles.containerTittleAndPrice}>
+						<h3>{name}</h3>
+						{price === 'free' ? <p>{`${price}`}</p> : <p>{`$${price}`}</p>}
+					</div>
+					<div className={styles.addShoppingCart}>
+						<button type='button' onClick={addingToShoppingCart}>
+							Add To Cart
+						</button>
+						<p className={styles.msg}>{successMsg}</p>
+					</div>
+				</div>
+			</div>
+		</>
+	);
 };

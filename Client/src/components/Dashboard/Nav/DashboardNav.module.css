@@ -6,6 +6,7 @@
   position: fixed;
   top: 0;
   left: 30px;
+  width: 100px;
 }
 
 .options-container {
@@ -44,4 +45,8 @@
   width: 80px;
   height: 80px;
   border-radius: 50px;
+}
+
+.email {
+  width: 100%;
 }
