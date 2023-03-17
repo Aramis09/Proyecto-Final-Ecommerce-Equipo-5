@@ -5,6 +5,7 @@ import genresReducer from "../reducer/genresReducer";
 import mercadoLibreReducer from "../reducer/mercadoLibreReducer";
 import shoppingCartReducer from "../reducer/shoppingCartReducer";
 import userReducer from "../reducer/userReducer";
+import wishListReducer from "../reducer/wishListReducer";
 
 export const store = configureStore({
     reducer: {
@@ -13,7 +14,8 @@ export const store = configureStore({
         genresReducer: genresReducer,
         mercadoLibreReducer: mercadoLibreReducer,
         shoppingCartReducer: shoppingCartReducer,
-        userReducer: userReducer
+        userReducer: userReducer,
+        wishListReducer: wishListReducer,
     }
 })
 

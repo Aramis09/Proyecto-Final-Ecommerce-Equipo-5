@@ -225,8 +225,8 @@ const addWishToList = async (pkUser, pkProduct) => {
 const getAllWishes = async (email) => {
   try {
     const user = await User.findByPk(email);
-    const friendList = await user.getWishlist();
-    return friendList;
+    const wishList = await user.getWishlist();
+    return wishList;
   } catch (error) {
     return { error: error.message };
   }
