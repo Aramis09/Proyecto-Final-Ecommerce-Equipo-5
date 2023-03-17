@@ -232,8 +232,7 @@ const getAllWishes = async (email) => {
   }
 };
 
-const addNewComment = async (email, comment, productId, date) => {
-  // const now = sequelize.literal('CURRENT_TIMESTAMP');
+const addNewComment = async (email, comment, productId, date, image) => {
 
   console.log(
     "Yo le llego a:userController a la funcion addNewComment y recibo estos parametros: email--->",
@@ -241,7 +240,9 @@ const addNewComment = async (email, comment, productId, date) => {
     "productId:-->",
     productId,
     "comment-->",
-    comment
+    comment,
+    "image-->",
+    image,
   );
   const newComment = await Comment.build({
     //tengo que mejorar esto porque no anda
@@ -249,6 +250,7 @@ const addNewComment = async (email, comment, productId, date) => {
     date,
     userId: email,
     productId: productId,
+    image,
   });
   await newComment.save();
   return newComment;

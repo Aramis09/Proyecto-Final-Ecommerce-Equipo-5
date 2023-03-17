@@ -1,5 +1,5 @@
 import { useAppSelector, useAppDispatch } from "../../redux/hooks/hooks";
-import { User, useAuth0 } from "@auth0/auth0-react";
+import { useAuth0 } from "@auth0/auth0-react";
 import { useState, useEffect } from "react";
 import { Comment } from "../../types";
 import { getListUsers } from "../../redux/actions/userAction";
@@ -14,6 +14,7 @@ const Comments = () => {
   //Estado Global
   const game: any = useAppSelector((state) => state.productReducer.details);
   const { user } = useAuth0();
+
   //Estados locales
   const [userComment, setComment] = useState("");
   const [allComments, setAllComments] = useState([]);
@@ -31,7 +32,7 @@ const Comments = () => {
     });
   };
 
-  const searchImage = listUsersData.map((user) => user);
+  //const searchImage = listUsersData.map((user) => user);
 
   useEffect(() => {
     getAllProductComments(game).then((allCommentsObject: any) =>
@@ -45,30 +46,33 @@ const Comments = () => {
       <div className={styles["comment-container"]}>
         <h3>Leave a Comment...</h3>
         <form
-        className={styles['form-comment']}
+          className={styles["form-comment"]}
           onSubmit={(event) => {
             sendCommentHandler(event);
           }}
         >
-          <input
-            type="text"
+          <textarea
             name="comment"
-            placeholder="Your Comment"
-            // value={comment}
+            placeholder="Your Comment..."
             className={styles["input-comment"]}
             onChange={(e) => setComment(e.target.value)}
-          ></input>
-          <button type="submit" className={styles['button-comment']}>
+          />
+
+          <button type="submit" className={styles["button-comment"]}>
             <img src={commentIcon} alt="" />
           </button>
         </form>
       </div>
       {allComments &&
         allComments.map((commentObject: Comment) => (
-          <div className={styles["comment-card"]}>
+          <div className={styles["comment-card"]} key={commentObject.id}>
             <div className={styles["user-info"]}>
               <div>
-                <img src={user?.picture} alt="user image" />
+                <img
+                  className={styles["comment-card-img"]}
+                  src={commentObject?.image}
+                  alt="user image"
+                />
               </div>
               <div>
                 <div>{commentObject.userId}</div>
