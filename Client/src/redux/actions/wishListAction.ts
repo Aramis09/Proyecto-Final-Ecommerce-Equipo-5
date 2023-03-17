@@ -5,7 +5,7 @@ import {
     deleteFromWishList,
     error,
 } from '../reducer/wishListReducer';
-import { ADD_NEW_ITEM_TO_WISH_LIST, GET_WISH_LIST } from '../../utils/constants';
+import { ADD_NEW_ITEM_TO_WISH_LIST, GET_WISH_LIST, DELETE_FROM_WISH_LIST } from '../../utils/constants';
 
 export const addItem = (id: string, user: string) => async (dispatch: any) => {
     try {
@@ -29,7 +29,7 @@ export const getItems = (email: string) => async (dispatch: any) => {
 /*-----------------------------------------------------------------------------------*/
 export const deleteItem = (email: string) => async (dispatch: any) => {
     try {
-        
+
     } catch (err) {
         dispatch(error("Ocurrió un error...intente mas tarde" + err));
     };

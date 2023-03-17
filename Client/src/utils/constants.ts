@@ -16,5 +16,6 @@ export const REMOVE_PRODUCT_IN_SHOPPING_CART = 'http://localhost:3001/user/remov
 
 export const ADD_NEW_ITEM_TO_WISH_LIST = 'http://localhost:3001/user/newWish';
 export const GET_WISH_LIST = 'http://localhost:3001/user/wishes';
+export const DELETE_FROM_WISH_LIST = "";
 export const ADDED_TO_WISH_LIST = 'Agregado a lista de deseos';
 export const ALREADY_IN_THE_WISH_LIST = 'Ya esta en tu lista de deseos';
