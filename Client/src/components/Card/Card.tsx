@@ -4,10 +4,9 @@ import styles from "./Card.module.scss";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks/hooks";
 import { addShoppingCart } from "../../redux/actions/shoppingCartAction";
 import { addNewProductInShoppingCart } from "../../redux/actions/shoppingCartAction";
-import { saveShoppingCartInLocalStorage } from "../../redux/actions/localStorageAction";
 import { addAmountForShoppingCartUser } from "../../redux/reducer/shoppingCartReducer";
 import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { ADDED_TO_CART, ALREADY_IN_THE_CART } from "../../utils/constants";
 import { useAuth0 } from "@auth0/auth0-react";
 
@@ -24,21 +23,17 @@ export const Card = ({
   //const platformsSlice = platforms.slice(0, 3);
   const dispatch = useAppDispatch();
 
-  let totalAmount: number;
-
   if (typeof user !== "undefined") {
     var listProductsShoppingCart: object[] = useAppSelector(
       (state) => state.shoppingCartReducer.listProductsShoppingCartUser
     );
   } else {
     var listProductsShoppingCart: object[] = useAppSelector(
-      (state) => state.shoppingCartReducer.listProductsShoppingCartGuest);
-      totalAmount = useAppSelector((state) => state.shoppingCartReducer.totalAmount);
+      (state) => state.shoppingCartReducer.listProductsShoppingCartGuest
+    );
   }
 
   const [successMsg, setSuccessMsg] = useState("");
-  const [control, setControl] = useState(-1);
-  const [saveInLocalStorage, setSaveInLocalStorage] = useState(false);
 
   const addingToShoppingCart = (e: any) => {
     const game: object = {
@@ -56,13 +51,7 @@ export const Card = ({
         dispatch(addNewProductInShoppingCart(id, user.email));
         dispatch(addAmountForShoppingCartUser(price));
       } else {
-        console.log("Estamos en Card");
         dispatch(addShoppingCart(game));
-        console.log("Estamos en Card 2");
-        setControl(listProductsShoppingCart.length);
-        console.log("Estamos en Card 3");
-        setSaveInLocalStorage(true);
-        console.log("Estamos en Card 4");
       }
 
       setSuccessMsg(ADDED_TO_CART);
@@ -70,14 +59,6 @@ export const Card = ({
       setSuccessMsg(ALREADY_IN_THE_CART);
     }
   };
-
-  useEffect(() => {
-    console.log("Entro al useEffect");
-    if(saveInLocalStorage === true){
-      console.log("Se guarda en el local storage");
-      dispatch(saveShoppingCartInLocalStorage(listProductsShoppingCart, totalAmount));
-    }
-  },[control]);
 
   return (
 		<>
