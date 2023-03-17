@@ -18,7 +18,7 @@ export const shoppingCartReducer = createSlice({
     reducers:{
         addingToShoppingCart: (state, action) => {
             state.listProductsShoppingCartGuest.push(action.payload);
-            state.totalAmount = Number((state.totalAmount + Number(action.payload.price)).toFixed(2));
+            state.totalAmount = Number((Number(state.totalAmount) + Number(action.payload.price)).toFixed(2));
         },
         deletingItemShoppingCart: (state, action) => {
             //Se busca el juego en el carrito de compras con el id
@@ -67,6 +67,12 @@ export const shoppingCartReducer = createSlice({
         //        }
         //    }
         //},
+        settingShoppingCartFromLocalStorage: (state, action) => {
+            state.listProductsShoppingCartGuest = action.payload.listProductsShoppingCartGuest;
+            state.totalAmount = action.payload.totalAmount;
+            console.log("state.listProductsShoppingCartGuest --> " + state.listProductsShoppingCartGuest.length);
+            console.log("state.totalAmount --> " + state.totalAmount);
+        },
         successMsg: (state, action) => {
             state.successMsg = action.payload
         },
@@ -87,7 +93,8 @@ export const {
     restAmountForShoppingCartUser,
     eraseGuestShoppingCart,
     //  gettingShoppingCartFromDBUser,
-    userShoppingDBemptyByHand
+    userShoppingDBemptyByHand,
+    settingShoppingCartFromLocalStorage
 } = shoppingCartReducer.actions;
 
 export default shoppingCartReducer.reducer

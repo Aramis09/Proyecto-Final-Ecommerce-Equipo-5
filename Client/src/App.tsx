@@ -11,6 +11,7 @@ import { getListUsers } from "./redux/actions/userAction";
 import { getTopRatedProducts } from "./redux/actions/productAction";
 import { DashboardUser } from "./components/Dashboard/Users/DashboardUser";
 import { DashboardProducts } from "./components/Dashboard/ProductsList/DashboardProducts";
+import { setShoppingCartFromLocalStorage } from "./redux/actions/localStorageAction";
 import "./App.css";
 
 function App() {
@@ -35,6 +36,7 @@ function App() {
   useEffect(() => {
     dispatch(getTopRatedProducts());
     dispatch(getListUsers());
+    dispatch(setShoppingCartFromLocalStorage())
   }, []);
 
   return (
