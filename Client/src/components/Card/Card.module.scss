@@ -72,27 +72,30 @@
     flex-direction: column;
     background-color: $background-color;
     border-radius: 1rem;
-    width: 20rem;
+    width: 22rem;
     padding: 0.2%;
   }
   .card{
     display: grid;
-    grid-template-rows: 170px 120px 80px;
+    grid-template-rows: 190px 180px 80px;
+    align-items: center;
   }
   .containerTittleAndPrice{
+    align-self: center;
     grid-row: 2/3;
   }
   .card h3 {
+    margin-top: 10px;
     font-size: 1.6rem;
-    margin-bottom: 10px;
-
+    height: 110px;
   }
 
   .card img {
     width: 100%;
-    max-height: 170px;
-    margin-bottom: 10px;
+    max-height: 200px;
     border-radius: 10px;
+    row-gap: 1/2;
+
   }
 
   .card p {
@@ -103,7 +106,8 @@
   }
 
   .addShoppingCart{
-    grid-row: 3;
+    align-self: center;
+    grid-row: 3/4;
   }
 
   .form-button {
