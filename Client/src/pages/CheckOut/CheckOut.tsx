@@ -9,7 +9,10 @@ import { useAuth0 } from "@auth0/auth0-react";
 import axios from "axios";
 import { Navigate } from "react-router-dom";
 import style from "../../components/NavBar/NavBar.module.scss";
-import { useState } from "react";
+
+import { useState, useEffect } from 'react';
+import { saveShoppingCartInLocalStorage } from "../../redux/actions/localStorageAction";
+
 
 export const CheckOut = () => {
   //const gameSlice = allGames.slice(0, 3);
@@ -32,6 +35,9 @@ export const CheckOut = () => {
   let items: any = listProductsShoppingCart;
   console.log('checkout items', items);
 
+  const [control, setControl] = useState(-1);
+  const [saveInLocalStorage, setSaveInLocalStorage] = useState(false);
+
   const deleteItem = (e: any) => {
     console.log('El id a enviar es: ' + e.target.value);
     let lessPrice = items.filter(
@@ -40,9 +46,18 @@ export const CheckOut = () => {
     if (typeof user !== 'undefined') {
       dispatch(removeProductoInShoppingCar(e.target.value, user.email));
       dispatch(restAmountForShoppingCartUser(lessPrice));
+    }else{
+      setControl(listProductsShoppingCart.length);
+      setSaveInLocalStorage(true);
     }
     dispatch(deleteItemShoppingCart(e.target.value));
   };
+
+  useEffect(() => {
+    if(saveInLocalStorage === true){
+      dispatch(saveShoppingCartInLocalStorage(listProductsShoppingCart, totalAmount));
+    }
+  },[control]);
 
   const fetchCheckout = async () => {
     //console.log('items?', listProductsShoppingCart)
