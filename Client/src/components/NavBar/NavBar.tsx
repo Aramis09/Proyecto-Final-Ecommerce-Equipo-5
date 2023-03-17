@@ -40,20 +40,20 @@ export const NavBar = () => {
         <SearchBar />
         <ShoppingCart />
         {isAuthenticated ? (
-          <button
-            className={style.loginButton}
-            onClick={() =>
-              logout({ logoutParams: { returnTo: window.location.origin } })
-            }
-          >
-            LOG OUT
-          </button>
+            <button
+              className={style.loginButton}
+              onClick={() =>
+                logout({ logoutParams: { returnTo: window.location.origin } })
+              }
+            >
+              LOG OUT
+            </button>
         ) : (
           <button
             className={style.loginButton}
             onClick={async () => {
-              const token = await getAccessTokenSilently();
               loginWithRedirect();
+              const token = await getAccessTokenSilently();
               saveToken(token);
             }}
           >
