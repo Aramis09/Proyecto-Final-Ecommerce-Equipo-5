@@ -58,9 +58,11 @@ export const Card = ({
     } else {
       setSuccessMsg(ALREADY_IN_THE_CART);
     }
-  }
   };
 
+  const addToWishList = (ev: any) => {
+    ev.preventDefault();
+  }
   return (
     <>
       <div className={styles["card-container"]}>
