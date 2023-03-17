@@ -40,4 +40,5 @@ export interface Comment {
 		admin: boolean,
 		blocked: boolean,
 		secret: string,
+    image: string
   }
