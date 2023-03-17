@@ -1,4 +1,7 @@
 @import '../../styles/global-vars.scss';
+*{
+  box-sizing: border-box;
+}
 @media (min-width:320px) and (max-width:960px){
   .cards{
     display: flex;
@@ -16,17 +19,17 @@
 
 @media (min-width:961px){
   .cards {
-    display: flex;
-    flex-direction: row;
+    display: grid;
+    grid-template-columns: auto auto auto;
+    column-gap: 50px;
+    row-gap: 5%;
     flex-wrap: wrap;
     align-items: center;
-    width: 80vw;
-    height: 100%;
-    border-radius: 10px;
+    justify-content: center;
+    width: 100%;
     padding: 70px;
-    gap: 25px;
     font-family: 'Orbitron', sans-serif;
-    
+   
   }
   
   .cards-products {
@@ -48,12 +51,10 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 20vw;
-    height: 30vw;
-    border-radius: 10px;
-    padding: 10px;
+    width: 22rem;
+    border-radius: 1rem;
     background-color:$background-color;
-    box-shadow: 5px 5px 15px 0 $light-blue-color;
+    // box-shadow: 1px 5px 25px 5px $light-blue-color;
     font-family: 'Orbitron', sans-serif;  
     
   }
