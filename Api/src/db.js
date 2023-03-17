@@ -4,7 +4,7 @@ const { DataTypes }= require("sequelize");
 require("dotenv").config(); //**La variables de entorno quedan dispobnibles .env */
 const {DB_DATA}= process.env;
 // const sequelize = new Sequelize(DB_DATA,{logging:false});
-const sequelize = new Sequelize('postgres://postgres:postgres@localhost/ecommerce',{logging:false});
+const sequelize = new Sequelize('postgres://postgres:123456@localhost/ecommerce',{logging:false});
 //las lineas 7 y 8 es para que pueda correrlo en mi pc, agradeceria que lo dejen comentado nomas (nicrus27)
 // const {DB_USER, DB_PASSWORD, DB_HOST, DB_NAME}= process.env;
 // const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME}`, {

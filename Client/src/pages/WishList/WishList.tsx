@@ -1,9 +1,10 @@
-import { NavBar } from "../../components/NavBar/NavBar";
+// import { NavBar } from "../../components/NavBar/NavBar";
 
 export const WishList = () => {
     return (
         <div>
-            <NavBar />
+            {/* <NavBar /> */}
+            <h1>ESTOY EN WISH LIST</h1>
         </div>
     );
 };
