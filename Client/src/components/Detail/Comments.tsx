@@ -45,6 +45,7 @@ const Comments = () => {
     <>
       <div className={styles["comment-container"]}>
         <h3>Leave a Comment...</h3>
+       
         <form
           className={styles["form-comment"]}
           onSubmit={(event) => {
@@ -53,7 +54,7 @@ const Comments = () => {
         >
           <textarea
             name="comment"
-            placeholder="Your Comment..."
+            placeholder={!user? "Log in to leave a comment" :"Your Comment..."}
             className={styles["input-comment"]}
             onChange={(e) => setComment(e.target.value)
             }
