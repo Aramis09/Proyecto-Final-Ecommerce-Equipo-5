@@ -61,6 +61,7 @@ function App() {
               <Route path="/checkout" element={<CheckOut />} />
               <Route path="/mptest" element={<Transaccion />} />
               <Route path="/friends" element={<Friends />} />
+
             </>
           )}
         </Routes>
