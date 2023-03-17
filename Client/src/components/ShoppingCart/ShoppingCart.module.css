@@ -20,12 +20,13 @@
     }
 
     .closeModalButton {
+        position: fixed;
+        top: 25vh;
+        left: 48vw;
         background-color: #018dff;
         border-radius: 50%;
         padding: 3px;
         margin: 5px;
-        height: auto;
-        width: auto;
     }
 }
 
