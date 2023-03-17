@@ -4,28 +4,45 @@ import { Products } from "./pages/Products/Products";
 import { Detail } from "./components/Detail/Detail";
 import { CheckOut } from "./pages/CheckOut/CheckOut";
 import { Transaccion } from "./pages/mercadoPagoTesting/mpLink";
-import { WishList } from './pages/WishList/WishList';
+import { WishList } from "./pages/WishList/WishList";
 import { useEffect } from "react";
-import { useAppDispatch } from "./redux/hooks/hooks";
+import { useAuth0 } from "@auth0/auth0-react";
+import { useAppDispatch, useAppSelector } from "./redux/hooks/hooks";
+import { getListUsers } from "./redux/actions/userAction";
 import { getTopRatedProducts } from "./redux/actions/productAction";
-import { Dashboard } from "./components/Dashboard/Dashboard";
-import "./App.css";
 import { DashboardUser } from "./components/Dashboard/Users/DashboardUser";
 import { DashboardProducts } from "./components/Dashboard/ProductsList/DashboardProducts";
+import "./App.css";
 
 function App() {
   const dispatch = useAppDispatch();
-  const admin = true;
+  const { user } = useAuth0();
+  const userEmail = user?.email;
+
+  const listUsersData = useAppSelector(
+    (state) => state.userReducer.listUsersData
+  );
+
+  const admin = listUsersData.find((item) => item.email === userEmail);
+  if (admin) {
+    const isAdmin = admin.admin;
+    console.log(
+      `El usuario ${userEmail} tiene permisos de administrador: ${isAdmin}`
+    );
+  } else {
+    console.log(`El usuario ${userEmail} no se encuentra en la lista`);
+  }
 
   useEffect(() => {
     dispatch(getTopRatedProducts());
+    dispatch(getListUsers());
   }, []);
 
   return (
     <BrowserRouter>
       <div className="App">
         <Routes>
-          {admin && (
+          {admin?.admin && (
             <>
               <Route path="/" element={<Home />} />
               <Route path="/products" element={<Products />} />
@@ -36,7 +53,7 @@ function App() {
               <Route path="/productsList" element={<DashboardProducts />} />
             </>
           )}
-          {!admin && (
+          {!admin?.admin && (
             <>
               <Route path="/" element={<Home />} />
               <Route path="/products" element={<Products />} />

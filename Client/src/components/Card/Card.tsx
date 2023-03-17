@@ -6,8 +6,8 @@ import { addShoppingCart } from "../../redux/actions/shoppingCartAction";
 import { addNewProductInShoppingCart } from "../../redux/actions/shoppingCartAction";
 import { addAmountForShoppingCartUser } from "../../redux/reducer/shoppingCartReducer";
 import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
-import { ADDED_TO_CART, ALREADY_IN_THE_CART, ADDED_TO_WISH_LIST, ALREADY_IN_THE_WISH_LIST } from "../../utils/constants";
+import { useState } from "react";
+import { ADDED_TO_CART, ALREADY_IN_THE_CART } from "../../utils/constants";
 import { useAuth0 } from "@auth0/auth0-react";
 
 import { style } from "@mui/system";
@@ -27,7 +27,6 @@ export const Card = ({
     var listProductsShoppingCart: object[] = useAppSelector(
       (state) => state.shoppingCartReducer.listProductsShoppingCartUser
     );
-    // var wishListItems: object[] = useAppSelector(state => state.)
   } else {
     var listProductsShoppingCart: object[] = useAppSelector(
       (state) => state.shoppingCartReducer.listProductsShoppingCartGuest
@@ -62,15 +61,8 @@ export const Card = ({
   };
 
   const addToWishList = (ev: any) => {
-    ev.prevenDefault();
-    const game: object = {
-      id,
-      name,
-      background_image,
-      price,
-    };
+    ev.preventDefault();
   }
-
   return (
     <>
       <div className={styles["card-container"]}>

@@ -14,6 +14,9 @@ export const wishListReducer = createSlice({
         addToWishList: (state, action) => {
             state.wishListItems.push(action.payload);
         },
+        getWishesList: (state, action) => {
+            state.wishListItems = action.payload;
+        },
         deleteFromWishList: (state, action) => {
             let aux: any = state.wishListItems.find((el: any) => parseInt(el.id) === parseInt(action.payload));
             if (aux) {
@@ -29,5 +32,5 @@ export const wishListReducer = createSlice({
     },
 });
 
-export const { addToWishList, deleteFromWishList, addedMsg, error } = wishListReducer.actions;
+export const { addToWishList, getWishesList, deleteFromWishList, addedMsg, error } = wishListReducer.actions;
 export default wishListReducer.reducer;

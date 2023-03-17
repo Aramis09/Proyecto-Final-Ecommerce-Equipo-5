@@ -1,20 +1,28 @@
-const { createPaymentMercadoPago } = require("../controllers/mercadoPago/mercadoPagoControllers");
+const { createPaymentMercadoPago, notificationData } = require("../controllers/mercadoPago/mercadoPagoControllers");
 
 const getMercadoPagoLink = async (req, res) => {
 
   let {items, client} = req.body;
-  //client = {
-  //    name: "nombre nombre apellido",
-  //    email: "cualquiercosa@gmail.com"
-  //  }
+  /*
+  client = {
+      name: "nombre nombre apellido",
+      email: "cualquiercosa@gmail.com"
+    }
+  */
+  //console.log('client', client)
   let paymentCreated = await createPaymentMercadoPago(items, client)
-  //console.log('response payment created: ', paymentCreated) //paymentCreated.init_point?
-  //console.log('response payment created: ', paymentCreated);
   res.status(200).send(paymentCreated)
+}
+
+const responseMP = async (req, res) => {
+  const {query} = req;
+  notificationData(query)
+  res.status(200).send()
 }
 
 module.exports = {
     getMercadoPagoLink,
+    responseMP
 }
 
 /*
