@@ -2,15 +2,15 @@ const { createPaymentMercadoPago, notificationData } = require("../controllers/m
 
 const getMercadoPagoLink = async (req, res) => {
 
-  let {items, client} = req.body;
+  let {items, client, discount} = req.body;
   /*
   client = {
       name: "nombre nombre apellido",
       email: "cualquiercosa@gmail.com"
     }
   */
-  //console.log('client', client)
-  let paymentCreated = await createPaymentMercadoPago(items, client)
+  //console.log('client', items[0].Genres, discount)
+  let paymentCreated = await createPaymentMercadoPago(items, client, discount)
   res.status(200).send(paymentCreated)
 }
 
