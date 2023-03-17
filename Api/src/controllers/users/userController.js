@@ -6,6 +6,7 @@ const {
   WishlistProduct,
   FriendUser,
   Comment,
+  Genre
 } = require("../../db");
 
 const addUser = async (email, name, image) => {
@@ -181,15 +182,6 @@ const getAllUsers = async () => {
   }
 };
 
-const getAllProductsInShoppingCart = async (email) => {
-  try {
-    const user = await User.findByPk(email);
-    const productList = await user.getProducts(); //trae los productos del carrito, como no modifique el famoso "as" de estebab queda en Products :addProduct,getProducts, etc...
-    return productList;
-  } catch (error) {
-    return { error: error.message };
-  }
-};
 const deleteProductinShoppingCart = async (email, idProduct) => {
   try {
     const user = await User.findByPk(email);

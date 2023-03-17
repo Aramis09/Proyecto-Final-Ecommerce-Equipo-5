@@ -14,4 +14,6 @@ export const PRODUCTS_LIST_SHOPPING_CART = 'http://localhost:3001/user/shoppingC
 export const ADD_NEW_PRODUCT_IN_SHOPPING_CART = 'http://localhost:3001/user/newProductInShoppingCart'
 export const REMOVE_PRODUCT_IN_SHOPPING_CART = 'http://localhost:3001/user/removeProductInShoppingCart';
 
-
+export const BLOCK_USER = 'http://localhost:3001/admin/blockUser'
+export const USER_ADMIN = 'http://localhost:3001/admin/makeUserAdmin'
+export const EDIT_PRODUCT = 'http://localhost:3001/admin/editProduct'

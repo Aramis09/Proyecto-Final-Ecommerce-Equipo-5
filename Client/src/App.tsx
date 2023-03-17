@@ -61,6 +61,10 @@ function App() {
               <Route path="/checkout" element={<CheckOut />} />
               <Route path="/mptest" element={<Transaccion />} />
               <Route path="/friends" element={<Friends />} />
+<<<<<<< HEAD
+=======
+
+>>>>>>> 994a5b703437b1d23c88db7d8393596f31c0945c
             </>
           )}
         </Routes>
