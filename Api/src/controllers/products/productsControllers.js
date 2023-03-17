@@ -5,7 +5,6 @@ const { Op } = require("sequelize");
 
 const getAllProducts = async ()=>{
     let productsListWithMoreTrash = await Product.findAll({
-        where:{state:true},
         include:arrayIncludes
     });
     let productsListWithTrash=await productsListWithMoreTrash.map(productWithTrash => productWithTrash.dataValues);
@@ -13,7 +12,6 @@ const getAllProducts = async ()=>{
         console.log("Entro a Carga Inicial");
         await loadProductsInDB();
         let productsListWithMoreTrash = await Product.findAll({
-            where:{state:true},
             include:arrayIncludes
         });
         let productsListWithTrash=await productsListWithMoreTrash.map(productWithTrash => productWithTrash.dataValues);
@@ -174,12 +172,13 @@ function cleaningProcessToOneProduct (productWithTrash) {
     propertyCleanplatform = productWithTrash.Platforms.map(propertyTrash => propertyTrash.name) ;
     propertyCleanGenres = productWithTrash.Genres.map(propertyTrash => propertyTrash.name);
     propertyCleanStores = productWithTrash.Stores.map(propertyTrash => propertyTrash.name);
-    const { id,name, background_image,rating,playtime,price,description,released } = productWithTrash;
-    const productClean = {id,name, background_image,rating,playtime,price,description,released} ;
+    const { id,name, background_image,rating,playtime,price,description,released, state } = productWithTrash;
+    const productClean = {id,name, background_image,rating,playtime,price,description,released, state} ;
     productClean.images = propertyCleanImages;
     productClean.platforms = propertyCleanplatform;
     productClean.genres = propertyCleanGenres;
     productClean.stores = propertyCleanStores;
+    productClean.state = state;
     return productClean;
 };
 

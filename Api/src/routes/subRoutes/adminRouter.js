@@ -2,8 +2,8 @@ const {Router}=require("express");
 const { editProduct,blockUser,makeUserAdmin } = require("../../handlers/adminHandlers");
 const adminRouter = Router();
 
-adminRouter.put('/editProduct',editProduct);
-adminRouter.put('/blockUser',blockUser);
-adminRouter.put('/makeUserAdmin',makeUserAdmin);
+adminRouter.post('/editProduct',editProduct);
+adminRouter.post('/blockUser',blockUser);
+adminRouter.post('/makeUserAdmin',makeUserAdmin);
 
 module.exports = adminRouter;
