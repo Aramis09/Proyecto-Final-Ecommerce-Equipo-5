@@ -16,12 +16,14 @@ export const postComment = async (
 ) => {
   //Para enviar por body
   const email = user?.email;
-
+  const image = user?.picture
+  
   const data = {
     email,
     productId: game.id,
     comment: userComment,
     date: String(new Date()).slice(0,21),
+    image
   };
 
   await axios({

@@ -33,6 +33,7 @@ export interface Comment {
     productId: number;
     comment: string;
     date: string;
+    image: string;
   }
 
 export interface User {
