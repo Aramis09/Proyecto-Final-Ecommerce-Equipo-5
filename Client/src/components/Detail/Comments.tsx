@@ -29,10 +29,10 @@ const Comments = () => {
     event.preventDefault();
     postComment(game, userComment, user).then((newCommentObject: any) => {
       setAllComments(newCommentObject);
+      setComment('');
     });
   };
-
-  //const searchImage = listUsersData.map((user) => user);
+  
 
   useEffect(() => {
     getAllProductComments(game).then((allCommentsObject: any) =>
@@ -55,7 +55,9 @@ const Comments = () => {
             name="comment"
             placeholder="Your Comment..."
             className={styles["input-comment"]}
-            onChange={(e) => setComment(e.target.value)}
+            onChange={(e) => setComment(e.target.value)
+            }
+            value={userComment}
           />
 
           <button type="submit" className={styles["button-comment"]}>
@@ -80,10 +82,10 @@ const Comments = () => {
               </div>
             </div>
             <div className={styles["comment-info"]}>
-              <div>
+              
                 <img src={commentIcon} alt="" />
-                <div>{commentObject.comment}</div>
-              </div>
+                <p>{commentObject.comment}</p>
+              
             </div>
           </div>
         ))}
