@@ -29,6 +29,13 @@ export interface Comment {
     id: number;
     userId: string;
     productId: number;
-    Comment: string;
+    comment: string;
     date: string;
+  }
+
+  export interface User {
+    email: string,
+		admin: boolean,
+		blocked: boolean,
+		secret: string,
   }
