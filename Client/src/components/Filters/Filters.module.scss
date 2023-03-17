@@ -71,6 +71,9 @@
 }
 
 @media (min-width:961px){
+  .container{
+    position: fixed;
+  }
   .filters-container {
     position: fixed;
     top: 130px;

@@ -2,7 +2,6 @@ import { useAppSelector, useAppDispatch } from "../../redux/hooks/hooks";
 import { Link } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import { getShoppingCartUserFromDB } from '../../redux/actions/shoppingCartAction';
-
 import style from './ShoppingCartItem.module.scss';
 
 
@@ -28,7 +27,7 @@ export const ShoppingCartItem = () => {
         }
     }
 
-    
+  totalAmount = Math.round(totalAmount * 100) / 100;
 
     if (listProductsShoppingCart.length > 0) {
         return (
@@ -48,7 +47,7 @@ export const ShoppingCartItem = () => {
 								</tr>
 							</tbody>
 						</table>
-						<button>
+						<button className={style.checkout}>
 							<Link to='/checkout'>
 								<p>CHECKOUT</p>
 							</Link>

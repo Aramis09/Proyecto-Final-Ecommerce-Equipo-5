@@ -8,9 +8,10 @@
 @media (min-width:961px){
   .page-container {
     margin-top: 7%;
+    width: 100%;
     display: grid;
     grid-template-columns: auto auto auto;
-    column-gap: 2%;
+    column-gap: 50px;
     row-gap: 0.5%;
     justify-content: center;
     align-items: center;

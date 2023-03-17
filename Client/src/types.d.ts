@@ -33,9 +33,15 @@ export interface Comment {
     date: string;
   }
 
-  export interface User {
+export interface User {
     email: string,
 		admin: boolean,
 		blocked: boolean,
 		secret: string,
   }
+
+export interface Friend {
+  emailUser: string,
+  emailFriend: string,
+  response: string
+}

@@ -13,6 +13,7 @@ import { DashboardUser } from "./components/Dashboard/Users/DashboardUser";
 import { DashboardProducts } from "./components/Dashboard/ProductsList/DashboardProducts";
 import { setShoppingCartFromLocalStorage } from "./redux/actions/localStorageAction";
 import "./App.css";
+import { Friends } from "./pages/Friends/Friends";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -61,6 +62,7 @@ function App() {
               <Route path="/:id" element={<Detail />} />
               <Route path="/checkout" element={<CheckOut />} />
               <Route path="/mptest" element={<Transaccion />} />
+              <Route path="friends" element={<Friends />} />
             </>
           )}
         </Routes>
