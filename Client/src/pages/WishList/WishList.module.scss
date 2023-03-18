@@ -1,0 +1,32 @@
+.container{
+    margin-top: 10%;
+    border: 3px solid white;
+    border-radius: 1rem;
+    padding: 10%;
+    padding-top: 3%;
+    display: grid;
+    grid-template-columns: auto auto auto;
+    justify-content: center;
+}
+.top{
+    grid-column:1/4 ;
+    font-size: xx-large;
+    margin-bottom: 5%;
+}
+.tittle{
+    width: 300px;
+    padding: 1%;
+}
+.tittles{
+    border: 1px solid white;
+    margin: 1%;
+    grid-column:1/4 ;
+    display: flex;
+}
+.containerCardsList{
+    padding: 5%;
+    grid-column:1/4 ;
+    margin: 3%;
+    border: 1px solid white;
+    border-radius: 1rem;
+}

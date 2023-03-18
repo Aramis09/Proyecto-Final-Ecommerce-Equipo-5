@@ -1,12 +1,17 @@
 .conatiner{
     width: 100%;
     display: flex;
-    background-color: rgb(14, 62, 140);
     border-radius: 1rem;
     margin-bottom: 20px;
+    justify-content: center;
+    gap: 10%;
+    
 }
 .conatiner img{
-    width: 30%;
+    width: 10%;
+    height: 70px;
+    border-radius: 1rem;
+    align-self: center;
 }
 .data{
     display: grid;
@@ -25,7 +30,7 @@
     grid-column: 3/4;
 }
 .iconCross{
-    filter: invert(1);
     grid-column: 4/5;
-    width: 5px;
+    filter: invert(1);
+    cursor: pointer;
 }
