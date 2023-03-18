@@ -1,5 +1,5 @@
 import { DashboardNav } from "../Nav/DashboardNav";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks/hooks";
 import { getListUsers } from "../../../redux/actions/userAction";
 import { getAllProducts } from "../../../redux/actions/productAction";
@@ -9,6 +9,12 @@ import { EDIT_PRODUCT } from "../../../utils/constants";
 import styles from "./DashboardProducts.module.css";
 
 export const DashboardProducts = () => {
+  const [showModal, setShowModal] = useState(false);
+  const [newProductState, setNewProductState] = useState(true);
+  const [newProductName, setNewProductName] = useState("");
+  const [newProductRating, setNewProductRating] = useState("");
+  const [newProductPrice, setNewProductPrice] = useState("");
+
   let listProducts = useAppSelector(
     (state) => state.productReducer.allProductsData
   );
@@ -28,7 +34,27 @@ export const DashboardProducts = () => {
     dispatch(getListUsers());
   }, []);
 
-  const handlerChangeState = async (
+  const handleProductNameChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setNewProductName(event.target.value);
+  };
+
+  const handleProductRatingChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setNewProductRating(event.target.value);
+  };
+
+  const handleProductPriceChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setNewProductPrice(event.target.value);
+  };
+
+  console.log("💻 Name: " + newProductName);
+
+  const handlerProductChange = async (
     name: string,
     rating: string,
     id: number,
@@ -51,17 +77,19 @@ export const DashboardProducts = () => {
 
     const productsData = {
       id,
-      name,
+      name: newProductName,
       background_image,
-      rating,
+      rating: newProductRating,
       playtime,
-      price,
+      price: newProductPrice,
       description,
       released,
-      state: !state,
+      state: newProductState,
       genres,
       images,
     };
+
+    console.log(productsData);
 
     const config = {
       url: EDIT_PRODUCT,
@@ -74,8 +102,23 @@ export const DashboardProducts = () => {
   return (
     <>
       <DashboardNav />
-      <section className={styles["product-container"]}>
-        <h3>Products</h3>
+      <section
+        className={
+          showModal
+            ? styles["product-container-blur"]
+            : styles["product-container"]
+        }
+      >
+        <div className={styles["head-products"]}>
+          <h3>Products</h3>
+          <button
+            onClick={() => {
+              setShowModal(true);
+            }}
+          >
+            modify
+          </button>
+        </div>
         <div className={styles["product-info"]}>
           <p>id</p>
           <p>name</p>
@@ -108,8 +151,8 @@ export const DashboardProducts = () => {
               <p>{rating}</p>
               <p>{price}</p>
               <button
-                onClick={() =>
-                  handlerChangeState(
+                onClick={() => {
+                  handlerProductChange(
                     name,
                     rating,
                     id,
@@ -123,15 +166,65 @@ export const DashboardProducts = () => {
                     playtime,
                     stores,
                     released
-                  )
-                }
+                  );
+                }}
               >
-                {state === true ? "True" : "False"}
+                make Changes
               </button>
             </div>
           )
         )}
       </section>
+      {showModal && (
+        <div className={styles.modal}>
+          <h2>Editar producto</h2>
+          <label htmlFor="productName">Nombre:</label>
+          <input
+            type="text"
+            id="productName"
+            name="productName"
+            value={newProductName}
+            onChange={handleProductNameChange}
+          />
+
+          <label htmlFor="productRating">Rating:</label>
+          <input
+            type="text"
+            id="productRating"
+            name="productRating"
+            value={newProductRating}
+            onChange={handleProductRatingChange}
+          />
+
+          <label htmlFor="productPrice">Precio:</label>
+          <input
+            type="text"
+            id="productPrice"
+            name="productPrice"
+            value={newProductPrice}
+            onChange={handleProductPriceChange}
+          />
+
+          <label htmlFor="productDescription">Description: </label>
+          <input
+            type="text"
+            id="productDescription"
+            name="productDescription"
+          />
+
+          <label htmlFor="productState">State</label>
+          <input
+            type="checkbox"
+            name="productState"
+            id="productState"
+            checked={newProductState}
+            onChange={(event) => setNewProductState(event.target.checked)}
+          />
+
+          <button onClick={() => setShowModal(false)}>Guardar</button>
+          <button onClick={() => setShowModal(false)}>Cancelar</button>
+        </div>
+      )}
     </>
   );
 };

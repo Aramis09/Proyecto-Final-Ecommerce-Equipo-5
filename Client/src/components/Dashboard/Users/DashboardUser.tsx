@@ -1,7 +1,7 @@
 import { DashboardNav } from "../Nav/DashboardNav";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks/hooks";
 import { getListUsers } from "../../../redux/actions/userAction";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { BLOCK_USER, USER_ADMIN } from "../../../utils/constants";
 import axios from "axios";
@@ -13,6 +13,7 @@ export const DashboardUser = () => {
     (state) => state.userReducer.listUsersData
   );
   const { user } = useAuth0();
+  const [newSearch, setNewSearch] = useState("");
 
   useEffect(() => {
     dispatch(getListUsers());
@@ -54,6 +55,11 @@ export const DashboardUser = () => {
 
   return (
     <>
+      <input
+        type="text"
+        value={newSearch}
+        onChange={(event: any) => setNewSearch(event.target.value)}
+      />
       <DashboardNav />
       <section className={styles["user-container"]}>
         <h3>Users</h3>
@@ -61,7 +67,6 @@ export const DashboardUser = () => {
           <p>name</p>
           <p>email</p>
           <p>blocked</p>
-          <p>Admin</p>
         </div>
         {listUsersData.map(({ admin, email, blocked, name }, index) => (
           <div className={styles["user-items"]} key={index}>
