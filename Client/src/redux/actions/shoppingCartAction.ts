@@ -95,3 +95,4 @@ export const getShoppingCartUserFromDB = (email: any) => async(dispatch:any) => 
         console.log("Exception - getShoppingCartUserFromDB: " + error);
     }
 }
+

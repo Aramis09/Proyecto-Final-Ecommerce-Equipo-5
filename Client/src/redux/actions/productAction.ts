@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import {listProducts, productByID, errorMsg, carouselPicks, productsByFilters, saveTopRatedProducts, searchObject} from "../reducer/productReducer";
+import {listProducts, productByID, errorMsg, carouselPicks, productsByFilters, saveTopRatedProducts, searchObject, setTodaysDiscount} from "../reducer/productReducer";
 import { LIST_PRODUCTS, LIST_PRODUCTS_BY_FILTERS } from "../../utils/constants";
 
 //Obtener listado de productos por filtros (actual funcion de busqueda para productos. Si no sabes como se usa, pregunta a aramis o nahuel :D)
@@ -73,3 +73,36 @@ export const getTopRatedProducts =  () => async (dispatch: any) => {
         console.log("Exception - listProducts: " + error);
     }
 }
+
+export const setGlobalDiscount = () => async (dispatch:any) => {
+    try{
+        let dayName = (new Date).toString().slice(0,3);
+        switch (dayName) {
+            case 'Mon':
+                dispatch(setTodaysDiscount({genre: 'Action', discount: 0.2}))
+                break
+            case 'Tue':
+                dispatch(setTodaysDiscount({genre: 'Puzzle', discount: 0.1}))
+                break;
+            case 'Wed':
+                dispatch(setTodaysDiscount({genre: 'Platformer', discount: 0.2}))
+                break;
+            case 'Thu':
+                dispatch(setTodaysDiscount({genre: 'Action', discount: 0.5}))
+                break;
+            case 'Fri':
+                dispatch(setTodaysDiscount({genre: 'Sports', discount: 0.5}))
+                break;
+            case 'Sat':
+                dispatch(setTodaysDiscount({genre: 'Shooter', discount: 0.3}))
+                break;
+            default:
+                dispatch(setTodaysDiscount({genre: 'No_Discount', discount: 1}))
+                break;
+        }
+    } catch (error) {
+        dispatch(errorMsg("Ocurrio un error...intentelo mas tarde"));
+        console.log("Exception - setGlobalDiscount: " + error);
+    }
+}
+
