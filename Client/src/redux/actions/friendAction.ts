@@ -9,7 +9,7 @@ export const addFriend = (emailUser: string, emailFriend: string) => async (disp
 			frReque = (await axios.get(User + `newFriendRequest?emailUser=${emailUser}&emailFriend=${emailFriend}`)).data;
 			dispatch(addFriends(frReque));
 		} catch (error) {
-			console.error('Esto ocurrio en el back' + error);
+			console.error('Esto ocurrio en el back ' + error);
 		}
 	};
 
@@ -20,7 +20,7 @@ export const resReque = (emailUser: string, emailFriend: string, res: string) =>
 			responseReque = (await axios.get(User + `responseRequestFriend?email=${emailUser}&emailFriend=${emailFriend}&response=${res}`)).data;
 			dispatch(resRequest(responseReque));
 		} catch (error) {
-			console.error('Esto ocurrio en el back' + error);
+			console.error('Esto ocurrio en el back ' + error);
 		}
 	};
 
@@ -31,7 +31,7 @@ export const confFriend = (emailUser: string) => async (dispatch: any) => {
 		confirFriend = (await axios.get(User + `friendsConfirmed?email=${emailUser}`)).data;
 		dispatch(confirmFriend(confirFriend));
 	} catch (error) {
-		console.error('Esto ocurrio en el back' + error);
+		console.error('Esto ocurrio en el back ' + error);
 	}
 };
 
@@ -42,6 +42,6 @@ export const pendingFriend = (emailUser: string) => async (dispatch: any) => {
 		pending = (await axios.get(User + `friendsPending?email=${emailUser}`)).data;
 		dispatch(pendFriend(pending));
 	} catch (error) {
-		console.error('Esto ocurrio en el back' + error);
+		console.error('Esto ocurrio en el back ' + error);
 	}
 };
