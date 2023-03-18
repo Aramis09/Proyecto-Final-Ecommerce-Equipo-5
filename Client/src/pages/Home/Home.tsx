@@ -39,6 +39,9 @@ export const Home = () => {
       <Link to={'/users'}>
       <button>Dashboard</button>
       </Link>
+      <Link to={'/friends'}>
+      <button>Friends</button>
+      </Link>
       <h2 className={styles.title}>TOP GAMES</h2>
       <Product/>
       <Link to={'/products'}>
