@@ -14,7 +14,7 @@ import { DashboardProducts } from "./components/Dashboard/ProductsList/Dashboard
 import WishList from "./pages/WishList/WishList";
 import "./App.css";
 import { Friends } from "./pages/Friends/Friends";
-import Library from "./pages/library/library";
+import Library from "./pages/library/Library";
 
 function App() {
   const dispatch = useAppDispatch();
