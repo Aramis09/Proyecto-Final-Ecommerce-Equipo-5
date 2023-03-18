@@ -20,7 +20,7 @@ export const getListUsers =  () => async (dispatch: any) => {
 export const getUserByID =  (id: string) => async (dispatch: any) => {
     let user: {};
     try{
-        user = (await axios.get(LIST_USERS + id)).data;
+        user = await  (await axios.get(LIST_USERS + id)).data;
         dispatch(userByID(user));
     }catch(error){
         dispatch(errorMsg("Ocurrio un error...intentelo mas tarde"));
