@@ -11,8 +11,10 @@ import { getListUsers } from "./redux/actions/userAction";
 import { getTopRatedProducts, setGlobalDiscount } from "./redux/actions/productAction";
 import { DashboardUser } from "./components/Dashboard/Users/DashboardUser";
 import { DashboardProducts } from "./components/Dashboard/ProductsList/DashboardProducts";
+import WishList from "./pages/WishList/WishList";
 import "./App.css";
 import { Friends } from "./pages/Friends/Friends";
+import Library from "./pages/library/library";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -35,7 +37,7 @@ function App() {
 
   useEffect(() => {
     dispatch(getTopRatedProducts());
-    dispatch(getListUsers());
+    // dispatch(getListUsers()); este falla no se porque, rompe cosas
     dispatch(setGlobalDiscount())
   }, []);
 
@@ -61,7 +63,9 @@ function App() {
               <Route path="/:id" element={<Detail />} />
               <Route path="/checkout" element={<CheckOut />} />
               <Route path="/mptest" element={<Transaccion />} />
-              <Route path="/friends" element={<Friends />} />
+              <Route path="/friends" element={<Friends />} />   
+              <Route path="/wish" element={<WishList />} />
+              <Route path="/library" element={<Library />} />
 
             </>
           )}

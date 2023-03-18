@@ -6,6 +6,7 @@ import mercadoLibreReducer from "../reducer/mercadoLibreReducer";
 import shoppingCartReducer from "../reducer/shoppingCartReducer";
 import userReducer from "../reducer/userReducer";
 import friendReducer from "../reducer/friendReducer";
+import wishReducer from "../reducer/wishReducer";
 
 export const store = configureStore({
     reducer: {
@@ -15,7 +16,8 @@ export const store = configureStore({
         genresReducer: genresReducer,
         mercadoLibreReducer: mercadoLibreReducer,
         shoppingCartReducer: shoppingCartReducer,
-        userReducer: userReducer
+        userReducer: userReducer,
+        wishReducer:wishReducer,
     }
 })
 
