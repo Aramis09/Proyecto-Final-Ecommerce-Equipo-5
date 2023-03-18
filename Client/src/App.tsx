@@ -8,7 +8,7 @@ import { useEffect } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useAppDispatch, useAppSelector } from "./redux/hooks/hooks";
 import { getListUsers } from "./redux/actions/userAction";
-import { getTopRatedProducts } from "./redux/actions/productAction";
+import { getTopRatedProducts, setGlobalDiscount } from "./redux/actions/productAction";
 import { DashboardUser } from "./components/Dashboard/Users/DashboardUser";
 import { DashboardProducts } from "./components/Dashboard/ProductsList/DashboardProducts";
 import "./App.css";
@@ -36,6 +36,7 @@ function App() {
   useEffect(() => {
     dispatch(getTopRatedProducts());
     dispatch(getListUsers());
+    dispatch(setGlobalDiscount())
   }, []);
 
   return (

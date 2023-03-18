@@ -44,15 +44,19 @@ export const CheckOut = () => {
     dispatch(deleteItemShoppingCart(e.target.value));
   };
 
+  var discount = useAppSelector((state) => state.productReducer.todaysDiscount)
+  console.log("today's d", discount)
+
   const fetchCheckout = async () => {
     //console.log('items?', listProductsShoppingCart)
     let client = {
       name: user.name,
       email: user.email,
     };
+
     // data.global is the ID that MP returns from the API, it comes from our backend route
     let redirectLink: any = (
-      await axios.post(MERCADO_PAGO_LINK, { items, client })
+      await axios.post(MERCADO_PAGO_LINK, { items, client , discount})
     ).data.response;
     //console.log('red', await redirectLink)
     if (await redirectLink.id) {
