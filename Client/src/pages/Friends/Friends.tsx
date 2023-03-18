@@ -1,18 +1,17 @@
 import { NavBar } from '../../components/NavBar/NavBar';
 import { AddiFriend } from './addFriends';
-// import { ResFriend } from './resFriends';
 import { PendingFr } from './pendingFriends';
+import { ConfirFriends } from './confirmFriends';
 
 
 export const Friends = () => {
 	return (
 		<div>
 			<NavBar />
-			<h4>List friends</h4>
 			<div>
 				<AddiFriend />
-				{/* <ResFriend /> */}
 				<PendingFr />
+				<ConfirFriends />
 			</div>
 		</div>
 	);
