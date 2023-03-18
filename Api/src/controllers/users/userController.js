@@ -183,7 +183,7 @@ const getAllUsers = async () => {
 };
 
 
-getAllProductsInShoppingCart = async (email) => {
+const getAllProductsInShoppingCart = async (email) => {
   try {
     const user = await User.findOne({
       where: { email },

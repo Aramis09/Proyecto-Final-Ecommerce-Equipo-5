@@ -1,6 +1,7 @@
 require("dotenv").config();
-const {ACCES_TOKEN} = process.env;
+const {ACCES_TOKEN, PF_MAIL, PASS_PF_MAIL} = process.env;
 const axios = require('axios');
+const nodemailer = require('nodemailer')
 const mercadopago = require("mercadopago");
 
 const createPaymentMercadoPago = async (items, client, discount) => {
@@ -14,7 +15,7 @@ const createPaymentMercadoPago = async (items, client, discount) => {
     if(discount.genre !== 'No_Discount'){
         items = applyDiscount(items, discount)
         //applyDiscount(items, discount)
-        console.log('after disc: ', items)
+        //console.log('after disc: ', items)
     }
     items = reshapeProductInItems(items, client.email);
     const preference = {
@@ -41,7 +42,7 @@ const createPaymentMercadoPago = async (items, client, discount) => {
         auto_return: "approved", // si la compra es exitosa automaticamente redirige a "success" de back_urls
         binary_mode: true, //esto permite que el resultado de la compra sea solo 'failure' o solo 'success'
 
-        //notification_url: "https://56eb-170-254-63-125.sa.ngrok.io/payment/responseMP?source_news=webhooks",
+        notification_url: "https://94c3-2802-8010-4942-6c01-70e9-cf4f-94c-1ed0.sa.ngrok.io/payment/responseMP?source_news=webhooks",
 
         //esta variable de notificacion se tiene que cambiar depende si es para recibir por deploy o por la herramienta "ngrok",
         //la cual CADA vez que se levanta para recibir notificaciones con el repo, cambia de url, asi que OJO!
@@ -61,7 +62,37 @@ const createPaymentMercadoPago = async (items, client, discount) => {
     }
 }
 
+const mailProductsToBuyer = (email, products) => {
 
+    products = products.map(item => {
+        return `filename: ${item.title}, virtualKey: ${item.id}`
+    })
+    products = products.join('_');
+    let transporter = nodemailer.createTransport({
+        service: "gmail",//"smtp.ethereal.email",
+        //host: 
+        //port: 587,
+        //secure: false, // true for 465, false for other ports
+        auth: {
+            user: PF_MAIL, // generated ethereal user 'marcel29@ethereal.email'
+            pass: PASS_PF_MAIL, // generated ethereal password P2Ggd4FU2k78fpAafR
+        },
+    });
+    const msg = {
+        from: `Henry E-commerce Videogames GROUP-V`, // sender address '"Fred Foo" <foo@example.com>'
+        to: `${email}`, // list of receivers
+        subject: "Virtual Keys", // Subject line
+        text: `
+        This is a mail with the key/s of the product/s you just bought: \n
+        ${products}
+        `, // plain text body
+        html:""
+        }    
+    // send mail with defined transport object
+    transporter.sendMail(msg);
+
+    
+}
 
 const notificationData = async (query)  => {
 
@@ -81,34 +112,38 @@ const notificationData = async (query)  => {
   }
   //console.log('merch test', merchantOrder.body)
   
-  ////para visualizar el ejemplo:
-  var userMailFromDescription = merchantOrder.body.items[0].description;
+    if(merchantOrder.body){
+        var userMailFromDescription = merchantOrder.body.items[0].description;
 
-  var transactionDataObject;
-  var dbItem;
-  merchantOrder.body.payments.forEach( async (item, index) => {
-    dbItem = (await axios.get(`http://localhost:3001/products/${merchantOrder.body.items[index].id}`)).data
+        var transactionDataObject;
+        var dbItem;
+        merchantOrder.body.payments.forEach( async (item, index) => {
+            dbItem = (await axios.get(`http://localhost:3001/products/${merchantOrder.body.items[index].id}`)).data
 
-    var date = item.date_approved.slice(0, 10).split('-');
-    transactionDataObject = {
-        dateTransaction: date[2]+'/'+date[1]+'/'+date[0], //modificar la fecha para que sea 'mm/dd/aa'
-        priceUnit: parseFloat(dbItem.price), //esto debe venir de un llamado a la db
-        specialDiscount: 0.1, //esto debe venir de un llamado a la db cuando este implementado
-        priceUnitNet: item.total_paid_amount,
-        serialOfGame: 'asnsdghnakjsdkjasdnkfdf', //lo inventamos con un hash?
-        numberPayment: item.id,
-        giftGame: false, //falta implementar,
-        userEmailGift: '',
-        ProductId: merchantOrder.body.items[index].id,
-        UserEmail: userMailFromDescription, //lamentablemente el mail lo pusimos en la descripcion de los items porque no teniamos 
-        //otra manera de verlo (la documentacion de mercadopago no es amigable >:C)
-      //id: merchantOrder.body.id,
-      //state: true //esto debe venir de la db
-    };
-    //console.log(transactionDataObject)
-    await axios.post(`http://localhost:3001/purchase/create`, {transactionDataObject})
-  })
-  await axios.get(`http://localhost:3001/user/removeProductInShoppingCart?email=${userMailFromDescription}&idProduct=${'all'}`)
+            var date = item.date_approved.slice(0, 10).split('-');
+            transactionDataObject = {
+                dateTransaction: date[2]+'/'+date[1]+'/'+date[0], //modificar la fecha para que sea 'mm/dd/aa'
+                priceUnit: parseFloat(dbItem.price), //esto debe venir de un llamado a la db
+                specialDiscount: 0.1, //esto debe venir de un llamado a la db cuando este implementado
+                priceUnitNet: item.total_paid_amount,
+                serialOfGame: 'asnsdghnakjsdkjasdnkfdf', //lo inventamos con un hash?
+                numberPayment: item.id,
+                giftGame: false, //falta implementar,
+                userEmailGift: '',
+                ProductId: merchantOrder.body.items[index].id,
+                UserEmail: userMailFromDescription, //lamentablemente el mail lo pusimos en la descripcion de los items porque no teniamos 
+                //otra manera de verlo (la documentacion de mercadopago no es amigable >:C)
+                //id: merchantOrder.body.id,
+                //state: true //esto debe venir de la db
+            };
+            //console.log(transactionDataObject)
+            await axios.post(`http://localhost:3001/purchase/create`, {transactionDataObject});
+        })
+        await axios.get(`http://localhost:3001/user/removeProductInShoppingCart?email=${userMailFromDescription}&idProduct=${'all'}`);
+        mailProductsToBuyer(userMailFromDescription, merchantOrder.body.items);
+  }
+
+
 
 }
 

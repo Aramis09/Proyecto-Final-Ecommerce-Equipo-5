@@ -22,13 +22,7 @@ const purchaseByUserID = async (req,res) => {
 
 const purchaseCreate = async (req,res) =>{
     try {
-        console.log('hey')
-        //console.log(req.body)
         const {dateTransaction,priceUnit,specialDiscount,priceUnitNet,serialOfGame,numberPayment,giftGame,userEmailGift,ProductId,UserEmail} = req.body.transactionDataObject;
-        /*
-        console.log(dateTransaction)
-        console.log('res: ', dateTransaction,'+',priceUnit,'+',specialDiscount,'+',priceUnitNet,'+',serialOfGame,'+',numberPayment,'+',giftGame,'+',userEmailGift,'+',ProductId,'+',UserEmail)
-        */
         let purchaseNew = await purchaseTransactionCreate(dateTransaction,priceUnit,specialDiscount,priceUnitNet,serialOfGame,numberPayment,giftGame,userEmailGift,ProductId,UserEmail)
         return res.status(200).json(purchaseNew);
     } catch (error) {
