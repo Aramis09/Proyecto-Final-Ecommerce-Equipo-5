@@ -29,7 +29,9 @@ useEffect(() => {
                     {wishListStore.map((wishProduct:any) => {
                         return(
                             <WishCard
+                            key = {Number(wishProduct.id)}
                             id = {Number(wishProduct.id)}
+                            email = {String(user?.email)}
                             name = {wishProduct.name} 
                             background_image = { wishProduct.background_image}
                             price = {wishProduct.price}

@@ -60,7 +60,7 @@ export const Card = ({
       setSuccessMsg(ALREADY_IN_THE_CART);
     }
   };
-  console.log(user)
+  
   const addingToWishList = async () => {
     const newWishList = await addProductToWishList(user.email,id);
     dispatch(setwishList(newWishList));
