@@ -1,9 +1,9 @@
-/** @format */
-
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks/hooks';
 import { pendingFriend, resReque } from '../../../redux/actions/friendAction';
 import { useAuth0 } from '@auth0/auth0-react';
 import { useEffect } from 'react';
+import styles from './pendingFriends.module.css';
+
 
 export const PendingFr = () => {
 	const dispatch = useAppDispatch();
@@ -26,21 +26,21 @@ export const PendingFr = () => {
 				ev.currentTarget.value,
 			),
 		).then(() => {
-			dispatch(pendingFriend(user.email));
+			dispatch(pendingFriend(user?.email));
 		});
 	};
 
 	if (user?.email_verified && isAuthenticated) {
 		if (friendsPending.length > 0) {
 			return (
-				<div>
-					<span>Your Friends Requests: {user.email}</span>
-					<br />
+				<div className={styles.conta}>
+					<span className={styles.user}>Your Friends Requests: {user?.name}</span>
 					{friendsPending.map((pend: any, index: number) => {
 						return (
-							<div key={index}>
-								<span>Pending Friends Request: {pend.UserEmail}</span>
-								<br />
+							<div className={styles.cards} key={index}>
+								<span className={styles.resquets}>
+									Pending Friends Request: {pend.UserEmail}
+								</span>
 								<button value='rejected' onClick={handleResponse}>
 									X
 								</button>
@@ -54,15 +54,17 @@ export const PendingFr = () => {
 			);
 		} else {
 			return (
-				<div>
-					<span>You don't have any friend requests</span>
+				<div className={styles.noFrien}>
+					<span className={styles.msg}>
+						You don't have any friend requests
+					</span>
 				</div>
 			);
 		}
 	} else {
 		return (
-			<div>
-				<span>Register to add your friends</span>
+			<div className={styles.noReg}>
+				<span className={styles.register}>Register to add your friends</span>
 			</div>
 		);
 	}

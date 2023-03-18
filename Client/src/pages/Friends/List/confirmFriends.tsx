@@ -2,6 +2,9 @@ import { useAppDispatch, useAppSelector } from "../../../redux/hooks/hooks";
 import { confFriend, resReque } from '../../../redux/actions/friendAction';
 import { useAuth0 } from '@auth0/auth0-react';
 import { useEffect } from 'react';
+import { Cards } from "../Cards/Card";
+import styles from './listFriend.module.css';
+
 
 export const ConfirFriends = () => {
   const dispatch = useAppDispatch();
@@ -22,15 +25,17 @@ export const ConfirFriends = () => {
 
   return (
     <div>
-      <h4>List friends</h4>
-      {friendsConfirmed.map((friend: any, index: number) => {
+      <h4 className={styles.title}>List friends of {user?.name}</h4>
+      <div className={styles.card}>
+      {friendsConfirmed.map((friend: unknown, index: number) => {
         return (
-          <div key={index}>
-          <h4>{friend.FriendInListEmail}</h4>
-          <button value='remove' onClick={handleResponse}>X</button>
+          <div className={styles.friends} key={index}>
+            <Cards key={index} friend={friend}/>
+            <button className={styles.deletFriend} value='remove' onClick={handleResponse}>X</button>
           </div>
         )
       })}
+      </div>
     </div>
   )  
 };
