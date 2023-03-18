@@ -66,10 +66,15 @@ const userList = async (req,res) => {
 };
 
 const addWish = async (req,res) => {
-    const {user, product} = req.query;
-    if(!user || !product) throw new Error('send me all data please');
-    const prueba = await addWishToList(user,product);
-    return res.status(200).send(prueba);
+    try {
+        const {user, product} = req.query;
+        console.log(user, product)
+        if(!user || !product) throw new Error('send me all data please');
+        const prueba = await addWishToList(user,product);
+        return res.status(200).send(prueba);
+    } catch (error) {
+        return res.status(400).json({error:error.message});
+    }
 };
 const userID = async (req,res) => {
     

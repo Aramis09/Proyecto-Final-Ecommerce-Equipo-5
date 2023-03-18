@@ -11,6 +11,7 @@ import { getListUsers } from "./redux/actions/userAction";
 import { getTopRatedProducts, setGlobalDiscount } from "./redux/actions/productAction";
 import { DashboardUser } from "./components/Dashboard/Users/DashboardUser";
 import { DashboardProducts } from "./components/Dashboard/ProductsList/DashboardProducts";
+import WishList from "./pages/WishList/WishList";
 import "./App.css";
 import { Friends } from "./pages/Friends/Friends";
 
@@ -61,7 +62,8 @@ function App() {
               <Route path="/:id" element={<Detail />} />
               <Route path="/checkout" element={<CheckOut />} />
               <Route path="/mptest" element={<Transaccion />} />
-              <Route path="/friends" element={<Friends />} />
+              <Route path="/friends" element={<Friends />} />   
+              <Route path="/wish" element={<WishList />} />
 
             </>
           )}

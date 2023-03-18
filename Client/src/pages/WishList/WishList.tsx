@@ -1,0 +1,45 @@
+import react,{useEffect} from "react";
+import { useAuth0 } from "@auth0/auth0-react";
+import { NavBar } from "../../components/NavBar/NavBar";
+import { getAllProductInWishList } from "../../redux/actions/wishActions";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks/hooks";
+import { wishCard } from "./interfaces/wishProduct";
+import WishCard from "./WishCard";
+
+const WishList = () => {
+const dispatch = useAppDispatch();
+const wishListStore = useAppSelector(state => state.wishReducer.wishList);
+const { user } = useAuth0();
+
+useEffect(() => {
+    const email:string = String(user?.email);
+    if(user?.email){
+        dispatch(getAllProductInWishList(email));
+    };
+    
+}, [user]);
+
+console.log(wishListStore);
+    return (
+        <>
+            <NavBar/>
+            {
+                wishListStore.length? 
+                <section>
+                    {wishListStore.map((wishProduct:any) => {
+                        return(
+                            <WishCard
+                            name = {wishProduct.name} 
+                            background_image = { wishProduct.background_image}
+                            price = {wishProduct.price}
+                            released = {wishProduct.released}
+                            />
+                        )
+                    })}
+                </section>
+                :<p>Not found Products</p>
+            }
+        </>
+    );
+};
+export default WishList;
