@@ -11,6 +11,8 @@ import { ADDED_TO_CART, ALREADY_IN_THE_CART } from "../../utils/constants";
 import { useAuth0 } from "@auth0/auth0-react";
 
 import { style } from "@mui/system";
+import { addProductToWishList } from "../../Controller/cardController";
+import { setwishList } from "../../redux/reducer/wishReducer";
 
 export const Card = ({
   id,
@@ -75,8 +77,11 @@ export const Card = ({
     }
   };
 
-
-
+  const addingToWishList = async () => {
+    const newWishList = await addProductToWishList(user.email,id);
+    dispatch(setwishList(newWishList));
+  };
+  
   return (
 		<>
 			<div className={styles['card-container']}>
@@ -99,9 +104,12 @@ export const Card = ({
             }
 					</div>
 					<div className={styles.addShoppingCart}>
-						<button type='button' onClick={addingToShoppingCart}>
+          <div className={styles.containerButton}>
+           <button className={styles.buttonAdd}  type='button' onClick={addingToShoppingCart}>
 							Add To Cart
 						</button>
+            <button className={styles.buttonAdd} onClick={addingToWishList}>Add Favourite</button>
+          </div>
 						<p className={styles.msg}>{successMsg}</p>
 					</div>
 				</div>

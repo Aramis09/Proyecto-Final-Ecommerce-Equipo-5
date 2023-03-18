@@ -12,16 +12,20 @@ export const getAllProductComments = async (game: any) => {
 export const postComment = async (
   game: any,
   userComment: string,
-  user: any
+  user: any,
+  stars : number,
 ) => {
   //Para enviar por body
   const email = user?.email;
-
+  const image = user?.picture
+  
   const data = {
     email,
     productId: game.id,
     comment: userComment,
     date: String(new Date()).slice(0,21),
+    image,
+    stars,
   };
 
   await axios({
