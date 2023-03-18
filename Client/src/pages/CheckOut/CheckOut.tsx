@@ -46,6 +46,7 @@ export const CheckOut = () => {
 
   var discount = useAppSelector((state) => state.productReducer.todaysDiscount)
   console.log("today's d", discount)
+  console.log(items)
 
   const fetchCheckout = async () => {
     //console.log('items?', listProductsShoppingCart)
