@@ -16,6 +16,7 @@ const initialState: productReducerState = {
   selectedFilterPriceRangeData: [],
   selectedAlphabeticOrderData: "",
   selectedPriceOrderData: "",
+  todaysDiscount: {},
   successMsg: "",
   errorMsg: "",
 };
@@ -78,7 +79,10 @@ export const productReducer = createSlice({
         },
         eraseItemById: (state) => {
             state.details = {}
-        },     
+        },
+        setTodaysDiscount: (state, action) => {
+            state.todaysDiscount = action.payload
+        },
         successMsg: (state, action) => { //falta implementar
             state.successMsg = action.payload
         },
@@ -105,6 +109,7 @@ export const {
     selectedAlphabeticOrder,
     selectedPriceOrder,
     searchName,
+    setTodaysDiscount,
     eraseItemById
 } = productReducer.actions;
 
