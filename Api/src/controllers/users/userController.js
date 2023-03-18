@@ -232,7 +232,7 @@ const getAllWishes = async (email) => {
   }
 };
 
-const addNewComment = async (email, comment, productId, date, image) => {
+const addNewComment = async (email, comment, productId, date, image, stars) => {
 
   console.log(
     "Yo le llego a:userController a la funcion addNewComment y recibo estos parametros: email--->",
@@ -243,6 +243,8 @@ const addNewComment = async (email, comment, productId, date, image) => {
     comment,
     "image-->",
     image,
+    "starts-->",
+    stars,
   );
   const newComment = await Comment.build({
     //tengo que mejorar esto porque no anda
@@ -251,6 +253,7 @@ const addNewComment = async (email, comment, productId, date, image) => {
     userId: email,
     productId: productId,
     image,
+    stars
   });
   await newComment.save();
   return newComment;

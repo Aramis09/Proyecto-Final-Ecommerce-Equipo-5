@@ -154,10 +154,10 @@ const wishesList = async (req,res) => {
 
 const addComment = async (req,res) => {
     try {
-        const { email,comment,productId, date, image } = req.body;
-        console.log('estoy en userhanlders/addCommet y recibo por body la image', image)
-        if(!email || !comment || !productId) throw new Error('email or comment or productId is missing. Send data correctly please...');
-        const newComment = await addNewComment(email,comment,productId, date ,image);
+        const { email,comment,productId, date, image, stars } = req.body;
+        console.log('estoy en userhanlders/addCommet y recibo por body las STARS', stars)
+        if(!email || !comment || !productId ) throw new Error('email or comment or productId is missing. Send data correctly please...');
+        const newComment = await addNewComment(email,comment,productId, date ,image, stars);
         return res.status(200).json(newComment);
     } catch (error) {
         return res.status(400).json(error.message);
