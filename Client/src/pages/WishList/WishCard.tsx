@@ -18,7 +18,7 @@ const dispatch = useAppDispatch();
         <div className={styles.conatiner}>
             <img src={background_image} alt="image_game" />
             <div className={styles.data}>
-            <p className={styles.name}>{name}</p>
+                <p className={styles.name}>{name}</p>
                 <p className={styles.price}>${price}</p>
                 <p className={styles.released}>{released}</p>
             </div>

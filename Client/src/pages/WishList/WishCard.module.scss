@@ -5,7 +5,7 @@
     margin-bottom: 20px;
     justify-content: center;
     gap: 10%;
-    
+    cursor: pointer;
 }
 .conatiner img{
     width: 10%;
@@ -19,6 +19,7 @@
     justify-content: center;
     align-items: center;
     column-gap: 100px;
+    border-radius: 1rem;
 }
 .name{
     grid-column: 1/2;
@@ -33,4 +34,9 @@
     grid-column: 4/5;
     filter: invert(1);
     cursor: pointer;
+}
+
+.conatiner :hover {
+    transition: 0.9s;
+    background-color: #018dff;
 }
