@@ -12,7 +12,8 @@ export interface productReducerState{
     selectedFilterPlatformData: Array<object>,
     selectedFilterPriceRangeData: Array<number>,
     selectedAlphabeticOrderData: string,
-    selectedPriceOrderData: string, 
+    selectedPriceOrderData: string,
+    todaysDiscount: object,
     successMsg: string,
     errorMsg: string
 }

@@ -4,10 +4,7 @@ const { DataTypes }= require("sequelize");
 require("dotenv").config(); //**La variables de entorno quedan dispobnibles .env */
 const { DB_DATA } = process.env;
 const sequelize = new Sequelize(DB_DATA ,{ logging: false });
-<<<<<<< HEAD
-=======
 
->>>>>>> 994a5b703437b1d23c88db7d8393596f31c0945c
 
 //**Definicion de modelos (con sequelize)*/
 const ProductModel = require("./models/Product");
