@@ -19,7 +19,7 @@ useEffect(() => {
     
 }, [user]);
 
-console.log(wishListStore);
+
     return (
         <>
             <NavBar/>
@@ -29,6 +29,7 @@ console.log(wishListStore);
                     {wishListStore.map((wishProduct:any) => {
                         return(
                             <WishCard
+                            id = {Number(wishProduct.id)}
                             name = {wishProduct.name} 
                             background_image = { wishProduct.background_image}
                             price = {wishProduct.price}

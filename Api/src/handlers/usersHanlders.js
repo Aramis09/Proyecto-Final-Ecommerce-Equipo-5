@@ -1,4 +1,4 @@
-const { getAllWishes,getAllUsers,addUser,addProductInShoppingCartForUser,addFriends,addWishToList,getAllFriends,getAllProductsInShoppingCart,addNewComment,getAllCommentOfUser,getAllCommentOfProduct,deleteProductinShoppingCart,acceptFriend,removeOrRejectedFriend,getAllFriendsPending,addAllProductInShoppingCartForUser } = require('../controllers/users/userController');
+const { getAllWishes,getAllUsers,addUser,addProductInShoppingCartForUser,addFriends,addWishToList,getAllFriends,getAllProductsInShoppingCart,addNewComment,getAllCommentOfUser,getAllCommentOfProduct,deleteProductinShoppingCart,acceptFriend,removeOrRejectedFriend,getAllFriendsPending,addAllProductInShoppingCartForUser,removeWishToList } = require('../controllers/users/userController');
 
 const addNewUser = async (req,res) => {
     try {
@@ -68,17 +68,28 @@ const userList = async (req,res) => {
 const addWish = async (req,res) => {
     try {
         const {user, product} = req.query;
-        console.log(user, product)
         if(!user || !product) throw new Error('send me all data please');
         const prueba = await addWishToList(user,product);
         return res.status(200).send(prueba);
     } catch (error) {
-        return res.status(400).json({error:error.message});
+        return res.status(400).json(error.message);
     }
 };
 const userID = async (req,res) => {
     
 };
+
+const removeWish = async (req,res) => {
+    try {
+        const {user, product} = req.query;
+        if(!user || !product) throw new Error('send me all data please');
+        const prueba = await removeWishToList(user,product);
+        return res.status(200).send(prueba);
+    } catch (error) {
+        return res.status(400).json(error.message);
+    }
+};
+
 const addNewFriend = async (req,res) => {
    try {
     const {emailUser,emailFriend} = req.query;
@@ -193,4 +204,4 @@ const commentListOfProduct= async (req,res) => {
     };
 };
 
-module.exports = { userList,userID,addNewUser,addNewProductInShoppingCart,addNewFriend,addWish,friendsList,productsListShoppingCart,wishesList,addComment,commentListOfUser,commentListOfProduct,removeProductoInShoppingCar,responseRequestNewFriend,friendsPendingList,addAllProductInShoppingCart };
+module.exports = { userList,userID,addNewUser,addNewProductInShoppingCart,addNewFriend,addWish,friendsList,productsListShoppingCart,wishesList,addComment,commentListOfUser,commentListOfProduct,removeProductoInShoppingCar,responseRequestNewFriend,friendsPendingList,addAllProductInShoppingCart,removeWish };

@@ -235,6 +235,19 @@ const addWishToList = async (pkUser, pkProduct) => {
   } catch (error) {
     return { error: error.message };
   }
+};   
+const removeWishToList = async (pkUser, pkProduct) => {
+  try {
+    const user = await User.findByPk(pkUser);
+    const productToAdd = await Product.findByPk(pkProduct);
+    await user.removeWishlist(productToAdd, {
+      through: "WishlistProduct", // especificar la tabla intermedia a utilizar
+    });
+    const listWish = await getAllWishes(pkUser);
+    return listWish;
+  } catch (error) {
+    return { error: error.message };
+  }
 };
 const getAllWishes = async (email) => {
   try {
@@ -302,4 +315,5 @@ module.exports = {
   removeOrRejectedFriend,
   getAllFriendsPending,
   addAllProductInShoppingCartForUser,
+  removeWishToList
 };
