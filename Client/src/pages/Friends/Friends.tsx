@@ -1,8 +1,7 @@
 import { NavBar } from '../../components/NavBar/NavBar';
-import { AddiFriend } from './addFriends';
-import { PendingFr } from './pendingFriends';
-import { ConfirFriends } from './confirmFriends';
-
+import { AddiFriend } from './Add/addFriends';
+import { PendingFr } from './Pending/pendingFriends';
+import { ConfirFriends } from './List/confirmFriends';
 
 export const Friends = () => {
 	return (
