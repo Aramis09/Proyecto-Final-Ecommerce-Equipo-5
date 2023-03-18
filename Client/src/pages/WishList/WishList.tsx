@@ -3,7 +3,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { NavBar } from "../../components/NavBar/NavBar";
 import { getAllProductInWishList } from "../../redux/actions/wishActions";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks/hooks";
-import { wishCard } from "./interfaces/wishProduct";
+
 import WishCard from "./WishCard";
 
 const WishList = () => {

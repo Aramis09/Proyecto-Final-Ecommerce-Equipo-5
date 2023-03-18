@@ -34,7 +34,8 @@ export const Home = () => {
     <div className={styles.container}>
       <NavBar />
       <Carousel />
-      <Link to = "/wish">wish</Link>
+      <Link to = "/wish">wish</Link><br />
+      <Link to = "/library">library</Link>
       <Link to={'/users'}>
       <button>Dashboard</button>
       </Link>
