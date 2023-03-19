@@ -97,7 +97,7 @@ export const setGlobalDiscount = () => async (dispatch:any) => {
                 dispatch(setTodaysDiscount({genre: 'Sports', discount: 0.3}))
                 break;
             default:
-                dispatch(setTodaysDiscount({genre: 'No_Discount', discount: 1}))
+                dispatch(setTodaysDiscount({genre: 'No_Discount', discount: 0}))
                 break;
         }
     } catch (error) {

@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 import { listUser, userByID, errorMsg,  } from "../reducer/userReducer";
-import {  LIST_USERS } from "../../utils/constants";
+import {  LIST_USERS, ADD_NEW_USER } from "../../utils/constants";
 
 
 //Obtener listado de plataformas
@@ -25,5 +25,17 @@ export const getUserByID =  (id: string) => async (dispatch: any) => {
     }catch(error){
         dispatch(errorMsg("Ocurrio un error...intentelo mas tarde"));
         console.log("Exception - getUserByID: " + error);
+    }
+}
+
+//crear y agregar usuario nuevo
+
+export const saveNewUser =  (email: string, name:string, picture:string) => async (dispatch: any) => {
+    try{
+        var user = (await axios.get(ADD_NEW_USER + `?email=${email}&name=${name}&image=${picture}`)).data; //`http://localhost:3001/user/userNew?email=${user.email}&name=${user.name}&image=${user.picture}`
+        dispatch(userByID(user));
+    }catch(error){
+        dispatch(errorMsg("Ocurrio un error...intentelo mas tarde"));
+        console.log("Exception - saveNewUser: " + error);
     }
 }

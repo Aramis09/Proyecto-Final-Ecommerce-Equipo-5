@@ -41,7 +41,7 @@ const createPaymentMercadoPago = async (items, client, discount) => {
         },
         auto_return: "approved", // si la compra es exitosa automaticamente redirige a "success" de back_urls
         binary_mode: true, //esto permite que el resultado de la compra sea solo 'failure' o solo 'success'
-        //notification_url: "https://94c3-2802-8010-4942-6c01-70e9-cf4f-94c-1ed0.sa.ngrok.io/payment/responseMP?source_news=webhooks",
+        notification_url: "https://94c3-2802-8010-4942-6c01-70e9-cf4f-94c-1ed0.sa.ngrok.io/payment/responseMP?source_news=webhooks",
         //esta variable de notificacion se tiene que cambiar depende si es para recibir por deploy o por la herramienta "ngrok",
         //la cual CADA vez que se levanta para recibir notificaciones con el repo, cambia de url, asi que OJO!
         ///payment/responseMP?source_news=webhooks
@@ -61,20 +61,22 @@ const createPaymentMercadoPago = async (items, client, discount) => {
 }
 
 const mailProductsToBuyer = (email, products) => {
-
     products = products.map(item => {
         return `filename: ${item.title}, virtualKey: ${item.id}`
     })
     products = products.join('_');
     let transporter = nodemailer.createTransport({
-        service: "gmail",//"smtp.ethereal.email",
-        //host: 
-        //port: 587,
+        //service: "gmail",//"smtp.ethereal.email",
+        host: 'smtp.gmail.com',
+        port: 587,
         //secure: false, // true for 465, false for other ports
         auth: {
             user: PF_MAIL, // generated ethereal user 'marcel29@ethereal.email'
             pass: PASS_PF_MAIL, // generated ethereal password P2Ggd4FU2k78fpAafR
         },
+        tls: {
+            rejectUnauthorized: false
+        }
     });
     const msg = {
         from: `Henry E-commerce Videogames GROUP-V`, // sender address '"Fred Foo" <foo@example.com>'

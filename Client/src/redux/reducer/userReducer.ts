@@ -4,7 +4,7 @@ import { usersReducerState } from "../interfaces/userInterface";
 
 const initialState: usersReducerState = {
     listUsersData: [],
-    idDetails: {},
+    userDetails: {},
     successMsg: "",
     errorMsg: ""
 }
@@ -17,7 +17,7 @@ export const userReducer = createSlice({
             state.listUsersData = action.payload;
         },
         userByID: (state, action) => {
-            state.idDetails = action.payload;
+            state.userDetails = action.payload;
         },       
         successMsg: (state, action) => {
             state.successMsg = action.payload

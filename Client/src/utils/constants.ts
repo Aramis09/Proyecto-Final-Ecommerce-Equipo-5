@@ -8,6 +8,8 @@ export const ADD_PRODUCT_TO_WISHLIST = "http://localhost:3001/user/newWish";
 export const REMOVE_PRODUCT_TO_WISHLIST = "http://localhost:3001/user/removeWish";
 export const LIST_PRODUCT_LIBRARY='http://localhost:3001/products/productsBuy';
 
+export const ADD_NEW_USER = 'http://localhost:3001/user/userNew';
+
 export const LIST_USERS = 'http://localhost:3001/user/wishes'
 
 export const ADDED_TO_CART='Added To Cart';
