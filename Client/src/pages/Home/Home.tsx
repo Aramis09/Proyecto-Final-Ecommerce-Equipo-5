@@ -35,7 +35,11 @@ export const Home = () => {
       <NavBar />
       <Carousel />
       <Link to={'/friends'}>
-        <button>Friends</button></Link>
+        <button>Friends</button>
+      </Link>
+      <Link to = "/wish">wish</Link><br />
+      <Link to = "/library">library</Link>
+
       <Link to={'/users'}>
       <button>Dashboard</button>
       </Link>
