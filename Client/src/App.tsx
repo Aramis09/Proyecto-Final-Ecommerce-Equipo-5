@@ -7,7 +7,7 @@ import { Transaccion } from "./pages/mercadoPagoTesting/mpLink";
 import { useEffect } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useAppDispatch, useAppSelector } from "./redux/hooks/hooks";
-import { getListUsers } from "./redux/actions/userAction";
+import { getListUsers, saveNewUser } from "./redux/actions/userAction";
 import {
   getTopRatedProducts,
   setGlobalDiscount,
