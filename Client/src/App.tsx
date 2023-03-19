@@ -37,7 +37,9 @@ function App() {
 
   useEffect(() => {
     dispatch(getTopRatedProducts());
+
     dispatch(getListUsers()); 
+
     dispatch(setGlobalDiscount())
   }, []);
 
