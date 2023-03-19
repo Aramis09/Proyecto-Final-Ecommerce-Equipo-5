@@ -27,6 +27,7 @@ function App() {
   const listUsersData = useAppSelector(
     (state) => state.userReducer.listUsersData
   );
+  console.log(listUsersData)
 
   const admin = listUsersData.find((item) => item.email === userEmail);
   if (admin) {
@@ -41,8 +42,16 @@ function App() {
   useEffect(() => {
     dispatch(getTopRatedProducts());
     dispatch(getListUsers());
-    dispatch(setGlobalDiscount());
+    dispatch(setGlobalDiscount());    
   }, []);
+
+
+useEffect(() => {
+  if(user !== undefined){
+    dispatch(saveNewUser(user.email, user.name, user.picture))
+  }
+  //
+}, [user])
 
   return (
     <BrowserRouter>
