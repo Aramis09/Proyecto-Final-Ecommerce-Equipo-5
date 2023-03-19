@@ -16,8 +16,6 @@ const Library = () => {
             getProductsOfLibrary(String(user.email)).then((products:any) => setProducts(products));
         };
     },[])
-    console.log(products);
-    console.log("entre")
     return(
         <div>
             <NavBar/>

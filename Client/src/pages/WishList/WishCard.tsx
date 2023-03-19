@@ -1,6 +1,6 @@
 import { wishCard } from "./interfaces/wishProduct";
 import styles from "./WishCard.module.scss";
-import icon_cross  from "./images/cerrar.png";
+import icon_cross  from "./images/cross.svg";
 
 import { setwishList } from "../../redux/reducer/wishReducer";
 import { useAppDispatch } from "../../redux/hooks/hooks";
@@ -21,8 +21,8 @@ const dispatch = useAppDispatch();
                 <p className={styles.name}>{name}</p>
                 <p className={styles.price}>${price}</p>
                 <p className={styles.released}>{released}</p>
-                <img src={icon_cross} alt="" className={styles.iconCross} onClick={()=>deleteProductOfWishList()}/>
             </div>
+            <img src={icon_cross} alt="" className={styles.iconCross} onClick={()=>deleteProductOfWishList()}/>
         </div>
     );
 };
