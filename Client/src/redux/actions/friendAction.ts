@@ -4,6 +4,7 @@ import axios from 'axios';
 
 //Agregar amigos
 export const addFriend = (emailUser: string, emailFriend: string) => async (dispatch: any) => {
+
 		let frReque: object[];
 		try {
 			frReque = (await axios.get(User + `newFriendRequest?emailUser=${emailUser}&emailFriend=${emailFriend}`)).data;
@@ -15,6 +16,7 @@ export const addFriend = (emailUser: string, emailFriend: string) => async (disp
 
 //Respuesta a la solicitud y eliminar solicitud
 export const resReque = (emailUser: string, emailFriend: string, res: string) => async (dispatch: any) => {
+
 		let responseReque: object[];
 		try {
 			responseReque = (await axios.get(User + `responseRequestFriend?email=${emailUser}&emailFriend=${emailFriend}&response=${res}`)).data;
@@ -22,6 +24,7 @@ export const resReque = (emailUser: string, emailFriend: string, res: string) =>
 		} catch (error) {
 			console.error('Esto ocurrio en el back ' + error);
 		}
+
 	};
 
 //Amigos confirmados
@@ -33,6 +36,7 @@ export const confFriend = (emailUser: string) => async (dispatch: any) => {
 	} catch (error) {
 		console.error('Esto ocurrio en el back ' + error);
 	}
+
 };
 
 //Solicitudes pendientes

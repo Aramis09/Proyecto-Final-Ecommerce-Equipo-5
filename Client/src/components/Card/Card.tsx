@@ -11,19 +11,20 @@ import { ADDED_TO_CART, ALREADY_IN_THE_CART } from "../../utils/constants";
 import { useAuth0 } from "@auth0/auth0-react";
 
 import { style } from "@mui/system";
+import { addProductToWishList } from "../../Controller/cardController";
+import { setwishList } from "../../redux/reducer/wishReducer";
 
 export const Card = ({
   id,
   name,
   background_image,
-  //platforms,
   price,
 }: any) => {
   const { user }: any = useAuth0();
   //const platformsSlice = platforms.slice(0, 3);
   const dispatch = useAppDispatch();
 
-  if (typeof user !== "undefined") {
+  if (user) {//si existe un Usuario agarra el Carrito de Usuario
     var listProductsShoppingCart: object[] = useAppSelector(
       (state) => state.shoppingCartReducer.listProductsShoppingCartUser
     );
@@ -46,12 +47,12 @@ export const Card = ({
       (item: any) => item.id == parseInt(id)
     );
 
-    if (!item) {
-      if (typeof user !== "undefined") {
+    if (!item) {//Si no esta el Producto en el carrito y
+      if (user) {//si existe un usuario lo agrega al Carrito del USUARIO
         dispatch(addNewProductInShoppingCart(id, user.email));
         dispatch(addAmountForShoppingCartUser(price));
       } else {
-        dispatch(addShoppingCart(game));
+        dispatch(addShoppingCart(game));//si !user lo agregar al Carrito de INVITADO
       }
 
       setSuccessMsg(ADDED_TO_CART);
@@ -59,7 +60,11 @@ export const Card = ({
       setSuccessMsg(ALREADY_IN_THE_CART);
     }
   };
-
+  
+  const addingToWishList = async () => {
+    const newWishList = await addProductToWishList(user.email,id);
+    dispatch(setwishList(newWishList));
+  };
   return (
 		<>
 			<div className={styles['card-container']}>
@@ -72,9 +77,12 @@ export const Card = ({
 						{price === 'free' ? <p>{`${price}`}</p> : <p>{`$${price}`}</p>}
 					</div>
 					<div className={styles.addShoppingCart}>
-						<button type='button' onClick={addingToShoppingCart}>
+          <div className={styles.containerButton}>
+           <button className={styles.buttonAdd}  type='button' onClick={addingToShoppingCart}>
 							Add To Cart
 						</button>
+            <button className={styles.buttonAdd} onClick={addingToWishList}>Add Favourite</button>
+          </div>
 						<p className={styles.msg}>{successMsg}</p>
 					</div>
 				</div>
