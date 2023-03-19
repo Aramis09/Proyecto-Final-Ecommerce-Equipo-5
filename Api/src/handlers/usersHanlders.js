@@ -33,7 +33,7 @@ const addAllProductInShoppingCart = async (req,res) => {
     try {
         const {arrayAllProductInShoppingCart} = req.body;
         if(arrayAllProductInShoppingCart.length===0) throw new Error('send me all data please (array empty)');
-        const userWithAllProductAdded = await addAllProductInShoppingCartForUser(arrayAllProductInShoppingCart);
+        const userWithAllProductAdded = await addAllProductInShoppingCartForUser(arrayAllProductInShoppingCart); //lo que tengo que mandar por body es { arrayAllProductInShoppingCart: [{UserEmail ,},{}]}
         if(userWithAllProductAdded.error) throw new Error(userWithAllProductAdded.error);
         return res.status(200).json(userWithAllProductAdded);
     } catch (error) {
@@ -170,10 +170,10 @@ const wishesList = async (req,res) => {
 
 const addComment = async (req,res) => {
     try {
-        const { email,comment,productId, date, image } = req.body;
-        console.log('estoy en userhanlders/addCommet y recibo por body la image', image)
-        if(!email || !comment || !productId) throw new Error('email or comment or productId is missing. Send data correctly please...');
-        const newComment = await addNewComment(email,comment,productId, date ,image);
+        const { email,comment,productId, date, image, stars } = req.body;
+        console.log('estoy en userhanlders/addCommet y recibo por body las STARS', stars)
+        if(!email || !comment || !productId ) throw new Error('email or comment or productId is missing. Send data correctly please...');
+        const newComment = await addNewComment(email,comment,productId, date ,image, stars);
         return res.status(200).json(newComment);
     } catch (error) {
         return res.status(400).json(error.message);
