@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
 import { Home } from "./pages/Home/Home";
 import { Products } from "./pages/Products/Products";
 import { Detail } from "./components/Detail/Detail";
@@ -37,7 +37,9 @@ function App() {
 
   useEffect(() => {
     dispatch(getTopRatedProducts());
-    dispatch(getListUsers());// este falla no se porque, rompe cosas
+
+    dispatch(getListUsers()); 
+
     dispatch(setGlobalDiscount())
   }, []);
 
@@ -45,31 +47,22 @@ function App() {
     <BrowserRouter>
       <div className="App">
         <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/products" element={<Products />} />
+          <Route path="/checkout" element={<CheckOut />} />
+          <Route path="/mptest" element={<Transaccion />} />
+          <Route path="/friends" element={<Friends />} />
+          <Route path="/wish" element={<WishList />} />
+          <Route path="/library" element={<Library />} />
+          <Route path="/:id" element={<Detail />} />
           {admin?.admin && (
             <>
-              <Route path="/" element={<Home />} />
-              <Route path="/products" element={<Products />} />
-              <Route path="/:id" element={<Detail />} />
-              <Route path="/checkout" element={<CheckOut />} />
-              <Route path="/mptest" element={<Transaccion />} />
               <Route path="/users" element={<DashboardUser />} />
               <Route path="/productsList" element={<DashboardProducts />} />
             </>
           )}
-          {!admin?.admin && (
-            <>
-              <Route path="/" element={<Home />} />
-              <Route path="/products" element={<Products />} />
-              <Route path="/:id" element={<Detail />} />
-              <Route path="/checkout" element={<CheckOut />} />
-              <Route path="/mptest" element={<Transaccion />} />
-              <Route path="/friends" element={<Friends />} />   
-              <Route path="/wish" element={<WishList />} />
-              <Route path="/library" element={<Library />} />
-
-            </>
-          )}
         </Routes>
+          <Outlet />
       </div>
     </BrowserRouter>
   );
