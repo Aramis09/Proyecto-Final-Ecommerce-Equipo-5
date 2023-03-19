@@ -22,11 +22,21 @@ export const Card = ({
   price,
 }: any) => {
   const { user }: any = useAuth0();
-  //const platformsSlice = platforms.slice(0, 3);
   const dispatch = useAppDispatch();
-
-
-  let totalAmount: number;
+  let totalPrice = useAppSelector((state) => state.shoppingCartReducer.totalAmount)
+  //const platformsSlice = platforms.slice(0, 3);
+  const [successMsg, setSuccessMsg] = useState("");
+  const [control, setControl] = useState(-1);
+  const [saveInLocalStorage, setSaveInLocalStorage] = useState(false);
+  useEffect(() => {
+    console.log("Entro al useEffect");
+    if(saveInLocalStorage === true){
+      console.log("Se guarda en el local storage");
+      dispatch(saveShoppingCartInLocalStorage(listProductsShoppingCart, totalAmount));
+    }
+  },[control]);
+  
+  // let totalAmount: number = 0;
 
   if (typeof user !== "undefined") {
 
@@ -37,12 +47,10 @@ export const Card = ({
     var listProductsShoppingCart: object[] = useAppSelector(
       (state) => state.shoppingCartReducer.listProductsShoppingCartGuest
     );
-    totalAmount = useAppSelector((state) => state.shoppingCartReducer.totalAmount);
+    var totalAmount:number =totalPrice ;
   }
 
-  const [successMsg, setSuccessMsg] = useState("");
-  const [control, setControl] = useState(-1);
-  const [saveInLocalStorage, setSaveInLocalStorage] = useState(false);
+
 
 
   const addingToShoppingCart = (e: any) => {
@@ -74,13 +82,7 @@ export const Card = ({
     }
   };
 
-  useEffect(() => {
-    console.log("Entro al useEffect");
-    if(saveInLocalStorage === true){
-      console.log("Se guarda en el local storage");
-      dispatch(saveShoppingCartInLocalStorage(listProductsShoppingCart, totalAmount));
-    }
-  },[control]);
+
   
   const addingToWishList = async () => {
     const newWishList = await addProductToWishList(user.email,id);
