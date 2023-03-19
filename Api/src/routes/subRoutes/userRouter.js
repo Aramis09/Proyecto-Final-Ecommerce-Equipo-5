@@ -1,5 +1,5 @@
 const {Router}=require("express");
-const { userList, userID,addNewUser,addNewProductInShoppingCart,addNewFriend,addWish,friendsList,productsListShoppingCart,wishesList,addComment,commentListOfUser,commentListOfProduct,removeProductoInShoppingCar,responseRequestNewFriend,friendsPendingList,addAllProductInShoppingCart } = require("../../handlers/usersHanlders");
+const { userList, userID,addNewUser,addNewProductInShoppingCart,addNewFriend,addWish,friendsList,productsListShoppingCart,wishesList,addComment,commentListOfUser,commentListOfProduct,removeProductoInShoppingCar,responseRequestNewFriend,friendsPendingList,addAllProductInShoppingCart,removeWish } = require("../../handlers/usersHanlders");
 
 const userRouter = Router();
 
@@ -20,6 +20,7 @@ userRouter.post("/allProductInShoppingCart",addAllProductInShoppingCart);
 userRouter.get("/shoppingCart",productsListShoppingCart);   
 userRouter.get("/removeProductInShoppingCart",removeProductoInShoppingCar);
 userRouter.get("/newWish",addWish);
+userRouter.get("/removeWish",removeWish);
 userRouter.get("/wishes",wishesList);
 userRouter.post("/newComment",addComment);
 userRouter.get("/commentUser",commentListOfUser);  

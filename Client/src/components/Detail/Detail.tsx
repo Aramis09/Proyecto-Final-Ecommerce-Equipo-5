@@ -70,7 +70,7 @@ export const Detail = () => {
                 <div key={game.id}>
                   <h3>{game.name}</h3>
                   <p>${game.price}</p>
-                  <Rating value={game.rating} />
+                  <Rating value={game.rating} size={24}/>
                   <button type="button" onClick={addingToShoppingCart}>Add To Cart</button>
                   <p>{successMsg}</p>
                 </div>

@@ -14,6 +14,9 @@ module.exports = (sequelize) => {
       image: {
         type: DataTypes.STRING,
       },
+      stars: {
+        type: DataTypes.INTEGER,
+      }
     },
     { timestamps: false }
   );
