@@ -8,13 +8,16 @@ import { useEffect } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useAppDispatch, useAppSelector } from "./redux/hooks/hooks";
 import { getListUsers } from "./redux/actions/userAction";
-import { getTopRatedProducts, setGlobalDiscount } from "./redux/actions/productAction";
+import {
+  getTopRatedProducts,
+  setGlobalDiscount,
+} from "./redux/actions/productAction";
 import { DashboardUser } from "./components/Dashboard/Users/DashboardUser";
 import { DashboardProducts } from "./components/Dashboard/ProductsList/DashboardProducts";
 import WishList from "./pages/WishList/WishList";
 import "./App.css";
 import { Friends } from "./pages/Friends/Friends";
-import Library from "./pages/library/library";
+import Library from "./pages/library/Library";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -37,11 +40,8 @@ function App() {
 
   useEffect(() => {
     dispatch(getTopRatedProducts());
-
-    dispatch(getListUsers()); 
-
-    dispatch(setGlobalDiscount())
-    
+    dispatch(getListUsers());
+    dispatch(setGlobalDiscount());
   }, []);
 
   return (
@@ -63,7 +63,7 @@ function App() {
             </>
           )}
         </Routes>
-          <Outlet />
+        <Outlet />
       </div>
     </BrowserRouter>
   );
