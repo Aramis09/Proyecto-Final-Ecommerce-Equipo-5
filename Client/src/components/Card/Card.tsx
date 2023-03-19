@@ -6,7 +6,7 @@ import { addShoppingCart } from "../../redux/actions/shoppingCartAction";
 import { addNewProductInShoppingCart } from "../../redux/actions/shoppingCartAction";
 import { addAmountForShoppingCartUser } from "../../redux/reducer/shoppingCartReducer";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ADDED_TO_CART, ALREADY_IN_THE_CART } from "../../utils/constants";
 import { useAuth0 } from "@auth0/auth0-react";
 
@@ -19,10 +19,25 @@ export const Card = ({
   name,
   background_image,
   price,
+  genres
 }: any) => {
   const { user }: any = useAuth0();
   //const platformsSlice = platforms.slice(0, 3);
   const dispatch = useAppDispatch();
+  const [discountPrice,setDiscountPrice] = useState(0);
+  const [discountApplied, setDiscountApplied] = useState(false)
+  var todaysDiscount = useAppSelector((state) => state.productReducer.todaysDiscount)
+
+
+  useEffect(()  => {
+    if(parseFloat(price) !== 0 && todaysDiscount.discount !== 'No_Discount' && genres.includes(todaysDiscount.genre) && parseFloat(price) !==discountPrice && !discountApplied){
+      let finalPrice = (parseFloat(price)*(1-todaysDiscount.discount));
+      finalPrice = finalPrice.toFixed(2);
+      setDiscountApplied(prev => prev = true)
+      setDiscountPrice(finalPrice);
+    }
+  }, [price])
+
 
   if (user) {//si existe un Usuario agarra el Carrito de Usuario
     var listProductsShoppingCart: object[] = useAppSelector(
@@ -42,6 +57,7 @@ export const Card = ({
       name,
       background_image,
       price,
+      genres
     };
     const item = listProductsShoppingCart.find(
       (item: any) => item.id == parseInt(id)
@@ -65,6 +81,7 @@ export const Card = ({
     const newWishList = await addProductToWishList(user.email,id);
     dispatch(setwishList(newWishList));
   };
+
   return (
 		<>
 			<div className={styles['card-container']}>
@@ -74,7 +91,17 @@ export const Card = ({
 					</Link>
 					<div className={styles.containerTittleAndPrice}>
 						<h3>{name}</h3>
-						{price === 'free' ? <p>{`${price}`}</p> : <p>{`$${price}`}</p>}
+						{
+
+              discountApplied?
+              <div>
+                <del>{`${price}`}</del>
+                <p>ON SALE: {`${discountPrice}`}</p>
+              </div>
+              :
+              price === 'free' ? <p>{`${price}`}</p> : <p>{`$${price}`}</p>
+              
+            }
 					</div>
 					<div className={styles.addShoppingCart}>
           <div className={styles.containerButton}>

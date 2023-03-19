@@ -7,7 +7,7 @@ import { Transaccion } from "./pages/mercadoPagoTesting/mpLink";
 import { useEffect } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useAppDispatch, useAppSelector } from "./redux/hooks/hooks";
-import { getListUsers } from "./redux/actions/userAction";
+import { getListUsers, saveNewUser } from "./redux/actions/userAction";
 import {
   getTopRatedProducts,
   setGlobalDiscount,
@@ -27,7 +27,7 @@ function App() {
   const listUsersData = useAppSelector(
     (state) => state.userReducer.listUsersData
   );
-
+  console.log('lista de usuarios: ', listUsersData)
   const admin = listUsersData.find((item) => item.email === userEmail);
   if (admin) {
     const isAdmin = admin.admin;
@@ -43,6 +43,12 @@ function App() {
     dispatch(getListUsers());
     dispatch(setGlobalDiscount());
   }, []);
+
+  useEffect(() => {
+    if(user !== undefined){
+      dispatch(saveNewUser(user.email, user.name, user.picture))
+    }
+  }, [user])
 
   return (
     <BrowserRouter>
