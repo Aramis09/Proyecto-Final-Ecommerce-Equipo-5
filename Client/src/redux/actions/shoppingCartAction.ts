@@ -3,7 +3,7 @@ import axios from "axios";
 import { 
     addingToShoppingCart, 
     deletingItemShoppingCart, 
-    gettingShoppingCartFromDB, 
+    //gettingShoppingCartFromDB, 
     errorMsg, 
     updateShoppingCartUser ,
     eraseGuestShoppingCart,
@@ -33,7 +33,7 @@ export const deleteItemShoppingCart =  (id: string) => (dispatch: any) => {
         console.log("Exception - addShoppingCart: " + error);
     }
 }
-
+/*
 export const getShoppingCartFromDB =  (userID: string) => (dispatch: any) => {
     try{
         //Se obtiene el carrito de compras de la BD
@@ -43,7 +43,7 @@ export const getShoppingCartFromDB =  (userID: string) => (dispatch: any) => {
         dispatch(errorMsg("Ocurrio un error...intentelo mas tarde"));
         console.log("Exception - addShoppingCart: " + error);
     }
-}
+}*/
 
 ///////////////////////////////////   USUARIO   ///////////////////////////////////
 

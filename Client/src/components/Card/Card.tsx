@@ -5,8 +5,9 @@ import { useAppDispatch, useAppSelector } from "../../redux/hooks/hooks";
 import { addShoppingCart } from "../../redux/actions/shoppingCartAction";
 import { addNewProductInShoppingCart } from "../../redux/actions/shoppingCartAction";
 import { addAmountForShoppingCartUser } from "../../redux/reducer/shoppingCartReducer";
+import { saveShoppingCartInLocalStorage } from "../../redux/actions/localStorageAction";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ADDED_TO_CART, ALREADY_IN_THE_CART } from "../../utils/constants";
 import { useAuth0 } from "@auth0/auth0-react";
 
@@ -24,7 +25,11 @@ export const Card = ({
   //const platformsSlice = platforms.slice(0, 3);
   const dispatch = useAppDispatch();
 
-  if (user) {//si existe un Usuario agarra el Carrito de Usuario
+
+  let totalAmount: number;
+
+  if (typeof user !== "undefined") {
+
     var listProductsShoppingCart: object[] = useAppSelector(
       (state) => state.shoppingCartReducer.listProductsShoppingCartUser
     );
@@ -32,9 +37,13 @@ export const Card = ({
     var listProductsShoppingCart: object[] = useAppSelector(
       (state) => state.shoppingCartReducer.listProductsShoppingCartGuest
     );
+    totalAmount = useAppSelector((state) => state.shoppingCartReducer.totalAmount);
   }
 
   const [successMsg, setSuccessMsg] = useState("");
+  const [control, setControl] = useState(-1);
+  const [saveInLocalStorage, setSaveInLocalStorage] = useState(false);
+
 
   const addingToShoppingCart = (e: any) => {
     const game: object = {
@@ -52,7 +61,11 @@ export const Card = ({
         dispatch(addNewProductInShoppingCart(id, user.email));
         dispatch(addAmountForShoppingCartUser(price));
       } else {
-        dispatch(addShoppingCart(game));//si !user lo agregar al Carrito de INVITADO
+
+        dispatch(addShoppingCart(game));
+        setControl(listProductsShoppingCart.length);
+        setSaveInLocalStorage(true);
+
       }
 
       setSuccessMsg(ADDED_TO_CART);
@@ -60,6 +73,14 @@ export const Card = ({
       setSuccessMsg(ALREADY_IN_THE_CART);
     }
   };
+
+  useEffect(() => {
+    console.log("Entro al useEffect");
+    if(saveInLocalStorage === true){
+      console.log("Se guarda en el local storage");
+      dispatch(saveShoppingCartInLocalStorage(listProductsShoppingCart, totalAmount));
+    }
+  },[control]);
   
   const addingToWishList = async () => {
     const newWishList = await addProductToWishList(user.email,id);
