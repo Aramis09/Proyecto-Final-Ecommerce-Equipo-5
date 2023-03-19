@@ -6,6 +6,7 @@ const {
   WishlistProduct,
   FriendUser,
   Comment,
+  Genre
 } = require("../../db");
 
 const addUser = async (email, name, image) => {
@@ -181,15 +182,28 @@ const getAllUsers = async () => {
   }
 };
 
-const getAllProductsInShoppingCart = async (email) => {
+
+getAllProductsInShoppingCart = async (email) => {
   try {
-    const user = await User.findByPk(email);
-    const productList = await user.getProducts(); //trae los productos del carrito, como no modifique el famoso "as" de estebab queda en Products :addProduct,getProducts, etc...
+    const user = await User.findOne({
+      where: { email },
+      include: [
+        {
+          model: Product,
+          include: Genre
+        }
+      ]
+    });
+
+    const productList = user.Products;
+
     return productList;
   } catch (error) {
     return { error: error.message };
   }
 };
+
+
 const deleteProductinShoppingCart = async (email, idProduct) => {
   try {
     const user = await User.findByPk(email);
@@ -221,6 +235,19 @@ const addWishToList = async (pkUser, pkProduct) => {
   } catch (error) {
     return { error: error.message };
   }
+};   
+const removeWishToList = async (pkUser, pkProduct) => {
+  try {
+    const user = await User.findByPk(pkUser);
+    const productToAdd = await Product.findByPk(pkProduct);
+    await user.removeWishlist(productToAdd, {
+      through: "WishlistProduct", // especificar la tabla intermedia a utilizar
+    });
+    const listWish = await getAllWishes(pkUser);
+    return listWish;
+  } catch (error) {
+    return { error: error.message };
+  }
 };
 const getAllWishes = async (email) => {
   try {
@@ -232,8 +259,7 @@ const getAllWishes = async (email) => {
   }
 };
 
-const addNewComment = async (email, comment, productId, date) => {
-  // const now = sequelize.literal('CURRENT_TIMESTAMP');
+const addNewComment = async (email, comment, productId, date, image, stars) => {
 
   console.log(
     "Yo le llego a:userController a la funcion addNewComment y recibo estos parametros: email--->",
@@ -241,7 +267,11 @@ const addNewComment = async (email, comment, productId, date) => {
     "productId:-->",
     productId,
     "comment-->",
-    comment
+    comment,
+    "image-->",
+    image,
+    "starts-->",
+    stars,
   );
   const newComment = await Comment.build({
     //tengo que mejorar esto porque no anda
@@ -249,6 +279,8 @@ const addNewComment = async (email, comment, productId, date) => {
     date,
     userId: email,
     productId: productId,
+    image,
+    stars
   });
   await newComment.save();
   return newComment;
@@ -286,4 +318,5 @@ module.exports = {
   removeOrRejectedFriend,
   getAllFriendsPending,
   addAllProductInShoppingCartForUser,
+  removeWishToList
 };

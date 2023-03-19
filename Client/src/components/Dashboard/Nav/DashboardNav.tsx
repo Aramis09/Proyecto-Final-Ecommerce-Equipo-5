@@ -1,8 +1,11 @@
 import { Link } from "react-router-dom";
+import { useAuth0 } from "@auth0/auth0-react";
 import arrowBack from "../../../assets/arrow-back.svg";
-import styles from "./DashboardNav.module.css";
+import styles from "./DashboardNav.module.scss";
 
 export const DashboardNav = () => {
+  const { user } = useAuth0();
+
   return (
     <>
       <nav className={styles["container"]}>
@@ -22,9 +25,9 @@ export const DashboardNav = () => {
         </div>
         <div className={styles["user-info"]}>
           <div>
-            <img src="https://picsum.photos/200/300" alt="" />
+            <img src={user?.picture} alt="" />
           </div>
-          <div>admin@mail.com</div>
+          <h5>admin</h5>
         </div>
       </nav>
     </>

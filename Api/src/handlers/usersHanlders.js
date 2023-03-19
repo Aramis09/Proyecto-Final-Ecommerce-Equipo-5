@@ -1,4 +1,4 @@
-const { getAllWishes,getAllUsers,addUser,addProductInShoppingCartForUser,addFriends,addWishToList,getAllFriends,getAllProductsInShoppingCart,addNewComment,getAllCommentOfUser,getAllCommentOfProduct,deleteProductinShoppingCart,acceptFriend,removeOrRejectedFriend,getAllFriendsPending,addAllProductInShoppingCartForUser } = require('../controllers/users/userController');
+const { getAllWishes,getAllUsers,addUser,addProductInShoppingCartForUser,addFriends,addWishToList,getAllFriends,getAllProductsInShoppingCart,addNewComment,getAllCommentOfUser,getAllCommentOfProduct,deleteProductinShoppingCart,acceptFriend,removeOrRejectedFriend,getAllFriendsPending,addAllProductInShoppingCartForUser,removeWishToList } = require('../controllers/users/userController');
 
 const addNewUser = async (req,res) => {
     try {
@@ -66,14 +66,30 @@ const userList = async (req,res) => {
 };
 
 const addWish = async (req,res) => {
-    const {user, product} = req.query;
-    if(!user || !product) throw new Error('send me all data please');
-    const prueba = await addWishToList(user,product);
-    return res.status(200).send(prueba);
+    try {
+        const {user, product} = req.query;
+        if(!user || !product) throw new Error('send me all data please');
+        const prueba = await addWishToList(user,product);
+        return res.status(200).send(prueba);
+    } catch (error) {
+        return res.status(400).json(error.message);
+    }
 };
 const userID = async (req,res) => {
     
 };
+
+const removeWish = async (req,res) => {
+    try {
+        const {user, product} = req.query;
+        if(!user || !product) throw new Error('send me all data please');
+        const prueba = await removeWishToList(user,product);
+        return res.status(200).send(prueba);
+    } catch (error) {
+        return res.status(400).json(error.message);
+    }
+};
+
 const addNewFriend = async (req,res) => {
    try {
     const {emailUser,emailFriend} = req.query;
@@ -154,9 +170,10 @@ const wishesList = async (req,res) => {
 
 const addComment = async (req,res) => {
     try {
-        const { email,comment,productId, date } = req.body;
-        if(!email || !comment || !productId) throw new Error('email or comment or productId is missing. Send data correctly please...');
-        const newComment = await addNewComment(email,comment,productId, date );
+        const { email,comment,productId, date, image, stars } = req.body;
+        console.log('estoy en userhanlders/addCommet y recibo por body las STARS', stars)
+        if(!email || !comment || !productId ) throw new Error('email or comment or productId is missing. Send data correctly please...');
+        const newComment = await addNewComment(email,comment,productId, date ,image, stars);
         return res.status(200).json(newComment);
     } catch (error) {
         return res.status(400).json(error.message);
@@ -187,4 +204,4 @@ const commentListOfProduct= async (req,res) => {
     };
 };
 
-module.exports = { userList,userID,addNewUser,addNewProductInShoppingCart,addNewFriend,addWish,friendsList,productsListShoppingCart,wishesList,addComment,commentListOfUser,commentListOfProduct,removeProductoInShoppingCar,responseRequestNewFriend,friendsPendingList,addAllProductInShoppingCart };
+module.exports = { userList,userID,addNewUser,addNewProductInShoppingCart,addNewFriend,addWish,friendsList,productsListShoppingCart,wishesList,addComment,commentListOfUser,commentListOfProduct,removeProductoInShoppingCar,responseRequestNewFriend,friendsPendingList,addAllProductInShoppingCart,removeWish };

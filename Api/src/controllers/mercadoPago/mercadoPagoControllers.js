@@ -3,7 +3,7 @@ const {ACCES_TOKEN} = process.env;
 const axios = require('axios');
 const mercadopago = require("mercadopago");
 
-const createPaymentMercadoPago = async (items, client) => {
+const createPaymentMercadoPago = async (items, client, discount) => {
     let clientName; 
     let clientSurname;
     let clientFullName = selectNameSurname(client);
@@ -11,7 +11,11 @@ const createPaymentMercadoPago = async (items, client) => {
     clientSurname = clientFullName.clientSurname;
     //console.log('client name surname', clientName, clientSurname)
     //console.log(client.email)
-
+    if(discount.genre !== 'No_Discount'){
+        items = applyDiscount(items, discount)
+        //applyDiscount(items, discount)
+        console.log('after disc: ', items)
+    }
     items = reshapeProductInItems(items, client.email);
     const preference = {
         items,
@@ -37,7 +41,7 @@ const createPaymentMercadoPago = async (items, client) => {
         auto_return: "approved", // si la compra es exitosa automaticamente redirige a "success" de back_urls
         binary_mode: true, //esto permite que el resultado de la compra sea solo 'failure' o solo 'success'
 
-        //notification_url: "https://56eb-170-254-63-125.sa.ngrok.io/payment/responseMP?source_news=webhooks",
+        notification_url: "https://ff47-170-254-63-125.sa.ngrok.io/payment/responseMP?source_news=webhooks",
 
         //esta variable de notificacion se tiene que cambiar depende si es para recibir por deploy o por la herramienta "ngrok",
         //la cual CADA vez que se levanta para recibir notificaciones con el repo, cambia de url, asi que OJO!
@@ -166,6 +170,26 @@ const reshapeProductInItems = (items, email) => {
     //console.log('a', items)
     return itemsReady
 
+}
+
+
+const applyDiscount = (items, discount) => {
+    let itemsChecked = items.map(product => {
+        var productGenres = product.Genres.map(item => item.name)
+        if(productGenres.includes(discount.genre)){
+            var disc_price = (parseFloat(product.price) * (1-discount.discount));
+            disc_price = disc_price.toFixed(2);
+            product = {
+                id: product.id,
+                name: product.name,
+                background_image: product.background_image,
+                price: disc_price
+            }
+        }
+        return product
+    })
+    //console.log('changed', itemsChecked)
+    return itemsChecked
 }
 
 

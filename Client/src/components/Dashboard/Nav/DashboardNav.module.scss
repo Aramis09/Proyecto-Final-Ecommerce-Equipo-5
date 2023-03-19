@@ -1,3 +1,5 @@
+@import '../../../styles/global-vars.scss';
+
 .container {
   display: flex;
   flex-direction: column;
@@ -6,6 +8,9 @@
   position: fixed;
   top: 0;
   left: 30px;
+  width: 100px;
+  box-shadow: 8px 0 10px 1px $shadow-blue-color;
+
 }
 
 .options-container {
@@ -44,4 +49,9 @@
   width: 80px;
   height: 80px;
   border-radius: 50px;
+}
+
+.email {
+  width: 100%;
+  text-align: justify;
 }

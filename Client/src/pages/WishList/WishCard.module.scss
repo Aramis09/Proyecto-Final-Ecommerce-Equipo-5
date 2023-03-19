@@ -1,0 +1,31 @@
+.conatiner{
+    width: 100%;
+    display: flex;
+    background-color: rgb(14, 62, 140);
+    border-radius: 1rem;
+    margin-bottom: 20px;
+}
+.conatiner img{
+    width: 30%;
+}
+.data{
+    display: grid;
+    grid-template-columns:  100px 80px 120px;
+    justify-content: center;
+    align-items: center;
+    column-gap: 100px;
+}
+.name{
+    grid-column: 1/2;
+}
+.price{
+    grid-column: 2/3;
+}
+.released{
+    grid-column: 3/4;
+}
+.iconCross{
+    filter: invert(1);
+    grid-column: 4/5;
+    width: 5px;
+}

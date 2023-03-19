@@ -1,15 +1,17 @@
 export interface Game {
-  id: string | number;
+  id: number;
   name: string;
   background_image: string;
-  rating: number;
+  rating: string;
   playtime: number;
-  price: string | number;
+  price: string;
   description: string;
   images: string[];
   platforms: string[];
   genres: string[];
   stores: string[];
+  released: string;
+  state: boolean
 }
 
 export interface CardProps {
@@ -31,6 +33,8 @@ export interface Comment {
     productId: number;
     comment: string;
     date: string;
+    image: string;
+    stars: number;
   }
 
 export interface User {
@@ -38,6 +42,7 @@ export interface User {
 		admin: boolean,
 		blocked: boolean,
 		secret: string,
+    image: string
   }
 
 export interface Friend {

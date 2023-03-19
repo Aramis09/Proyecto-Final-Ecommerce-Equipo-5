@@ -6,7 +6,7 @@ const arrayIncludesPurchase = [
     },
     {
         model: Product,
-        attributes:["name","description","background_image"]
+        attributes:["name","price","released","description","background_image"]
     },
 ];
 

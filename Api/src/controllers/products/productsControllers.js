@@ -1,11 +1,11 @@
-const {Product, Platform, Image, Genre, Store} = require("../../db");
+const {Product, Platform, Image, Genre, Store,Purchase,User} = require("../../db");
 const axios = require("axios");
+const {getAllPurchaseds} = require("../purchase/purchaseTransactionController");
 const { arrayStoresDet, arrayGenresDet, arrayPlatformsDet, arrayPlatforms, arrayGenres, arrayStores, arrayImagesDet, arrayIncludes} = require('./utils');
 const { Op } = require("sequelize");
 
 const getAllProducts = async ()=>{
     let productsListWithMoreTrash = await Product.findAll({
-        where:{state:true},
         include:arrayIncludes
     });
     let productsListWithTrash=await productsListWithMoreTrash.map(productWithTrash => productWithTrash.dataValues);
@@ -13,7 +13,6 @@ const getAllProducts = async ()=>{
         console.log("Entro a Carga Inicial");
         await loadProductsInDB();
         let productsListWithMoreTrash = await Product.findAll({
-            where:{state:true},
             include:arrayIncludes
         });
         let productsListWithTrash=await productsListWithMoreTrash.map(productWithTrash => productWithTrash.dataValues);
@@ -159,6 +158,13 @@ const getOrderAlphabeticalList = async orderType =>{
         return orderedList;
 };
 
+const getListProductsBuy = async email => {
+    const purchases = await getAllPurchaseds();
+    const products = await purchases.map(property => {
+        return property.Product;
+    });
+    return products;
+};
 ///////LOGIC/////////LOGIC/////////LOGIC/////////LOGIC/////////LOGIC//////////////////////LOGIC/////////
 async function cleaningProcess(productListWithTrash){
         let productListClean = [];
@@ -174,12 +180,13 @@ function cleaningProcessToOneProduct (productWithTrash) {
     propertyCleanplatform = productWithTrash.Platforms.map(propertyTrash => propertyTrash.name) ;
     propertyCleanGenres = productWithTrash.Genres.map(propertyTrash => propertyTrash.name);
     propertyCleanStores = productWithTrash.Stores.map(propertyTrash => propertyTrash.name);
-    const { id,name, background_image,rating,playtime,price,description,released } = productWithTrash;
-    const productClean = {id,name, background_image,rating,playtime,price,description,released} ;
+    const { id,name, background_image,rating,playtime,price,description,released, state } = productWithTrash;
+    const productClean = {id,name, background_image,rating,playtime,price,description,released, state} ;
     productClean.images = propertyCleanImages;
     productClean.platforms = propertyCleanplatform;
     productClean.genres = propertyCleanGenres;
     productClean.stores = propertyCleanStores;
+    productClean.state = state;
     return productClean;
 };
 
@@ -308,4 +315,4 @@ function alphabeticalOrderZA(a,b){
     if( frst > second ) return -1;
      if( frst < second) return 1;
 };
-module.exports = {getAllProducts, getProductById, getProductsByName, getOrderAlphabeticalList, getProductsByPlatform, getProductsByCategory};
+module.exports = {getAllProducts, getProductById, getProductsByName, getOrderAlphabeticalList, getProductsByPlatform, getProductsByCategory,getListProductsBuy};
