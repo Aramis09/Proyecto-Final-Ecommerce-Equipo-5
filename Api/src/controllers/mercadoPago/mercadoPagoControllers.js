@@ -96,7 +96,7 @@ const mailProductsToBuyer = (email, products) => {
 
 const notificationData = async (query)  => {
 
-    const topic =  query.topic || query.type;
+  const topic =  query.topic || query.type;
   var merchantOrder;
   switch(topic){
     case "payment":
@@ -117,34 +117,35 @@ const notificationData = async (query)  => {
 
         var transactionDataObject;
         var dbItem;
-        merchantOrder.body.payments.forEach( async (item, index) => {
-            dbItem = (await axios.get(`http://localhost:3001/products/${merchantOrder.body.items[index].id}`)).data
-
-            var date = item.date_approved.slice(0, 10).split('-');
-            transactionDataObject = {
-                dateTransaction: date[2]+'/'+date[1]+'/'+date[0], //modificar la fecha para que sea 'mm/dd/aa'
-                priceUnit: parseFloat(dbItem.price), //esto debe venir de un llamado a la db
-                specialDiscount: 0.1, //esto debe venir de un llamado a la db cuando este implementado
-                priceUnitNet: item.total_paid_amount,
-                serialOfGame: 'asnsdghnakjsdkjasdnkfdf', //lo inventamos con un hash?
-                numberPayment: item.id,
-                giftGame: false, //falta implementar,
-                userEmailGift: '',
-                ProductId: merchantOrder.body.items[index].id,
-                UserEmail: userMailFromDescription, //lamentablemente el mail lo pusimos en la descripcion de los items porque no teniamos 
-                //otra manera de verlo (la documentacion de mercadopago no es amigable >:C)
-                //id: merchantOrder.body.id,
-                //state: true //esto debe venir de la db
-            };
-            //console.log(transactionDataObject)
-            await axios.post(`http://localhost:3001/purchase/create`, {transactionDataObject});
+        console.log("------->",merchantOrder.body.items);
+        merchantOrder.body.items.forEach( async (productData, index) => {
+          dbItem = (await axios.get(`http://localhost:3001/products/${merchantOrder.body.items[index].id}`)).data
+          let dataOfTransaction = merchantOrder.body.payments[0];
+          const dateInfoToday = new Date();
+          const zone = { timeZone: 'America/Argentina/Buenos_Aires' }
+          const dateAndHour =  dateInfoToday.toLocaleString('es-AR',zone);
+      
+          transactionDataObject = {
+              dateTransaction:dateAndHour, 
+              priceUnit: parseFloat(dbItem.price), //esto debe venir de un llamado a la db
+              specialDiscount: 0.1, //esto debe venir de un llamado a la db cuando este implementado
+              priceUnitNet: dataOfTransaction.total_paid_amount,
+              serialOfGame: 'asnsdghnakjsdkjasdnkfdf', //lo inventamos con un hash?
+              numberPayment: dataOfTransaction.id,
+              giftGame: false, //falta implementar,
+              userEmailGift: '',
+              ProductId: productData.id,
+              UserEmail: userMailFromDescription, //lamentablemente el mail lo pusimos en la descripcion de los items porque no teniamos 
+              //otra manera de verlo (la documentacion de mercadopago no es amigable >:C)
+            //id: merchantOrder.body.id,
+            //state: true //esto debe venir de la db
+          };
+          //console.log(transactionDataObject)
+          await axios.post(`http://localhost:3001/purchase/create`, {transactionDataObject})
         })
-        await axios.get(`http://localhost:3001/user/removeProductInShoppingCart?email=${userMailFromDescription}&idProduct=${'all'}`);
+        await axios.get(`http://localhost:3001/user/removeProductInShoppingCart?email=${userMailFromDescription}&idProduct=${'all'}`)
         mailProductsToBuyer(userMailFromDescription, merchantOrder.body.items);
   }
-
-
-
 }
 
 
