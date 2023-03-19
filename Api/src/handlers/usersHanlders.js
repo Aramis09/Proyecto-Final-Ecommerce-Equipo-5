@@ -33,7 +33,7 @@ const addAllProductInShoppingCart = async (req,res) => {
     try {
         const {arrayAllProductInShoppingCart} = req.body;
         if(arrayAllProductInShoppingCart.length===0) throw new Error('send me all data please (array empty)');
-        const userWithAllProductAdded = await addAllProductInShoppingCartForUser(arrayAllProductInShoppingCart);
+        const userWithAllProductAdded = await addAllProductInShoppingCartForUser(arrayAllProductInShoppingCart); //lo que tengo que mandar por body es { arrayAllProductInShoppingCart: [{UserEmail ,},{}]}
         if(userWithAllProductAdded.error) throw new Error(userWithAllProductAdded.error);
         return res.status(200).json(userWithAllProductAdded);
     } catch (error) {

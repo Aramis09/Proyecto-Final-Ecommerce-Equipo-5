@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {  LIST_WISH } from '../../utils/constants';
+import { LIST_WISH } from '../../utils/constants';
 import {setwishList} from "../../redux/reducer/wishReducer"
 
 
