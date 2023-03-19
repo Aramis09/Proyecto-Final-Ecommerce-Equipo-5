@@ -25,7 +25,8 @@ export const Detail = () => {
   const game:any = useAppSelector((state) => state.productReducer.details)
 
   useEffect(() => {
-   // dispatch(getProductByID(parseInt(id)))
+    dispatch(getProductByID(parseInt(id)))
+    //tomame el cambio
     return () => {
       dispatch(eraseItemById())
     }
