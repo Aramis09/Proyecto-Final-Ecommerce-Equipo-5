@@ -3,8 +3,8 @@ export const LIST_PRODUCTS_BY_PLATFORMS='http://localhost:3001/products/platform
 export const LIST_PRODUCTS_BY_FILTERS='http://localhost:3001/products/multiple';
 export const LIST_PLATFORMS='http://localhost:3001/platforms/';
 export const LIST_GENRES='http://localhost:3001/genres/';
+export const LIST_WISH='http://localhost:3001/user/wishes';
 
-export const LIST_WISH='http://localhost:3001/wishes';
 
 export const ADD_PRODUCT_TO_WISHLIST = "http://localhost:3001/user/newWish";
 export const REMOVE_PRODUCT_TO_WISHLIST = "http://localhost:3001/user/removeWish";

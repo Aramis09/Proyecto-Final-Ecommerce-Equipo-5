@@ -14,6 +14,8 @@ export const DashboardProducts = () => {
   const [newProductName, setNewProductName] = useState("");
   const [newProductRating, setNewProductRating] = useState("");
   const [newProductPrice, setNewProductPrice] = useState("");
+  const [searchProducts, setSearchProducts] = useState("");
+  const [newSearch, setNewSearch] = useState([]);
 
   let listProducts = useAppSelector(
     (state) => state.productReducer.allProductsData
@@ -51,8 +53,6 @@ export const DashboardProducts = () => {
   ) => {
     setNewProductPrice(event.target.value);
   };
-
-  console.log("💻 Name: " + newProductName);
 
   const handlerProductChange = async (
     name: string,
@@ -99,6 +99,17 @@ export const DashboardProducts = () => {
     await axios.post(config.url, config.data, { params: config.params });
   };
 
+  const handlerSearch = () => {
+    const searchedProduct = listProducts.filter((product) =>
+      product.name.toLowerCase().includes(searchProducts.toLowerCase())
+    );
+    setNewSearch(searchedProduct);
+  };
+
+  const handleClear = () => {
+    setNewSearch([]);
+  };
+
   return (
     <>
       <DashboardNav />
@@ -118,6 +129,15 @@ export const DashboardProducts = () => {
           >
             modify
           </button>
+          <input
+            type="text"
+            value={searchProducts}
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+              setSearchProducts(event.target.value)
+            }
+          />
+          <button onClick={() => handlerSearch()}>search</button>
+          <button onClick={handleClear}>clean</button>{" "}
         </div>
         <div className={styles["product-info"]}>
           <p>id</p>
@@ -126,7 +146,7 @@ export const DashboardProducts = () => {
           <p>price</p>
           <p>state</p>
         </div>
-        {listProducts.map(
+        {newSearch.length === 0? (listProducts.map(
           (
             {
               name,
@@ -173,7 +193,54 @@ export const DashboardProducts = () => {
               </button>
             </div>
           )
-        )}
+        )): (newSearch.map(
+          (
+            {
+              name,
+              rating,
+              id,
+              price,
+              state,
+              images,
+              genres,
+              background_image,
+              description,
+              platforms,
+              playtime,
+              stores,
+              released,
+            },
+            index
+          ) => (
+            <div className={styles["product-item"]} key={index}>
+              <p>{id}</p>
+              <p>{name}</p>
+              <p>{rating}</p>
+              <p>{price}</p>
+              <button
+                onClick={() => {
+                  handlerProductChange(
+                    name,
+                    rating,
+                    id,
+                    price,
+                    state,
+                    images,
+                    genres,
+                    background_image,
+                    description,
+                    platforms,
+                    playtime,
+                    stores,
+                    released
+                  );
+                }}
+              >
+                make Changes
+              </button>
+            </div>
+          )
+        ))}
       </section>
       {showModal && (
         <div className={styles.modal}>
