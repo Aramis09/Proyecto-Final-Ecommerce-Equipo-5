@@ -19,6 +19,10 @@ import "./App.css";
 import { Friends } from "./pages/Friends/Friends";
 import Library from "./pages/library/Library";
 
+import { setShoppingCartFromLocalStorage } from "./redux/actions/localStorageAction";
+import { getShoppingCartUserFromDB } from './redux/actions/shoppingCartAction';
+
+
 function App() {
   const dispatch = useAppDispatch();
   const { user } = useAuth0();
@@ -40,8 +44,17 @@ function App() {
 
   useEffect(() => {
     dispatch(getTopRatedProducts());
-    dispatch(getListUsers());
-    dispatch(setGlobalDiscount());
+
+    dispatch(getListUsers());// este falla no se porque, rompe cosas
+    dispatch(setGlobalDiscount())
+
+    if(typeof user !== 'undefined'){
+      dispatch(getShoppingCartUserFromDB(user.email))
+    }else{
+      dispatch(setShoppingCartFromLocalStorage());
+    }
+
+
   }, []);
 
   useEffect(() => {
