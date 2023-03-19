@@ -49,35 +49,22 @@ export const saveShoppingCartInLocalStorage =  (array: object[], totalAmount: nu
     }
 }
 
-export const saveShoppingCartLocalStorageInDB =  (userEmail: string) => async(dispatch: any) => {
-    try{
-        console.log("saveShoppingCartLocalStorageInDB");
+export const saveShoppingCartLocalStorageInDB =  async (userEmail: string) =>  {
+   
         const shoppingCart = JSON.parse(localStorage.getItem(SHOPPING_CART) || "null");
 
         if(shoppingCart !== null){
-            console.log("CONFIRMADO: Hay un carrito en el Local Storage");
             let list = shoppingCart.listProductsShoppingCartGuest;
-            console.log("Cantidad de productos en el carrito del local storage: " + list.length);
 
             let array: object[] = [];
-            console.log("1");
-            console.log("list.length: " + list.length);
             for(let i=0; i < list.length; i++){
                 let obj: object = {UserEmail: userEmail, ProductId: list[i].id};
                 array.push(obj);
             };
             const bodyObj = {arrayAllProductInShoppingCart: array};
-            console.log("2");
-            console.log(bodyObj);
+            console.log('Soy bodyObject',bodyObj);
             let response = (await axios.post(SAVE_SHOPPINGCART_LOCALSTORAGE_IN_DB, bodyObj)).data;
-            console.log("Respuesta recibida del backend: " + response.length);
-            console.log("Se grabo del local storage a la BD");
-        }else{
-            console.log("El Local Storage esta vacio");
+            console.log('soy response ->',response)
         }
-
-    }catch(error){
-        dispatch(errorMsg("Ocurrio un error...intentelo mas tarde"));
-        console.log("Exception - saveShoppingCartLocalStorageInDB: " + error);
-    }
+   
 }
