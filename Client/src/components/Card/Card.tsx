@@ -24,7 +24,7 @@ export const Card = ({
   //const platformsSlice = platforms.slice(0, 3);
   const dispatch = useAppDispatch();
 
-  if (typeof user !== "undefined") {
+  if (user) {//si existe un Usuario agarra el Carrito de Usuario
     var listProductsShoppingCart: object[] = useAppSelector(
       (state) => state.shoppingCartReducer.listProductsShoppingCartUser
     );
@@ -47,12 +47,12 @@ export const Card = ({
       (item: any) => item.id == parseInt(id)
     );
 
-    if (!item) {
-      if (typeof user !== "undefined") {
+    if (!item) {//Si no esta el Producto en el carrito y
+      if (user) {//si existe un usuario lo agrega al Carrito del USUARIO
         dispatch(addNewProductInShoppingCart(id, user.email));
         dispatch(addAmountForShoppingCartUser(price));
       } else {
-        dispatch(addShoppingCart(game));
+        dispatch(addShoppingCart(game));//si !user lo agregar al Carrito de INVITADO
       }
 
       setSuccessMsg(ADDED_TO_CART);

@@ -50,12 +50,12 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/products" element={<Products />} />
-          <Route path="/:id" element={<Detail />} />
           <Route path="/checkout" element={<CheckOut />} />
           <Route path="/mptest" element={<Transaccion />} />
           <Route path="/friends" element={<Friends />} />
           <Route path="/wish" element={<WishList />} />
           <Route path="/library" element={<Library />} />
+          <Route path="/:id" element={<Detail />} />
           {admin?.admin && (
             <>
               <Route path="/users" element={<DashboardUser />} />
@@ -63,7 +63,7 @@ function App() {
             </>
           )}
         </Routes>
-          <Outlet />
+        <Outlet />
       </div>
     </BrowserRouter>
   );
