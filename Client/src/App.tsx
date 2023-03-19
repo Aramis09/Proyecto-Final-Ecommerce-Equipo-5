@@ -37,7 +37,7 @@ function App() {
 
   useEffect(() => {
     dispatch(getTopRatedProducts());
-    // dispatch(getListUsers()); este falla no se porque, rompe cosas
+    dispatch(getListUsers());// este falla no se porque, rompe cosas
     dispatch(setGlobalDiscount())
   }, []);
 
