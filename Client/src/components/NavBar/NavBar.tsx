@@ -1,8 +1,7 @@
 import { Link } from "react-router-dom";
 import style from "./NavBar.module.scss";
 import { SearchBar } from "../SearchBar/SearchBar";
-import { ShoppingCart } from '../../components/ShoppingCart/ShoppingCart';
-import { WishList } from "../WishListButton/WishListButton";
+import { ShoppingCart } from "../../components/ShoppingCart/ShoppingCart";
 import icon from "../../assets/joystick_icon.png";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useEffect } from "react";
@@ -32,33 +31,36 @@ export const NavBar = () => {
     window.localStorage.setItem("token", getAccessTokenSilently);
   };
 
-	return (
-		<nav className={style.mainContainer}>
-			<div className={style.listContainer}>
-				<Link to='/'>
-					<img className={style.home} src={icon} alt='joystick_icon' />
-				</Link>
-				<SearchBar />
-				<ShoppingCart />
-				{isAuthenticated ? (
-					<>
-						<WishList />
-						<button
-							className={style.loginButton}
-							onClick={() =>
-								logout({ logoutParams: { returnTo: window.location.origin } })
-							}>
-							LOG OUT
-						</button>
-					</>
-				) : (
-					<button
-						className={style.loginButton}
-						onClick={() => loginWithRedirect()}>
-						LOG IN
-					</button>
-				)}
-			</div>
-		</nav>
-	);
+  return (
+    <nav className={style.mainContainer}>
+      <div className={style.listContainer}>
+        <Link to="/">
+          <img className={style.home} src={icon} alt="joystick_icon" />
+        </Link>
+        <SearchBar />
+        <ShoppingCart />
+        {isAuthenticated ? (
+            <button
+              className={style.loginButton}
+              onClick={() =>
+                logout({ logoutParams: { returnTo: window.location.origin } })
+              }
+            >
+              LOG OUT
+            </button>
+        ) : (
+          <button
+            className={style.loginButton}
+            onClick={async () => {
+              loginWithRedirect();
+              const token = await getAccessTokenSilently();
+              saveToken(token);
+            }}
+          >
+            LOG IN
+          </button>
+        )}
+      </div>
+    </nav>
+  );
 };

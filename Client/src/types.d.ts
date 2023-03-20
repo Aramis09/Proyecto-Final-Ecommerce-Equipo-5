@@ -34,6 +34,7 @@ export interface Comment {
     comment: string;
     date: string;
     image: string;
+    stars: number;
   }
 
 export interface User {

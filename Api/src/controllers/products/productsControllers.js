@@ -1,5 +1,6 @@
-const {Product, Platform, Image, Genre, Store} = require("../../db");
+const {Product, Platform, Image, Genre, Store,Purchase,User} = require("../../db");
 const axios = require("axios");
+const {getAllPurchaseds} = require("../purchase/purchaseTransactionController");
 const { arrayStoresDet, arrayGenresDet, arrayPlatformsDet, arrayPlatforms, arrayGenres, arrayStores, arrayImagesDet, arrayIncludes} = require('./utils');
 const { Op } = require("sequelize");
 
@@ -157,6 +158,13 @@ const getOrderAlphabeticalList = async orderType =>{
         return orderedList;
 };
 
+const getListProductsBuy = async email => {
+    const purchases = await getAllPurchaseds();
+    const products = await purchases.map(property => {
+        return property.Product;
+    });
+    return products;
+};
 ///////LOGIC/////////LOGIC/////////LOGIC/////////LOGIC/////////LOGIC//////////////////////LOGIC/////////
 async function cleaningProcess(productListWithTrash){
         let productListClean = [];
@@ -307,4 +315,4 @@ function alphabeticalOrderZA(a,b){
     if( frst > second ) return -1;
      if( frst < second) return 1;
 };
-module.exports = {getAllProducts, getProductById, getProductsByName, getOrderAlphabeticalList, getProductsByPlatform, getProductsByCategory};
+module.exports = {getAllProducts, getProductById, getProductsByName, getOrderAlphabeticalList, getProductsByPlatform, getProductsByCategory,getListProductsBuy};

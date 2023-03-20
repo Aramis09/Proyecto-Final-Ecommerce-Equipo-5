@@ -3,7 +3,7 @@ const {ACCES_TOKEN} = process.env;
 const axios = require('axios');
 const mercadopago = require("mercadopago");
 
-const createPaymentMercadoPago = async (items, client) => {
+const createPaymentMercadoPago = async (items, client, discount) => {
     let clientName; 
     let clientSurname;
     let clientFullName = selectNameSurname(client);
@@ -11,7 +11,11 @@ const createPaymentMercadoPago = async (items, client) => {
     clientSurname = clientFullName.clientSurname;
     //console.log('client name surname', clientName, clientSurname)
     //console.log(client.email)
-
+    if(discount.genre !== 'No_Discount'){
+        items = applyDiscount(items, discount)
+        //applyDiscount(items, discount)
+        console.log('after disc: ', items)
+    }
     items = reshapeProductInItems(items, client.email);
     const preference = {
         items,
@@ -37,7 +41,7 @@ const createPaymentMercadoPago = async (items, client) => {
         auto_return: "approved", // si la compra es exitosa automaticamente redirige a "success" de back_urls
         binary_mode: true, //esto permite que el resultado de la compra sea solo 'failure' o solo 'success'
 
-        //notification_url: "https://56eb-170-254-63-125.sa.ngrok.io/payment/responseMP?source_news=webhooks",
+        notification_url: "https://51b0-170-254-63-125.sa.ngrok.io/payment/responseMP?source_news=webhooks",
 
         //esta variable de notificacion se tiene que cambiar depende si es para recibir por deploy o por la herramienta "ngrok",
         //la cual CADA vez que se levanta para recibir notificaciones con el repo, cambia de url, asi que OJO!
@@ -61,7 +65,7 @@ const createPaymentMercadoPago = async (items, client) => {
 
 const notificationData = async (query)  => {
 
-    const topic =  query.topic || query.type;
+  const topic =  query.topic || query.type;
   var merchantOrder;
   switch(topic){
     case "payment":
@@ -82,20 +86,24 @@ const notificationData = async (query)  => {
 
   var transactionDataObject;
   var dbItem;
-  merchantOrder.body.payments.forEach( async (item, index) => {
+  console.log("------->",merchantOrder.body.items);
+  merchantOrder.body.items.forEach( async (productData, index) => {
     dbItem = (await axios.get(`http://localhost:3001/products/${merchantOrder.body.items[index].id}`)).data
-
-    var date = item.date_approved.slice(0, 10).split('-');
+    let dataOfTransaction = merchantOrder.body.payments[0];
+    const dateInfoToday = new Date();
+    const zone = { timeZone: 'America/Argentina/Buenos_Aires' }
+    const dateAndHour =  dateInfoToday.toLocaleString('es-AR',zone);
+    console.log(productData);
     transactionDataObject = {
-        dateTransaction: date[2]+'/'+date[1]+'/'+date[0], //modificar la fecha para que sea 'mm/dd/aa'
+        dateTransaction:dateAndHour, 
         priceUnit: parseFloat(dbItem.price), //esto debe venir de un llamado a la db
         specialDiscount: 0.1, //esto debe venir de un llamado a la db cuando este implementado
-        priceUnitNet: item.total_paid_amount,
+        priceUnitNet: dataOfTransaction.total_paid_amount,
         serialOfGame: 'asnsdghnakjsdkjasdnkfdf', //lo inventamos con un hash?
-        numberPayment: item.id,
+        numberPayment: dataOfTransaction.id,
         giftGame: false, //falta implementar,
         userEmailGift: '',
-        ProductId: merchantOrder.body.items[index].id,
+        ProductId: productData.id,
         UserEmail: userMailFromDescription, //lamentablemente el mail lo pusimos en la descripcion de los items porque no teniamos 
         //otra manera de verlo (la documentacion de mercadopago no es amigable >:C)
       //id: merchantOrder.body.id,
@@ -111,36 +119,35 @@ const notificationData = async (query)  => {
 
 
 const selectNameSurname = (client) => {
-  let clientName;
-  let clientSurname;
-  let clientFullName = client.name.split(" ");
-  //console.log('clientFullName', clientFullName)
 
-  if (clientFullName.length === 1) {
-    clientName = clientFullName[0];
-    clientSurname = "No_tiene";
-  }
-  if (clientFullName.length === 2) {
-    clientName = clientFullName[0];
-    clientSurname = clientFullName[1];
-  }
-  if (clientFullName.length === 3) {
-    clientName = clientFullName.slice(0, 2).join(" ");
-    clientSurname = clientFullName[2];
-  }
-  if (clientFullName.length === 4) {
-    clientName = clientFullName.slice(0, 2).join(" ");
-    clientSurname = clientFullName.slice(2, 4).join(" ");
-  }
-  if (clientFullName.length > 4) {
-    clientName = clientFullName.slice(0, clientFullName.length - 2).join(" ");
-    clientSurname = clientFullName
-      .slice(clientFullName.length - 2, clientFullName.length)
-      .join(" ");
-  }
-  //console.log('cc', clientName, clientSurname)
-  return { clientName, clientSurname };
-};
+    let clientName; 
+    let clientSurname;
+    let clientFullName = client.name.split(' ');
+    //console.log('clientFullName', clientFullName)
+    
+    if(clientFullName.length === 1){
+        clientName = clientFullName[0];
+        clientSurname = 'No_tiene';
+    }
+    if(clientFullName.length === 2){
+        clientName = clientFullName[0];
+        clientSurname = clientFullName[1];
+    }
+    if(clientFullName.length === 3){
+        clientName = clientFullName.slice(0, 2).join(' ');
+        clientSurname = clientFullName[2];
+    }
+    if(clientFullName.length === 4){
+        clientName = clientFullName.slice(0, 2).join(' ');
+        clientSurname = clientFullName.slice(2, 4).join(' ');
+    }
+    if(clientFullName.length > 4){
+        clientName = clientFullName.slice(0, clientFullName.length-2).join(' ');
+        clientSurname = clientFullName.slice(clientFullName.length-2, clientFullName.length).join(' ');
+    }
+    //console.log('cc', clientName, clientSurname)
+    return {clientName, clientSurname}
+}
 
 
 
@@ -158,15 +165,38 @@ const reshapeProductInItems = (items, email) => {
             currency_id: "ARS", //needed
         }
 
-    //return {
-    //    title: item.name,
-    //    unit_price: parseFloat(item.price),
-    //    quantity: 1, //needed
-    //}
-  });
-  //console.log('a', items)
-  return itemsReady;
-};
+        //return {
+        //    title: item.name,
+        //    unit_price: parseFloat(item.price),
+        //    quantity: 1, //needed
+        //}
+    })
+    //console.log('a', items)
+    return itemsReady
+
+}
+
+
+const applyDiscount = (items, discount) => {
+    let itemsChecked = items.map(product => {
+        var productGenres = product.Genres.map(item => item.name)
+        if(productGenres.includes(discount.genre)){
+            var disc_price = (parseFloat(product.price) * (1-discount.discount));
+            disc_price = disc_price.toFixed(2);
+            product = {
+                id: product.id,
+                name: product.name,
+                background_image: product.background_image,
+                price: disc_price
+            }
+        }
+        return product
+    })
+    //console.log('changed', itemsChecked)
+    return itemsChecked
+}
+
+
 
 module.exports = {
     createPaymentMercadoPago,
@@ -187,6 +217,7 @@ module.exports = {
     currency_id: "ARS",
     unit_price: parseFloat(price)
 */
+
 
 /* NO BORRAR
                 //excluded_payment_methods

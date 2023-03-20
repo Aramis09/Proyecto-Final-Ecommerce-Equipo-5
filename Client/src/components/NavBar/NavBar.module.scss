@@ -23,14 +23,15 @@
         justify-content: space-between;
         align-items: center;
     }
-
+   
     .loginButton {
         // background-color: #018dff;
         cursor: pointer;
         border-radius: 20px;
+        border-color: white;
         margin-right: 5px;
     }
-
+    
     .loginButton:hover {
         background-color: #004074;
         transition: 1s;
@@ -76,6 +77,5 @@
     .loginButton:hover {
         background-color: #004074;
         transition: 1s;
-        color: white;
     }
 }

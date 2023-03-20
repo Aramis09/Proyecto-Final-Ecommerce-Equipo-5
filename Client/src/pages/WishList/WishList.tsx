@@ -1,46 +1,57 @@
-import { NavBar } from "../../components/NavBar/NavBar";
-import { useAppDispatch, useAppSelector } from "../../redux/hooks/hooks";
-import { deleteItem } from "../../redux/actions/wishListAction";
+import react,{useEffect} from "react";
 import { useAuth0 } from "@auth0/auth0-react";
-import { Card } from "../../components/Card/Card";
-import style from './WishList.module.css';
+import { NavBar } from "../../components/NavBar/NavBar";
+import { getAllProductInWishList } from "../../redux/actions/wishActions";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks/hooks";
+import styles from "./WishList.module.scss"; 
 
-export const WishList = () => {
+import WishCard from "./WishCard";
 
-    const wishListItems = useAppSelector(state => state.wishListReducer.wishListItems);
-    const dispatch = useAppDispatch();
-    const { user } = useAuth0();
-
-    const deleteItemFromList = (id: string) => {
-        dispatch(deleteItem(id));
+const WishList = () => {
+const dispatch = useAppDispatch();
+const wishListStore = useAppSelector(state => state.wishReducer.wishList);
+const { user } = useAuth0();
+useEffect(() => {
+    const email:string = String(user?.email);
+    if(user?.email){
+        dispatch(getAllProductInWishList(email));
     };
+    
+}, [user]);
+
 
     return (
         <>
-            <NavBar />
-            <div className={style.mainContainer}>
-                {
-                    wishListItems.length > 0
-                        ? wishListItems.map((el: any, index: number) => {
-                            return (
-                                <div className={style.itemsContainer}>
-                                    <Card
-                                        key={index}
-                                        id={el.id}
-                                        name={el.name}
-                                        background_image={el.background_image}
-                                        price={el.price} />
-                                    <button
-                                        className={style.deleteButton}
-                                        onClick={ev => deleteItemFromList(el.id)}>
-                                        X
-                                    </button>
-                                </div>
-                            );
-                        })
-                        : <h3 className={style.msgListEmpty}>Your Wish List is empty</h3>
-                }
-            </div>
+            <NavBar/>
+            {
+                wishListStore.length? 
+                <section className={styles.container}>
+                    <p className={styles.top}>WhisList</p>
+                    <div className={styles.tittles}>
+                        <p className={styles.tittle}>Name</p>
+                        <p className={styles.tittle}>Price</p>
+                        <p className={styles.tittle}>Released</p>
+                    </div>
+                    <br />
+                    <section className={styles.containerCardsList}>
+                        {wishListStore.map((wishProduct:any) => {
+                            return(
+                                <WishCard
+                                key = {Number(wishProduct.id)}
+                                id = {Number(wishProduct.id)}
+                                email = {String(user?.email)}
+                                name = {wishProduct.name} 
+                                background_image = { wishProduct.background_image}
+                                price = {wishProduct.price}
+                                released = {wishProduct.released}
+                                />
+                            )
+                        })}
+                    </section>
+                </section>
+                :<p>Not found Products</p>
+            }
         </>
     );
 };
+export default WishList;

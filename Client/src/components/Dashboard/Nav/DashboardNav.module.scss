@@ -1,0 +1,57 @@
+@import '../../../styles/global-vars.scss';
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 30px;
+  width: 100px;
+  box-shadow: 8px 0 10px 1px $shadow-blue-color;
+
+}
+
+.options-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 50px;
+  gap: 20px;
+}
+
+.options-container img {
+  background-color: white;
+  width: 40px;
+  margin-bottom: 20px;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.options-container img:hover {
+  background-color: #646cff;
+}
+
+.options-container a {
+  color: white;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding-bottom: 50px;
+}
+
+.user-info img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50px;
+}
+
+.email {
+  width: 100%;
+  text-align: justify;
+}

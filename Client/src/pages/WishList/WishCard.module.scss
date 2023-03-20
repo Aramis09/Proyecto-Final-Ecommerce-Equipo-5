@@ -1,0 +1,42 @@
+.conatiner{
+    width: 100%;
+    display: flex;
+    border-radius: 1rem;
+    margin-bottom: 20px;
+    justify-content: center;
+    gap: 10%;
+    cursor: pointer;
+}
+.conatiner img{
+    width: 10%;
+    height: 70px;
+    border-radius: 1rem;
+    align-self: center;
+}
+.data{
+    display: grid;
+    grid-template-columns:  100px 80px 120px;
+    justify-content: center;
+    align-items: center;
+    column-gap: 100px;
+    border-radius: 1rem;
+}
+.name{
+    grid-column: 1/2;
+}
+.price{
+    grid-column: 2/3;
+}
+.released{
+    grid-column: 3/4;
+}
+.iconCross{
+    grid-column: 4/5;
+    filter: invert(1);
+    cursor: pointer;
+}
+
+.conatiner :hover {
+    transition: 0.9s;
+    background-color: #018dff;
+}

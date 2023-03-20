@@ -9,6 +9,11 @@ import {
 } from "../../Controller/commentController";
 import commentIcon from "../../assets/message-2.svg";
 import styles from "./Comments.module.scss";
+import "primereact/resources/themes/saga-blue/theme.css";
+import "primereact/resources/primereact.min.css";
+import "primeicons/primeicons.css";
+
+import { Rating, RatingChangeEvent } from "primereact/rating";
 
 const Comments = () => {
   //Estado Global
@@ -18,21 +23,18 @@ const Comments = () => {
   //Estados locales
   const [userComment, setComment] = useState("");
   const [allComments, setAllComments] = useState([]);
+  const [stars, setStars] = useState<number>(0);
 
   const dispatch = useAppDispatch();
-  let listUsersData = useAppSelector(
-    (state) => state.userReducer.listUsersData
-  );
 
   const sendCommentHandler = (event: React.FormEvent<HTMLFormElement>) => {
     console.log("soy el tipo de evento de event", event.type);
     event.preventDefault();
-    postComment(game, userComment, user).then((newCommentObject: any) => {
+    postComment(game, userComment, user, stars).then((newCommentObject: any) => {
       setAllComments(newCommentObject);
-      setComment('');
+      setComment("");
     });
   };
-  
 
   useEffect(() => {
     getAllProductComments(game).then((allCommentsObject: any) =>
@@ -45,18 +47,22 @@ const Comments = () => {
     <>
       <div className={styles["comment-container"]}>
         <h3>Leave a Comment...</h3>
-        <form
-          className={styles["form-comment"]}
-          onSubmit={(event) => {
-            sendCommentHandler(event);
-          }}
-        >
+        <div className="card flex justify-content-center">
+          <Rating
+            value={stars}
+            onChange={(e: RatingChangeEvent) => setStars(e.value)}
+            cancel={false}
+          />
+        </div>
+
+        <form className={styles["form-comment"]} onSubmit={sendCommentHandler}>
           <textarea
             name="comment"
-            placeholder="Your Comment..."
-            className={styles["input-comment"]}
-            onChange={(e) => setComment(e.target.value)
+            placeholder={
+              !user ? "Log in to leave a comment" : "Your Comment..."
             }
+            className={styles["input-comment"]}
+            onChange={(e) => setComment(e.target.value)}
             value={userComment}
           />
 
@@ -79,14 +85,14 @@ const Comments = () => {
               <div>
                 <div>{commentObject.userId}</div>
                 <div>{commentObject.date}</div>
+            <Rating value={commentObject.stars || 3} readOnly cancel={false} />
               </div>
             </div>
             <div className={styles["comment-info"]}>
-              
-                <img src={commentIcon} alt="" />
-                <p>{commentObject.comment}</p>
-              
+              <img src={commentIcon} alt="" />
+              <p>{commentObject.comment}</p>
             </div>
+
           </div>
         ))}
     </>
