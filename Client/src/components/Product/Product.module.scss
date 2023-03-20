@@ -57,7 +57,9 @@
     font-family: 'Orbitron', sans-serif;  
     
   }
-  
+  .more{
+    grid-column: 1/4;
+  }
   .card:hover {
     transform: scale(1.03);
   }

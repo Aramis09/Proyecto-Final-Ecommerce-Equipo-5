@@ -50,9 +50,6 @@ export const SearchBar = () => {
         onClick={(event) => handleClickSubmit(event)}
       >
         <Link to="/products">
-          <p className={style.textSearch}>SEARCH</p>
-        </Link>
-        <Link to="/products">
           <img className={style.iconSearch} src={iconSearch} alt="iconSearch" />
         </Link>
       </button>
