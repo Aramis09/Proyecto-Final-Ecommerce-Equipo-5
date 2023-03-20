@@ -76,13 +76,14 @@
   }
   .filters-container {
     position: fixed;
-    top: 130px;
-    left: 25px;
+    top: 15vh;
+    left: 5vw;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: rgba($color: $background-color, $alpha: 0.5);
+    // background-color: rgba($color: $background-color, $alpha: 0.5);
+    background-image: linear-gradient(to bottom right, rgb(137, 28, 167), rgb(15, 15, 86));
     border-radius: 30px;
     box-shadow: 5px 15px 50px 0 $shadow-purple-color-dark;
     height: 400px;

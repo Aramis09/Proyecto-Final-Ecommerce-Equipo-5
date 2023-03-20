@@ -12,10 +12,11 @@ const SubNavbar = (state:any) => {
     console.log(state.show)
     return (
         <div className={changeClass.class}>
-            <ShoppingCart/>
+            <Link to = "/users" className={styles.buttons} >Admin</Link>
             <Link to = "/library" className={styles.buttons} >Library</Link>
             <Link to = "/wish" className={styles.buttons}> Wish</Link>
             <Link to = "/friends" className={styles.buttons} >Friends</Link>
+            <ShoppingCart/>
         </div>
     );
 };

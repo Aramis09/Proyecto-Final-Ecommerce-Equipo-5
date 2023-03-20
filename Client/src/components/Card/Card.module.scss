@@ -120,8 +120,8 @@
     transition: 1s;
     // box-shadow:1px 1px  20px 10px $light-blue-color;
     box-shadow:1px 1px  50px 30px $shadow-purple-color-dark;
-    background-image: linear-gradient(to bottom right, black, rgb(15, 15, 86));
-
+    background-image: linear-gradient(to bottom right, rgb(137, 28, 167), rgb(15, 15, 86));
+    // background-image: linear-gradient(to bottom right, black, rgb(15, 15, 86));
   }
 
   .form-button {

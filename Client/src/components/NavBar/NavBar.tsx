@@ -38,7 +38,7 @@ export const NavBar = () => {
     <nav className={style.mainContainer} >
       <div className={style.listContainer} onClick={()=>setShowSubNavBar(!showSubNavBar)}>
         <Link to="/">
-          <img className={style.home} src={icon} alt="joystick_icon" />
+          <img className={style.home} src={icon} alt="joystick_icon"/>
         </Link>
         {/* <ShoppingCart /> */}
         <SearchBar />

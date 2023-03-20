@@ -21,20 +21,18 @@
 
 @media (min-width:961px) {
     .modalContainer {
+        top: 15vh;
+        right: 5vw;
+        width: 10%;
         position: fixed;
-        top: 25vh;
-        left: 50vw;
-        right: 50vw;
-        position: absolute;
         display: flex;
         justify-content: center;
         text-align: left;
-        
+        box-shadow: 7px 7px 100px 0px rgb(63, 0, 151);
     }
 
     .modalContent {
-
-        background-image: linear-gradient(to bottom right, rgb(0, 0, 0), rgb(13, 13, 93));
+        background-image: linear-gradient(to bottom right, rgb(137, 28, 167), rgb(15, 15, 86));
         padding: 1rem;
         border-radius: 10%;
         height: auto;
