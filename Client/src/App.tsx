@@ -68,6 +68,7 @@ function App() {
           <Route path="/friends" element={<Friends />} />
           <Route path="/wish" element={<WishList />} />
           <Route path="/library" element={<Library />} />
+          <Route path="/auth0" element={<Auth0/>}/>
           <Route path="/:id" element={<Detail />} />
           {admin?.admin && (
             <>
