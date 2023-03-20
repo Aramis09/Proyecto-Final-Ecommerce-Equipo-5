@@ -1,7 +1,6 @@
 * {
   margin: 0;
   padding: 0;
-  font-family: 'Orbitron', sans-serif;
 }
 
 .title{
@@ -26,6 +25,9 @@
 }
 
 @media (min-width:961px){
+  .top-products--container {
+    margin: 50px 0 0 0;
+  }
   .buttons-platforms {
     display: flex;
     flex-direction: row;
