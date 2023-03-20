@@ -40,7 +40,7 @@ export const SearchBar = () => {
       <input
         className={style.Input}
         type="text"
-        placeholder="  Search Video Games"
+        placeholder="Search Video Games"
         onChange={(event) => handleInputChange(event)}
       />
 

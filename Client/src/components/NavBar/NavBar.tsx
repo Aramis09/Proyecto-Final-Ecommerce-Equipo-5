@@ -2,9 +2,10 @@ import { Link } from "react-router-dom";
 import style from "./NavBar.module.scss";
 import { SearchBar } from "../SearchBar/SearchBar";
 import { ShoppingCart } from "../../components/ShoppingCart/ShoppingCart";
-import icon from "../../assets/joystick_icon.png";
+// import icon from "../../assets/joystick_icon.png";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useEffect } from "react";
+import icon from "./images/icon.png";
 import axios from "axios";
 
 export const NavBar = () => {
@@ -37,8 +38,8 @@ export const NavBar = () => {
         <Link to="/">
           <img className={style.home} src={icon} alt="joystick_icon" />
         </Link>
+        {/* <ShoppingCart /> */}
         <SearchBar />
-        <ShoppingCart />
         {isAuthenticated ? (
             <button
               className={style.loginButton}

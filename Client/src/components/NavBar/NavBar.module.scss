@@ -16,6 +16,7 @@
         align-items: center;
         
     }
+
     .listContainer {
         width: 90%;
         display: flex;
@@ -50,6 +51,9 @@
         margin: 0;
         padding: 0;
         z-index: 1;
+    }
+    .home{
+        margin-left: 25%;
     }
 
     .listContainer {

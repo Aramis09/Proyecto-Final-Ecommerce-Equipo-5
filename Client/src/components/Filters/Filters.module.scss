@@ -82,9 +82,9 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: $background-color;
+    background-color: rgba($color: $background-color, $alpha: 0.5);
     border-radius: 30px;
-    box-shadow: 5px 5px 20px 0 $shadow-purple-color-dark;
+    box-shadow: 5px 15px 50px 0 $shadow-purple-color-dark;
     height: 400px;
     width: 200px;
     overflow-y: auto;
@@ -109,7 +109,9 @@
   }
 
   select {
-    background-color: dodgerblue;
+    background-color: black;
+    border-radius: 1rem;
+    border:none;
     height: 0;
     overflow: hidden;
     transition: height 0.3s ease-in-out;
