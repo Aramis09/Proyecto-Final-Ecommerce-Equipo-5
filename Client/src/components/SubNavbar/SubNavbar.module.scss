@@ -1,6 +1,12 @@
+@media (min-width:320px) and (max-width:960px){
+    .containerShow{
+        background-color: red;
+    }
+}
+
+
 @media (min-width:961px) {
     .containerShow{
-        // background-color: rgb(94, 94, 97);
         background-image: linear-gradient(to bottom right, black, rgb(15, 15, 86));
         height: 5vh;
         display: grid;

@@ -1,6 +1,5 @@
 .container{
     margin-top: 11%;
-    border: 3px solid white;
     border-radius: 1rem;
     padding: 10%;
     padding-top: 3%;
@@ -20,8 +19,6 @@
     padding: 1%;
 }
 .tittles{
-    border: 1px solid white;
-    margin: 1%;
     grid-column:1/4 ;
     display: flex;
 }
@@ -29,7 +26,6 @@
     padding: 5%;
     grid-column:1/4 ;
     margin: 3%;
-    border: 1px solid white;
     border-radius: 1rem;
     
 }
