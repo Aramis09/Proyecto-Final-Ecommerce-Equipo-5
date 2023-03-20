@@ -1,6 +1,7 @@
 require("dotenv").config();
-const {ACCES_TOKEN} = process.env;
+const {ACCES_TOKEN, PF_MAIL, PASS_PF_MAIL} = process.env;
 const axios = require('axios');
+const nodemailer = require('nodemailer');
 const mercadopago = require("mercadopago");
 
 const createPaymentMercadoPago = async (items, client, discount) => {
@@ -61,60 +62,89 @@ const createPaymentMercadoPago = async (items, client, discount) => {
     }
 }
 
+const mailProductsToBuyer = (email, products) => {
+    products = products.map(item => {
+        return `filename: ${item.title}, virtualKey: ${item.id}`
+    })
+    products = products.join('_');
+    let transporter = nodemailer.createTransport({
+        //service: "gmail",//"smtp.ethereal.email",
+        host: 'smtp.gmail.com',
+        port: 587,
+        //secure: false, // true for 465, false for other ports
+        auth: {
+            user: PF_MAIL, // generated ethereal user 'marcel29@ethereal.email'
+            pass: PASS_PF_MAIL, // generated ethereal password P2Ggd4FU2k78fpAafR
+        },
+        tls: {
+            rejectUnauthorized: false
+        }
+    });
+    const msg = {
+        from: `Henry E-commerce Videogames GROUP-V`, // sender address '"Fred Foo" <foo@example.com>'
+        to: `${email}`, // list of receivers
+        subject: "Virtual Keys", // Subject line
+        text: `
+        This is a mail with the key/s of the product/s you just bought: \n
+        ${products}
+        `, // plain text body
+        html:""
+        }    
+    // send mail with defined transport object
+    transporter.sendMail(msg)
+        .then(() => console.log('todo ok'))
+        .catch((err) => console.log('nomelacontainer: ', err))
+}
 
 
 const notificationData = async (query)  => {
+    const topic =  query.topic || query.type;
+    var merchantOrder;
+    switch(topic){
+        case "payment":
+        const paymentId = query.id || query['data.id'];
+        const payment = await mercadopago.payment.findById(paymentId);
+        merchantOrder = await mercadopago.merchant_orders.findById(payment.body.order.id);
+        break;
+        case "merchant_order":
+        const orderId = query.id;
+        merchantOrder = await mercadopago.merchant_orders.findById(orderId)
+        break;
 
-  const topic =  query.topic || query.type;
-  var merchantOrder;
-  switch(topic){
-    case "payment":
-      const paymentId = query.id || query['data.id'];
-      const payment = await mercadopago.payment.findById(paymentId);
-      merchantOrder = await mercadopago.merchant_orders.findById(payment.body.order.id);
-      break;
-    case "merchant_order":
-      const orderId = query.id;
-      merchantOrder = await mercadopago.merchant_orders.findById(orderId)
-      break;
+    }
+    //console.log('merch test', merchantOrder.body)
+    if(merchantOrder.body){
+        var userMailFromDescription = merchantOrder.body.items[0].description;
 
-  }
-  //console.log('merch test', merchantOrder.body)
-  
-  ////para visualizar el ejemplo:
-  var userMailFromDescription = merchantOrder.body.items[0].description;
-
-  var transactionDataObject;
-  var dbItem;
-  console.log("------->",merchantOrder.body.items);
-  merchantOrder.body.items.forEach( async (productData, index) => {
-    dbItem = (await axios.get(`http://localhost:3001/products/${merchantOrder.body.items[index].id}`)).data
-    let dataOfTransaction = merchantOrder.body.payments[0];
-    const dateInfoToday = new Date();
-    const zone = { timeZone: 'America/Argentina/Buenos_Aires' }
-    const dateAndHour =  dateInfoToday.toLocaleString('es-AR',zone);
-    console.log(productData);
-    transactionDataObject = {
-        dateTransaction:dateAndHour, 
-        priceUnit: parseFloat(dbItem.price), //esto debe venir de un llamado a la db
-        specialDiscount: 0.1, //esto debe venir de un llamado a la db cuando este implementado
-        priceUnitNet: dataOfTransaction.total_paid_amount,
-        serialOfGame: 'asnsdghnakjsdkjasdnkfdf', //lo inventamos con un hash?
-        numberPayment: dataOfTransaction.id,
-        giftGame: false, //falta implementar,
-        userEmailGift: '',
-        ProductId: productData.id,
-        UserEmail: userMailFromDescription, //lamentablemente el mail lo pusimos en la descripcion de los items porque no teniamos 
-        //otra manera de verlo (la documentacion de mercadopago no es amigable >:C)
-      //id: merchantOrder.body.id,
-      //state: true //esto debe venir de la db
-    };
-    //console.log(transactionDataObject)
-    await axios.post(`http://localhost:3001/purchase/create`, {transactionDataObject})
-  })
-  await axios.get(`http://localhost:3001/user/removeProductInShoppingCart?email=${userMailFromDescription}&idProduct=${'all'}`)
-
+        var transactionDataObject;
+        var dbItem;
+        //console.log("------->",merchantOrder.body);
+        merchantOrder.body.items.forEach( async (productData, index) => {
+            dbItem = (await axios.get(`http://localhost:3001/products/${merchantOrder.body.items[index].id}`)).data
+            transactionDataObject = {
+                dateTransaction: merchantOrder.body.date_created,//date[2]+'/'+date[1]+'/'+date[0], //dateAndHour, 
+                priceUnit: parseFloat(dbItem.price), //esto debe venir de un llamado a la db
+                specialDiscount: 0.1, //esto debe venir de un llamado a la db cuando este implementado
+                priceUnitNet: productData.unit_price,
+                serialOfGame: 'asnsdghnakjsdkjasdnkfdf', //lo inventamos con un hash?
+                numberPayment: merchantOrder.body.payments[0].id,
+                giftGame: false, //falta implementar,
+                userEmailGift: '',
+                ProductId: productData.id,
+                UserEmail: userMailFromDescription, //lamentablemente el mail lo pusimos en la descripcion de los items porque no teniamos 
+                //otra manera de verlo (la documentacion de mercadopago no es amigable >:C)
+                //id: merchantOrder.body.id,
+                //state: true //esto debe venir de la db
+            };
+            //console.log(transactionDataObject)
+            await axios.post(`http://localhost:3001/purchase/create`, {transactionDataObject})
+            
+        })
+        await axios.get(`http://localhost:3001/user/removeProductInShoppingCart?email=${userMailFromDescription}&idProduct=${'all'}`)
+        mailProductsToBuyer(userMailFromDescription, merchantOrder.body.items);
+    }
 }
+    
 
 
 

@@ -52,6 +52,7 @@
   right: 0px;
   top: 0px;
   object-fit: cover;
+  
 }
 
 .description-carousel {
@@ -64,16 +65,18 @@
   z-index: 100;
   padding-top: 5%;
   width: 100%;
-  
 }
 
 .description {
   display: flex;
+  width: 100%;
   flex-direction: column;
   align-items: center;
   margin: 0 150px;
   gap: 10px;
-  // display: ;
+  padding-left: 10%;
+  padding-right: 10%;
+  border-radius: 0.5rem;  
 }
 
 .carousel-buttons--change {
