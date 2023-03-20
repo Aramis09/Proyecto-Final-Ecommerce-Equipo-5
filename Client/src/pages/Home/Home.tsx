@@ -31,26 +31,31 @@ export const Home = () => {
   }
   
   return (
-    <div className={styles.container}>
-      <NavBar />
-      <Carousel />
-      <Link to={'/friends'}>
-        <button>Friends</button>
-      </Link>
-      <Link to = "/wish">wish</Link><br />
-      <Link to = "/library">library</Link>
-
-      <Link to={'/users'}>
-      <button>Dashboard</button>
-      </Link>
-      <Link to={'/friends'}>
-      <button>Friends</button>
-      </Link>
-      <h2 className={styles.title}>TOP GAMES</h2>
-      <Product/>
-      <Link to={'/products'}>
-        <button className={styles['More-products-btn']} value='0' onClick={toTheSearchList}>More</button>
-      </Link>
-    </div>
-  );
+		<div className={styles.container}>
+			<NavBar />
+			<Carousel />
+			<Link to='/wish'>
+				<button>Wish</button>
+			</Link>
+			<Link to='/library'>
+				<button>Library</button>
+			</Link>
+			<Link to={'/users'}>
+				<button>Dashboard</button>
+			</Link>
+			<Link to={'/friends'}>
+				<button>Friends</button>
+			</Link>
+			<h2 className={styles.title}>TOP GAMES</h2>
+			<Product />
+			<Link to={'/products'}>
+				<button
+					className={styles['More-products-btn']}
+					value='0'
+					onClick={toTheSearchList}>
+					More
+				</button>
+			</Link>
+		</div>
+	);
 };
