@@ -40,7 +40,8 @@
         padding: 0;
         height: 3rem;
         width: 3rem;
-        /* border: 1px solid white; */
+        border: none;
+        
     }
 
     .prueba {
@@ -49,7 +50,7 @@
     }
     
     .cartButton:hover {
-        background-color: #004074;
+        border: none;
         transition: 1s;
     }
     

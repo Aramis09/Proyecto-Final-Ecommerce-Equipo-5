@@ -43,7 +43,7 @@ const createPaymentMercadoPago = async (items, client, discount) => {
         binary_mode: true, //esto permite que el resultado de la compra sea solo 'failure' o solo 'success'
 
 
-        notification_url: "https://022c-170-254-63-107.sa.ngrok.io/payment/responseMP?source_news=webhooks",
+        notification_url: "https://5a76-170-254-63-107.sa.ngrok.io/payment/responseMP?source_news=webhooks",
 
 
         //esta variable de notificacion se tiene que cambiar depende si es para recibir por deploy o por la herramienta "ngrok",
