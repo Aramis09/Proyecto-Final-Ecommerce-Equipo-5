@@ -17,7 +17,7 @@ type SelectProps = {
     onChange?: (value: string) => void;
   };
   
-  const Select: React.FC<SelectProps> = ({ options, defaultValue, onChange }) => {
+ export const MakeGift: React.FC<SelectProps> = ({ options, defaultValue, onChange }) => {
     const [value, setValue] = useState(defaultValue || '');
   
     const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
