@@ -32,13 +32,9 @@ export const getUserByID =  (id: string) => async (dispatch: any) => {
 
 export const saveNewUser =  (email: string, name:string, picture:string) => async (dispatch: any) => {
     try{
-        console.log('p1 add: ', email, name, picture)
         var user = (await axios.get(ADD_NEW_USER + `?email=${email}&name=${name}&image=${picture}`)).data;
         if(user.name){
-            console.log('p fin: ', user)
         dispatch(userByID(user));
-        } else {
-            throw new Error (user)
         }
     }catch(error){
         dispatch(errorMsg("Ocurrio un error...intentelo mas tarde"));

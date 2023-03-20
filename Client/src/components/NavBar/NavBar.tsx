@@ -13,7 +13,6 @@ export const NavBar = () => {
     isAuthenticated,
     getAccessTokenSilently,
   } = useAuth0();
-  console.log('datos de usuario: ', user)
 
 
   const saveToken = (getAccessTokenSilently: string) => {
