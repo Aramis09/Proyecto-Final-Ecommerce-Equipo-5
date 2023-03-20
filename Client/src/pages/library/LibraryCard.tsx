@@ -1,4 +1,4 @@
-
+import styles from "./LibraryCard.module.scss";
 import { productLibrary } from "./LibraryInterfaces";
 
 const CardLibrary = (productData:productLibrary) => {
@@ -6,9 +6,10 @@ const CardLibrary = (productData:productLibrary) => {
         name,
         background_image,
         price,
-        released} = productData;
+        released
+    } = productData;
     return (
-        <div>
+        <div className={styles.container}>
             <img src={background_image} alt="game" />
             <p>{name}</p>
             <p>${price}</p>

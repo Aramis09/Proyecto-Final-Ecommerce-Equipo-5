@@ -2,20 +2,22 @@
 
 @media (min-width:320px) and (max-width:960px){
     .mainContainer {
-        width: 100%;
-        height: 100px;
-        position: fixed;
-        top: 0;
-        left: 0;
-        margin: 0;
-        padding: 0;
-        z-index: 1;
-        background-color:rgb(1, 4, 15);
+        // width: 100%;
+        // height: 100px;
+        // position: fixed;
+        // top: 0;
+        // left: 0;
+        // margin: 0;
+        // padding: 0;
+        // z-index: 1;
+        // background-color:rgb(1, 4, 15);
+        // display: flex;
+        // justify-content: center;
+        // align-items: center;
         display: flex;
-        justify-content: center;
-        align-items: center;
         
     }
+
     .listContainer {
         width: 90%;
         display: flex;
@@ -38,6 +40,9 @@
         color: #018dff;
     }
 
+    .containerSearch img {
+        display: none;
+    }
 }
 
 
@@ -50,6 +55,9 @@
         margin: 0;
         padding: 0;
         z-index: 1;
+    }
+    .home{
+        margin-left: 25%;
     }
 
     .listContainer {
@@ -65,17 +73,34 @@
         margin-bottom: 0px;
         font-family: 'Orbitron', sans-serif;
     }
-
-    .loginButton {
-        background-color: black;
+    .containerSearch{
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+    }
+    .containerSearch img {
+        filter: invert(1);
+        width: 25px;
+        margin-right: 1%;
         cursor: pointer;
-        border-radius: 20px;
-        // border-color: white;
+        transition: 1s;
+    }
+    .loginButton {
+        border: none;
+        background-color: rgba($color: #000000, $alpha: 0);
+        cursor: pointer;
         margin-right: 5px;
     }
-
+    .containerSearch img:hover {
+        transition: 1s;
+        filter: invert(16%) sepia(91%) saturate(3003%) hue-rotate(279deg) brightness(90%) contrast(98%);
+    }
     .loginButton:hover {
-        background-color: #004074;
+        border: none;
+        background-color: rgba($color: #000000, $alpha: 0);
+        color: #891ca7;
         transition: 1s;
     }
 }

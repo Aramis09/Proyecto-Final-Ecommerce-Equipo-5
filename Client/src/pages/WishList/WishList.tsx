@@ -22,7 +22,7 @@ useEffect(() => {
 
     return (
         <>
-            <NavBar/>
+                <NavBar/>
             {
                 wishListStore.length? 
                 <section className={styles.container}>

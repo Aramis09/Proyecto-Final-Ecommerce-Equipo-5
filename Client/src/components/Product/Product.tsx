@@ -1,21 +1,13 @@
 import { Card } from "../Card/Card";
 import { useAppSelector, useAppDispatch } from "../../redux/hooks/hooks";
 import styles from "./Product.module.scss";
-//import { Link } from "react-router-dom";
-//import { useEffect } from "react";
-//import { setSuccessMsg } from "../../redux/actions/shoppingCartAction";
+import { Link } from "react-router-dom";
+
 
 export const Product = () => {
   let topProductsData = useAppSelector(
     (state) => state.productReducer.topProductsData
   );
-
-  /*
-  const dispatch = useAppDispatch();
-  useEffect(() => {
-    dispatch(setSuccessMsg(""))
-  }, [])
-  */
 
   return (
     <div
@@ -33,7 +25,7 @@ export const Product = () => {
               id={product.id}
               name={product.name}
               background_image={product.background_image}
-              platforms={product.platforms}
+              genres={product.genres}
               price={product.price}
             />
             {/* </Link> */}
