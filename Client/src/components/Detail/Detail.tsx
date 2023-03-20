@@ -13,6 +13,7 @@ import { ADDED_TO_CART, ALREADY_IN_THE_CART } from "../../utils/constants";
 import { addAmountForShoppingCartUser } from "../../redux/reducer/shoppingCartReducer";
 import { useAuth0 } from "@auth0/auth0-react";
 import Comments from './Comments'
+import { saveShoppingCartInLocalStorage } from "../../redux/actions/localStorageAction";
 //los import comentados de abajo no los toquen que son para implementar los botones a futuro
 //import { getListGenres } from "../../redux/actions/genresAction";
 //import { getListPlatforms } from "../../redux/actions/platformAction";
@@ -30,23 +31,37 @@ export const Detail = () => {
     }
   }, [])
 
+  let totalAmount: number;
+
   if(typeof user !== 'undefined'){
     var listProductsShoppingCart: object[] = useAppSelector((state) => state.shoppingCartReducer.listProductsShoppingCartUser);
   } else {
     var listProductsShoppingCart: object[] = useAppSelector((state) => state.shoppingCartReducer.listProductsShoppingCartGuest);
+    totalAmount = useAppSelector((state) => state.shoppingCartReducer.totalAmount);
   }
   const [successMsg, setSuccessMsg] = useState("");
+  /*const control: Variable que se controlara en el useEffect, cada vez q cambie, se
+                   ejecutara el useEffect*/
+  const [control, setControl] = useState(-1);
+  /*const saveInLocalStorage: Variable q indicara si se ejecuta el metodo 
+                              saveShoppingCartInLocalStorage. Esta variable permite
+                              que el metodo saveShoppingCartInLocalStorage se ejecute solo
+                              cuando se agregue algo al carrito y no cuando el
+                              componente se monte*/
+  const [saveInLocalStorage, setSaveInLocalStorage] = useState(false);
 
   const addingToShoppingCart = (e: any) => {
     const item:any = listProductsShoppingCart.find((item:any) => item.id == parseInt(id));
     //console.log('detail item', item)
     if(!item){
 
-      if(typeof user !== 'undefined'){
+      if(typeof user !== 'undefined'){ //Usuario logueado
         dispatch(addNewProductInShoppingCart(id, user.email));
         dispatch(addAmountForShoppingCartUser(item.price))
-      } else {
+      } else { //Usuario NO logueado
         dispatch(addShoppingCart(game));
+        setControl(listProductsShoppingCart.length);
+        setSaveInLocalStorage(true);
       }
       setSuccessMsg(ADDED_TO_CART);
     }else{
@@ -54,6 +69,14 @@ export const Detail = () => {
     }
     
   }
+
+  useEffect(() => {
+    console.log("Entro al useEffect");
+    if(saveInLocalStorage === true){
+      console.log("Se guarda en el local storage");
+      dispatch(saveShoppingCartInLocalStorage(listProductsShoppingCart, totalAmount));
+    }
+  },[control]);
 
   return (
     <>

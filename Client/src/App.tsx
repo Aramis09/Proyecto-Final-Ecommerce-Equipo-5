@@ -14,7 +14,9 @@ import { DashboardProducts } from "./components/Dashboard/ProductsList/Dashboard
 import WishList from "./pages/WishList/WishList";
 import "./App.css";
 import { Friends } from "./pages/Friends/Friends";
-import Library from "./pages/library/library";
+import Library from "./pages/library/Library";
+import { setShoppingCartFromLocalStorage } from "./redux/actions/localStorageAction";
+import { getShoppingCartUserFromDB } from './redux/actions/shoppingCartAction';
 
 function App() {
   const dispatch = useAppDispatch();
@@ -41,6 +43,12 @@ function App() {
     dispatch(getListUsers()); 
 
     dispatch(setGlobalDiscount())
+
+    if(typeof user !== 'undefined'){
+      dispatch(getShoppingCartUserFromDB(user.email))
+    }else{
+      dispatch(setShoppingCartFromLocalStorage());
+    }
   }, []);
 
   return (

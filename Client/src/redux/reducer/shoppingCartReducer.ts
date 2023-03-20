@@ -18,7 +18,7 @@ export const shoppingCartReducer = createSlice({
     reducers:{
         addingToShoppingCart: (state, action) => {
             state.listProductsShoppingCartGuest.push(action.payload);
-            state.totalAmount = Number((state.totalAmount + Number(action.payload.price)).toFixed(2));
+            state.totalAmount = Number((Number(state.totalAmount) + Number(action.payload.price)).toFixed(2));
         },
         deletingItemShoppingCart: (state, action) => {
             //Se busca el juego en el carrito de compras con el id
@@ -28,20 +28,20 @@ export const shoppingCartReducer = createSlice({
                 //Se elimina el juego del carrito de compras
                 state.listProductsShoppingCartGuest = state.listProductsShoppingCartGuest.filter((item:any) => parseInt(item.id) !== parseInt(action.payload));
                 //Se actualiza el monto a pagar
-                state.totalAmount = Number((state.totalAmount - Number(temp.price)).toFixed(2));
+                state.totalAmount = Number((Number(state.totalAmount) - Number(temp.price)).toFixed(2));
             }
         },
         eraseGuestShoppingCart: (state) => {
             state.listProductsShoppingCartGuest = [];
         },
-        gettingShoppingCartFromDB: (state, action) => {
+        /*gettingShoppingCartFromDB: (state, action) => {
             state.listProductsShoppingCartGuest = action.payload;
             if(state.listProductsShoppingCartGuest.length > 0){
                 for(let i = 0; i < state.listProductsShoppingCartGuest.length; i++) {
                     state.totalAmount = Number((state.totalAmount + Number(action.payload.price)).toFixed(2));
                 }
             }
-        },
+        },*/
         resetTotalAmount: (state) => {
             state.totalAmount = 0.00;
         },
@@ -67,6 +67,12 @@ export const shoppingCartReducer = createSlice({
         //        }
         //    }
         //},
+        settingShoppingCartFromLocalStorage: (state, action) => {
+            state.listProductsShoppingCartGuest = action.payload.listProductsShoppingCartGuest;
+            state.totalAmount = action.payload.totalAmount;
+            console.log("state.listProductsShoppingCartGuest --> " + state.listProductsShoppingCartGuest.length);
+            console.log("state.totalAmount --> " + state.totalAmount);
+        },
         successMsg: (state, action) => {
             state.successMsg = action.payload
         },
@@ -79,7 +85,7 @@ export const shoppingCartReducer = createSlice({
 export const {
     addingToShoppingCart, 
     deletingItemShoppingCart,
-    gettingShoppingCartFromDB,
+    //gettingShoppingCartFromDB,
     successMsg, 
     errorMsg,
     updateShoppingCartUser,
@@ -87,7 +93,8 @@ export const {
     restAmountForShoppingCartUser,
     eraseGuestShoppingCart,
     //  gettingShoppingCartFromDBUser,
-    userShoppingDBemptyByHand
+    userShoppingDBemptyByHand,
+    settingShoppingCartFromLocalStorage
 } = shoppingCartReducer.actions;
 
 export default shoppingCartReducer.reducer
