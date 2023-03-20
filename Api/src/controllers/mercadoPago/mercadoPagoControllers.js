@@ -93,7 +93,7 @@ const notificationData = async (query)  => {
     const dateInfoToday = new Date();
     const zone = { timeZone: 'America/Argentina/Buenos_Aires' }
     const dateAndHour =  dateInfoToday.toLocaleString('es-AR',zone);
-
+    console.log(productData);
     transactionDataObject = {
         dateTransaction:dateAndHour, 
         priceUnit: parseFloat(dbItem.price), //esto debe venir de un llamado a la db
