@@ -17,4 +17,24 @@
   background-image: linear-gradient(to bottom right, rgb(137, 28, 167), rgb(15, 15, 86));
   border-radius: 5rem;
 }
+body{
+  background-image: linear-gradient(to bottom right,
+  rgb(0, 0, 0) 0%, 
+  rgb(0, 0, 0) 20%,
+  rgb(88, 1, 131) 40%,
+  rgb(0, 0, 74) 60%,
+  rgb(0, 0, 0) 80%
+  );
 
+  background-size: 200% 200%;
+  animation: movimiento 5s linear infinite alternate;
+}
+
+@keyframes movimiento {
+  from {
+    background-position: 0,0;
+  }
+  to{
+    background-position: 100% 100%;
+  }
+}
