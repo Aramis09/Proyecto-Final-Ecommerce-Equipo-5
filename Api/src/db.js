@@ -69,6 +69,14 @@ const FriendUser = sequelize.define('FriendUser', {
 { timestamps: false });
 User.belongsToMany(User, { through: FriendUser, as: 'FriendInList' });
 
+const Gift = sequelize.define('Gift', {
+    idProduct:{
+        type:DataTypes.INTEGER,
+        allowNull:false,
+    } 
+}, { timestamps: false });
+User.belongsToMany(User, { through: Gift, as: 'Gifts'});
+
 User.hasMany(Comment, { foreignKey: 'userId' });
 Comment.belongsTo(User, { foreignKey: 'userId' });
 
