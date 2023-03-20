@@ -84,7 +84,6 @@ export const moveProductsFromGuestCartToUserCart = (email:any, carritoGuest:any)
 export const getShoppingCartUserFromDB = (email: any) => async(dispatch:any) => {
     try {
         let carrito = (await axios.get(PRODUCTS_LIST_SHOPPING_CART + `?email=${email}`)).data;
-        console.log('carrito que no se actualiza bien',carrito)
             if(carrito.length>0){
                 dispatch(userShoppingDBemptyByHand(false));
             } else {
