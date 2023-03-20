@@ -52,10 +52,10 @@ export const Card = ({
   }, [price])
 
   
+
   // let totalAmount: number = 0;
 
   if (typeof user !== "undefined") {
-
     var listProductsShoppingCart: object[] = useAppSelector(
       (state) => state.shoppingCartReducer.listProductsShoppingCartUser
     );

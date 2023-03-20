@@ -96,7 +96,6 @@ const mailProductsToBuyer = (email, products) => {
 
 
 const notificationData = async (query)  => {
-
     const topic =  query.topic || query.type;
     var merchantOrder;
     switch(topic){
