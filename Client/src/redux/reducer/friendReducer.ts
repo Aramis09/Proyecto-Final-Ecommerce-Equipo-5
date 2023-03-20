@@ -2,10 +2,10 @@ import { createSlice } from '@reduxjs/toolkit';
 import { friendsReducerState } from '../interfaces/friendInterface';
 
 const initialState: friendsReducerState = {
-	newFriendRequest: '',
+	newFriendRequest: [],
 	responseRequest: '',
-	friendsConfirmed: '',
-	FriendsPending: '',
+	friendsConfirmed: [],
+	FriendsPending: [],
 };
 
 export const friendReducer = createSlice({

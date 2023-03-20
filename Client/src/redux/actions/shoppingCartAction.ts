@@ -3,7 +3,7 @@ import axios from "axios";
 import { 
     addingToShoppingCart, 
     deletingItemShoppingCart, 
-    gettingShoppingCartFromDB, 
+    //gettingShoppingCartFromDB, 
     errorMsg, 
     updateShoppingCartUser ,
     eraseGuestShoppingCart,
@@ -33,7 +33,7 @@ export const deleteItemShoppingCart =  (id: string) => (dispatch: any) => {
         console.log("Exception - addShoppingCart: " + error);
     }
 }
-
+/*
 export const getShoppingCartFromDB =  (userID: string) => (dispatch: any) => {
     try{
         //Se obtiene el carrito de compras de la BD
@@ -43,7 +43,7 @@ export const getShoppingCartFromDB =  (userID: string) => (dispatch: any) => {
         dispatch(errorMsg("Ocurrio un error...intentelo mas tarde"));
         console.log("Exception - addShoppingCart: " + error);
     }
-}
+}*/
 
 ///////////////////////////////////   USUARIO   ///////////////////////////////////
 
@@ -84,6 +84,7 @@ export const moveProductsFromGuestCartToUserCart = (email:any, carritoGuest:any)
 export const getShoppingCartUserFromDB = (email: any) => async(dispatch:any) => {
     try {
         let carrito = (await axios.get(PRODUCTS_LIST_SHOPPING_CART + `?email=${email}`)).data;
+        console.log('carrito que no se actualiza bien',carrito)
             if(carrito.length>0){
                 dispatch(userShoppingDBemptyByHand(false));
             } else {
