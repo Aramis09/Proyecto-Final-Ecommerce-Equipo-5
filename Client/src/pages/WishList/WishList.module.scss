@@ -1,5 +1,5 @@
 .container{
-    margin-top: 10%;
+    margin-top: 11%;
     border: 3px solid white;
     border-radius: 1rem;
     padding: 10%;
@@ -7,7 +7,8 @@
     display: grid;
     grid-template-columns: auto auto auto;
     justify-content: center;
-    
+    width: 120%;
+    background-image: linear-gradient(to bottom right, rgb(176, 80, 202), rgb(4, 4, 17));
 }
 .top{
     grid-column:1/4 ;
