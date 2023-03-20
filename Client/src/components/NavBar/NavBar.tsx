@@ -3,10 +3,12 @@ import style from "./NavBar.module.scss";
 import { SearchBar } from "../SearchBar/SearchBar";
 import iconArrow from "./images/arrow.png";
 import { useAuth0 } from "@auth0/auth0-react";
+
 import { useEffect,useState } from "react";
 import icon from "./images/icon.png";
 import axios from "axios";
 import SubNavbar from "../SubNavbar/SubNavbar";
+
 
 export const NavBar = () => {
   const [showSubNavBar,setShowSubNavBar] = useState(false);
@@ -18,16 +20,6 @@ export const NavBar = () => {
     getAccessTokenSilently,
   } = useAuth0();
 
-  useEffect(() => {
-    const addNewUser = async () => {
-      if (typeof user !== "undefined") {
-        await axios.get(
-          `http://localhost:3001/user/userNew?email=${user.email}&name=${user.name}&image=${user.picture}`
-        );
-      }
-    };
-    addNewUser();
-  }, []);
 
   const saveToken = (getAccessTokenSilently: string) => {
     window.localStorage.setItem("token", getAccessTokenSilently);
