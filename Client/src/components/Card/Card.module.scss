@@ -117,8 +117,10 @@
     grid-row: 3/4;
   }
   .card:hover{
+    transition: 1s;
     // box-shadow:1px 1px  20px 10px $light-blue-color;
     box-shadow:1px 1px  50px 30px $shadow-purple-color-dark;
+    background-image: linear-gradient(to bottom right, black, rgb(15, 15, 86));
 
   }
 

@@ -1,0 +1,22 @@
+@media (min-width:961px) {
+    .containerShow{
+        // background-color: rgb(94, 94, 97);
+        background-image: linear-gradient(to bottom right, black, rgb(15, 15, 86));
+        height: 5vh;
+        display: grid;
+        grid-template-columns: auto auto auto auto;
+        justify-content: center;
+        align-items: center;
+        column-gap: 25%;
+        transition: 0.5s;
+        // box-shadow:inset 1px 1px  150px 30px rgb(15, 15, 86);
+        color: white;
+    }
+    .containerHide{
+        transform: translate(-100%);
+        transition: 0.5s;
+    }
+    .buttons{
+        color: white;
+    }
+}

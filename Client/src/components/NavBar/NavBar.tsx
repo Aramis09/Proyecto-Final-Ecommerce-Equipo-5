@@ -4,11 +4,13 @@ import { SearchBar } from "../SearchBar/SearchBar";
 import { ShoppingCart } from "../../components/ShoppingCart/ShoppingCart";
 // import icon from "../../assets/joystick_icon.png";
 import { useAuth0 } from "@auth0/auth0-react";
-import { useEffect } from "react";
+import { useEffect,useState } from "react";
 import icon from "./images/icon.png";
 import axios from "axios";
+import SubNavbar from "../SubNavbar/SubNavbar";
 
 export const NavBar = () => {
+  const [showSubNavBar,setShowSubNavBar] = useState(false);
   const {
     loginWithRedirect,
     user,
@@ -33,8 +35,8 @@ export const NavBar = () => {
   };
 
   return (
-    <nav className={style.mainContainer}>
-      <div className={style.listContainer}>
+    <nav className={style.mainContainer} >
+      <div className={style.listContainer} onClick={()=>setShowSubNavBar(!showSubNavBar)}>
         <Link to="/">
           <img className={style.home} src={icon} alt="joystick_icon" />
         </Link>
@@ -62,6 +64,9 @@ export const NavBar = () => {
           </button>
         )}
       </div>
+      <SubNavbar
+        show = {showSubNavBar}
+      />
     </nav>
   );
 };
