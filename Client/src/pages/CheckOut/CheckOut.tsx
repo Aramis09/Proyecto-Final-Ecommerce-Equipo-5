@@ -11,6 +11,7 @@ import { Navigate } from "react-router-dom";
 import style from "../../components/NavBar/NavBar.module.scss";
 import { useState, useEffect } from "react";
 import { saveShoppingCartInLocalStorage } from "../../redux/actions/localStorageAction";
+import {MakeGift} from './../../components/MakeGift/MakeGift';
 
 export const CheckOut = () => {
   //const gameSlice = allGames.slice(0, 3);
@@ -131,14 +132,7 @@ export const CheckOut = () => {
                   Generate Payment Link
                 </button>
                 <p className='cho-container'></p>
-                <h4 className={styles.title}>
-                  ¿Do you want to use a new email for the purchase?
-                </h4>
-                <button
-                  className={styles['form-button']}
-                  onClick={(ev) => handleButOpen(ev)}>
-                  Yes
-                </button>
+                <MakeGift/>
                 {butOpen && (
                   <form className={styles.form}>
                     <div className={styles.dataContainer}>
