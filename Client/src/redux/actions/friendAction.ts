@@ -11,6 +11,7 @@ export const addFriend = (emailUser: string, emailFriend: string) => async (disp
 		} catch (error) {
 			console.error('Esto ocurrio en el back ' + error);
 		}
+
 	};
 
 //Respuesta a la solicitud y eliminar solicitud
@@ -21,7 +22,7 @@ export const resReque = (emailUser: string, emailFriend: string, res: string) =>
 			dispatch(resRequest(responseReque));
 		} catch (error) {
 			console.error('Esto ocurrio en el back ' + error);
-		}
+		};
 	};
 
 //Amigos confirmados
@@ -32,16 +33,17 @@ export const confFriend = (emailUser: string) => async (dispatch: any) => {
 		dispatch(confirmFriend(confirFriend));
 	} catch (error) {
 		console.error('Esto ocurrio en el back ' + error);
-	}
+	};
 };
 
 //Solicitudes pendientes
 export const pendingFriend = (emailUser: string) => async (dispatch: any) => {
+
 	let pending: object[];
 	try {
 		pending = (await axios.get(User + `friendsPending?email=${emailUser}`)).data;
 		dispatch(pendFriend(pending));
 	} catch (error) {
 		console.error('Esto ocurrio en el back ' + error);
-	}
+	};
 };

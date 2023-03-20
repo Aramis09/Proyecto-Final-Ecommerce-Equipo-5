@@ -5,8 +5,9 @@ import { useAppDispatch, useAppSelector } from "../../redux/hooks/hooks";
 import { addShoppingCart } from "../../redux/actions/shoppingCartAction";
 import { addNewProductInShoppingCart } from "../../redux/actions/shoppingCartAction";
 import { addAmountForShoppingCartUser } from "../../redux/reducer/shoppingCartReducer";
+import { saveShoppingCartInLocalStorage } from "../../redux/actions/localStorageAction";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ADDED_TO_CART, ALREADY_IN_THE_CART } from "../../utils/constants";
 import { useAuth0 } from "@auth0/auth0-react";
 
@@ -21,10 +22,24 @@ export const Card = ({
   price,
 }: any) => {
   const { user }: any = useAuth0();
-  //const platformsSlice = platforms.slice(0, 3);
   const dispatch = useAppDispatch();
+  let totalPrice = useAppSelector((state) => state.shoppingCartReducer.totalAmount)
+  //const platformsSlice = platforms.slice(0, 3);
+  const [successMsg, setSuccessMsg] = useState("");
+  const [control, setControl] = useState(-1);
+  const [saveInLocalStorage, setSaveInLocalStorage] = useState(false);
+  useEffect(() => {
+    console.log("Entro al useEffect");
+    if(saveInLocalStorage === true){
+      console.log("Se guarda en el local storage");
+      dispatch(saveShoppingCartInLocalStorage(listProductsShoppingCart, totalAmount));
+    }
+  },[control]);
+  
+  // let totalAmount: number = 0;
 
   if (typeof user !== "undefined") {
+
     var listProductsShoppingCart: object[] = useAppSelector(
       (state) => state.shoppingCartReducer.listProductsShoppingCartUser
     );
@@ -32,9 +47,11 @@ export const Card = ({
     var listProductsShoppingCart: object[] = useAppSelector(
       (state) => state.shoppingCartReducer.listProductsShoppingCartGuest
     );
+    var totalAmount:number =totalPrice ;
   }
 
-  const [successMsg, setSuccessMsg] = useState("");
+
+
 
   const addingToShoppingCart = (e: any) => {
     const game: object = {
@@ -47,12 +64,16 @@ export const Card = ({
       (item: any) => item.id == parseInt(id)
     );
 
-    if (!item) {
-      if (typeof user !== "undefined") {
+    if (!item) {//Si no esta el Producto en el carrito y
+      if (user) {//si existe un usuario lo agrega al Carrito del USUARIO
         dispatch(addNewProductInShoppingCart(id, user.email));
         dispatch(addAmountForShoppingCartUser(price));
       } else {
+
         dispatch(addShoppingCart(game));
+        setControl(listProductsShoppingCart.length);
+        setSaveInLocalStorage(true);
+
       }
 
       setSuccessMsg(ADDED_TO_CART);
@@ -60,6 +81,8 @@ export const Card = ({
       setSuccessMsg(ALREADY_IN_THE_CART);
     }
   };
+
+
   
   const addingToWishList = async () => {
     const newWishList = await addProductToWishList(user.email,id);
