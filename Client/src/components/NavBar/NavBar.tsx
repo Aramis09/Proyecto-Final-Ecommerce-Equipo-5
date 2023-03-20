@@ -1,11 +1,17 @@
 import { Link } from "react-router-dom";
 import style from "./NavBar.module.scss";
 import { SearchBar } from "../SearchBar/SearchBar";
-import { ShoppingCart } from "../../components/ShoppingCart/ShoppingCart";
-import icon from "../../assets/joystick_icon.png";
+import iconArrow from "./images/arrow.png";
 import { useAuth0 } from "@auth0/auth0-react";
 
+import { useEffect,useState } from "react";
+import icon from "./images/icon.png";
+import axios from "axios";
+import SubNavbar from "../SubNavbar/SubNavbar";
+
+
 export const NavBar = () => {
+  const [showSubNavBar,setShowSubNavBar] = useState(false);
   const {
     loginWithRedirect,
     user,
@@ -20,13 +26,15 @@ export const NavBar = () => {
   };
 
   return (
-    <nav className={style.mainContainer}>
-      <div className={style.listContainer}>
+    <nav className={style.mainContainer} >
+      <div className={style.listContainer} >
         <Link to="/">
           <img className={style.home} src={icon} alt="joystick_icon" />
         </Link>
-        <SearchBar />
-        <ShoppingCart />
+        <div className={style.containerSearch}>
+          <img src={iconArrow} alt="arrowIcon" onClick={()=>setShowSubNavBar(!showSubNavBar)}/>
+          <SearchBar />
+        </div>
         {isAuthenticated ? (
             <button
               className={style.loginButton}
@@ -49,6 +57,9 @@ export const NavBar = () => {
           </button>
         )}
       </div>
+      <SubNavbar
+        show = {showSubNavBar}
+      />
     </nav>
   );
 };
