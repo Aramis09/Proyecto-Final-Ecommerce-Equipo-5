@@ -30,8 +30,8 @@ export const ConfirFriends = () => {
       {friendsConfirmed.map((friend: unknown, index: number) => {
         return (
           <div className={styles.friends} key={index}>
-            <Cards key={index} friend={friend}/>
             <button className={styles.deletFriend} value='remove' onClick={handleResponse}>X</button>
+            <Cards key={index} friend={friend}/>
           </div>
         )
       })}

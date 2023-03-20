@@ -9,19 +9,33 @@
 	.card {
         display: flex;
 		flex-direction: row;
+		flex-wrap: wrap;
 		justify-content: center;
 		margin-top: 25px;
 	}
-
+	
 	.friends {
 		border: 1px solid white;
 		width: 15rem;
-        padding: 2rem;
+        padding: 0 0 2rem ;
+	}
+
+	.friends:hover{
+		box-shadow: inset 1px 1px 20px 10px #163c9f;
+
+	}
+
+	.deletFriend{
+		background-color: black;
+		font-size: 14px;
+		position: relative;
+		left: 5.8rem;
+		top: 0.3rem;
 	}
 
 	.deletFriend:hover {
         cursor: pointer;
-        background-color: #004074;
-        transition: 1s; 
+        border: none;
+		color: red;
 	}
 }

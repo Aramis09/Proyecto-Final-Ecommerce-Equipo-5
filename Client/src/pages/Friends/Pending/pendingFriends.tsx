@@ -41,10 +41,10 @@ export const PendingFr = () => {
 								<span className={styles.resquets}>
 									Pending Friends Request: {pend.UserEmail}
 								</span>
-								<button value='rejected' onClick={handleResponse}>
+								<button className={styles.reje} value='rejected' onClick={handleResponse}>
 									X
 								</button>
-								<button value='accept' onClick={handleResponse}>
+								<button className={styles.accp} value='accept' onClick={handleResponse}>
 									✓
 								</button>
 							</div>

@@ -3,7 +3,6 @@
     .add{
         padding: 25px;
         border: 1px solid white;
-        padding-bottom: 7   rem;
     }
     
     .send{
@@ -12,7 +11,6 @@
 
     .inp{
         border-radius: 5px;
-        z-index: auto;
         pointer-events: all;
     }
 
@@ -20,14 +18,12 @@
         background-color: black;
         border-radius: 20px;
         border-color: white;
-        z-index: auto;
         pointer-events: all;
+        margin-left: 0.3rem;
     }
     
     .but:hover {
         cursor: pointer;
-        background-color: #004074;
-        transition: 1s; 
     }
 
 }

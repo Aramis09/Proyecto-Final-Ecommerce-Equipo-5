@@ -5,10 +5,30 @@
 
     .cards{
         margin-top: 20px;
-        width: 27rem;
         display: flex;
         justify-content: center;
-        padding: 5px 0 5px;
+        padding: 5px 5px 5px 5px;
+        border-bottom: 1px solid white;
+        border-top: 1px solid white;
+        padding: 10px;
+    }
+
+    .reje{
+        background-color: black;
+    }
+
+    .accp{
+        background-color: black;
+    }
+
+    .reje:hover{
+        border: none;
+        color: red;
+    }
+
+    .accp:hover{
+        border: none;
+        color: chartreuse;
     }
 
     .noFrien{
