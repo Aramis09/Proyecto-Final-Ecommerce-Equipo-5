@@ -6,61 +6,25 @@
 }
 
 @media (min-width:961px){
+  .Links{
+    color: white;
+  }
   .carouselContainer{
-    display: none;
+    width: 100%;
+    padding: 5%;
+    position: relative;
+    border-radius: 0.5rem;
   }
   .carousel-container {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap:wrap;
     justify-content: center;
     align-items: center;
     height: 300px;
     width: 100%;
     padding: 60px 0;
     font-family: 'Orbitron', sans-serif;
-
   }
-}
-
-
-  .card-carousel {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-  }
-
-  .img-carousel {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .img-carousel img {
-    border-radius: 20px;
-    height: 100%;
-    width: 100%;
-    max-width: 700px;
-    object-fit: cover;
-  }
-
-.carousel-buttons--change {
-  display: flex;
-  justify-content: center;
-  margin-top: 10px;
-  gap: 10px;
-}
-
-.carousel-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  height: 300px;
-  width: 100%;
-  padding: 60px 0;
-  font-family: 'Orbitron', sans-serif;
-
 }
 
 
@@ -68,6 +32,7 @@
   display: flex;
   justify-content: center;
   gap: 15px;
+  
 }
 
 .img-carousel {
@@ -75,13 +40,17 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  
 }
 
 .img-carousel img {
-  border-radius: 20px;
-  height: 100%;
+  border-radius: 0.5rem;
   width: 100%;
-  max-width: 700px;
+  height:100%;
+  position: absolute;
+  // max-width: 700px;
+  right: 0px;
+  top: 0px;
   object-fit: cover;
 }
 
@@ -91,6 +60,11 @@
   justify-content: center;
   align-items: center;
   font-size: 0.9rem;
+  text-align: left;
+  z-index: 100;
+  padding-top: 5%;
+  width: 100%;
+  
 }
 
 .description {
@@ -99,6 +73,7 @@
   align-items: center;
   margin: 0 150px;
   gap: 10px;
+  // display: ;
 }
 
 .carousel-buttons--change {
@@ -106,6 +81,9 @@
   justify-content: center;
   margin-top: 10px;
   gap: 10px;
+}
+.carousel-buttons--change  button{
+  z-index: 60;
 }
 
 .carousel-container {

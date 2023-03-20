@@ -22,27 +22,23 @@ export const Carousel = () => {
 		<div className={styles.carouselContainer}>
 			{carouselData.map((item: any, index) => {
 				return (
+					<Link to={`/${item.id}`} className= {styles.Links}>
 					<div key={index} className={styles['card-carousel']}>
 						<div className={styles['img-carousel']}>
 							{currentImage === index ? (
 								<img src={item.background_image} alt={item.name} />
-							) : null}
+								) : null}
 						</div>
 						<div className={styles['description-carousel']}>
 							{currentImage === index ? (
-								<>
 									<div className={styles.description}>
 										<h2>{item.name}</h2>
 										<p>{item.description}</p>
-										<br />
-										<Link to={`/${item.id}`}>
-											<button>Go</button>
-										</Link>
 									</div>
-								</>
 							) : null}
 						</div>
 					</div>
+					</Link>
 				);
 			})}
 			<div className={styles['carousel-buttons--change']}>
@@ -52,3 +48,5 @@ export const Carousel = () => {
 		</div>
 	);
 };
+
+
