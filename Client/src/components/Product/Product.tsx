@@ -33,7 +33,7 @@ export const Product = () => {
               id={product.id}
               name={product.name}
               background_image={product.background_image}
-              platforms={product.platforms}
+              genres={product.genres}
               price={product.price}
             />
             {/* </Link> */}

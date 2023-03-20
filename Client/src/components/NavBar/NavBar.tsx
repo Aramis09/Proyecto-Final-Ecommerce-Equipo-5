@@ -4,8 +4,6 @@ import { SearchBar } from "../SearchBar/SearchBar";
 import { ShoppingCart } from "../../components/ShoppingCart/ShoppingCart";
 import icon from "../../assets/joystick_icon.png";
 import { useAuth0 } from "@auth0/auth0-react";
-import { useEffect } from "react";
-import axios from "axios";
 
 export const NavBar = () => {
   const {
@@ -15,17 +13,8 @@ export const NavBar = () => {
     isAuthenticated,
     getAccessTokenSilently,
   } = useAuth0();
+  console.log('datos de usuario: ', user)
 
-  useEffect(() => {
-    const addNewUser = async () => {
-      if (typeof user !== "undefined") {
-        await axios.get(
-          `http://localhost:3001/user/userNew?email=${user.email}&name=${user.name}&image=${user.picture}`
-        );
-      }
-    };
-    addNewUser();
-  }, []);
 
   const saveToken = (getAccessTokenSilently: string) => {
     window.localStorage.setItem("token", getAccessTokenSilently);
