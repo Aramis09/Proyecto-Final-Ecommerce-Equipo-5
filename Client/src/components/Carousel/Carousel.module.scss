@@ -6,22 +6,38 @@
 }
 
 @media (min-width:961px){
+  .Links{
+    color: white;
+  }
   .carouselContainer{
-    display: none;
+    width: 100%;
+    padding: 5%;
+    position: relative;
+    border-radius: 0.5rem;
+
   }
   .carousel-container {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap:wrap;
     justify-content: center;
     align-items: center;
-    height: 300px;
+    height: 400px;
     width: 100%;
-    padding: 60px 0;
+    margin: 50px 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(50px);
+    border-radius: 20px;
     font-family: 'Orbitron', sans-serif;
-
+    
   }
-}
 
+
+  .img-carousel {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    
+  }
 
   .card-carousel {
     display: flex;
@@ -29,92 +45,40 @@
     gap: 15px;
   }
 
-  .img-carousel {
+  .img-carousel img {
+    border-radius: 0.5rem;
+    height: 400px;
+    width: 600px;
+    max-width: 700px;
+  }
+
+  .description-carousel {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    font-size: 0.9rem;
+    font-family: 'Orbitron', sans-serif;
   }
 
-  .img-carousel img {
-    border-radius: 20px;
-    height: 100%;
-    width: 100%;
-    max-width: 700px;
-    object-fit: cover;
+  .description {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 250px;
+    text-align: left;
+    gap: 10px;
   }
 
-.carousel-buttons--change {
-  display: flex;
-  justify-content: center;
-  margin-top: 10px;
-  gap: 10px;
-}
+  .carousel-buttons--change {
+    display: flex;
+    justify-content: center;
+    margin: 50px 0 0 0;
+    gap: 10px;
+  }
 
-.carousel-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  height: 300px;
-  width: 100%;
-  padding: 60px 0;
-  font-family: 'Orbitron', sans-serif;
-
-}
-
-
-.card-carousel {
-  display: flex;
-  justify-content: center;
-  gap: 15px;
-}
-
-.img-carousel {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.img-carousel img {
-  border-radius: 20px;
-  height: 100%;
-  width: 100%;
-  max-width: 700px;
-  object-fit: cover;
-}
-
-.description-carousel {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  font-size: 0.9rem;
-}
-
-.description {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 0 150px;
-  gap: 10px;
-}
-
-.carousel-buttons--change {
-  display: flex;
-  justify-content: center;
-  margin-top: 10px;
-  gap: 10px;
-}
-
-.carousel-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  height: 300px;
-  width: 100%;
-  padding: 60px 0;
-  font-family: 'Orbitron', sans-serif;
+  .carousel-buttons--change img {
+    filter: invert(1);
+    cursor: pointer;
+  }
 }
