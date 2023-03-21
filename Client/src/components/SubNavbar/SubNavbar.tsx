@@ -9,7 +9,6 @@ const SubNavbar = (state:any) => {
             state.show ? setChangeClass({class:styles.containerShow}) : setChangeClass({class:styles.containerHide})
         })();
     },[state])
-    console.log(state.show)
     return (
         <div className={changeClass.class}>
             <Link to = "/users" className={styles.buttons} >Admin</Link>
