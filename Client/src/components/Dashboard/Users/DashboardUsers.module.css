@@ -12,6 +12,29 @@
   font-family: 'Orbitron', sans-serif;
 }
 
+.search-user  {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.search-user input {
+  width: 200px;
+  height: 30px;
+}
+
+.search-user button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 35px;
+  width: 60px;
+}
+
+.search-user button img {
+  filter: invert(1);
+}
+
 .user-info {
   display: flex;
   flex-direction: row;

@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { NavBar } from "../NavBar/NavBar";
 import { getListGenres } from "../../redux/actions/genresAction";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks/hooks";
 import {
@@ -9,6 +8,7 @@ import {
 } from "../../redux/reducer/productReducer";
 import { setGlobalDiscount } from "../../redux/actions/productAction";
 import style from "./style.module.css";
+import { DashboardNav } from "../Dashboard/Nav/DashboardNav";
 
 export const DiscountManager = () => {
   const dispatch = useAppDispatch();
@@ -21,17 +21,17 @@ export const DiscountManager = () => {
 
   //let allDaysArray = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
   let defaultDiscounts = [
-    "0.0",
-    "0.1",
-    "0.2",
-    "0.3",
-    "0.4",
-    "0.5",
-    "0.6",
-    "0.7",
-    "0.8",
-    "0.9",
-    "1",
+    "0",
+    "10",
+    "20",
+    "30",
+    "40",
+    "50",
+    "60",
+    "70",
+    "80",
+    "90",
+    "100",
   ];
   let genresList = useAppSelector(
     (state) => state.genresReducer.listGenresData
@@ -94,56 +94,67 @@ export const DiscountManager = () => {
     setShowActiveDiscount(discountActive);
   }, [discountActive]);
 
-  console.log("gl", selectedDiscount, selectedGenre);
+  const handleChangeNumber = (event: any) => {
+    const discount = Number(event);
+    setSelectedDiscount(discount);
+  };
+
+  // console.log("gl", selectedDiscount, selectedGenre);
+  console.log("selectedDiscount", selectedDiscount);
   return (
-    <div>
-      <NavBar />
+    <div className={style["discount-container"]}>
+      <DashboardNav />
       <h1>Discount settings</h1>
-      <div className={style.box}>
-        <div>
-          <h2>Discounts</h2>
-          <ul>
-            {
-              defaultDiscounts.map((disc, index) => {
-                return (
-                  <li key={index}>
-                    <button value={disc} onClick={selectDisc}>
-                      {disc}
-                    </button>
-                    {disc === "0.0" && <div>No Discount</div>}
-                    {disc === "1" && <div>Free</div>}
-                  </li>
-                );
-              })
-              //<input placeholder="Personalized discount" type="text"/>
-            }
-          </ul>
+      <h2>Discounts</h2>
+      <div className={style["discount-list"]}>
+        <input
+          type="number"
+          value={selectedDiscount}
+          onChange={(event) => {
+            handleChangeNumber(event.target.value);
+          }}
+          placeholder="customized discount"
+          min={0}
+          max={100}
+        />
+        <div className={style["search-discount"]}>
+          {
+            defaultDiscounts.map((disc, index) => {
+              return (
+                <button
+                  value={disc}
+                  onClick={selectDisc}
+                  key={index}
+                  className={style["discount-button"]}
+                >
+                  {disc}
+                </button>
+              );
+            })
+            //<input placeholder="Personalized discount" type="text"/>
+          }
         </div>
-        <div>
-          <h2>Genres</h2>
-          <ul>
-            {allGenres.length > 0 &&
-              allGenres.map((genre, index) => {
-                return (
-                  <li key={index}>
-                    <button value={genre.name} onClick={selectGenre}>
-                      {genre.name}
-                    </button>
-                  </li>
-                );
-              })}
-          </ul>
-        </div>
-        <div>
-          {(selectedDiscount || selectedGenre) && (
-            <div>
-              Selection Waiting For Appliance:
-              {selectedDiscount && <div>Selected disc: {selectedDiscount}</div>}
-              {selectedGenre && <div>Selected genre: {selectedGenre}</div>}
-              <button onClick={eraseSelection}>Erase Selection</button>
-            </div>
-          )}
-        </div>
+      </div>
+      <h2>Genres</h2>
+      <div className={style["genres-list"]}>
+        {allGenres.length > 0 &&
+          allGenres.map((genre, index) => {
+            return (
+              <button value={genre.name} onClick={selectGenre} key={index} className={style['genres-button']}>
+                {genre.name}
+              </button>
+            );
+          })}
+      </div>
+      <div>
+        {(selectedDiscount || selectedGenre) && (
+          <div>
+            Selection Waiting For Appliance:
+            {selectedDiscount && <div>Selected disc: {selectedDiscount}</div>}
+            {selectedGenre && <div>Selected genre: {selectedGenre}</div>}
+            <button onClick={eraseSelection}>Erase Selection</button>
+          </div>
+        )}
       </div>
       <br></br>
       <button onClick={applyAdminDiscount}>Apply discount</button>
@@ -158,13 +169,13 @@ export const DiscountManager = () => {
         {activeAdmin ? (
           <div>
             <h4>Admin discount is On.</h4>
-            <div>DISC: {showActiveDiscount.discount * 100}%</div>
+            <div>DISC: {showActiveDiscount.discount}%</div>
             <div>GENRE: {showActiveDiscount.genre}</div>
           </div>
         ) : (
           <div>
             <h4>Default discount is Active.</h4>
-            <div>DISC: {showActiveDiscount.discount * 100}%</div>
+            <div>DISC: {showActiveDiscount.discount}%</div>
             <div>GENRE: {showActiveDiscount.genre}</div>
           </div>
         )}
