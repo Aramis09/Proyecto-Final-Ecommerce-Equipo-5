@@ -1,10 +1,10 @@
+
 //**Crea la conexion con la base de datos (con sequelize) */
 const {Sequelize} = require("sequelize");
 const { DataTypes }= require("sequelize");
 require("dotenv").config(); //**La variables de entorno quedan dispobnibles .env */
 const { DB_DATA } = process.env;
-// const sequelize = new Sequelize(DB_DATA ,{ logging: false,timezone: '-03:00' });
-const sequelize = new Sequelize('postgres://postgres:postgres@localhost/ecommerce' ,{ logging: false,timezone: '-03:00' });
+const sequelize = new Sequelize(DB_DATA ,{ logging: false,timezone: '-03:00' });
 
 
 //**Definicion de modelos (con sequelize)*/
@@ -70,6 +70,14 @@ const FriendUser = sequelize.define('FriendUser', {
 { timestamps: false });
 User.belongsToMany(User, { through: FriendUser, as: 'FriendInList' });
 
+const Gift = sequelize.define('Gift', {
+    idProduct:{
+        type:DataTypes.INTEGER,
+        allowNull:false,
+    } 
+}, { timestamps: false });
+User.belongsToMany(User, { through: Gift, as: 'Gifts'});
+
 User.hasMany(Comment, { foreignKey: 'userId' });
 Comment.belongsTo(User, { foreignKey: 'userId' });
 
@@ -82,4 +90,5 @@ User.hasMany(Purchase);
 Purchase.belongsTo(User);
 //**Exportarla para poder trabajar con los modelos en los controllers */
 module.exports={sequelize, ...sequelize.models};
+
 

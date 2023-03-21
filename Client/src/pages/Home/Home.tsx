@@ -7,6 +7,7 @@ import { getProductsByFilters } from "../../redux/actions/productAction";
 //import { getShoppingCartUserFromDB } from "../../redux/actions/shoppingCartAction";
 import { Link } from "react-router-dom";
 import styles from "./Home.module.scss";
+import SubNavbar from "../../components/SubNavbar/SubNavbar";
 //import { useAuth0 } from "@auth0/auth0-react";
 
 
@@ -34,16 +35,7 @@ export const Home = () => {
   return (
     <div className={styles.container}>
       <NavBar />
-      <Carousel />
-      <Link to={'/friends'}>
-        <button>Friends</button>
-      </Link>
-      <Link to="/wish">wish</Link><br />
-      <Link to="/library">library</Link>
-
-      <Link to={'/users'}>
-        <button>Dashboard</button>
-      </Link>
+        <Carousel />
       <h2 className={styles.title}>TOP GAMES</h2>
       <Product />
       <Link to={'/products'}>

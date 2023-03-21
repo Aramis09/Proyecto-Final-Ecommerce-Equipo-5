@@ -116,6 +116,13 @@
     align-self: center;
     grid-row: 3/4;
   }
+  .card:hover{
+    transition: 1s;
+    // box-shadow:1px 1px  20px 10px $light-blue-color;
+    box-shadow:1px 1px  50px 30px $shadow-purple-color-dark;
+    background-image: linear-gradient(to bottom right, rgb(137, 28, 167), rgb(15, 15, 86));
+    // background-image: linear-gradient(to bottom right, black, rgb(15, 15, 86));
+  }
 
   .form-button {
     margin-top: 15px;
@@ -128,6 +135,7 @@
     height: 30%;
     margin: 5px;
   }
+
   .form-button:hover {
     box-shadow: 0 0 15px 2px $shadow-blue-color;
     border: none;
@@ -140,4 +148,8 @@
   .msg{
     margin-top: 25px;
   }
+
 }
+
+
+
