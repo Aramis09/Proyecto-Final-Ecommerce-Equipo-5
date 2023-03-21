@@ -13,6 +13,12 @@
     border-radius: 1rem;
     padding: 3%;
   }
+  .card{
+    width: 17rem;
+    background-image: linear-gradient(to bottom right, rgb(137, 28, 167), rgb(15, 15, 86));
+    border-radius: 0.5rem;
+    padding: 10%;
+  }
   .card h3 {
     font-size: 1.6rem;
     margin-bottom: 10px;
@@ -49,13 +55,18 @@
     margin-bottom: 1vh;
     text-decoration: none;
   }
-
+  .buttonAdd{
+    width: 9rem;
+    margin-top: 1rem;
+    background-color: black;
+  }
   .form-button {
     margin-top: 15px;
     margin-bottom: 15px;
     width: 300px;
     background-color: rgb(22, 22, 22);
   }
+  
 
   .form-button:hover {
     box-shadow: 0 0 15px 2px $shadow-blue-color;

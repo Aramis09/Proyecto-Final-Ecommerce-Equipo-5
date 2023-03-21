@@ -1,8 +1,15 @@
 @import '../../styles/global-vars.scss';
 @media (min-width:320px) and (max-width:960px){
+  .carousel-container{
+    display: none;
+  }
+  .carousel-buttons--change{
+    display: none;
+  }
   .carouselContainer{
     display: none;
   }
+
 }
 
 @media (min-width:961px){

@@ -12,6 +12,7 @@ import style from "../../components/NavBar/NavBar.module.scss";
 import { useState, useEffect } from "react";
 import { saveShoppingCartInLocalStorage } from "../../redux/actions/localStorageAction";
 import {MakeGift} from '../../components/MakeGift/MakeGift'
+import NavbarPhone from "../../phone/navBarPhone/navBarPhone";
 
 export const CheckOut = () => {
   const dispatch = useAppDispatch();
@@ -87,7 +88,7 @@ export const CheckOut = () => {
   if (listProductsShoppingCart.length > 0) {
     return (
       <>
-        <NavBar />
+        {window.innerWidth > 959 ?<NavBar /> : <NavbarPhone/>}
         <section className={styles['checkout-container']}>
           <div className={styles['form-container']}>
             {user?.email_verified && isAuthenticated ? (
