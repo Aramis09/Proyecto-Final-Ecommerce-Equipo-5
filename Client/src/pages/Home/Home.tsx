@@ -10,27 +10,26 @@ import styles from "./Home.module.scss";
 import SubNavbar from "../../components/SubNavbar/SubNavbar";
 //import { useAuth0 } from "@auth0/auth0-react";
 
-
 export const Home = () => {
   const dispatch = useAppDispatch();
 
   const toTheSearchList = (e: any) => {
+    dispatch(
+      getProductsByFilters({
+        name: "",
+        filters: {
+          genres: [],
+          platform: [],
+          priceRange: [0, 100],
+        },
+        order: {
+          alphabetic: "",
+          price: "",
+        },
+      })
+    );
+  };
 
-    dispatch(getProductsByFilters({
-      name: '',
-      filters:
-      {
-        genres: [],
-        platform: [],
-        priceRange: [0, 100]
-      },
-      order:
-      {
-        alphabetic: '',
-        price: ''
-      }
-    }))
-  }
 
   return (
     <div className={styles.container}>
