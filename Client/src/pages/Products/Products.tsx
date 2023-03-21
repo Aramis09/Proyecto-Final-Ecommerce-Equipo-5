@@ -7,6 +7,7 @@ import { eraseSearchedData } from "../../redux/reducer/productReducer";
 import { Card } from "../../components/Card/Card";
 import styles from "./Products.module.scss";
 import { Link } from "react-router-dom";
+import NavbarPhone from "../../phone/navBarPhone/navBarPhone";
 
 export const Products = () => {
 
@@ -23,10 +24,12 @@ export const Products = () => {
   
   return (
     <>
-      <NavBar />
+      {window.innerWidth > 959 ?<NavBar /> : <NavbarPhone/>}
       {/* <Filters /> */}
       <div className={styles["page-container"]}>
-        <Filters />
+      {window.innerWidth > 959 ?<Filters /> : <></>}
+
+        
         {
           (searchedData.length && searchedData.length>0)
           ?

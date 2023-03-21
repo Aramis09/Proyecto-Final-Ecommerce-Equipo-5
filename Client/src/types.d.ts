@@ -40,6 +40,7 @@ export interface Comment {
 export interface User {
     email: string,
 		admin: boolean,
+    name: string,
 		blocked: boolean,
 		secret: string,
     image: string

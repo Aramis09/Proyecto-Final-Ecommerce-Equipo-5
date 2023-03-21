@@ -20,7 +20,6 @@ export const NavBar = () => {
     getAccessTokenSilently,
   } = useAuth0();
 
-
   const saveToken = (getAccessTokenSilently: string) => {
     window.localStorage.setItem("token", getAccessTokenSilently);
   };
@@ -28,8 +27,8 @@ export const NavBar = () => {
   return (
     <nav className={style.mainContainer} >
       <div className={style.listContainer} >
-        <Link to="/">
-          <img className={style.home} src={icon} alt="joystick_icon" />
+        <Link to="/" className={style.home}>
+          <img src={icon} alt="joystick_icon" />
         </Link>
         <div className={style.containerSearch}>
           <img src={iconArrow} alt="arrowIcon" onClick={()=>setShowSubNavBar(!showSubNavBar)}/>

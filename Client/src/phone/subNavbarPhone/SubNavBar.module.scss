@@ -1,0 +1,34 @@
+.containerHide{
+    margin-top: 10%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow-x: scroll;
+    transform: translate(-100%);
+    transition: 1s;
+    filter: blur(50px);
+}
+.containerShow{
+    margin-top: 25%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow-x: scroll;
+    transform: translate(-100%);
+    transform: translate(0%);
+    background-color: rgba($color: #000000, $alpha:0.5);
+    
+    border-radius: 0.2rem;
+    height: 50vh;
+    transition: 1s;
+}
+
+.buttons{
+    z-index: 120;
+    margin: 10%;
+    margin-bottom: 5px;
+    font-size: large;
+    color: whitesmoke;
+}

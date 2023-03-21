@@ -22,6 +22,9 @@ export const DashboardNav = () => {
           <Link to={"/sales"}>
             <div>Sales</div>
           </Link>
+          <Link to={"/discMan"}>
+            <div>Discounts</div>
+          </Link>
         </div>
         <div className={styles["user-info"]}>
           <div>

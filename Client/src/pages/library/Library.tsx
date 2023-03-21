@@ -1,3 +1,4 @@
+
 import { useAuth0 } from "@auth0/auth0-react";
 import { useEffect, useState } from "react";
 import { NavBar } from "../../components/NavBar/NavBar";
@@ -11,11 +12,12 @@ import { productLibrary } from "./LibraryInterfaces";
 const Library = () => {
     const [products, setProducts] = useState([]);
     const { user } = useAuth0();
+
     useEffect(() => {
         if(user?.email){
             getProductsOfLibrary(String(user.email)).then((products:any) => setProducts(products));
         };
-    },[])
+    },[]);
     return(
         <div className={styles.fullContainer} >
             <NavBar/>
@@ -37,7 +39,6 @@ const Library = () => {
                 : <p>"Not found Games "</p>
             }
         </div> 
-    )
+    );
 };
-
 export default Library;

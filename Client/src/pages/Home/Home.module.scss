@@ -1,18 +1,18 @@
 * {
   margin: 0;
   padding: 0;
-  font-family: 'Orbitron', sans-serif;
 }
 
 
-@media (min-width:320px) and (max-width:960px){
+@media (min-width:320px) and (max-width:960px) {
   .buttons-platforms button {
     color: white;
     background-color: #018dff;
     margin: 2px;
     padding: 3%;
   }
-  .More-products-btn{
+
+  .More-products-btn {
     color: white;
     background-color: #018dff;
   }
@@ -22,16 +22,20 @@
   .container{
     margin-top: 8%;
   }
-  .container::-webkit-scrollbar-button{
+
+  .container::-webkit-scrollbar-button {
     background-color: red;
   }
-  .container::-webkit-scrollbar-thumb{
+
+  .container::-webkit-scrollbar-thumb {
     background-color: red;
     color: red;
   }
+
   .title{
     margin-top: 20px;
   }
+
   .buttons-platforms {
     display: flex;
     flex-direction: row;

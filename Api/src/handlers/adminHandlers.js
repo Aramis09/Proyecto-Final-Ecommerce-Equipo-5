@@ -24,12 +24,12 @@ const editProduct = async (req, res) => {
       state,
       genres,
       images,
-    } = req.query;
+    } = req.body;
     let propertys = {
       id,
       name,
       images,
-      genres,
+      genres: genres.split(','),
       background_image,
       rating,
       playtime,
@@ -38,6 +38,7 @@ const editProduct = async (req, res) => {
       released,
       state,
     };
+    console.log(req.body)
     const productModify = await changePropertyProducts(propertys);
     return res.status(200).json(productModify);
   } catch (error) {

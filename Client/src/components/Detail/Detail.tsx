@@ -14,23 +14,32 @@ import { addAmountForShoppingCartUser } from "../../redux/reducer/shoppingCartRe
 import { useAuth0 } from "@auth0/auth0-react";
 import Comments from './Comments'
 import { saveShoppingCartInLocalStorage } from "../../redux/actions/localStorageAction";
+import { checkIfProductWasPurchased } from "../../Controller/cardController";
 //los import comentados de abajo no los toquen que son para implementar los botones a futuro
 //import { getListGenres } from "../../redux/actions/genresAction";
 //import { getListPlatforms } from "../../redux/actions/platformAction";
 
 export const Detail = () => {
+  const [changeClass,setChangeClass] = useState({classButton:styles.buttonAdd,classCard:styles.cardContainer});
   const {user}:any = useAuth0();
   const { id }:any = useParams();
   const dispatch = useAppDispatch();
   const game:any = useAppSelector((state) => state.productReducer.details)
 
   useEffect(() => {
-    dispatch(getProductByID(parseInt(id)))
-    //tomame el cambio
+    dispatch(getProductByID(parseInt(id)));
+    if(user){
+      checkIfProductWasPurchased(user.email,id)
+      .then(check => check ? 
+      setChangeClass({classButton:styles.buttonHide,classCard:styles.cardContainerBuy})
+      :setChangeClass({classButton:styles.buttonAdd,classCard:styles.cardContainer}));
+    };
     return () => {
       dispatch(eraseItemById())
     }
-  }, [])
+  }, [user])
+
+
 
   let totalAmount: number;
 
@@ -86,7 +95,7 @@ export const Detail = () => {
                   <h3>{game.name}</h3>
                   <p>${game.price}</p>
                   <Rating value={game.rating} size={24}/>
-                  <button type="button" onClick={addingToShoppingCart}>Add To Cart</button>
+                  <button className={changeClass.classButton} type="button" onClick={addingToShoppingCart}>Add To Cart</button>
                   <p>{successMsg}</p>
                 </div>
               </div>
