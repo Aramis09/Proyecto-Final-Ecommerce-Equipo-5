@@ -40,7 +40,7 @@ export const SearchBar = () => {
       <input
         className={style.Input}
         type="text"
-        placeholder="  Search Video Games"
+        placeholder="Search Video Games"
         onChange={(event) => handleInputChange(event)}
       />
 
@@ -49,9 +49,6 @@ export const SearchBar = () => {
         type="submit"
         onClick={(event) => handleClickSubmit(event)}
       >
-        <Link to="/products">
-          <p className={style.textSearch}>SEARCH</p>
-        </Link>
         <Link to="/products">
           <img className={style.iconSearch} src={iconSearch} alt="iconSearch" />
         </Link>

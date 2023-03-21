@@ -17,6 +17,8 @@ const initialState: productReducerState = {
   selectedAlphabeticOrderData: "",
   selectedPriceOrderData: "",
   todaysDiscount: {},
+  discountGloballyApplied: false,
+  adminDiscount: false,
   successMsg: "",
   errorMsg: "",
 };
@@ -83,6 +85,12 @@ export const productReducer = createSlice({
         setTodaysDiscount: (state, action) => {
             state.todaysDiscount = action.payload
         },
+        setAutoGlobalDiscount: (state, action) => {
+            state.discountGloballyApplied = action.payload
+        },
+        onOffAdminDiscount: (state, action) => {
+            state.adminDiscount = action.payload
+        },
         successMsg: (state, action) => { //falta implementar
             state.successMsg = action.payload
         },
@@ -110,6 +118,8 @@ export const {
     selectedPriceOrder,
     searchName,
     setTodaysDiscount,
+    setAutoGlobalDiscount,
+    onOffAdminDiscount,
     eraseItemById
 } = productReducer.actions;
 

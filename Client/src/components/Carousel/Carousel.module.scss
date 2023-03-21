@@ -6,6 +6,9 @@
 }
 
 @media (min-width:961px){
+  .carouselContainer{
+    display: none;
+  }
   .carousel-container {
     display: flex;
     flex-wrap: wrap;
@@ -17,6 +20,7 @@
     background-color: rgb(40, 40, 40);
     border-radius: 20px;
     font-family: 'Orbitron', sans-serif;
+
   }
 
   .img-carousel {

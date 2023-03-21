@@ -1,3 +1,4 @@
+
 //**Crea la conexion con la base de datos (con sequelize) */
 const {Sequelize} = require("sequelize");
 const { DataTypes }= require("sequelize");
@@ -69,6 +70,14 @@ const FriendUser = sequelize.define('FriendUser', {
 { timestamps: false });
 User.belongsToMany(User, { through: FriendUser, as: 'FriendInList' });
 
+const Gift = sequelize.define('Gift', {
+    idProduct:{
+        type:DataTypes.INTEGER,
+        allowNull:false,
+    } 
+}, { timestamps: false });
+User.belongsToMany(User, { through: Gift, as: 'Gifts'});
+
 User.hasMany(Comment, { foreignKey: 'userId' });
 Comment.belongsTo(User, { foreignKey: 'userId' });
 
@@ -81,4 +90,5 @@ User.hasMany(Purchase);
 Purchase.belongsTo(User);
 //**Exportarla para poder trabajar con los modelos en los controllers */
 module.exports={sequelize, ...sequelize.models};
+
 
