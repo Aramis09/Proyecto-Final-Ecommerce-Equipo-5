@@ -26,6 +26,30 @@ const addUser = async (email, name, image) => {
   }
 };
 
+//Funcion que crea un usuario Admin por default al hacer una sincronizacion con la BD
+const addUserAdmin = async (email, name, image) => {
+  try {
+    const temp = await User.findByPk(email);
+
+    if(!temp){
+      const createUser = await User.create({
+        name,
+        image,
+        email,
+        admin: true,
+        blocked: false,
+        secret: "",
+      });
+      console.log("Usuario Admin " + email + " registrado correctamente");
+    }else{
+      console.log("Ya existe el usuario Admin " + email);
+    }
+  } catch (error) {
+    console.log("Usuario Admin NO pudo ser creado");
+    console.log("Error: " + error.message);
+  }
+};
+
 const addFriends = async (emailUser, emailFriend) => {
   try {
     const user = await User.findByPk(emailUser);
@@ -321,6 +345,7 @@ module.exports = {
   addFriends,
   getAllUsers,
   addUser,
+  addUserAdmin,
   addProductInShoppingCartForUser,
   addWishToList,
   getAllFriends,
