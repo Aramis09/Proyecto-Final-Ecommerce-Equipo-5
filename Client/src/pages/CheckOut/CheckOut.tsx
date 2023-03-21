@@ -126,13 +126,13 @@ export const CheckOut = () => {
                 <h4 className={styles.title}>
                   ¿Do you want to make the purchase?
                 </h4>
+                <MakeGift/>
                 <button
                   className={styles['form-button']}
                   onClick={fetchCheckout}>
                   Generate Payment Link
                 </button>
                 <p className='cho-container'></p>
-                <MakeGift/>
                 {butOpen && (
                   <form className={styles.form}>
                     <div className={styles.dataContainer}>
