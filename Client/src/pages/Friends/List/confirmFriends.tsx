@@ -12,10 +12,9 @@ export const ConfirFriends = () => {
   const { user }: any = useAuth0();
   const friendsConfirmed = useAppSelector((state) => state.friendReducer.friendsConfirmed);
 
-
   useEffect(() => {
 		dispatch(confFriend(user?.email));
-	}, [user?.email, friendsConfirmed]);
+	}, [user?.email]);
 
   const handleResponse = (ev: React.MouseEvent<HTMLButtonElement>) => {
       dispatch(

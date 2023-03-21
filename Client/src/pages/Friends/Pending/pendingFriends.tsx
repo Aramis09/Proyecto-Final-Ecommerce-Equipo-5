@@ -16,7 +16,7 @@ export const PendingFr = () => {
 		if (user?.email && isAuthenticated) {
 			dispatch(pendingFriend(user?.email));
 		}
-	}, [user?.email, isAuthenticated, friendsPending]);
+	}, [user?.email, isAuthenticated]);
 
 	const handleResponse = (ev: React.MouseEvent<HTMLButtonElement>) => {
 		dispatch(
