@@ -1,4 +1,4 @@
-const { getAllWishes,getAllUsers,addUser,addProductInShoppingCartForUser,addFriends,addWishToList,getAllFriends,getAllProductsInShoppingCart,addNewComment,getAllCommentOfUser,getAllCommentOfProduct,deleteProductinShoppingCart,acceptFriend,removeOrRejectedFriend,getAllFriendsPending,addAllProductInShoppingCartForUser,removeWishToList } = require('../controllers/users/userController');
+const { searchFriendsByEmail,getAllWishes,getAllUsers,addUser,addProductInShoppingCartForUser,addFriends,addWishToList,getAllFriends,getAllProductsInShoppingCart,addNewComment,getAllCommentOfUser,getAllCommentOfProduct,deleteProductinShoppingCart,acceptFriend,removeOrRejectedFriend,getAllFriendsPending,addAllProductInShoppingCartForUser,removeWishToList } = require('../controllers/users/userController');
 
 const addNewUser = async (req,res) => {
     try {
@@ -144,6 +144,16 @@ const friendsPendingList = async (req,res) => {
     }
 };
 
+const searchFriends = async (req,res) => {
+    try {    
+        const {emailUser,valurForSearch} = req.query;
+        if(!emailUser || !valurForSearch) throw new Error("please send me all data");
+        const listFriendsFound = await searchFriendsByEmail(emailUser,valurForSearch);
+        return res.status(200).json(listFriendsFound);
+    } catch (error) {
+        return res.status(400).json(error.message);        
+    }
+};
 const productsListShoppingCart = async (req,res)=> {
     try {
         const { email } = req.query;
@@ -204,4 +214,4 @@ const commentListOfProduct= async (req,res) => {
     };
 };
 
-module.exports = { userList,userID,addNewUser,addNewProductInShoppingCart,addNewFriend,addWish,friendsList,productsListShoppingCart,wishesList,addComment,commentListOfUser,commentListOfProduct,removeProductoInShoppingCar,responseRequestNewFriend,friendsPendingList,addAllProductInShoppingCart,removeWish };
+module.exports = { searchFriends,userList,userID,addNewUser,addNewProductInShoppingCart,addNewFriend,addWish,friendsList,productsListShoppingCart,wishesList,addComment,commentListOfUser,commentListOfProduct,removeProductoInShoppingCar,responseRequestNewFriend,friendsPendingList,addAllProductInShoppingCart,removeWish };

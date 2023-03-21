@@ -6,62 +6,28 @@
 }
 
 @media (min-width:961px){
-  .carouselContainer {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    height: auto;
+  .Links{
+    color: white;
+  }
+  .carouselContainer{
     width: 100%;
-    padding: 60px 0 0 0;
-    font-family: 'Orbitron', sans-serif;
+    padding: 5%;
+    position: relative;
+    border-radius: 0.5rem;
   }
-
-  .card-carousel {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-  }
-
-  .img-carousel {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .img-carousel img {
-    border-radius: 20px;
-    height: 100%;
-    width: 100%;
-    max-width: 700px;
-    object-fit: cover;
-  }
-
-  .carousel-buttons--change {
-    display: flex;
-    justify-content: center;
-    margin-top: 10px;
-    gap: 10px;
-  }
-
   .carousel-container {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap:wrap;
     justify-content: center;
     align-items: center;
-    height: 300px;
+    height: 400px;
     width: 100%;
-    padding: 60px 0;
+    margin: 50px 0;
+    background-color: rgb(40, 40, 40);
+    border-radius: 20px;
     font-family: 'Orbitron', sans-serif;
-
   }
 
-  .card-carousel {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-  }
 
   .img-carousel {
     display: flex;
@@ -70,12 +36,17 @@
     align-items: center;
   }
 
+  .card-carousel {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+  }
+
   .img-carousel img {
     border-radius: 20px;
-    height: 100%;
-    width: 100%;
+    height: 400px;
+    width: 600px;
     max-width: 700px;
-    object-fit: cover;
   }
 
   .description-carousel {
@@ -84,6 +55,7 @@
     justify-content: center;
     align-items: center;
     font-size: 0.9rem;
+    font-family: 'Orbitron', sans-serif;
   }
 
   .description {
@@ -97,19 +69,12 @@
   .carousel-buttons--change {
     display: flex;
     justify-content: center;
-    margin-top: 10px;
+    margin: 50px 0 0 0;
     gap: 10px;
   }
 
-  .carousel-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    height: 300px;
-    width: 100%;
-    padding: 60px 0;
-    font-family: 'Orbitron', sans-serif;
+  .carousel-buttons--change img {
+    filter: invert(1);
+    cursor: pointer;
   }
-
 }

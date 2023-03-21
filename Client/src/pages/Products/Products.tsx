@@ -40,6 +40,7 @@ export const Products = () => {
                   name={item.name}
                   background_image={item.background_image}
                   price={item.price}
+                  genres={item.genres}
                 />
               {/* </Link> */}
               

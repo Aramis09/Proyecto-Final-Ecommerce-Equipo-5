@@ -7,7 +7,7 @@
 		left: 29.6rem;
 		width: 89rem;
 		height: 53.4rem;
-		box-shadow: inset 1px 1px 120px 20px #163c9f; 
+		box-shadow: inset 1px 1px 30px 5px whitesmoke; 
 	}
 
 	.title {
@@ -26,25 +26,27 @@
 	
 	.friends {
 		border: 1px solid white;
+		border-radius: 20px;
 		width: 15rem;
-        padding: 0 0 2rem ;
-	}
+		padding: 0 0 2rem ;
+}
 
 	.friends:hover{
-		box-shadow: inset 1px 1px 20px 10px #163c9f;
+		box-shadow: inset 1px 1px 10px 5px whitesmoke;
 	}
 
 	.deletFriend{
-		background-color: black;
+		background-color: transparent;
 		font-size: 14px;
 		position: relative;
 		left: 5.8rem;
 		top: 0.3rem;
+		padding: 0.5rem;
 	}
 
 	.deletFriend:hover {
         cursor: pointer;
-        border: none;
+        border: 1px solid red;
 		color: red;
 	}
 }
@@ -73,11 +75,11 @@
 	}
 
 	.friends:hover{
-		box-shadow: inset 1px 1px 20px 10px #163c9f;
+		box-shadow: inset 1px 1px 20px 10px whitesmoke;
 	}
 
 	.deletFriend{
-		background-color: black;
+		background-color: transparent;
 		font-size: 14px;
 		position: relative;
 		left: 10rem;
@@ -86,7 +88,7 @@
 
 	.deletFriend:hover{
 		cursor: pointer;
-        border: none;
+        border: 1px solid red;
 		color: red;
 	}
 }

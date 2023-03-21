@@ -41,7 +41,8 @@ export const PendingFr = () => {
 						return (
 							<div className={styles.cards} key={index}>
 								<span className={styles.resquets}>
-									Pending Friends Request: {pend.UserEmail}
+									Pending Friends Request: <br />
+									{pend.UserEmail}
 								</span>
 								<button className={styles.reje} value='rejected' onClick={handleResponse}>
 									X

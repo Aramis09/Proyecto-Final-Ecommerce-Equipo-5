@@ -8,28 +8,37 @@
         display: flex;
         justify-content: center;
         padding: 5px 5px 5px 5px;
-        padding: 10px;
+        /* padding: 10px; */
     }
 
     .cards:hover{
-		box-shadow: inset 1px 1px 20px 10px #163c9f;
+		box-shadow: inset 1px 1px 10px 10px whitesmoke;
+    }
+
+    .resquets{
+        margin-top: 0.4rem;
     }
 
     .reje{
-        background-color: black;
+        background-color: transparent;
+        padding: 0.5rem;
+        margin-left: 1rem;
+        font-size: 14px;
     }
 
     .accp{
-        background-color: black;
+        background-color: transparent;
+        padding: 0.5rem;
+        font-size: 14px;
     }
 
     .reje:hover{
-        border: none;
+        border: 1px solid red;
         color: red;
     }
 
     .accp:hover{
-        border: none;
+        border: 1px solid chartreuse;
         color: chartreuse;
     }
 
@@ -77,18 +86,17 @@
         display: flex;
         justify-content: center;
         padding: 5px 5px 5px 5px;
-        /* border-bottom: 1px solid white;
-        border-top: 1px solid white; */
         padding: 10px;
     }
 
     .cards:hover{
-		box-shadow: inset 1px 1px 20px 10px #163c9f;
+		box-shadow: inset 1px 1px 20px 10px whitesmoke;
     }
     
     .reje{
-        background-color: black;
+        background-color: inherit;
         padding: 0.67rem;
+        margin-left: 1rem;
     }
 
     .reje:hover{
@@ -97,7 +105,7 @@
     }
     
     .accp{
-        background-color: black;
+        background-color: inherit;
         padding: 0.67rem;
     }
 

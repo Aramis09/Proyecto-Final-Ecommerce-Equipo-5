@@ -11,10 +11,11 @@
 
     .inp{
         border-radius: 5px;
+        padding: 0.5rem;
     }
 
     .but {
-        background-color: black;
+        background-color: transparent;
         border-radius: 20px;
         border-color: white;
         margin-left: 0.3rem;
@@ -22,6 +23,8 @@
     
     .but:hover {
         cursor: pointer;
+        transition: 1s;
+        filter: invert(16%) sepia(91%) saturate(3003%) hue-rotate(279deg) brightness(90%) contrast(98%);
     }
 }
 
@@ -38,6 +41,7 @@
 
     .inp{
         border-radius: 5px;
+        padding: 0.5rem;
     }
 
     .but{

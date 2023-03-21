@@ -1,0 +1,22 @@
+.container{
+    margin-top: 100%;
+    width: 200%;
+    display: grid;
+    row-gap: 10px;
+    text-align: center;
+    border: solid 2px white;
+    border-radius: 1rem ;
+    padding: 10%;
+    background-image: linear-gradient(to bottom right, rgb(137, 28, 167), rgb(0, 0, 52));
+    transition: 2s;
+}
+
+.container img {
+    width: 100%;
+    border-radius: 0.5rem;
+}
+
+.container:hover{
+    background-image: linear-gradient(to bottom right, rgb(0, 0, 52), rgb(137, 28, 167));
+    transition: 3s;
+}
