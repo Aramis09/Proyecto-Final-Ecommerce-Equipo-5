@@ -43,9 +43,7 @@ const createPaymentMercadoPago = async (items, client, discount) => {
         binary_mode: true, //esto permite que el resultado de la compra sea solo 'failure' o solo 'success'
 
 
-
         notification_url: "https://5a76-170-254-63-107.sa.ngrok.io/payment/responseMP?source_news=webhooks",
-
 
 
         //esta variable de notificacion se tiene que cambiar depende si es para recibir por deploy o por la herramienta "ngrok",
@@ -102,7 +100,6 @@ const mailProductsToBuyer = (email, products) => {
 
 
 const notificationData = async (query)  => {
-
     const topic =  query.topic || query.type;
     var merchantOrder;
     switch(topic){
@@ -115,7 +112,6 @@ const notificationData = async (query)  => {
         const orderId = query.id;
         merchantOrder = await mercadopago.merchant_orders.findById(orderId)
         break;
-
 
     }
     //console.log('merch test', merchantOrder.body)

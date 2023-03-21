@@ -1,4 +1,3 @@
-
 import styles from "./LibraryCard.module.scss";
 import { productLibrary } from "./LibraryInterfaces";
 
@@ -18,4 +17,5 @@ const CardLibrary = (productData:productLibrary) => {
         </div>
     );
 };
+
 export default CardLibrary;

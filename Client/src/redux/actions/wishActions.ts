@@ -1,4 +1,3 @@
-
 import axios from 'axios';
 import { LIST_WISH } from '../../utils/constants';
 import {setwishList} from "../../redux/reducer/wishReducer"
@@ -13,5 +12,4 @@ export const getAllProductInWishList =  (emailUser: string) => async (dispatch: 
         console.log("soy el error wish",error);
     };
 };  
-
 

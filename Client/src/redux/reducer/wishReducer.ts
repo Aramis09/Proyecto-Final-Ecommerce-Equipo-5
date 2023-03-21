@@ -1,4 +1,3 @@
-
 import { createSlice } from "@reduxjs/toolkit";
 
 import { wishReducerState } from "../interfaces/wishInterFace";
@@ -21,5 +20,6 @@ export const wishReducer = createSlice({
 export const  {
     setwishList,
 } = wishReducer.actions;
+
 
 export default wishReducer.reducer;

@@ -1,4 +1,3 @@
-
 import { wishCard } from "./interfaces/wishProduct";
 import styles from "./WishCard.module.scss";
 import icon_cross  from "./images/cross.svg";
@@ -29,4 +28,5 @@ const dispatch = useAppDispatch();
         </div>
     );
 };
+
 export default WishCard;
