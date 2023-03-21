@@ -37,6 +37,7 @@ export const Card = ({
     }
   },[control]);
   
+
   const [discountPrice,setDiscountPrice] = useState(0);
   const [discountApplied, setDiscountApplied] = useState(false)
   var todaysDiscount = useAppSelector((state) => state.productReducer.todaysDiscount)
@@ -51,11 +52,10 @@ export const Card = ({
     }
   }, [price])
 
-  
-
   // let totalAmount: number = 0;
 
   if (typeof user !== "undefined") {
+
     var listProductsShoppingCart: object[] = useAppSelector(
       (state) => state.shoppingCartReducer.listProductsShoppingCartUser
     );
