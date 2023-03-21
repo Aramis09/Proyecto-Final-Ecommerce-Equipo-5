@@ -20,7 +20,9 @@ export const Carousel = () => {
             <div key={index} className={styles["card-carousel"]}>
               <div className={styles["img-carousel"]}>
                 {currentImage === index ? (
-                  <img src={item.background_image} alt={item.name} />
+                  <Link to={`/${item.id}`}>
+                   <img src={item.background_image} alt={item.name} />
+                  </Link>
                 ) : null}
               </div>
               <div className={styles["description-carousel"]}>
@@ -29,10 +31,6 @@ export const Carousel = () => {
                     <div className={styles.description}>
                       <h2>{item.name}</h2>
                       <p>{item.description}</p>
-                      <br />
-                      <Link to={`/${item.id}`}>
-                        <button>Go</button>
-                      </Link>
                     </div>
                   </>
                 ) : null}
