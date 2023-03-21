@@ -1,0 +1,39 @@
+.sales-container {
+  height: 100%;
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  padding-left: 150px;
+  font-family: 'Orbitron', sans-serif;
+  font-size: .85rem;
+}
+
+.sales-info {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 50px;
+}
+
+.sales-info p {
+  text-align: center;
+  width: 300px;
+}
+
+.sales-items{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 50px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  padding: 10px;
+  background-color: rgb(18, 18, 18);
+  border-radius: 10px;
+}
+
+.sales-items p{
+  text-align: center;
+  width: 500px;
+}

@@ -8,9 +8,10 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin-top: 15%;
   }
   .card{
-    background-color: $background-color;
+    background-color:rgba($color: #000000, $alpha: 0);
     margin: 20px;
     border-radius: 0.5rem;
     padding: 10%;
@@ -22,14 +23,13 @@
     display: grid;
     grid-template-columns: auto auto auto;
     column-gap: 50px;
-    row-gap: 5%;
+    row-gap: 10%;
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
     width: 100%;
     padding: 70px;
     font-family: 'Orbitron', sans-serif;
-   
   }
   
   .cards-products {
@@ -58,7 +58,9 @@
     font-family: 'Orbitron', sans-serif;  
     
   }
-  
+  .more{
+    grid-column: 1/4;
+  }
   .card:hover {
     transform: scale(1.03);
   }

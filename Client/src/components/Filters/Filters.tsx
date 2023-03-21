@@ -7,12 +7,13 @@ import styles from "./Filters.module.scss";
 
 const optionOrder = ["ASC", "DESC"];
 
-export const Filters = () => {
+export const Filters = (flags:any) => {
 
   const dispatch = useAppDispatch();
   const [genresOpen, setGenresOpen] = useState(false);
   const [platformsOpen, setPlatformsOpen] = useState(false);
   const [orderOpen, setOrderOpen] = useState(false);
+  const [changeClass,setChangeClass] = useState({classContainer:styles.containerHide}); 
   const [selectAttribute, setSelectAttribute] = useState(true);
   let listGenres = useAppSelector((state => state.genresReducer.listGenresData))
   let searchedName = useAppSelector((state) => state.productReducer.searchedName)
@@ -24,7 +25,6 @@ export const Filters = () => {
     function handleResize() {
       setSelectAttribute(window.innerWidth > 767);
     };
-
     window.addEventListener('resize', handleResize);
 
     return () => {
@@ -32,6 +32,10 @@ export const Filters = () => {
     };
   }, []);
 
+
+  useEffect(() => {
+	  flags.flag ? setChangeClass({classContainer:styles.containerShow}):setChangeClass({classContainer:styles.containerHide})
+  },[flags]);
   const selectGenre = (dato: any) => {
     dispatch(selectedFilterGenre(parseInt(dato.target.value)))
   }
@@ -69,7 +73,7 @@ export const Filters = () => {
   
   
 	return (
-		<div className={styles.container}>
+		<div className={changeClass.classContainer}>
 			<aside className={styles['filters-container']}>
 				<div className={styles['options-container']}>
 					<label

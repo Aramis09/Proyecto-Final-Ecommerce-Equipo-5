@@ -1,3 +1,4 @@
+
 import react,{useEffect} from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { NavBar } from "../../components/NavBar/NavBar";
@@ -6,6 +7,7 @@ import { useAppDispatch, useAppSelector } from "../../redux/hooks/hooks";
 import styles from "./WishList.module.scss"; 
 
 import WishCard from "./WishCard";
+import NavbarPhone from "../../phone/navBarPhone/navBarPhone";
 
 const WishList = () => {
 const dispatch = useAppDispatch();
@@ -22,7 +24,7 @@ useEffect(() => {
 
     return (
         <>
-            <NavBar/>
+                {window.innerWidth > 959 ?<NavBar /> : <NavbarPhone/>}
             {
                 wishListStore.length? 
                 <section className={styles.container}>

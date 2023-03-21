@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { useAppDispatch } from "../../redux/hooks/hooks";
 import { searchName } from "../../redux/reducer/productReducer";
 import { getProductsByFilters } from "../../redux/actions/productAction";
@@ -6,9 +6,10 @@ import style from "./SearchBar.module.scss";
 import iconSearch from "./images/icon_search.png";
 import { Link } from "react-router-dom";
 
-export const SearchBar = () => {
+export const SearchBar = (flag:any) => {
   const [Search, setSearch] = useState("");
   const dispatch = useAppDispatch();
+
   const handleClickSubmit = (event: any) => {
     event.preventDefault();
     dispatch(searchName(Search));
@@ -40,7 +41,7 @@ export const SearchBar = () => {
       <input
         className={style.Input}
         type="text"
-        placeholder="  Search Video Games"
+        placeholder="Search Video Games"
         onChange={(event) => handleInputChange(event)}
       />
 
@@ -49,9 +50,6 @@ export const SearchBar = () => {
         type="submit"
         onClick={(event) => handleClickSubmit(event)}
       >
-        <Link to="/products">
-          <p className={style.textSearch}>SEARCH</p>
-        </Link>
         <Link to="/products">
           <img className={style.iconSearch} src={iconSearch} alt="iconSearch" />
         </Link>

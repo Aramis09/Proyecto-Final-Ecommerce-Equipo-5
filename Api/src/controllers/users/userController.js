@@ -1,3 +1,4 @@
+const { Op } = require("sequelize");
 const {
   User,
   ShoppingCart,
@@ -41,7 +42,22 @@ const addFriends = async (emailUser, emailFriend) => {
     return { error: error.message };
   };
 };
-
+const searchFriendsByEmail = async (emailUser,valueForSearch) => {
+  try {
+    const friendList = await FriendUser.findAll({
+      where: {
+        UserEmail: emailUser,
+        accept: "true",
+        FriendInListEmail:{
+          [Op.iLike]:`%${valueForSearch}%`,
+      },
+      },
+    });
+    return friendList;
+  } catch (error) {
+    return { error: error.message };
+  }
+};
 const addProductInShoppingCartForUser = async (pkUser, pkProduct) => {
   try {
     console.log("pkUser",pkUser,"pkProduct",pkProduct);
@@ -318,5 +334,6 @@ module.exports = {
   removeOrRejectedFriend,
   getAllFriendsPending,
   addAllProductInShoppingCartForUser,
-  removeWishToList
+  removeWishToList,
+  searchFriendsByEmail
 };

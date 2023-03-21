@@ -1,23 +1,50 @@
 @import '../../styles/global-vars.scss';
 @media (min-width:320px) and (max-width:960px){
+  .carousel-container{
+    display: none;
+  }
+  .carousel-buttons--change{
+    display: none;
+  }
   .carouselContainer{
     display: none;
   }
+
 }
 
 @media (min-width:961px){
+  .Links{
+    color: white;
+  }
+  .carouselContainer{
+    width: 100%;
+    padding: 5%;
+    position: relative;
+    border-radius: 0.5rem;
+    
+  }
   .carousel-container {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap:wrap;
     justify-content: center;
     align-items: center;
-    height: 300px;
     width: 100%;
-    padding: 60px 0;
+    height: 500px;
+    margin: 50px 0;
+    backdrop-filter: blur(50px);
+    border-radius: 20px;
     font-family: 'Orbitron', sans-serif;
+    overflow: hidden;
+    z-index: 100;
   }
-}
 
+
+  .img-carousel {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+   
+  }
 
   .card-carousel {
     display: flex;
@@ -25,92 +52,56 @@
     gap: 15px;
   }
 
-  .img-carousel {
+  .img-carousel img {
+    width: 100%;
+    position: absolute;
+    left: 0px;
+    top: 0%;
+  }
+
+  .description-carousel {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    font-size: 0.9rem;
+    font-family: 'Orbitron', sans-serif;
+    z-index: 100;
   }
 
-  .img-carousel img {
-    border-radius: 20px;
-    height: 100%;
-    width: 100%;
-    max-width: 700px;
-    object-fit: cover;
+  .description {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 250px;
+    text-align: left;
+    gap: 10px;
+    z-index: 100;
+  }
+  .description h2{
+    font-size: xx-large;
+    margin-bottom: 10%;
+    text-shadow: 2px 5px black,
+    2px 2px 4px #000000;
+  }
+  .description p{
+    font-size:large;
+    margin-bottom: 10%;
+    text-shadow: 2px 1px black,
+    1px 1px 1px #000000;
   }
 
-.carousel-buttons--change {
-  display: flex;
-  justify-content: center;
-  margin-top: 10px;
-  gap: 10px;
-}
+  .carousel-buttons--change {
+    display: flex;
+    justify-content: center;
+    margin: 50px 0 0 0;
+    gap: 10px;
+    z-index: 100;
+  }
 
-.carousel-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  height: 300px;
-  width: 100%;
-  padding: 60px 0;
-  font-family: 'Orbitron', sans-serif;
-
-}
-
-
-.card-carousel {
-  display: flex;
-  justify-content: center;
-  gap: 15px;
-}
-
-.img-carousel {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.img-carousel img {
-  border-radius: 20px;
-  height: 100%;
-  width: 100%;
-  max-width: 700px;
-  object-fit: cover;
-}
-
-.description-carousel {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  font-size: 0.9rem;
-}
-
-.description {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 0 150px;
-  gap: 10px;
-}
-
-.carousel-buttons--change {
-  display: flex;
-  justify-content: center;
-  margin-top: 10px;
-  gap: 10px;
-}
-
-.carousel-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  height: 300px;
-  width: 100%;
-  padding: 60px 0;
-  font-family: 'Orbitron', sans-serif;
+  .carousel-buttons--change img {
+    filter: invert(1);
+    cursor: pointer;
+    z-index: 100;
+  }
 }

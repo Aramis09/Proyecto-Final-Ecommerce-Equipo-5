@@ -1,16 +1,29 @@
 @import '../../styles/global-vars.scss';
 @media (min-width:320px) and (max-width:960px){
+  .containerHide{
+    transform: translate(-500%);
+    filter: blur(10px);
+    transition: 1s;
+
+  }
+  .containerShow{
+    transform: translate(0%);
+    transition: 1s;
+    
+  }
+  
   .filters-container {
       position: fixed;
-      top: 200px;
-      left: 25px;
+      left: 50%;
+      top: 250px;
+      transform: translate(-50%, -50%);
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      background-color: $background-color ;
+      background-color: black;
       border-radius: 30px;
-      box-shadow: 5px 5px 20px 0 $shadow-purple-color-dark;
+      box-shadow: 5px 5px 20px 15px $shadow-purple-color-dark;
       height: auto;
       width: 200px;
       overflow-y: auto;
@@ -76,15 +89,16 @@
   }
   .filters-container {
     position: fixed;
-    top: 130px;
-    left: 25px;
+    top: 15vh;
+    left: 5vw;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: $background-color;
+    // background-color: rgba($color: $background-color, $alpha: 0.5);
+    background-image: linear-gradient(to bottom right, rgb(137, 28, 167), rgb(15, 15, 86));
     border-radius: 30px;
-    box-shadow: 5px 5px 20px 0 $shadow-purple-color-dark;
+    box-shadow: 5px 15px 50px 0 $shadow-purple-color-dark;
     height: 400px;
     width: 200px;
     overflow-y: auto;
@@ -108,8 +122,10 @@
     padding: 10px;
   }
 
-  select {
-    background-color: dodgerblue;
+  .options-container > select {
+    background-color: black;
+    border-radius: 1rem;
+    border:none;
     height: 0;
     overflow: hidden;
     transition: height 0.3s ease-in-out;
