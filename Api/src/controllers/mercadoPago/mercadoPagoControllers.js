@@ -44,7 +44,7 @@ const createPaymentMercadoPago = async (items, client, discount) => {
 
 
 
-       // notification_url: "https://5a76-170-254-63-107.sa.ngrok.io/payment/responseMP?source_news=webhooks",
+       notification_url: "https://c259-170-254-63-107.sa.ngrok.io/payment/responseMP?source_news=webhooks",
 
         //esta variable de notificacion se tiene que cambiar depende si es para recibir por deploy o por la herramienta "ngrok",
         //la cual CADA vez que se levanta para recibir notificaciones con el repo, cambia de url, asi que OJO!
@@ -126,7 +126,7 @@ const notificationData = async (query)  => {
         merchantOrder.body.items.forEach( async (productData, index) => {
             dbItem = (await axios.get(`http://localhost:3001/products/${merchantOrder.body.items[index].id}`)).data
             transactionDataObject = {
-                dateTransaction: merchantOrder.body.date_created,//date[2]+'/'+date[1]+'/'+date[0], //dateAndHour, 
+                dateTransaction: merchantOrder.body.date_created, 
                 priceUnit: parseFloat(dbItem.price), //esto debe venir de un llamado a la db
                 specialDiscount: 0.1, //esto debe venir de un llamado a la db cuando este implementado
                 priceUnitNet: productData.unit_price,

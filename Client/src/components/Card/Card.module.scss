@@ -1,5 +1,7 @@
 @import '../../styles/global-vars.scss';
-
+.buttonHide{
+  display: none;
+}
 
 @media (min-width:320px) and (max-width:960px){
   .card-container{
@@ -67,7 +69,15 @@
 
 
 @media (min-width:961px){
-  .card-container{
+  .cardContainerBuy{
+    display: flex;
+    flex-direction: column;
+    border-radius: 0.5rem;
+    width: 22rem;
+    padding: 0.2%;
+  }
+
+  .cardContainer{
     display: flex;
     flex-direction: column;
     background-color: $background-color;
@@ -116,13 +126,6 @@
     align-self: center;
     grid-row: 3/4;
   }
-  .card:hover{
-    transition: 1s;
-    // box-shadow:1px 1px  20px 10px $light-blue-color;
-    box-shadow:1px 1px  50px 30px $shadow-purple-color-dark;
-    background-image: linear-gradient(to bottom right, rgb(137, 28, 167), rgb(15, 15, 86));
-    // background-image: linear-gradient(to bottom right, black, rgb(15, 15, 86));
-  }
 
   .form-button {
     margin-top: 15px;
@@ -134,6 +137,18 @@
     background-color: black;
     height: 30%;
     margin: 5px;
+  }
+  .cardContainerBuy:hover{
+    filter: blur(3px);
+    transition: 1s;
+  }
+
+  .card:hover{
+    // box-shadow:1px 1px  20px 10px $light-blue-color;
+    box-shadow:1px 1px  50px 30px $shadow-purple-color-dark;
+    background-image: linear-gradient(to bottom right, rgb(137, 28, 167), rgb(15, 15, 86));
+    transition: 1s;
+    // background-image: linear-gradient(to bottom right, black, rgb(15, 15, 86));
   }
 
   .form-button:hover {
