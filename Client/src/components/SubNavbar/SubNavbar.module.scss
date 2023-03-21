@@ -20,7 +20,8 @@
     }
     .containerHide{
         transform: translate(-100%);
-        transition: 0.5s;
+        filter: blur(50px);
+        transition: 0.8s;
     }
     .buttons{
         color: white;

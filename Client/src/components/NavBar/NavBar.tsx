@@ -20,7 +20,6 @@ export const NavBar = () => {
     getAccessTokenSilently,
   } = useAuth0();
 
-
   const saveToken = (getAccessTokenSilently: string) => {
     window.localStorage.setItem("token", getAccessTokenSilently);
   };

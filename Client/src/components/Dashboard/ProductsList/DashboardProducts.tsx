@@ -13,6 +13,7 @@ export const DashboardProducts = () => {
   const [newProductState, setNewProductState] = useState(true);
   const [newProductName, setNewProductName] = useState("");
   const [newProductRating, setNewProductRating] = useState("");
+  const [newProductGenre, setNewProductGenre] = useState("");
   const [newProductPrice, setNewProductPrice] = useState("");
   const [searchProducts, setSearchProducts] = useState("");
   const [newSearch, setNewSearch] = useState([]);
@@ -48,6 +49,12 @@ export const DashboardProducts = () => {
     setNewProductRating(event.target.value);
   };
 
+  const handleProductGenreChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setNewProductGenre(event.target.value);
+  };
+
   const handleProductPriceChange = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
@@ -70,12 +77,10 @@ export const DashboardProducts = () => {
     released: string
   ) => {
     const emailAdmin = admin?.email;
-    const data = {
-      emailAdmin: emailAdmin,
-      secret: admin?.secret,
-    };
 
     const productsData = {
+      emailAdmin: emailAdmin,
+      secret: admin?.secret,
       id,
       name: newProductName,
       background_image,
@@ -85,7 +90,7 @@ export const DashboardProducts = () => {
       description,
       released,
       state: newProductState,
-      genres,
+      genres: newProductGenre,
       images,
     };
 
@@ -93,10 +98,9 @@ export const DashboardProducts = () => {
 
     const config = {
       url: EDIT_PRODUCT,
-      data,
-      params: productsData,
+      productsData,
     };
-    await axios.post(config.url, config.data, { params: config.params });
+    await axios.post(config.url,  config.productsData);
   };
 
   const handlerSearch = () => {
@@ -109,6 +113,7 @@ export const DashboardProducts = () => {
   const handleClear = () => {
     setNewSearch([]);
   };
+
 
   return (
     <>
@@ -277,6 +282,15 @@ export const DashboardProducts = () => {
             type="text"
             id="productDescription"
             name="productDescription"
+          />
+          <label htmlFor="productGenres">Genres: </label>
+          <input
+            type="text"
+            id="productGenres"
+            name="productGenres"
+            value={newProductGenre}
+            placeholder="insert genres with coma"
+            onChange={handleProductGenreChange}
           />
 
           <label htmlFor="productState">State</label>
