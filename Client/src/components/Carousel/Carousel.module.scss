@@ -6,12 +6,18 @@
 }
 
 @media (min-width:961px){
+  .Links{
+    color: white;
+  }
   .carouselContainer{
-    display: none;
+    width: 100%;
+    padding: 5%;
+    position: relative;
+    border-radius: 0.5rem;
   }
   .carousel-container {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap:wrap;
     justify-content: center;
     align-items: center;
     height: 400px;
@@ -20,8 +26,8 @@
     background-color: rgb(40, 40, 40);
     border-radius: 20px;
     font-family: 'Orbitron', sans-serif;
-
   }
+
 
   .img-carousel {
     display: flex;
@@ -71,5 +77,4 @@
     filter: invert(1);
     cursor: pointer;
   }
-
 }
