@@ -11,15 +11,19 @@ import { Navigate } from "react-router-dom";
 import style from "../../components/NavBar/NavBar.module.scss";
 import { useState, useEffect } from "react";
 import { saveShoppingCartInLocalStorage } from "../../redux/actions/localStorageAction";
+import {MakeGift} from '../../components/MakeGift/MakeGift'
 
 export const CheckOut = () => {
   const dispatch = useAppDispatch();
   const { user, isAuthenticated, loginWithPopup, logout }: any = useAuth0();
   const [control, setControl] = useState(-1);
   const [saveInLocalStorage, setSaveInLocalStorage] = useState(false);
-  const [friendMail, setFriendMail] = useState('');
+  const [friendMail, setFriendMail] = useState<string | null>(localStorage.getItem('friendMail'));
   const [init_pointButton, setInit_PointButton] = useState(false)
 
+  const handleChildVariable = (friendMail: string | null) => {
+    setFriendMail(friendMail);
+  };
 
   if (typeof user !== 'undefined') {
     var listProductsShoppingCart: object[] = useAppSelector(
@@ -79,7 +83,7 @@ export const CheckOut = () => {
     }
   };
 
-
+ 
   if (listProductsShoppingCart.length > 0) {
     return (
       <>
@@ -91,6 +95,7 @@ export const CheckOut = () => {
                 <h4 className={styles.title}>
                   ¿Do you want to make the purchase?
                 </h4>
+                <MakeGift onVariableChange={handleChildVariable}/>
                 <button
                   className={styles['form-button']}
                   onClick={fetchCheckout}>
