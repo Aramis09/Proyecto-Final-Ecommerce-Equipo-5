@@ -7,6 +7,7 @@ import { useAppDispatch, useAppSelector } from "../../redux/hooks/hooks";
 import styles from "./WishList.module.scss"; 
 
 import WishCard from "./WishCard";
+import NavbarPhone from "../../phone/navBarPhone/navBarPhone";
 
 const WishList = () => {
 const dispatch = useAppDispatch();
@@ -23,7 +24,7 @@ useEffect(() => {
 
     return (
         <>
-                <NavBar/>
+                {window.innerWidth > 959 ?<NavBar /> : <NavbarPhone/>}
             {
                 wishListStore.length? 
                 <section className={styles.container}>
