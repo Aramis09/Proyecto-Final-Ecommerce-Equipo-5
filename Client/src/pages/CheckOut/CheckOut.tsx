@@ -11,7 +11,7 @@ import { Navigate } from "react-router-dom";
 import style from "../../components/NavBar/NavBar.module.scss";
 import { useState, useEffect } from "react";
 import { saveShoppingCartInLocalStorage } from "../../redux/actions/localStorageAction";
-import {MakeGift} from './../../components/MakeGift/MakeGift';
+import MakeGift from './../../components/MakeGift/MakeGift';
 
 export const CheckOut = () => {
   //const gameSlice = allGames.slice(0, 3);

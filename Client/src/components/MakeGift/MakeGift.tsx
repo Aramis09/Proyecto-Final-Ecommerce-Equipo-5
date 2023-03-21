@@ -1,52 +1,29 @@
-import React, {useState} from "react";
-import axios from "axios";
+import React, { useState } from 'react';
+//import { Option } from './types'; // O cualquier otro tipo de opción que necesites.
 
-// const handleClick = () => {
-
-//     const data = {
-//         userEmail: 'nymnym@gmail.com'
-//     }
-
-//     const res = axios.get('/traemeMisAmigos')
-// }
-
-
-type SelectProps = {
-    options: { label: string; value: string }[];
-    defaultValue?: string;
-    onChange?: (value: string) => void;
-  };
+interface Props {
+    onSelect: (option: any) => void;
+  }
   
- export const MakeGift: React.FC<SelectProps> = ({ options, defaultValue, onChange }) => {
-    const [value, setValue] = useState(defaultValue || '');
-  
-    const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-      const newValue = event.target.value;
-      setValue(newValue);
-      if (onChange) {
-        onChange(newValue);
-      }
+  const MakeGift: React.FC<Props> = ({ onSelect }) => {
+    const [selectedOption, setSelectedOption] = useState< string | null>(null);
+    
+    const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+      const value = event.target.value;
+      setSelectedOption(value);
+      onSelect(value);
     };
-  
+    
     return (
-      <select value={value} onChange={handleChange}>
-        {options.map((option) => (
-          <option key={option.value} value={option.value}>
-            {option.label}
-          </option>
-        ))}
-      </select>
+      <div>
+        <label htmlFor="make-gift-select">¿Quieres hacer un regalo?</label>
+        <select id="make-gift-select" value={selectedOption} onChange={handleSelectChange}>
+          <option>Seleccione una opción</option>
+          <option value="yes">Sí</option>
+          <option value="no">No</option>
+        </select>
+      </div>
     );
   };
-
-
-/*
- <h4 className={styles.title}>
-                  ¿Do you want to use a new email for the purchase?
-                </h4>
-                <button
-                  className={styles['form-button']}
-                  onClick={(ev) => handleButOpen(ev)}>
-                  Yes
-                </button>
-*/
+  
+  export default MakeGift;
