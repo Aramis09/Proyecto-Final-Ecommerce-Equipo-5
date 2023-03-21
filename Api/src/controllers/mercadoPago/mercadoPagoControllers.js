@@ -46,6 +46,7 @@ const createPaymentMercadoPago = async (items, client, discount) => {
 
         notification_url: "https://5781-186-130-79-255.sa.ngrok.io/payment/responseMP?source_news=webhooks",
 
+       notification_url: "https://c259-170-254-63-107.sa.ngrok.io/payment/responseMP?source_news=webhooks",
 
         //esta variable de notificacion se tiene que cambiar depende si es para recibir por deploy o por la herramienta "ngrok",
         //la cual CADA vez que se levanta para recibir notificaciones con el repo, cambia de url, asi que OJO!
@@ -101,6 +102,7 @@ const mailProductsToBuyer = (email, products) => {
 
 
 const notificationData = async (query)  => {
+
     const topic =  query.topic || query.type;
     var merchantOrder;
     switch(topic){
@@ -113,6 +115,7 @@ const notificationData = async (query)  => {
         const orderId = query.id;
         merchantOrder = await mercadopago.merchant_orders.findById(orderId)
         break;
+
 
     }
     if(merchantOrder.body){

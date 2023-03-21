@@ -1,0 +1,52 @@
+@import '../../styles/global-vars.scss';
+
+.container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    margin-top: 20px;
+    box-shadow: inset 0 10px 10px -5px $shadow-purple-color-dark;
+}
+
+.subTittle {
+    text-align: left;
+    font-size: 20px;
+    padding: 0;
+}
+
+.aboutUs {
+    text-align: left;
+}
+
+.subContainer {
+    margin-top: 30px;
+    width: 30%;
+    height: 100%;
+}
+
+.mediaContainer {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: left;
+}
+
+.icon {
+    margin-right: 5px;
+    margin-bottom: 5px;
+}
+
+.links {
+    display: flex;
+    text-decoration: none;
+
+}
+
+.lastComment {
+    text-align: center;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: solid rgba(128, 128, 128, 0.258);
+}

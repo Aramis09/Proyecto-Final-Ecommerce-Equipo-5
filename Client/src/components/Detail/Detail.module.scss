@@ -1,3 +1,6 @@
+.buttonHide{
+  display: none;
+}
 @media (min-width:320px) and (max-width:960px){
   .background-image img {
     width: 100%;
@@ -46,9 +49,9 @@
   }
 
   .background-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+    
+    
+    object-fit:contain;
   }
 
   .info-container {
