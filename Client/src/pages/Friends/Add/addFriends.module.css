@@ -1,0 +1,33 @@
+
+@media (min-width:961px) {
+    .add{
+        padding: 25px;
+        border: 1px solid white;
+        padding-bottom: 7   rem;
+    }
+    
+    .send{
+        margin-bottom: 10px;
+    }
+
+    .inp{
+        border-radius: 5px;
+        z-index: auto;
+        pointer-events: all;
+    }
+
+    .but {
+        background-color: black;
+        border-radius: 20px;
+        border-color: white;
+        z-index: auto;
+        pointer-events: all;
+    }
+    
+    .but:hover {
+        cursor: pointer;
+        background-color: #004074;
+        transition: 1s; 
+    }
+
+}

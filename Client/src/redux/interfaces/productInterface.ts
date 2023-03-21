@@ -14,6 +14,8 @@ export interface productReducerState{
     selectedAlphabeticOrderData: string,
     selectedPriceOrderData: string,
     todaysDiscount: object,
+    discountGloballyApplied: boolean,
+    adminDiscount: boolean,
     successMsg: string,
     errorMsg: string
 }

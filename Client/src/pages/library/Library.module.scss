@@ -1,0 +1,13 @@
+.fullContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container{
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    column-gap: 250px;
+    width: 120%;
+    
+}

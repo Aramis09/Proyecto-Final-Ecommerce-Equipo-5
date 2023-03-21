@@ -1,8 +1,8 @@
 import { Friend } from '../../types';
 
 export interface friendsReducerState {
-	newFriendRequest: string;
+	newFriendRequest: Array<object>;
 	responseRequest: string;
-	friendsConfirmed: string;
-	FriendsPending: string;
+	friendsConfirmed: Array<object>;
+	FriendsPending: Array<object>;
 }

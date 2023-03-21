@@ -2,7 +2,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { useEffect, useState } from "react";
 import { NavBar } from "../../components/NavBar/NavBar";
 import { getProductsOfLibrary } from "../../Controller/LibraryController";
-
+import styles from "./Library.module.scss";
 import CardLibrary from "./LibraryCard";
 import { productLibrary } from "./LibraryInterfaces";
 
@@ -17,11 +17,11 @@ const Library = () => {
         };
     },[])
     return(
-        <div>
+        <div className={styles.fullContainer} >
             <NavBar/>
             {
                 products.length ? 
-                <section>
+                <section className={styles.container}>
                     {products.map((product:productLibrary) => {
                         return (
                             <CardLibrary

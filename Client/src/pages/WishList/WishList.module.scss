@@ -1,12 +1,13 @@
 .container{
-    margin-top: 10%;
-    border: 3px solid white;
+    margin-top: 11%;
     border-radius: 1rem;
     padding: 10%;
     padding-top: 3%;
     display: grid;
     grid-template-columns: auto auto auto;
     justify-content: center;
+    width: 120%;
+    background-image: linear-gradient(to bottom right, rgb(107, 0, 137), rgb(4, 4, 17));
 }
 .top{
     grid-column:1/4 ;
@@ -18,8 +19,6 @@
     padding: 1%;
 }
 .tittles{
-    border: 1px solid white;
-    margin: 1%;
     grid-column:1/4 ;
     display: flex;
 }
@@ -27,7 +26,6 @@
     padding: 5%;
     grid-column:1/4 ;
     margin: 3%;
-    border: 1px solid white;
     border-radius: 1rem;
     
 }

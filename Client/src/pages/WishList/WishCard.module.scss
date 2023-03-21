@@ -6,11 +6,13 @@
     justify-content: center;
     gap: 10%;
     cursor: pointer;
+    background-image: linear-gradient(to bottom right, black, rgb(4, 4, 134));
+    padding: 5%;
 }
 .conatiner img{
-    width: 10%;
+    width: 100px;
     height: 70px;
-    border-radius: 1rem;
+    border-radius: 0.5rem;
     align-self: center;
 }
 .data{
@@ -20,6 +22,9 @@
     align-items: center;
     column-gap: 100px;
     border-radius: 1rem;
+}
+.Links{
+    color: white;
 }
 .name{
     grid-column: 1/2;
@@ -34,9 +39,9 @@
     grid-column: 4/5;
     filter: invert(1);
     cursor: pointer;
+    transition: 1s;
 }
-
-.conatiner :hover {
-    transition: 0.9s;
-    background-color: #018dff;
+.iconCross:hover{
+    transition: 1s;
+    filter: invert(16%) sepia(91%) saturate(3003%) hue-rotate(279deg) brightness(90%) contrast(98%);
 }
