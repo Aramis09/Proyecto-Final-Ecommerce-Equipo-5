@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { BLOCK_USER, USER_ADMIN } from "../../../utils/constants";
 import axios from "axios";
+import iconSearch from "../../../assets/search.svg";
+import trashIcon from "../../../assets/trash-x-filled.svg";
 import styles from "./DashboardUsers.module.css";
 
 export const DashboardUser = () => {
@@ -64,22 +66,26 @@ export const DashboardUser = () => {
     setNewSearch([]);
   };
 
-  console.log(newSearch);
-
   return (
     <>
-      <input
-        type="text"
-        value={searchUser}
-        onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-          setSearchUser(event.target.value)
-        }
-      />
-      <button onClick={() => handlerSearch()}>search</button>
-      <button onClick={handleClear}>clean</button>
       <DashboardNav />
       <section className={styles["user-container"]}>
         <h3>Users</h3>
+        <div className={styles["search-user"]}>
+          <input
+            type="text"
+            value={searchUser}
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+              setSearchUser(event.target.value)
+            }
+          />
+          <button onClick={() => handlerSearch()}>
+            <img src={iconSearch} />
+          </button>
+          <button onClick={handleClear}>
+            <img src={trashIcon} />
+          </button>
+        </div>
         <div className={styles["user-info"]}>
           <p>name</p>
           <p>email</p>

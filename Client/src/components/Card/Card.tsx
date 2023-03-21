@@ -49,7 +49,7 @@ export const Card = ({
   },[control,user]);
   useEffect(()  => {
     if(parseFloat(price) !== 0 && todaysDiscount.discount !== 'No_Discount' && genres.includes(todaysDiscount.genre) && parseFloat(price) !==discountPrice && !discountApplied){
-      let finalPrice = (parseFloat(price)*(1-todaysDiscount.discount));
+      let finalPrice =  (((100 - todaysDiscount.discount) * parseFloat(price)) / 100);
       finalPrice = finalPrice.toFixed(2);
       setDiscountApplied(prev => prev = true)
       setDiscountPrice(finalPrice);
