@@ -1,3 +1,4 @@
+
 import { useAuth0 } from "@auth0/auth0-react";
 import { useEffect, useState } from "react";
 import { NavBar } from "../../components/NavBar/NavBar";
@@ -39,5 +40,4 @@ const Library = () => {
         </div> 
     )
 };
-
 export default Library;
