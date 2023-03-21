@@ -13,10 +13,14 @@ import { useState, useEffect } from "react";
 import { saveShoppingCartInLocalStorage } from "../../redux/actions/localStorageAction";
 
 export const CheckOut = () => {
-  //const gameSlice = allGames.slice(0, 3);
   const dispatch = useAppDispatch();
-
   const { user, isAuthenticated, loginWithPopup, logout }: any = useAuth0();
+  const [control, setControl] = useState(-1);
+  const [saveInLocalStorage, setSaveInLocalStorage] = useState(false);
+  const [friendMail, setFriendMail] = useState('');
+  const [init_pointButton, setInit_PointButton] = useState(false)
+
+
   if (typeof user !== 'undefined') {
     var listProductsShoppingCart: object[] = useAppSelector(
       (state) => state.shoppingCartReducer.listProductsShoppingCartUser,
@@ -31,10 +35,7 @@ export const CheckOut = () => {
   );
   totalAmount = Math.round(totalAmount * 100) / 100;
   let items: any = listProductsShoppingCart;
-  console.log('checkout items', items);
 
-  const [control, setControl] = useState(-1);
-  const [saveInLocalStorage, setSaveInLocalStorage] = useState(false);
 
   const deleteItem = (e: any) => {
     console.log('El id a enviar es: ' + e.target.value);
@@ -49,6 +50,7 @@ export const CheckOut = () => {
       setSaveInLocalStorage(true);
     }
     dispatch(deleteItemShoppingCart(e.target.value));
+    setInit_PointButton(prev => prev = '')
   };
 
   useEffect(() => {
@@ -61,58 +63,22 @@ export const CheckOut = () => {
   console.log("today's d", discount)
 
   const fetchCheckout = async () => {
-    //console.log('items?', listProductsShoppingCart)
     let client = {
       name: user.name,
       email: user.email,
     };
-
-    // data.global is the ID that MP returns from the API, it comes from our backend route
+    if(friendMail){
+      client.email = friendMail
+    }
     let redirectLink: any = (
-      await axios.post(MERCADO_PAGO_LINK, { items, client , discount})
+      await axios.post(MERCADO_PAGO_LINK, {items, client , discount})
     ).data.response;
-    //console.log('red', await redirectLink)
-    if (await redirectLink.id) {
-      const script = document.createElement('script'); // Here we create the empty script tag
-      script.type = 'text/javascript'; // The type of the script
-      script.src = 'https://sdk.mercadopago.com/js/v2'; // The link where the script is hosted //script.src = 'https://sdk.mercadopago.com/js/v2'
-      script.setAttribute('data-preference-id', await redirectLink.id); // Here we set its data-preference-id to the ID that the Mercado Pago API gives us
-      document.body.appendChild(script); // Here we append it to the body of our page
-
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-
-      // Here we create the button, setting the container, our public key and the ID of the preference that Mercado Pago API returns in its response
-      const mp = new window.MercadoPago(
-        'APP_USR-ae00b250-26a9-4302-ae63-f7a219cd7767',
-        {
-          locale: 'es-AR',
-        },
-      );
-
-      // The ".checkout" is the function that creates the connection between the button and the platform
-      mp.checkout({
-        preference: {
-          id: await redirectLink.id,
-        },
-        render: {
-          container: '.cho-container',
-          label: 'Pay',
-        },
-      });
+    console.log('red', await redirectLink)
+    if (await redirectLink.init_point) {
+      setInit_PointButton(prev => prev = redirectLink.init_point)
     }
   };
 
-  const [butOpen, setButOpen] = useState(false);
-
-  const handleButOpen = (ev: any) => {
-    ev.preventDefault();
-    setButOpen(true);
-  };
-  const handleSubmit = (ev: any) => {
-    ev.preventDefault();
-    alert('Email Modified');
-  };
 
   if (listProductsShoppingCart.length > 0) {
     return (
@@ -130,26 +96,12 @@ export const CheckOut = () => {
                   onClick={fetchCheckout}>
                   Generate Payment Link
                 </button>
-                <p className='cho-container'></p>
-                <h4 className={styles.title}>
-                  ¿Do you want to use a new email for the purchase?
-                </h4>
-                <button
-                  className={styles['form-button']}
-                  onClick={(ev) => handleButOpen(ev)}>
-                  Yes
-                </button>
-                {butOpen && (
-                  <form className={styles.form}>
-                    <div className={styles.dataContainer}>
-                      <label htmlFor='email'>Email: </label>
-                      <input type='email' name='email' placeholder='Email' />
-                      <button type='submit' onClick={handleSubmit}>
-                        Send
-                      </button>
-                    </div>
-                  </form>
-                )}
+                <div>
+                {
+                  init_pointButton &&
+                  <a href={`${init_pointButton}`}><button>Pay</button></a>
+                }
+                </div>
               </div>
             ) : (
               <div className={styles.noRegister}>
@@ -191,42 +143,3 @@ export const CheckOut = () => {
     );
   }
 };
-
-/*
-NOTAS:
-
-_hacer dotenv para credencial PUBLIC de mercadopago.
-
-_hacer que el boton de mercado pago se genere sin desincronizacion (a veces no aparece)
-_hacer que el boton de mercado pago funcione bien, sin duplicaciones.
-
-_en caso de pago aprobadom, llevar a componente de "aprovado", (en este componente se hara una copia de los productos
-para guardar en db y se borrara los datos del carrito del store)
-_en caso de pago "pendiente"?
-_en caso de pago "rechazado", volver al carrito de compras.
-
-
-_buscar como hacer para recibir las notificaciones del comprobante de compra.
-
-_dejar la moneda en peso o dolar?
-_agregar limitaciones de pago?
-_
-
-
-
-
-
-*/
-
-/*
-if (!user.email){
-    
-    return(
-      <div>
-        <NavBar />
-        La cuenta ingresada no soporta pagos, porfavor deslogueate
-      </div>
-    )
-  } else
-
-*/
