@@ -8,10 +8,12 @@ import { useEffect,useState } from "react";
 import icon from "./images/icon.png";
 import axios from "axios";
 import SubNavbar from "../SubNavbar/SubNavbar";
+import { useAppSelector } from "../../redux/hooks/hooks";
 
 
 export const NavBar = () => {
   const [showSubNavBar,setShowSubNavBar] = useState(false);
+  
   const {
     loginWithRedirect,
     user,
@@ -19,6 +21,15 @@ export const NavBar = () => {
     isAuthenticated,
     getAccessTokenSilently,
   } = useAuth0();
+
+  //Verificamos si el usuario logueado es admin
+  const userEmail = user?.email;
+  const listUsersData = useAppSelector((state) => state.userReducer.listUsersData);
+  const admin = listUsersData.find((item) => item.email === userEmail);
+  let isAdmin: boolean = false;
+  if(admin) {
+    isAdmin = admin.admin;
+  }
 
 
   const saveToken = (getAccessTokenSilently: string) => {
@@ -59,6 +70,7 @@ export const NavBar = () => {
       </div>
       <SubNavbar
         show = {showSubNavBar}
+        isAdmin = {isAdmin}
       />
     </nav>
   );

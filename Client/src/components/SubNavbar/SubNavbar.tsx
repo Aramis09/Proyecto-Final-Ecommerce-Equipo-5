@@ -3,6 +3,7 @@ import { ShoppingCart } from "../ShoppingCart/ShoppingCart";
 import { useState, useEffect } from "react";
 import styles from "./SubNavbar.module.scss";
 const SubNavbar = (state:any) => {
+
     const [changeClass,setChangeClass] = useState({class:styles.containerShow});
     useEffect(()=>{
         (()=>{
@@ -11,7 +12,7 @@ const SubNavbar = (state:any) => {
     },[state])
     return (
         <div className={changeClass.class}>
-            <Link to = "/users" className={styles.buttons} >Admin</Link>
+            { state.isAdmin ? <Link to = "/users" className={styles.buttons} >Admin</Link> : <p></p>}
             <Link to = "/library" className={styles.buttons} >Library</Link>
             <Link to = "/wish" className={styles.buttons}> Wish</Link>
             <Link to = "/friends" className={styles.buttons} >Friends</Link>
