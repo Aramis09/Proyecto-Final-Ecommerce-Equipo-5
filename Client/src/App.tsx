@@ -8,12 +8,16 @@ import { DiscountManager } from "./components/discountManager/DiscountManager";
 import { useEffect } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useAppDispatch, useAppSelector } from "./redux/hooks/hooks";
+
 import { getListUsers, saveNewUser } from "./redux/actions/userAction";
+
 import {
   getTopRatedProducts,
   setGlobalDiscount,
 } from "./redux/actions/productAction";
+
 import { setAutoGlobalDiscount } from "./redux/reducer/productReducer";
+
 import { DashboardUser } from "./components/Dashboard/Users/DashboardUser";
 import { DashboardProducts } from "./components/Dashboard/ProductsList/DashboardProducts";
 import WishList from "./pages/WishList/WishList";
@@ -50,13 +54,12 @@ function App() {
     dispatch(getTopRatedProducts());
 
     dispatch(getListUsers());// este falla no se porque, rompe cosas
-    
-
     if(typeof user !== 'undefined'){
       dispatch(getShoppingCartUserFromDB(user.email))
     }else{
       dispatch(setShoppingCartFromLocalStorage());
     }
+
   }, []);
 
   useEffect(() => {

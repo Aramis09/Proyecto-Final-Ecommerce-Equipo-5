@@ -1,3 +1,4 @@
+
 export interface wishCard{
     id:number,
     name:string,

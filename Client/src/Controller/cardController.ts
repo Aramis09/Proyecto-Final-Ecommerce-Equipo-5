@@ -1,3 +1,4 @@
+
 import axios from "axios";
 import { ADD_PRODUCT_TO_WISHLIST } from "../utils/constants";
 
@@ -8,4 +9,5 @@ export const addProductToWishList = async (email:string,id:number) => {
     console.log(newWishList,"------------------sisoy");
     return newWishList;
 } ;
+
 
