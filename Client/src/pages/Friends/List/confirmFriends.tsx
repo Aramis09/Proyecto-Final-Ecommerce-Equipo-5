@@ -24,7 +24,7 @@ export const ConfirFriends = () => {
   }
 
   return (
-    <div>
+    <div className={styles.contain}>
       <h4 className={styles.title}>List friends of {user?.name}</h4>
       <div className={styles.card}>
       {friendsConfirmed.map((friend: unknown, index: number) => {

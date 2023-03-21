@@ -9,11 +9,9 @@ export const Friends = () => {
 	return (
 		<div>
 			<NavBar />
-			<div className={styles.cont}>
+			<div className={styles.cont} >
 				<AddiFriend />
 				<PendingFr />
-			</div>
-			<div className={styles.container}>
 				<ConfirFriends />
 			</div>
 		</div>

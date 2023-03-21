@@ -33,7 +33,8 @@ export const Home = () => {
   return (
 		<div className={styles.container}>
 			<NavBar />
-			<Carousel />
+		  	<Carousel />
+		  <div className={styles.buttonsPlatforms}>
 			<Link to='/wish'>
 				<button>Wish</button>
 			</Link>
@@ -46,6 +47,7 @@ export const Home = () => {
 			<Link to={'/friends'}>
 				<button>Friends</button>
 			</Link>
+		  </div>
 			<h2 className={styles.title}>TOP GAMES</h2>
 			<Product />
 			<Link to={'/products'}>

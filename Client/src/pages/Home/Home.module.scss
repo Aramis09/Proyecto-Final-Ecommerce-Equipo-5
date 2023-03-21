@@ -4,35 +4,35 @@
   font-family: 'Orbitron', sans-serif;
 }
 
-.title{
-  margin-top: 20px;
-}
 
 @media (min-width:320px) and (max-width:960px){
-  .buttons-platforms{
-    margin-top: 15%;
-    margin-bottom: 10%;
+  .buttonsPlatforms{
+    margin-top: 18%;
+    margin-bottom: 7%;
   }
-  .buttons-platforms button {
+  .buttonsPlatforms button {
     color: white;
-    background-color: #018dff;
     margin: 2px;
     padding: 3%;
   }
   .More-products-btn{
     color: white;
-    background-color: #018dff;
   }
 }
 
 @media (min-width:961px){
-  .buttons-platforms {
+  .buttonsPlatforms {
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    gap: 20px;
+    gap: 10px;
     padding-top: 50px;
-    padding-bottom: 50px;
+    padding-bottom: 20px;
   }
+
+  .title{
+    margin-top: 20px;
+  }
+  
 }

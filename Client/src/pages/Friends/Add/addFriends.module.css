@@ -11,19 +11,43 @@
 
     .inp{
         border-radius: 5px;
-        pointer-events: all;
     }
 
     .but {
         background-color: black;
         border-radius: 20px;
         border-color: white;
-        pointer-events: all;
         margin-left: 0.3rem;
     }
     
     .but:hover {
         cursor: pointer;
     }
+}
 
+@media (min-width: 320px) and (max-width: 960px) {
+    .add{
+        border: 1px solid white;
+        padding: 10px;
+        width: 100%;
+    }
+
+    .send{
+        margin-bottom: 10px;
+    }
+
+    .inp{
+        border-radius: 5px;
+    }
+
+    .but{
+        background-color: black;
+        border-radius: 20px;
+        border-color: white;
+        margin-left: 0.3rem;
+    }
+
+    .but:hover{
+        cursor: pointer;
+    }
 }

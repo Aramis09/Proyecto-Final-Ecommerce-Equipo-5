@@ -8,9 +8,11 @@
         display: flex;
         justify-content: center;
         padding: 5px 5px 5px 5px;
-        border-bottom: 1px solid white;
-        border-top: 1px solid white;
         padding: 10px;
+    }
+
+    .cards:hover{
+		box-shadow: inset 1px 1px 20px 10px #163c9f;
     }
 
     .reje{
@@ -58,4 +60,76 @@
         top: 50%;
         left: 6.5%;
     }
+}
+
+@media (min-width: 320px) and (max-width: 960px) {
+    .conta{
+        margin-top: 10px;
+    }
+
+    .user{
+        border-bottom: 1px solid white;
+        padding: 1rem;
+    }
+
+    .cards{
+        margin-top: 20px;
+        display: flex;
+        justify-content: center;
+        padding: 5px 5px 5px 5px;
+        /* border-bottom: 1px solid white;
+        border-top: 1px solid white; */
+        padding: 10px;
+    }
+
+    .cards:hover{
+		box-shadow: inset 1px 1px 20px 10px #163c9f;
+    }
+    
+    .reje{
+        background-color: black;
+        padding: 0.67rem;
+    }
+
+    .reje:hover{
+        border: none;
+        color: red;
+    }
+    
+    .accp{
+        background-color: black;
+        padding: 0.67rem;
+    }
+
+    .accp:hover{
+        border: none;
+        color: chartreuse;
+    }
+
+    .noFrien{
+        margin-top: 1px;
+        width: 25rem;
+        height: 6rem;
+    }
+    
+    .msg{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem;
+    }
+    .noReg {
+        margin-top: 1px;
+        width: 25rem;
+        height: 6rem
+    }
+
+    .register{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem;
+    }
+
+
 }

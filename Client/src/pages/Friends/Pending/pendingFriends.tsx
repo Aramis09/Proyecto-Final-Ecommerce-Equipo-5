@@ -34,7 +34,9 @@ export const PendingFr = () => {
 		if (friendsPending.length > 0) {
 			return (
 				<div className={styles.conta}>
-					<span className={styles.user}>Your Friends Requests: {user?.name}</span>
+					<div className={styles.user}>
+						<span>Your Friends Requests: {user?.name}</span>
+					</div>
 					{friendsPending.map((pend: any, index: number) => {
 						return (
 							<div className={styles.cards} key={index}>

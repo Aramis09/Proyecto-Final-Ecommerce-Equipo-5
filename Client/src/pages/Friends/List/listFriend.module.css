@@ -1,17 +1,27 @@
 
 @media (min-width: 961px) {
+	.contain{
+		border: 1px solid white;
+		position: fixed;
+		top: 6.1rem;
+		left: 29.6rem;
+		width: 89rem;
+		height: 53.4rem;
+		box-shadow: inset 1px 1px 120px 20px #163c9f; 
+	}
+
 	.title {
-		border-bottom: 1px solid white;
-		width: 88.9rem;
-		padding: 2.18rem;
+		border: 1px solid white;
+		padding: 3.2rem;
 	}
 
 	.card {
         display: flex;
-		flex-direction: row;
+		flex-direction: column;
 		flex-wrap: wrap;
 		justify-content: center;
 		margin-top: 25px;
+		align-items: center;
 	}
 	
 	.friends {
@@ -22,7 +32,6 @@
 
 	.friends:hover{
 		box-shadow: inset 1px 1px 20px 10px #163c9f;
-
 	}
 
 	.deletFriend{
@@ -35,6 +44,48 @@
 
 	.deletFriend:hover {
         cursor: pointer;
+        border: none;
+		color: red;
+	}
+}
+
+@media (min-width: 320px) and (max-width: 960px) {
+	.contain{
+		margin-top: 10px;
+	}
+
+	.title{
+		border: 1px solid white;
+		padding: 1rem;
+	}
+
+	.card{
+		display: flex;
+		flex-direction: column;
+		flex-wrap: wrap;
+		justify-content: center;
+		align-items: center;
+	}
+
+	.friends{
+		width: 26.9rem;
+        padding: 0 0 2rem ;
+	}
+
+	.friends:hover{
+		box-shadow: inset 1px 1px 20px 10px #163c9f;
+	}
+
+	.deletFriend{
+		background-color: black;
+		font-size: 14px;
+		position: relative;
+		left: 10rem;
+		top: 0.3rem;
+	}
+
+	.deletFriend:hover{
+		cursor: pointer;
         border: none;
 		color: red;
 	}

@@ -26,3 +26,26 @@
         box-shadow: inset 1px 1px 120px 20px #163c9f;
     }
 }
+
+@media (min-width: 320px) and (max-width: 960px) {
+    .cont{
+        border: 1px solid white;
+        position: absolute;
+        top: 8rem;
+        left: 2rem; 
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        height: auto;
+        width: 27rem;
+        box-shadow: inset 1px 1px 50px 10px #163c9f;
+    }
+
+    /* .container{
+        border: 1px solid white;
+        position: relative;
+        top: 18.4rem;
+        width: 27rem;
+        box-shadow: inset 1px 1px 15px 10px #163c9f;
+    } */
+}
