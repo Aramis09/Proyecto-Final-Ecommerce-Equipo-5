@@ -28,11 +28,12 @@ export const Detail = () => {
 
   useEffect(() => {
     dispatch(getProductByID(parseInt(id)));
-    checkIfProductWasPurchased(user.email,id)
-    .then(check => check ? 
-    setChangeClass({classButton:styles.buttonHide,classCard:styles.cardContainerBuy})
-    :setChangeClass({classButton:styles.buttonAdd,classCard:styles.cardContainer}));
-
+    if(user){
+      checkIfProductWasPurchased(user.email,id)
+      .then(check => check ? 
+      setChangeClass({classButton:styles.buttonHide,classCard:styles.cardContainerBuy})
+      :setChangeClass({classButton:styles.buttonAdd,classCard:styles.cardContainer}));
+    };
     return () => {
       dispatch(eraseItemById())
     }
