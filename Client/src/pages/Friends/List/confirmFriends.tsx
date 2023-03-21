@@ -1,3 +1,4 @@
+import React from "react";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks/hooks";
 import { confFriend, resReque } from '../../../redux/actions/friendAction';
 import { useAuth0 } from '@auth0/auth0-react';
@@ -13,14 +14,20 @@ export const ConfirFriends = () => {
 
 
   useEffect(() => {
-    dispatch(confFriend(user?.email))
-  }, [user?.email]);
+		dispatch(confFriend(user?.email));
+	}, [user?.email, friendsConfirmed]);
 
   const handleResponse = (ev: React.MouseEvent<HTMLButtonElement>) => {
-      dispatch(resReque(user?.email, friendsConfirmed[0]?.FriendInListEmail, ev.currentTarget.value))
-      .then(() => {
-          dispatch(confFriend(user.email));
-      });
+      dispatch(
+				resReque(
+					user?.email,
+					friendsConfirmed[0]?.FriendInListEmail,
+					ev.currentTarget.value,
+				),
+			)
+				.then(() => {
+					dispatch(confFriend(user?.email));
+				})
   }
 
   return (

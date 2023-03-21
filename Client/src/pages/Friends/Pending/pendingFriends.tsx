@@ -1,9 +1,9 @@
+import React from 'react';
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks/hooks';
 import { pendingFriend, resReque } from '../../../redux/actions/friendAction';
 import { useAuth0 } from '@auth0/auth0-react';
 import { useEffect } from 'react';
 import styles from './pendingFriends.module.css';
-
 
 export const PendingFr = () => {
 	const dispatch = useAppDispatch();
@@ -16,7 +16,7 @@ export const PendingFr = () => {
 		if (user?.email && isAuthenticated) {
 			dispatch(pendingFriend(user?.email));
 		}
-	}, [user?.email, isAuthenticated]);
+	}, [user?.email, isAuthenticated, friendsPending]);
 
 	const handleResponse = (ev: React.MouseEvent<HTMLButtonElement>) => {
 		dispatch(
@@ -44,10 +44,16 @@ export const PendingFr = () => {
 									Pending Friends Request: <br />
 									{pend.UserEmail}
 								</span>
-								<button className={styles.reje} value='rejected' onClick={handleResponse}>
+								<button
+									className={styles.reje}
+									value='rejected'
+									onClick={handleResponse}>
 									X
 								</button>
-								<button className={styles.accp} value='accept' onClick={handleResponse}>
+								<button
+									className={styles.accp}
+									value='accept'
+									onClick={handleResponse}>
 									✓
 								</button>
 							</div>
@@ -58,9 +64,7 @@ export const PendingFr = () => {
 		} else {
 			return (
 				<div className={styles.noFrien}>
-					<span className={styles.msg}>
-						You don't have any friend requests
-					</span>
+					<span className={styles.msg}>You don't have any friend requests</span>
 				</div>
 			);
 		}
