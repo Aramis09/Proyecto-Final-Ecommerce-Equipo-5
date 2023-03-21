@@ -10,4 +10,10 @@ export const addProductToWishList = async (email:string,id:number) => {
     return newWishList;
 } ;
 
+export const checkIfProductWasPurchased= async (email:string,productId:number) => {
+    const verify = await axios(`http://localhost:3001/products/checkIfProductWasBought?email=${email}&idProduct=${productId}`);
+    const verifyBoolean = await verify.data;
+    return verifyBoolean;
+};
+
 

@@ -1,4 +1,4 @@
-const { getAllProducts, getProductById, getProductsByName, getOrderAlphabeticalList, getProductsByPlatform, getProductsByCategory,getListProductsBuy } = require("../controllers/products/productsControllers");
+const { checkProductInDb, getAllProducts, getProductById, getProductsByName, getOrderAlphabeticalList, getProductsByPlatform, getProductsByCategory,getListProductsBuy } = require("../controllers/products/productsControllers");
 
 const productsList = async (req,res)=>{
     const { name }= req.query;
@@ -71,4 +71,15 @@ const productsBuyList =  async (req,res)=>{
     };
 };
 
-module.exports = { productsList, productID, productOrder, productsListByPlatforms, productsListByCategory,productsBuyList };
+const checkIfProductWasBought =  async (req,res)=>{
+    const { email,idProduct }= req.query;
+    try {
+        let response = await checkProductInDb(email,idProduct);
+        res.status(200).json(response);
+    } catch (error) {
+        res.status(400).json({error:error.message});
+    };
+};
+
+
+module.exports = {checkIfProductWasBought, productsList, productID, productOrder, productsListByPlatforms, productsListByCategory,productsBuyList };
