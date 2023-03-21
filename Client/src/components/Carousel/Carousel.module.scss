@@ -14,21 +14,21 @@
     padding: 5%;
     position: relative;
     border-radius: 0.5rem;
-
+    
   }
   .carousel-container {
     display: flex;
     flex-wrap:wrap;
     justify-content: center;
     align-items: center;
-    height: 400px;
     width: 100%;
+    height: 500px;
     margin: 50px 0;
-    background-color: rgba(0, 0, 0, 0.5);
     backdrop-filter: blur(50px);
     border-radius: 20px;
     font-family: 'Orbitron', sans-serif;
-    
+    overflow: hidden;
+    z-index: 100;
   }
 
 
@@ -36,7 +36,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    
+   
   }
 
   .card-carousel {
@@ -46,10 +46,10 @@
   }
 
   .img-carousel img {
-    border-radius: 0.5rem;
-    height: 400px;
-    width: 600px;
-    max-width: 700px;
+    width: 100%;
+    position: absolute;
+    left: 0px;
+    top: 0%;
   }
 
   .description-carousel {
@@ -59,6 +59,7 @@
     align-items: center;
     font-size: 0.9rem;
     font-family: 'Orbitron', sans-serif;
+    z-index: 100;
   }
 
   .description {
@@ -68,6 +69,19 @@
     margin: 0 250px;
     text-align: left;
     gap: 10px;
+    z-index: 100;
+  }
+  .description h2{
+    font-size: xx-large;
+    margin-bottom: 10%;
+    text-shadow: 2px 5px black,
+    2px 2px 4px #000000;
+  }
+  .description p{
+    font-size:large;
+    margin-bottom: 10%;
+    text-shadow: 2px 1px black,
+    1px 1px 1px #000000;
   }
 
   .carousel-buttons--change {
@@ -75,10 +89,12 @@
     justify-content: center;
     margin: 50px 0 0 0;
     gap: 10px;
+    z-index: 100;
   }
 
   .carousel-buttons--change img {
     filter: invert(1);
     cursor: pointer;
+    z-index: 100;
   }
 }
