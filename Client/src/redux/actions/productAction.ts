@@ -79,25 +79,25 @@ export const setGlobalDiscount = () => async (dispatch:any) => {
         let dayName = (new Date).toString().slice(0,3);
         switch (dayName) {
             case 'Mon':
-                dispatch(setTodaysDiscount({genre: 'Action', discount: 0.2}))
+                dispatch(setTodaysDiscount({genre: 'Action', discount: 20}))
                 break
             case 'Tue':
-                dispatch(setTodaysDiscount({genre: 'Puzzle', discount: 0.1}))
+                dispatch(setTodaysDiscount({genre: 'Puzzle', discount: 10}))
                 break;
             case 'Wed':
-                dispatch(setTodaysDiscount({genre: 'Platformer', discount: 0.2}))
+                dispatch(setTodaysDiscount({genre: 'Platformer', discount: 20}))
                 break;
             case 'Thu':
-                dispatch(setTodaysDiscount({genre: 'Action', discount: 0.5}))
+                dispatch(setTodaysDiscount({genre: 'Action', discount: 50}))
                 break;
             case 'Fri':
-                dispatch(setTodaysDiscount({genre: 'Sports', discount: 0.5}))
+                dispatch(setTodaysDiscount({genre: 'Sports', discount: 50}))
                 break;
             case 'Sat':
-                dispatch(setTodaysDiscount({genre: 'Shooter', discount: 0.3}))
+                dispatch(setTodaysDiscount({genre: 'Shooter', discount: 30}))
                 break;
             default:
-                dispatch(setTodaysDiscount({genre: 'No_Discount', discount: 1}))
+                dispatch(setTodaysDiscount({genre: 'No_Discount', discount: 100}))
                 break;
         }
     } catch (error) {
