@@ -64,8 +64,6 @@ export const DashboardUser = () => {
     setNewSearch([]);
   };
 
-  console.log(newSearch);
-
   return (
     <>
       <input
