@@ -19,7 +19,7 @@ export const DashboardNav = () => {
           <Link to={"/productsList"}>
             <div>Products</div>
           </Link>
-          <Link to={"/sales"}>
+          <Link to={"/discMan"}>
             <div>Sales</div>
           </Link>
           <Link to={"/discMan"}>

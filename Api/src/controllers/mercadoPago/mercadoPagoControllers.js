@@ -44,9 +44,7 @@ const createPaymentMercadoPago = async (items, client, discount) => {
 
 
 
-        notification_url: "https://5a76-170-254-63-107.sa.ngrok.io/payment/responseMP?source_news=webhooks",
-
-
+       // notification_url: "https://5a76-170-254-63-107.sa.ngrok.io/payment/responseMP?source_news=webhooks",
 
         //esta variable de notificacion se tiene que cambiar depende si es para recibir por deploy o por la herramienta "ngrok",
         //la cual CADA vez que se levanta para recibir notificaciones con el repo, cambia de url, asi que OJO!
