@@ -1,14 +1,21 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import axios from "axios";
 import { useAuth0 } from "@auth0/auth0-react";
+import { searchFriendEmailController } from "../../Controller/searchFriendEmailController";
+
+interface Friend  {
+    accept: string
+   UserMail : string,
+   FriendInListEmail: string,
+}
 
 export const MakeGift: React.FC = () => {
   const [selectedOption, setSelectedOption] = useState<string>("");
-  const [emailSearch, setEmailSearch] = useState<string>("");
-  const [selectedFriendEmail, setSelectedFriendEmail] = useState("");
+  const [selectedFriendEmail, setSelectedFriendEmail] = useState<string>("");
+  const [friendListResponse,setFriendListResponse]=useState([])
   const { user } = useAuth0();
   const emailUser = user?.email;
-
+  const emailHardCodeado = 'rocha@gmail.com'
   const handleYesNoSelectChange = (
     event: React.ChangeEvent<HTMLSelectElement>
   ) => {
@@ -20,39 +27,16 @@ export const MakeGift: React.FC = () => {
     setSelectedFriendEmail(event.target.value);
   }
 
-  //PARA HACER LA PETICION AL BACK-End ( Lista de amigos)
-  const searchFriendEmailHandler = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setEmailSearch(event.target.value);
-    const data = {
-      emailUser,
-      valurForSearch: emailSearch,
-    };
-    console.log("data", data);
-    //const response = axios.get(`/user/searchFriends?searchFriend=${emailUser}&valurForSearch${emailSearch}`);
-  };
-
-  const paraMapear = [
-    {
-      accept: "true",
-      UserEmail: "aramisjaime48@gmail.com",
-      FriendInListEmail: "nahuelElPeluca@gmail.com",
-    },
-    {
-      accept: "true",
-      UserEmail: "aramisjaime48@gmail.com",
-      FriendInListEmail: "nahuelSenioRedux@gmail.com",
-    },
-  ];
-
-  const filteredFriendEmails = paraMapear?.map(
-    (friend) => friend.FriendInListEmail
-  ); // ['nahuelElPeluca@gmail.com',nahuelSenioRedux@gmail.com]
-  console.log("SOY LOS EMAILS FILTRADOS-->>", filteredFriendEmails);
-
+  const searchFriendEmailHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    console.log('ando bien ')
+      const emailSearch= event.target.value
+      searchFriendEmailController(emailHardCodeado,emailSearch).then(
+       friend=>setFriendListResponse(friend)
+      )
+  }
+  console.log('soy friendListResponse:',friendListResponse)
   return (
-    <>
+      <>
       <p>Do you wanna make a gift to a friend?</p>
       <select
         id="make-gift-select"
@@ -67,24 +51,23 @@ export const MakeGift: React.FC = () => {
         <>
           <p>Type your friend's email to make a search</p>
           <input
-            value={emailSearch}
-            onChange={(e) => searchFriendEmailHandler(e)}
+            onChange={(event) => searchFriendEmailHandler(event)}
             placeholder="Type at least a part of your friend's email"
-          ></input>
+            ></input>
         </>
       )}
       {selectedOption === "yes" && (
-        
+          
           <div>
             <select
               id="choose-friend-email-select"
               value={selectedFriendEmail}
               onChange={handleSelectEmailChange}
             >
-              {filteredFriendEmails?.map((email) => {
+              {friendListResponse?.map((property : Friend) => {
                 return (
-                <option key={email} value={email}>
-                  {email}
+                <option key={property.FriendInListEmail} value={property.FriendInListEmail}>
+                  {property.FriendInListEmail}
                 </option>
                 )
               })}
@@ -98,3 +81,21 @@ export const MakeGift: React.FC = () => {
     </>
   );
 };
+
+              
+              //   const paraMapear = [
+              //     {
+              //       accept: "true",
+              //       UserEmail: "aramisjaime48@gmail.com",
+              //       FriendInListEmail: "nahuelElPeluca@gmail.com",
+              //     },
+              //     {
+              //       accept: "true",
+              //       UserEmail: "aramisjaime48@gmail.com",
+              //       FriendInListEmail: "nahuelSenioRedux@gmail.com",
+              //     },
+              //   ];
+              //   const filteredFriendEmails = response?.map(
+              //     (friend) => friend.FriendInListEmail
+              //   ); // ['nahuelElPeluca@gmail.com',nahuelSenioRedux@gmail.com]
+              //console.log("SOY LOS EMAILS FILTRADOS-->>", filteredFriendEmails);
