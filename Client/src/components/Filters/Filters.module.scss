@@ -84,7 +84,10 @@
 }
 
 @media (min-width:961px){
-  .container{
+  .containerHide{
+    position: fixed
+  }
+  .containerHide{
     position: fixed;
   }
   .filters-container {
