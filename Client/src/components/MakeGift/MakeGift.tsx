@@ -6,7 +6,7 @@ interface Props {
   }
   
   const MakeGift: React.FC<Props> = ({ onSelect }) => {
-    const [selectedOption, setSelectedOption] = useState< string | null>(null);
+    const [selectedOption, setSelectedOption] = useState< string>("");
     
     const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
       const value = event.target.value;
