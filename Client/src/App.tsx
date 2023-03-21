@@ -28,6 +28,7 @@ import Library from "./pages/library/Library";
 import { setShoppingCartFromLocalStorage } from "./redux/actions/localStorageAction";
 import { getShoppingCartUserFromDB } from "./redux/actions/shoppingCartAction";
 import { DashboardSales } from "./components/Dashboard/Sales/DashboardSales";
+import NavbarPhone from "./phone/navBarPhone/navBarPhone";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -89,6 +90,7 @@ function App() {
           <Route path="/friends" element={<Friends />} />
           <Route path="/wish" element={<WishList />} />
           <Route path="/library" element={<Library />} />
+          <Route path="/phone" element={<NavbarPhone />} />
           <Route path="/:id" element={<Detail />} />
           {admin?.admin && (
             <>

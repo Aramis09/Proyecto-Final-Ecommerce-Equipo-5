@@ -1,0 +1,28 @@
+.conatinerAll{
+    position: fixed;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    top:0px;
+    left: 0px;
+}
+.containerUpNavbar{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    background-color: black;
+}
+.iconMenu{
+    position: fixed;
+    width: 15%;
+    top: 18%;
+    left: 3%;
+}
+.iconCompany{
+    width: 40%;
+}
+.links{
+    
+    padding: 0px;
+    margin: 0px;
+}
