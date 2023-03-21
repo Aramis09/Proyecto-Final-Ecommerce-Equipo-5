@@ -3,9 +3,11 @@ const {ACCES_TOKEN, PF_MAIL, PASS_PF_MAIL} = process.env;
 const axios = require('axios');
 const nodemailer = require('nodemailer');
 const mercadopago = require("mercadopago");
-const {Product} = require('../../db')
+const {Product} = require('../../db');
+//const htmlmail = require("./paymentItems.html");
 
 const createPaymentMercadoPago = async (items, client, discount) => {
+    //console.log(htmlmail, typeof htmlmail)
     let clientName; 
     let clientSurname;
     let clientFullName = selectNameSurname(client);
@@ -42,7 +44,7 @@ const createPaymentMercadoPago = async (items, client, discount) => {
         },
         auto_return: "approved", // si la compra es exitosa automaticamente redirige a "success" de back_urls
         binary_mode: true, //esto permite que el resultado de la compra sea solo 'failure' o solo 'success'
-        //notification_url: "https://c259-170-254-63-107.sa.ngrok.io/payment/responseMP?source_news=webhooks",
+        notification_url: "https://e0ea-186-130-79-255.sa.ngrok.io/payment/responseMP?source_news=webhooks",
 
         //esta variable de notificacion se tiene que cambiar depende si es para recibir por deploy o por la herramienta "ngrok",
         //la cual CADA vez que se levanta para recibir notificaciones con el repo, cambia de url, asi que OJO!
@@ -88,7 +90,7 @@ const mailProductsToBuyer = (email, products) => {
         This is a mail with the key/s of the product/s you just bought: \n
         ${products}
         `, // plain text body
-        html:""
+        html:``
         }    
     // send mail with defined transport object
     transporter.sendMail(msg)
@@ -111,15 +113,14 @@ const notificationData = async (query)  => {
         const orderId = query.id;
         merchantOrder = await mercadopago.merchant_orders.findById(orderId)
         break;
-
-
     }
-    if(merchantOrder.body){
+
+    //console.log("------->",merchantOrder.body);
+    var transactionDataObject;
+    var dbItem;
+    var paymentDate = new Date().toLocaleString("es-AR", {timeZone: "America/Argentina/Buenos_Aires"});
+    if(merchantOrder.body.order_status === 'paid'){ //if(merchantOrder.body.order_status === 'paid'){
         var userMailFromDescription = merchantOrder.body.items[0].description;
-        var transactionDataObject;
-        var dbItem;
-        var paymentDate = new Date().toLocaleString("es-AR", {timeZone: "America/Argentina/Buenos_Aires"});
-        //console.log("------->",merchantOrder.body);
         merchantOrder.body.items.forEach( async (productData, index) => {
             dbItem = await Product.findByPk(merchantOrder.body.items[index].id);
             var calculatedDiscount = 100 - ((merchantOrder.body.items[index].unit_price * 100) / parseFloat(dbItem.price));
@@ -139,7 +140,35 @@ const notificationData = async (query)  => {
             await axios.post(`http://localhost:3001/purchase/create`, {transactionDataObject})
         })
         await axios.get(`http://localhost:3001/user/removeProductInShoppingCart?email=${userMailFromDescription}&idProduct=${'all'}`)
-        //mailProductsToBuyer(userMailFromDescription, merchantOrder.body.items);
+        mailProductsToBuyer(userMailFromDescription, merchantOrder.body.items);
+        
+    } else { //else if (merchantOrder.body.order_status ===''){
+        console.log('estado de la orden: ', merchantOrder.body.order_status)
+        /*
+        var userMailFromDescription = merchantOrder.body.items[0].description;
+        merchantOrder.body.items.forEach( async (productData, index) => {
+            dbItem = await Product.findByPk(merchantOrder.body.items[index].id);
+            var calculatedDiscount = 100 - ((merchantOrder.body.items[index].unit_price * 100) / parseFloat(dbItem.price));
+            calculatedDiscount = calculatedDiscount.toFixed(2);
+            transactionDataObject = {
+                dateTransaction: paymentDate,
+                priceUnit: parseFloat(dbItem.price), //esto debe venir de un llamado a la db
+                specialDiscount: 0.1,//calculatedDiscount,
+                priceUnitNet: productData.unit_price,
+                serialOfGame: 'asnsdghnakjsdkjasdnkfdf', //lo inventamos con un hash?
+                numberPayment: merchantOrder.body.payments[0].id,
+                giftGame: false, // que se va a hacer con esto???
+                userEmailGift: '',
+                ProductId: productData.id,
+                UserEmail: userMailFromDescription,
+            };
+            await axios.post(`http://localhost:3001/purchase/create`, {transactionDataObject})
+        })
+        await axios.get(`http://localhost:3001/user/removeProductInShoppingCart?email=${userMailFromDescription}&idProduct=${'all'}`)
+        mailProductsToBuyer(userMailFromDescription, merchantOrder.body.items);
+
+
+        */
     }
 }
     
