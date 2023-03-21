@@ -14,6 +14,7 @@
     padding: 5%;
     position: relative;
     border-radius: 0.5rem;
+
   }
   .carousel-container {
     display: flex;
@@ -23,9 +24,11 @@
     height: 400px;
     width: 100%;
     margin: 50px 0;
-    background-color: rgb(40, 40, 40);
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(50px);
     border-radius: 20px;
     font-family: 'Orbitron', sans-serif;
+    
   }
 
 
@@ -33,7 +36,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
+    
   }
 
   .card-carousel {
@@ -43,7 +46,7 @@
   }
 
   .img-carousel img {
-    border-radius: 20px;
+    border-radius: 0.5rem;
     height: 400px;
     width: 600px;
     max-width: 700px;
@@ -62,7 +65,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 0 150px;
+    margin: 0 250px;
+    text-align: left;
     gap: 10px;
   }
 
