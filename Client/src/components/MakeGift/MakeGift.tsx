@@ -1,24 +1,21 @@
 import React, { useState } from 'react';
 //import { Option } from './types'; // O cualquier otro tipo de opción que necesites.
 
-interface Props {
-    onSelect: (option: any) => void;
-  }
+
   
-  const MakeGift: React.FC<Props> = ({ onSelect }) => {
+export const MakeGift: React.FC = () => {
     const [selectedOption, setSelectedOption] = useState< string>("");
     
     const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
       const value = event.target.value;
       setSelectedOption(value);
-      onSelect(value);
+      
     };
     
     return (
       <div>
-        <label htmlFor="make-gift-select">¿Quieres hacer un regalo?</label>
+        <label htmlFor="make-gift-select">Do you wanna make a gift?</label>
         <select id="make-gift-select" value={selectedOption} onChange={handleSelectChange}>
-          <option>Seleccione una opción</option>
           <option value="yes">Sí</option>
           <option value="no">No</option>
         </select>
@@ -26,4 +23,3 @@ interface Props {
     );
   };
   
-  export default MakeGift;
