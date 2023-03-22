@@ -3,9 +3,10 @@ import { useAppDispatch, useAppSelector } from '../../../redux/hooks/hooks';
 import { pendingFriend, resReque } from '../../../redux/actions/friendAction';
 import { useAuth0 } from '@auth0/auth0-react';
 import { useEffect } from 'react';
-import styles from './pendingFriends.module.css';
+import styles from './pendingFriends.module.scss';
 
-export const PendingFr = () => {
+
+export const PendingFr = (props:any) => {
 	const dispatch = useAppDispatch();
 	const { user, isAuthenticated }: any = useAuth0();
 	const friendsPending = useAppSelector(
@@ -16,8 +17,8 @@ export const PendingFr = () => {
 		if (user?.email && isAuthenticated) {
 			dispatch(pendingFriend(user?.email));
 		}
-	}, [user?.email, isAuthenticated, friendsPending]);
-
+	}, [user?.email, isAuthenticated]);
+	console.log(props)
 	const handleResponse = (ev: React.MouseEvent<HTMLButtonElement>) => {
 		dispatch(
 			resReque(
@@ -28,32 +29,27 @@ export const PendingFr = () => {
 		).then(() => {
 			dispatch(pendingFriend(user?.email));
 		});
+
+		if(String(ev.target.value) === "accept"){
+			props.wayFlagToUpdate(Math.random());
+		}
 	};
 
 	if (user?.email_verified && isAuthenticated) {
 		if (friendsPending.length > 0) {
 			return (
-				<div className={styles.conta}>
-					<div className={styles.user}>
-						<span>Your Friends Requests: {user?.name}</span>
-					</div>
+				<div className={styles.container}>
+					{/* <span className={styles.user}>Your Friends Requests: {user?.name}</span> */}
 					{friendsPending.map((pend: any, index: number) => {
 						return (
 							<div className={styles.cards} key={index}>
 								<span className={styles.resquets}>
-									Pending Friends Request: <br />
 									{pend.UserEmail}
 								</span>
-								<button
-									className={styles.reje}
-									value='rejected'
-									onClick={handleResponse}>
+								<button className={styles.buttonRejected} value='rejected' onClick={handleResponse}>
 									X
 								</button>
-								<button
-									className={styles.accp}
-									value='accept'
-									onClick={handleResponse}>
+								<button className={styles.buttonAccept} value='accept' onClick={handleResponse}>
 									✓
 								</button>
 							</div>
@@ -64,7 +60,9 @@ export const PendingFr = () => {
 		} else {
 			return (
 				<div className={styles.noFrien}>
-					<span className={styles.msg}>You don't have any friend requests</span>
+					<span className={styles.msg}>
+						
+					</span>
 				</div>
 			);
 		}

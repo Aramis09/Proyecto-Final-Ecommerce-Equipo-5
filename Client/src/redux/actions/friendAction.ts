@@ -8,6 +8,7 @@ export const addFriend = (emailUser: string, emailFriend: string) => async (disp
 		try {
 			frReque = (await axios.get(User + `newFriendRequest?emailUser=${emailUser}&emailFriend=${emailFriend}`)).data;
 			dispatch(addFriends(frReque));
+			dispatch(confirmFriend(frReque));
 		} catch (error) {
 			console.error('Esto ocurrio en el back ' + error);
 		}
@@ -27,9 +28,8 @@ export const resReque = (emailUser: string, emailFriend: string, res: string) =>
 
 //Amigos confirmados
 export const confFriend = (emailUser: string) => async (dispatch: any) => {
-	let confirFriend: object[];
 	try {
-		confirFriend = (await axios.get(User + `friendsConfirmed?email=${emailUser}`)).data;
+		let confirFriend: object[] = (await axios.get(User + `friendsConfirmed?email=${emailUser}`)).data;
 		dispatch(confirmFriend(confirFriend));
 	} catch (error) {
 		console.error('Esto ocurrio en el back ' + error);

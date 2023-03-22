@@ -1,0 +1,48 @@
+@media (min-width:320px) and (max-width:960px) {
+	.inputSearch{
+		border-radius: 0.5rem;
+		width: 50%;
+		height:30px;
+		background-color: black;
+		text-align: center;
+	}
+
+}
+@media (min-width: 961px) {
+	.container{
+		display: flex;
+		flex-direction: column;
+		width: 100%;
+		justify-content: center;
+		align-items: center;
+	}
+	.containerCards{
+		display: flex;
+		flex-direction: column;
+		width: 100%;
+		
+	}
+	.title {
+
+	}
+	.inputSearch{
+		margin-top: 9.6%;
+		border-radius: 1rem;
+		background-color: black;
+		align-self: center;
+		width: 90%;
+		height: 40px;
+		text-align: center;
+	  }
+	  .inputSearch::placeholder{
+        text-align: center;
+    }
+	.friendCard {
+
+
+	}
+
+	.deletFriend:hover {
+
+	}
+}

@@ -4,44 +4,72 @@ import { confFriend, resReque } from '../../../redux/actions/friendAction';
 import { useAuth0 } from '@auth0/auth0-react';
 import { useEffect } from 'react';
 import { Cards } from "../Cards/Card";
-import styles from './listFriend.module.css';
+import { useState } from "react";
+import styles from './listFriend.module.scss';
+import { searchFriendEmailController } from "../../../Controller/searchFriendEmailController";
+import console from "console";
 
+interface Friend  {
+  accept: string
+ UserMail : string,
+ FriendInListEmail: string,
+};
 
-export const ConfirFriends = () => {
+interface MakeGiftProps {
+  onVariableChange: (value: string) => void;
+};
+
+export const ConfirFriends = (flag:any) => {
   const dispatch = useAppDispatch();
-  const { user }: any = useAuth0();
   const friendsConfirmed = useAppSelector((state) => state.friendReducer.friendsConfirmed);
+  const [friendListResponse,setFriendListResponse]=useState([]);
+  const { user } = useAuth0();
+  const emailUser = user?.email;
 
   useEffect(() => {
-		dispatch(confFriend(user?.email));
-	}, [user?.email, friendsConfirmed]);
+    dispatch(confFriend(user?.email));
+  }, [user?.email,flag]);
+  
+  
+  useEffect(() => {
+    setFriendListResponse(friendsConfirmed);
+  }, [friendsConfirmed]);
 
-  const handleResponse = (ev: React.MouseEvent<HTMLButtonElement>) => {
-      dispatch(
-				resReque(
-					user?.email,
-					friendsConfirmed[0]?.FriendInListEmail,
-					ev.currentTarget.value,
-				),
-			)
-				.then(() => {
-					dispatch(confFriend(user?.email));
-				})
-  }
-
+    const searchFriendEmailHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const emailSearch= event.target.value;
+    if(!emailSearch.length) {
+      dispatch(confFriend(user?.email))
+    };
+    searchFriendEmailController(emailUser,emailSearch).then(
+     friend => setFriendListResponse(friend)
+    );
+};
+// console.log(friendsConfirmed)ss
   return (
-    <div className={styles.contain}>
-      <h4 className={styles.title}>List friends of {user?.name}</h4>
-      <div className={styles.card}>
-      {friendsConfirmed.map((friend: unknown, index: number) => {
+    <div className={styles.container}>
+      <div className={styles.containerCards}>
+        
+
+    <input
+    className={styles.inputSearch}
+      onChange={(event) => searchFriendEmailHandler(event)}
+      placeholder="Find your friend"
+      >
+    </input>
+
+      {friendListResponse.map((friend: any, index: number) => {
         return (
-          <div className={styles.friends} key={index}>
-            <button className={styles.deletFriend} value='remove' onClick={handleResponse}>X</button>
             <Cards key={index} friend={friend}/>
-          </div>
         )
       })}
       </div>
     </div>
-  )  
+  );
 };
+
+
+
+
+
+
+
