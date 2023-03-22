@@ -15,10 +15,11 @@ export const getAllProducts = () => async (dispatch:any) => {
     }
 }
 
-export const getProductsByFilters =  (filters: {}) => async (dispatch: any) => {
+export const getProductsByFilters =  (filters: {},pageNumber:number) => async (dispatch: any) => {
+    console.log("me ejecute al principio",pageNumber)
     let listProducts: object[];
     try{
-        listProducts = (await axios.post(LIST_PRODUCTS_BY_FILTERS, filters)).data;
+        listProducts = (await axios.post(`${LIST_PRODUCTS_BY_FILTERS}?pageNumber=${pageNumber}`, filters)).data;
         dispatch(searchObject(filters))
         dispatch(productsByFilters(listProducts));
     }catch(error){

@@ -20,7 +20,9 @@ export const Filters = (flags:any) => {
   let selectedFilterGenreData = useAppSelector((state) => state.productReducer.selectedFilterGenreData)
   let selectedFilterPriceRangeData = useAppSelector((state) => state.productReducer.selectedFilterPriceRangeData)
   let selectedAlphabeticOrderData = useAppSelector((state) => state.productReducer.selectedAlphabeticOrderData)
-  //console.log(selectAttribute)
+
+	console.log("soy el filter","filter")
+
   useEffect(() => {
     function handleResize() {
       setSelectAttribute(window.innerWidth > 767);
@@ -40,6 +42,9 @@ export const Filters = (flags:any) => {
     dispatch(selectedFilterGenre(parseInt(dato.target.value)))
   }
 
+  useEffect(() => {
+	filterTheSearch()
+  },[flags.pageNumber]);
 
 
   const selectAlphabeticOrder = (dato:any) => {
@@ -61,7 +66,7 @@ export const Filters = (flags:any) => {
 				alphabetic: selectedAlphabeticOrderData,
 				price:''
 			}    
-			}
+			},flags.pageNumber
 			));
   }
 
@@ -69,7 +74,7 @@ export const Filters = (flags:any) => {
     return () => {
       dispatch(eraseSearchedName())
     }
-  })
+  },[])
   
   
 	return (

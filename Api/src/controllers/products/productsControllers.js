@@ -4,9 +4,9 @@ const {getAllPurchaseds} = require("../purchase/purchaseTransactionController");
 const { arrayStoresDet, arrayGenresDet, arrayPlatformsDet, arrayPlatforms, arrayGenres, arrayStores, arrayImagesDet, arrayIncludes} = require('./utils');
 const { Op, where } = require("sequelize");
 
-const getAllProducts = async ()=>{
+const getAllProducts = async () =>{
     let productsListWithMoreTrash = await Product.findAll({
-        include:arrayIncludes
+        include:arrayIncludes,
     });
     let productsListWithTrash=await productsListWithMoreTrash.map(productWithTrash => productWithTrash.dataValues);
     if (!productsListWithTrash.length){
@@ -72,8 +72,10 @@ const getProductsByPlatform = async (arrayPlatforms) => {
     };
 };
 
-const getProductsByCategory = async (name,filters,order) => {
+const getProductsByCategory = async (name,filters,order,pageNumber) => {
     const arrayOrder=[]
+    let pageSize = 15; // cantidad de elementos por página
+    let offset = (pageNumber - 1) * pageSize;
     if (order.alphabetic) arrayOrder.push(["name",order.alphabetic])
     if (order.price) arrayOrder.push(["price",order.price])
     try {
@@ -111,6 +113,8 @@ const getProductsByCategory = async (name,filters,order) => {
                 through: { attributes: [] },
             },
             ],
+            limit: pageSize,
+            offset: offset
 
         });
         let productsListWithTrash=await productsListWithMoreTrash.map(productWithTrash => productWithTrash.dataValues);

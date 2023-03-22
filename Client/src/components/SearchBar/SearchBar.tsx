@@ -27,7 +27,7 @@ export const SearchBar = (flag:any) => {
             alphabetic: "",
             price: "",
           },
-        }
+        },1
       )
     );
   };
