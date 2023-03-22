@@ -1,0 +1,18 @@
+.container{
+    width: 100%;
+    display: grid;
+    grid-template-columns: auto auto;
+    flex-direction: row;
+    align-items: center;
+    text-align: left;
+    margin-top: 5%;
+}
+.container h4 {
+    width: 200px;
+    margin-left: 15%;
+}
+.deletFriend{
+    background-color: rgb(219, 219, 219);
+    color: black;
+    text-align: center;
+}
