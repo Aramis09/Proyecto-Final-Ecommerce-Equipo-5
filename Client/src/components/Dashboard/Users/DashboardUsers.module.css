@@ -53,6 +53,10 @@
     padding: 10px;
   }
 
+  .user-items button {
+    margin-top: 10px;
+  }
+
   .user-items p {
     margin: 5px;
   }
