@@ -1,19 +1,19 @@
 require("dotenv").config();
-const {ACCES_TOKEN, PF_MAIL, PASS_PF_MAIL} = process.env;
+const { ACCES_TOKEN, PF_MAIL, PASS_PF_MAIL } = process.env;
 const axios = require('axios');
 const nodemailer = require('nodemailer');
 const mercadopago = require("mercadopago");
-const {Product} = require('../../db')
+const { Product } = require('../../db')
 
 const createPaymentMercadoPago = async (items, client, discount) => {
-    let clientName; 
+    let clientName;
     let clientSurname;
     let clientFullName = selectNameSurname(client);
     clientName = clientFullName.clientName;
     clientSurname = clientFullName.clientSurname;
     //console.log('client name surname', clientName, clientSurname)
     //console.log(client.email)
-    if(discount.genre !== 'No_Discount'){
+    if (discount.genre !== 'No_Discount') {
         items = applyDiscount(items, discount)
         //applyDiscount(items, discount)
         //console.log('after disc: ', items)
@@ -42,7 +42,7 @@ const createPaymentMercadoPago = async (items, client, discount) => {
         },
         auto_return: "approved", // si la compra es exitosa automaticamente redirige a "success" de back_urls
         binary_mode: true, //esto permite que el resultado de la compra sea solo 'failure' o solo 'success'
-        notification_url: "https://4531-201-190-175-53.sa.ngrok.io/payment/responseMP?source_news=webhooks",
+        notification_url: "https://3ec1-201-190-175-53.sa.ngrok.io/payment/responseMP?source_news=webhooks",
 
         //esta variable de notificacion se tiene que cambiar depende si es para recibir por deploy o por la herramienta "ngrok",
         //la cual CADA vez que se levanta para recibir notificaciones con el repo, cambia de url, asi que OJO!
@@ -52,7 +52,7 @@ const createPaymentMercadoPago = async (items, client, discount) => {
     //console.log('si esto esta undefined, es porque no tenes el acces token en .env: ', ACCES_TOKEN)
     try {
         mercadopago.configure({
-            access_token: ACCES_TOKEN
+            access_token: "APP_USR-2433087989223801-030922-9e9b1f613eaace47070e5d041df162e7-1327406811"
         });
         const response = await mercadopago.preferences.create(preference);
         //console.log('rrr', response)
@@ -88,8 +88,8 @@ const mailProductsToBuyer = (email, products) => {
         This is a mail with the key/s of the product/s you just bought: \n
         ${products}
         `, // plain text body
-        html:""
-        }    
+        html: ""
+    }
     // send mail with defined transport object
     transporter.sendMail(msg)
         .then(() => console.log('todo ok'))
@@ -97,30 +97,30 @@ const mailProductsToBuyer = (email, products) => {
 }
 
 
-const notificationData = async (query)  => {
+const notificationData = async (query) => {
 
-    const topic =  query.topic || query.type;
+    const topic = query.topic || query.type;
     var merchantOrder;
-    switch(topic){
+    switch (topic) {
         case "payment":
-        const paymentId = query.id || query['data.id'];
-        const payment = await mercadopago.payment.findById(paymentId);
-        merchantOrder = await mercadopago.merchant_orders.findById(payment.body.order.id);
-        break;
+            const paymentId = query.id || query['data.id'];
+            const payment = await mercadopago.payment.findById(paymentId);
+            merchantOrder = await mercadopago.merchant_orders.findById(payment.body.order.id);
+            break;
         case "merchant_order":
-        const orderId = query.id;
-        merchantOrder = await mercadopago.merchant_orders.findById(orderId)
-        break;
+            const orderId = query.id;
+            merchantOrder = await mercadopago.merchant_orders.findById(orderId)
+            break;
 
 
     }
-    if(merchantOrder.body){
+    if (merchantOrder.body) {
         var userMailFromDescription = merchantOrder.body.items[0].description;
         var transactionDataObject;
         var dbItem;
-        var paymentDate = new Date().toLocaleString("es-AR", {timeZone: "America/Argentina/Buenos_Aires"});
+        var paymentDate = new Date().toLocaleString("es-AR", { timeZone: "America/Argentina/Buenos_Aires" });
         //console.log("------->",merchantOrder.body);
-        merchantOrder.body.items.forEach( async (productData, index) => {
+        merchantOrder.body.items.forEach(async (productData, index) => {
             dbItem = await Product.findByPk(merchantOrder.body.items[index].id);
             var calculatedDiscount = 100 - ((merchantOrder.body.items[index].unit_price * 100) / parseFloat(dbItem.price));
             calculatedDiscount = calculatedDiscount.toFixed(2);
@@ -136,45 +136,45 @@ const notificationData = async (query)  => {
                 ProductId: productData.id,
                 UserEmail: userMailFromDescription,
             };
-            await axios.post(`http://localhost:3001/purchase/create`, {transactionDataObject})
+            await axios.post(`http://localhost:3001/purchase/create`, { transactionDataObject })
         })
         await axios.get(`http://localhost:3001/user/removeProductInShoppingCart?email=${userMailFromDescription}&idProduct=${'all'}`)
         //mailProductsToBuyer(userMailFromDescription, merchantOrder.body.items);
     }
 }
-    
+
 
 
 
 const selectNameSurname = (client) => {
 
-    let clientName; 
+    let clientName;
     let clientSurname;
     let clientFullName = client.name.split(' ');
     //console.log('clientFullName', clientFullName)
-    
-    if(clientFullName.length === 1){
+
+    if (clientFullName.length === 1) {
         clientName = clientFullName[0];
         clientSurname = 'No_tiene';
     }
-    if(clientFullName.length === 2){
+    if (clientFullName.length === 2) {
         clientName = clientFullName[0];
         clientSurname = clientFullName[1];
     }
-    if(clientFullName.length === 3){
+    if (clientFullName.length === 3) {
         clientName = clientFullName.slice(0, 2).join(' ');
         clientSurname = clientFullName[2];
     }
-    if(clientFullName.length === 4){
+    if (clientFullName.length === 4) {
         clientName = clientFullName.slice(0, 2).join(' ');
         clientSurname = clientFullName.slice(2, 4).join(' ');
     }
-    if(clientFullName.length > 4){
-        clientName = clientFullName.slice(0, clientFullName.length-2).join(' ');
-        clientSurname = clientFullName.slice(clientFullName.length-2, clientFullName.length).join(' ');
+    if (clientFullName.length > 4) {
+        clientName = clientFullName.slice(0, clientFullName.length - 2).join(' ');
+        clientSurname = clientFullName.slice(clientFullName.length - 2, clientFullName.length).join(' ');
     }
     //console.log('cc', clientName, clientSurname)
-    return {clientName, clientSurname}
+    return { clientName, clientSurname }
 }
 
 
@@ -208,8 +208,8 @@ const reshapeProductInItems = (items, email) => {
 const applyDiscount = (items, discount) => {
     let itemsChecked = items.map(product => {
         var productGenres = product.Genres.map(item => item.name)
-        if(productGenres.includes(discount.genre)){
-            var disc_price = (parseFloat(product.price) * (1-discount.discount));
+        if (productGenres.includes(discount.genre)) {
+            var disc_price = (parseFloat(product.price) * (1 - discount.discount));
             disc_price = disc_price.toFixed(2);
             product = {
                 id: product.id,
