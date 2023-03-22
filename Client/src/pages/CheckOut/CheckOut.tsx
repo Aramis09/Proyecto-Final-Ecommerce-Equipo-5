@@ -21,6 +21,7 @@ export const CheckOut = () => {
   const [saveInLocalStorage, setSaveInLocalStorage] = useState(false);
   const [friendMail, setFriendMail] = useState<string | null>(localStorage.getItem('friendMail'));
   const [init_pointButton, setInit_PointButton] = useState(false)
+  const [loader, setLoader] = useState(false)
 
   const handleChildVariable = (friendMail: string | null) => {
     setFriendMail(friendMail);
@@ -68,6 +69,7 @@ export const CheckOut = () => {
   console.log("today's d", discount)
 
   const fetchCheckout = async () => {
+    setLoader(true)
     let client = {
       name: user.name,
       email: user.email,
@@ -80,6 +82,7 @@ export const CheckOut = () => {
     ).data.response;
     console.log('red', await redirectLink)
     if (await redirectLink.init_point) {
+      setLoader(false)
       setInit_PointButton(prev => prev = redirectLink.init_point)
     }
   };
@@ -104,8 +107,15 @@ export const CheckOut = () => {
                 </button>
                 <div>
                 {
-                  init_pointButton &&
-                  <a href={`${init_pointButton}`}><button>Pay</button></a>
+                  loader ?
+                  <img src="https://media.tenor.com/je-huTL1vwgAAAAi/loading-buffering.gif"/>
+                  :
+                  <div>
+                    {
+                      init_pointButton &&
+                    <a href={`${init_pointButton}`}><button>Pay</button></a>
+                    }
+                  </div>
                 }
                 </div>
               </div>
