@@ -15,6 +15,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import Comments from './Comments'
 import { saveShoppingCartInLocalStorage } from "../../redux/actions/localStorageAction";
 import { checkIfProductWasPurchased } from "../../Controller/cardController";
+import NavbarPhone from "../../phone/navBarPhone/navBarPhone";
 //los import comentados de abajo no los toquen que son para implementar los botones a futuro
 //import { getListGenres } from "../../redux/actions/genresAction";
 //import { getListPlatforms } from "../../redux/actions/platformAction";
@@ -25,7 +26,15 @@ export const Detail = () => {
   const { id }:any = useParams();
   const dispatch = useAppDispatch();
   const game:any = useAppSelector((state) => state.productReducer.details)
-
+  const [successMsg, setSuccessMsg] = useState("");
+  const [control, setControl] = useState(-1);
+  const [saveInLocalStorage, setSaveInLocalStorage] = useState(false);
+  useEffect(() => {
+    if(saveInLocalStorage === true){
+      dispatch(saveShoppingCartInLocalStorage(listProductsShoppingCart, totalAmount));
+    }
+  },[control]);
+  
   useEffect(() => {
     dispatch(getProductByID(parseInt(id)));
     if(user){
@@ -38,9 +47,6 @@ export const Detail = () => {
       dispatch(eraseItemById())
     }
   }, [user])
-
-
-
   let totalAmount: number;
 
   if(typeof user !== 'undefined'){
@@ -49,39 +55,36 @@ export const Detail = () => {
     var listProductsShoppingCart: object[] = useAppSelector((state) => state.shoppingCartReducer.listProductsShoppingCartGuest);
     totalAmount = useAppSelector((state) => state.shoppingCartReducer.totalAmount);
   }
-  const [successMsg, setSuccessMsg] = useState("");
-  const [control, setControl] = useState(-1);
-  const [saveInLocalStorage, setSaveInLocalStorage] = useState(false);
-
-  const addingToShoppingCart = (e: any) => {
-    const item:any = listProductsShoppingCart.find((item:any) => item.id == parseInt(id));
-    //console.log('detail item', item)
-    if(!item){
-
-      if(typeof user !== 'undefined'){
-        dispatch(addNewProductInShoppingCart(id, user.email));
-        dispatch(addAmountForShoppingCartUser(item.price))
-      } else {
-        dispatch(addShoppingCart(game));
-        setControl(listProductsShoppingCart.length);
-        setSaveInLocalStorage(true);
+  
+    const addingToShoppingCart = (e: any) => {
+      const item:any = listProductsShoppingCart.find((item:any) => item.id == parseInt(id));
+      //console.log('detail item', item)
+      if(!item){
+  
+        if(typeof user !== 'undefined'){
+          dispatch(addNewProductInShoppingCart(id, user.email));
+          dispatch(addAmountForShoppingCartUser(item.price))
+        } else {
+          dispatch(addShoppingCart(game));
+          setControl(listProductsShoppingCart.length);
+          setSaveInLocalStorage(true);
+        }
+        setSuccessMsg(ADDED_TO_CART);
+      }else{
+        setSuccessMsg(ALREADY_IN_THE_CART);
       }
-      setSuccessMsg(ADDED_TO_CART);
-    }else{
-      setSuccessMsg(ALREADY_IN_THE_CART);
+      
     }
-    
-  }
 
-  useEffect(() => {
-    if(saveInLocalStorage === true){
-      dispatch(saveShoppingCartInLocalStorage(listProductsShoppingCart, totalAmount));
-    }
-  },[control]);
+
+
+
+
+
 
   return (
     <>
-      <NavBar />
+      {window.innerWidth > 959 ?<NavBar /> : <NavbarPhone/>}
       <div>
         {
           game.name &&
@@ -115,18 +118,6 @@ export const Detail = () => {
                       }
                     </div>
                   </div>
-                  {/* <div className={styles["platforms-section"]}>
-                    <h4>Plataformas</h4>
-                    <div className={styles["button-container"]}>
-                      {
-                        
-                        game.platforms.slice(0, 3).map((item:any, index:number) => (
-                          <button key={index}>{item}</button>
-                        ))
-                        
-                      }
-                  </div>
-                  </div> */}
                 </div>
               </div>
             </div>
