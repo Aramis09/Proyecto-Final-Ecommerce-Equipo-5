@@ -6,45 +6,44 @@ import { Cards } from "../Cards/Card";
 import { useState } from "react";
 import styles from './listFriend.module.scss';
 import { searchFriendEmailController } from "../../../Controller/searchFriendEmailController";
+import console from "console";
 
 interface Friend  {
   accept: string
  UserMail : string,
  FriendInListEmail: string,
-}
+};
 
 interface MakeGiftProps {
   onVariableChange: (value: string) => void;
-}
+};
 
 export const ConfirFriends = (flag:any) => {
   const dispatch = useAppDispatch();
   const friendsConfirmed = useAppSelector((state) => state.friendReducer.friendsConfirmed);
-  const [friendListResponse,setFriendListResponse]=useState([])
-  const [update,setUpdate] = useState(0)
+  const [friendListResponse,setFriendListResponse]=useState([]);
   const { user } = useAuth0();
   const emailUser = user?.email;
 
-  console.log("--------------->",flag)
   useEffect(() => {
-    dispatch(confFriend(user?.email))
-  }, [user?.email,flag.flag]);
-
-
+    dispatch(confFriend(user?.email));
+  }, [user?.email,flag]);
+  
+  
   useEffect(() => {
     setFriendListResponse(friendsConfirmed);
   }, [friendsConfirmed]);
 
-
-    console.log(friendsConfirmed)
     const searchFriendEmailHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     const emailSearch= event.target.value;
-    if(!emailSearch) setFriendListResponse(friendsConfirmed);
+    if(!emailSearch.length) {
+      dispatch(confFriend(user?.email))
+    };
     searchFriendEmailController(emailUser,emailSearch).then(
      friend => setFriendListResponse(friend)
-    )
-}
-
+    );
+};
+// console.log(friendsConfirmed)ss
   return (
     <div className={styles.container}>
       <div className={styles.containerCards}>
@@ -64,7 +63,7 @@ export const ConfirFriends = (flag:any) => {
       })}
       </div>
     </div>
-  )  
+  );
 };
 
 

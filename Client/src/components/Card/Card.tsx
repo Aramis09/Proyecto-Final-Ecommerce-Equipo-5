@@ -28,7 +28,6 @@ export const Card = ({
   const [control, setControl] = useState(-1);
   const [discountPrice,setDiscountPrice] = useState(0);
   const [discountApplied, setDiscountApplied] = useState(false)
-  
   const dispatch = useAppDispatch();
   let totalPrice = useAppSelector((state) => state.shoppingCartReducer.totalAmount)
   const [saveInLocalStorage, setSaveInLocalStorage] = useState(false);
@@ -39,14 +38,18 @@ export const Card = ({
       dispatch(saveShoppingCartInLocalStorage(listProductsShoppingCart, totalAmount));
     }
     //esto verifica si el producto esta comprado, para cambiar el boton
+
+  },[control,user]);
+
+  useEffect(()=>{
     if(user){
       checkIfProductWasPurchased(user.email,id)
       .then(check => check?
       setChangeClass({classButton:styles.buttonHide,classCard:styles.cardContainerBuy})
       :setChangeClass({classButton:styles.buttonAdd,classCard:styles.cardContainer}));
     }
+  },[])
 
-  },[control,user]);
   useEffect(()  => {
     if(parseFloat(price) !== 0 && todaysDiscount.discount !== 'No_Discount' && genres.includes(todaysDiscount.genre) && parseFloat(price) !==discountPrice && !discountApplied){
       let finalPrice =  (((100 - todaysDiscount.discount) * parseFloat(price)) / 100);
