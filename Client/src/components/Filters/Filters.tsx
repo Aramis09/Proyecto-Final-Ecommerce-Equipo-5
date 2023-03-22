@@ -87,7 +87,7 @@ export const Filters = (flags:any) => {
 								setGenresOpen(!genresOpen);
 							}
 						}}>
-						<p>Generos</p>
+						<p>Genres</p>
 					</label>
 					<select
 						multiple={selectAttribute}
@@ -114,7 +114,7 @@ export const Filters = (flags:any) => {
 					</label>
 				</div>
 				<div className={styles['options-container']}>
-					<label className={styles['label-tittle']}>Precio</label>
+					<label className={styles['label-tittle']}>Price</label>
 					<PriceSlider />
 				</div>
 				<div className={styles['options-container']}>
@@ -129,7 +129,7 @@ export const Filters = (flags:any) => {
 								setOrderOpen(!orderOpen);
 							}
 						}}>
-						<p>Orden</p>
+						<p>Order</p>
 					</label>
 					<select
 						multiple={selectAttribute}
@@ -145,7 +145,7 @@ export const Filters = (flags:any) => {
 					</select>
 				</div>
 				<button className={styles.buttonFilter} onClick={filterTheSearch}>
-					<p>Filter</p>
+					<p>Apply Filter</p>
 				</button>
 			</aside>
 		</div>

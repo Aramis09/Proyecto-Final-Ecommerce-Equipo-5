@@ -121,7 +121,7 @@ const notificationData = async (query)  => {
             transactionDataObject = {
                 dateTransaction: paymentDate,
                 priceUnit: parseFloat(dbItem.price), //esto debe venir de un llamado a la db
-                specialDiscount: 0.1,//calculatedDiscount,
+                specialDiscount: calculatedDiscount,//calculatedDiscount,
                 priceUnitNet: productData.unit_price,
                 serialOfGame: 'asnsdghnakjsdkjasdnkfdf', //lo inventamos con un hash?
                 numberPayment: merchantOrder.body.payments[0].id,
@@ -133,7 +133,7 @@ const notificationData = async (query)  => {
             await axios.post(`http://localhost:3001/purchase/create`, {transactionDataObject})
         })
         await axios.get(`http://localhost:3001/user/removeProductInShoppingCart?email=${userMailFromDescription}&idProduct=${'all'}`)
-        //mailProductsToBuyer(userMailFromDescription, merchantOrder.body.items);
+        mailProductsToBuyer(userMailFromDescription, merchantOrder.body.items);
         
     } else { //else if (merchantOrder.body.order_status ===''){
         console.log('estado de la orden: ', merchantOrder.body.order_status);
