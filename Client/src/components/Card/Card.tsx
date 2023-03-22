@@ -26,16 +26,13 @@ export const Card = ({
   genres,
   state,
 }: any) => {
-  const { user }: any = useAuth0();
-  const [changeClass, setChangeClass] = useState({
-    classButton: styles.buttonAdd,
-    classCard: styles.cardContainer,
-  });
+
+  const { user , isAuthenticated }: any = useAuth0();
+  const [changeClass,setChangeClass] = useState({classButton:styles.buttonAdd,classCard:styles.cardContainer});
   const [successMsg, setSuccessMsg] = useState("");
   const [control, setControl] = useState(-1);
-  const [discountPrice, setDiscountPrice] = useState(0);
-  const [discountApplied, setDiscountApplied] = useState(false);
-
+  const [discountPrice,setDiscountPrice] = useState(0);
+  const [discountApplied, setDiscountApplied] = useState(false)
   const dispatch = useAppDispatch();
   let totalPrice = useAppSelector(
     (state) => state.shoppingCartReducer.totalAmount
@@ -52,30 +49,20 @@ export const Card = ({
       );
     }
     //esto verifica si el producto esta comprado, para cambiar el boton
-    if (user) {
-      checkIfProductWasPurchased(user.email, id).then((check) =>
-        check
-          ? setChangeClass({
-              classButton: styles.buttonHide,
-              classCard: styles.cardContainerBuy,
-            })
-          : setChangeClass({
-              classButton: styles.buttonAdd,
-              classCard: styles.cardContainer,
-            })
-      );
+  },[control,user]);
+
+  useEffect(()=>{
+    if(user){
+      checkIfProductWasPurchased(user.email,id)
+      .then(check => check?
+      setChangeClass({classButton:styles.buttonHide,classCard:styles.cardContainerBuy})
+      :setChangeClass({classButton:styles.buttonAdd,classCard:styles.cardContainer}));
     }
-  }, [control, user]);
-  useEffect(() => {
-    if (
-      parseFloat(price) !== 0 &&
-      todaysDiscount.discount !== "No_Discount" &&
-      genres.includes(todaysDiscount.genre) &&
-      parseFloat(price) !== discountPrice &&
-      !discountApplied
-    ) {
-      let finalPrice =
-        ((100 - todaysDiscount.discount) * parseFloat(price)) / 100;
+  },[])
+
+  useEffect(()  => {
+    if(parseFloat(price) !== 0 && todaysDiscount.discount !== 'No_Discount' && genres.includes(todaysDiscount.genre) && parseFloat(price) !==discountPrice && !discountApplied){
+      let finalPrice =  (((100 - todaysDiscount.discount) * parseFloat(price)) / 100);
       finalPrice = finalPrice.toFixed(2);
       setDiscountApplied((prev) => (prev = true));
       setDiscountPrice(finalPrice);
@@ -155,6 +142,7 @@ export const Card = ({
             ) : (
               <p>{`$${price}`}</p>
             )}
+
           </div>
           <div className={styles.addShoppingCart}>
             <div className={styles.containerButton}>

@@ -13,7 +13,7 @@ import NavbarPhone from "../../phone/navBarPhone/navBarPhone";
 export const Products = () => {
   const [changeClass,setChangeClass] = useState(false);
   let searchedData = useAppSelector((state) => state.productReducer.searchedData);
-  const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(getListGenres());
