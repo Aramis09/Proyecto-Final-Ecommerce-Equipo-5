@@ -47,15 +47,7 @@ function App() {
   );
 
   const admin = listUsersData.find((item) => item.email === userEmail);
-  if (admin) {
-    const isAdmin = admin.admin;
-    console.log(
-      `El usuario ${userEmail} tiene permisos de administrador: ${isAdmin}`
-    );
-  } else {
-    console.log(`El usuario ${userEmail} no se encuentra en la lista`);
-  }
-
+  
   useEffect(() => {
     dispatch(getTopRatedProducts());
 

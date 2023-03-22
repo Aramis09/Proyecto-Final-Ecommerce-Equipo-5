@@ -126,7 +126,9 @@ export const DashboardProducts = () => {
 
   return (
     <>
-      <DashboardNav />
+      <div className={styles.nav}>
+        <DashboardNav />
+      </div>
       <section
         className={
           showModal
@@ -143,12 +145,14 @@ export const DashboardProducts = () => {
               setSearchProducts(event.target.value)
             }
           />
-          <button onClick={() => handlerSearch()}>
-            <img src={iconSearch} />
-          </button>
-          <button onClick={handleClear}>
-            <img src={trashIcon} />
-          </button>{" "}
+          <div className={styles["button-search"]}>
+            <button onClick={() => handlerSearch()}>
+              <img src={iconSearch} />
+            </button>
+            <button onClick={handleClear}>
+              <img src={trashIcon} />
+            </button>{" "}
+          </div>
         </div>
         <div className={styles["product-info"]}>
           <p>id</p>
@@ -182,32 +186,34 @@ export const DashboardProducts = () => {
                   <p>{name}</p>
                   <p>{rating}</p>
                   <p>{price}</p>
-                  <img
-                    className={styles["edit-button"]}
-                    src={editIcon}
-                    onClick={() => setShowModal(true)}
-                  />
-                  <button
-                    onClick={() => {
-                      handlerProductChange(
-                        name,
-                        rating,
-                        id,
-                        price,
-                        state,
-                        images,
-                        genres,
-                        background_image,
-                        description,
-                        platforms,
-                        playtime,
-                        stores,
-                        released
-                      );
-                    }}
-                  >
-                    make Changes
-                  </button>
+                  <div className={styles['button-changes']}>
+                    <img
+                      className={styles["edit-button"]}
+                      src={editIcon}
+                      onClick={() => setShowModal(true)}
+                    />
+                    <button
+                      onClick={() => {
+                        handlerProductChange(
+                          name,
+                          rating,
+                          id,
+                          price,
+                          state,
+                          images,
+                          genres,
+                          background_image,
+                          description,
+                          platforms,
+                          playtime,
+                          stores,
+                          released
+                        );
+                      }}
+                    >
+                      make Changes
+                    </button>
+                  </div>
                 </div>
               )
             )

@@ -68,7 +68,9 @@ export const DashboardUser = () => {
 
   return (
     <>
-      <DashboardNav />
+      <div className={styles.nav}>
+        <DashboardNav />
+      </div>
       <section className={styles["user-container"]}>
         <h3>Users</h3>
         <div className={styles["search-user"]}>
@@ -79,12 +81,14 @@ export const DashboardUser = () => {
               setSearchUser(event.target.value)
             }
           />
+          <div className={styles['button-search']}>
           <button onClick={() => handlerSearch()}>
             <img src={iconSearch} />
           </button>
           <button onClick={handleClear}>
             <img src={trashIcon} />
           </button>
+          </div>
         </div>
         <div className={styles["user-info"]}>
           <p>name</p>
