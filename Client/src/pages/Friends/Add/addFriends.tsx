@@ -29,9 +29,11 @@ export const AddiFriend = () => {
 		}
 	}, [newFriendRequest]);
 
-	const handleAddFriend = () => {
-		dispatch(addFriend(friendRequest.emailUser, friendRequest.emailFriend));
-		setFriendRequest({ emailUser: user?.email, emailFriend: '' });
+	const handleAddFriend = (event:any) => {
+		if (event.keyCode === 13) {
+			dispatch(addFriend(friendRequest.emailUser, friendRequest.emailFriend));
+			setFriendRequest({ emailUser: user?.email, emailFriend: '' });
+		};
 	};
 
 	return (
@@ -45,10 +47,8 @@ export const AddiFriend = () => {
 				onChange={(ev) =>
 					setFriendRequest({ ...friendRequest, emailFriend: ev.target.value })
 				}
+				onKeyDown={handleAddFriend}
 			/>
-			{/* <button className={styles.but} onClick={handleAddFriend}>
-				send
-			</button> */}
 		</div>
 	);
 };

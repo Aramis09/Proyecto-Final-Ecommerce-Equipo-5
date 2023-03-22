@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 import styles from './pendingFriends.module.scss';
 
 
-export const PendingFr = () => {
+export const PendingFr = (props:any) => {
 	const dispatch = useAppDispatch();
 	const { user, isAuthenticated }: any = useAuth0();
 	const friendsPending = useAppSelector(
@@ -17,7 +17,7 @@ export const PendingFr = () => {
 			dispatch(pendingFriend(user?.email));
 		}
 	}, [user?.email, isAuthenticated]);
-
+	console.log(props)
 	const handleResponse = (ev: React.MouseEvent<HTMLButtonElement>) => {
 		dispatch(
 			resReque(
@@ -28,6 +28,10 @@ export const PendingFr = () => {
 		).then(() => {
 			dispatch(pendingFriend(user?.email));
 		});
+
+		if(String(ev.target.value) === "accept"){
+			props.wayFlagToUpdate(Math.random());
+		}
 	};
 
 	if (user?.email_verified && isAuthenticated) {
