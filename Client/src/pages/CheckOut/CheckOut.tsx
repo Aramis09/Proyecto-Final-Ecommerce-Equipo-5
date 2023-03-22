@@ -19,11 +19,12 @@ export const CheckOut = () => {
   const { user, isAuthenticated, loginWithPopup, logout }: any = useAuth0();
   const [control, setControl] = useState(-1);
   const [saveInLocalStorage, setSaveInLocalStorage] = useState(false);
-  const [friendMail, setFriendMail] = useState<string | null>(localStorage.getItem('friendMail'));
+  const [friendMail, setFriendMail] = useState<string | null>('');
   const [init_pointButton, setInit_PointButton] = useState(false)
 
   const handleChildVariable = (friendMail: string | null) => {
     setFriendMail(friendMail);
+    console.log("friendMail",friendMail)
   };
 
   if (typeof user !== 'undefined') {

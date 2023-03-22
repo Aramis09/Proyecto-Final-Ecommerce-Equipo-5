@@ -40,7 +40,7 @@ const createPaymentMercadoPago = async (items, client, discount) => {
         },
         auto_return: "approved", // si la compra es exitosa automaticamente redirige a "success" de back_urls
         binary_mode: true, //esto permite que el resultado de la compra sea solo 'failure' o solo 'success'
-        notification_url: "https://e0ea-186-130-79-255.sa.ngrok.io/payment/responseMP?source_news=webhooks",
+        notification_url: "https://9fb5-2800-810-80f-4a8-79b1-5089-b1a7-a3c2.sa.ngrok.io/payment/responseMP?source_news=webhooks",
     }
 
     //console.log('si esto esta undefined, es porque no tenes el acces token en .env: ', ACCES_TOKEN)
@@ -107,7 +107,7 @@ const notificationData = async (query)  => {
         break;
     }
 
-    //console.log("------->",merchantOrder.body);
+    console.log("------->",merchantOrder.body);
     var transactionDataObject;
     var dbItem;
     var paymentDate = new Date().toLocaleString("es-AR", {timeZone: "America/Argentina/Buenos_Aires"});
