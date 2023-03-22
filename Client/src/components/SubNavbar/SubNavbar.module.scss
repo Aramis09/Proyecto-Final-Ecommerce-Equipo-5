@@ -9,8 +9,7 @@
     .containerShow{
         background-image: linear-gradient(to bottom right, black, rgb(15, 15, 86));
         height: 5vh;
-        display: grid;
-        grid-template-columns: auto auto auto auto auto;
+        display: flex;
         justify-content: center;
         align-items: center;
         column-gap: 15%;

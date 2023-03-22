@@ -16,17 +16,23 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  padding-bottom: 50px;
 }
 
 .search-user input {
+  text-align: center;
   width: 200px;
   height: 30px;
+  margin-right: 10px;
+  border: transparent;
+  border-radius: 10px;
 }
 
 .search-user button {
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-right: 10px;
   height: 35px;
   width: 60px;
 }
