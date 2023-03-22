@@ -153,7 +153,7 @@ const getProductsByName = async nameForSeach => {
 
 const getOrderAlphabeticalList = async orderType =>{
     const productList = await getAllProducts();
-    console.log(orderType)
+    //console.log()(orderType)
     if(orderType === 'az'){
         let orderedList =  productList.sort(alphabeticalOrderAZ);
         return orderedList;
@@ -307,7 +307,7 @@ async function getDataRestProducts () {
         });
         return dataRequerida;
     } catch (error) {
-        console.log(error.message);
+        (error.message);
     }
 }
 function alphabeticalOrderAZ(a,b){

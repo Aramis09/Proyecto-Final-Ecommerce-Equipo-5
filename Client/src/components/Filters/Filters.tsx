@@ -21,7 +21,7 @@ export const Filters = (flags:any) => {
   let selectedFilterPriceRangeData = useAppSelector((state) => state.productReducer.selectedFilterPriceRangeData)
   let selectedAlphabeticOrderData = useAppSelector((state) => state.productReducer.selectedAlphabeticOrderData)
 
-	console.log("soy el filter","filter")
+	//console.log()("soy el filter","filter")
 
   useEffect(() => {
     function handleResize() {

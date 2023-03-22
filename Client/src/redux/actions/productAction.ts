@@ -11,12 +11,10 @@ export const getAllProducts = () => async (dispatch:any) => {
         dispatch(listProducts(arrayProducts))
     } catch (error) {
         dispatch(errorMsg("Ocurrio un error...intentelo mas tarde"))
-        console.log("Exception - getAllProducts: " + error);
     }
 }
 
 export const getProductsByFilters =  (filters: {},pageNumber:number) => async (dispatch: any) => {
-    console.log("me ejecute al principio",pageNumber)
     let listProducts: object[];
     try{
         listProducts = (await axios.post(`${LIST_PRODUCTS_BY_FILTERS}?pageNumber=${pageNumber}`, filters)).data;
@@ -24,7 +22,6 @@ export const getProductsByFilters =  (filters: {},pageNumber:number) => async (d
         dispatch(productsByFilters(listProducts));
     }catch(error){
         dispatch(errorMsg("Ocurrio un error...intentelo mas tarde"));
-        console.log("Exception - getProductsByFilters: " + error);
     }
 }
 
@@ -36,7 +33,6 @@ export const getProductByID =  (id: number) => async (dispatch: any) => {
         dispatch(productByID(product));
     }catch(error){
         dispatch(errorMsg("Ocurrio un error...intentelo mas tarde"));
-        console.log("Exception - getProdByID: " + error);
     }
 }
 
@@ -71,7 +67,7 @@ export const getTopRatedProducts =  () => async (dispatch: any) => {
         dispatch(saveTopRatedProducts(maxList.slice(3, 9)));
     }catch(error){
         dispatch(errorMsg("Ocurrio un error...intentelo mas tarde"));
-        console.log("Exception - listProducts: " + error);
+        //console.log()("Exception - listProducts: " + error);
     }
 }
 
@@ -103,7 +99,6 @@ export const setGlobalDiscount = () => async (dispatch:any) => {
         }
     } catch (error) {
         dispatch(errorMsg("Ocurrio un error...intentelo mas tarde"));
-        console.log("Exception - setGlobalDiscount: " + error);
     }
 }
 

@@ -5,8 +5,8 @@ const addNewUser = async (req,res) => {
         const { email, name, image } = req.query;
         if(!email) throw new Error('please send me a user email.');
         const addedUser = await addUser(email, name, image);
-        console.log(addedUser)
-        console.log(email)
+        //console.log()(addedUser)
+        //console.log()(email)
         return res.status(200).json(addedUser);
         // return res.status(200).json('addedUser');
 
@@ -105,7 +105,7 @@ const responseRequestNewFriend = async (req,res) => {
     try {
         const { email,emailFriend,response } = req.query;
         if(!email || !emailFriend || !response) throw new Error('send me all data please');
-        console.log(email,emailFriend,response)
+        //console.log()(email,emailFriend,response)
         if(response === 'accept'){
             const result = await acceptFriend(email,emailFriend);
             if(result.error) throw new Error(result.error);
@@ -181,7 +181,7 @@ const wishesList = async (req,res) => {
 const addComment = async (req,res) => {
     try {
         const { email,comment,productId, date, image, stars } = req.body;
-        console.log('estoy en userhanlders/addCommet y recibo por body las STARS', stars)
+        //console.log()('estoy en userhanlders/addCommet y recibo por body las STARS', stars)
         if(!email || !comment || !productId ) throw new Error('email or comment or productId is missing. Send data correctly please...');
         const newComment = await addNewComment(email,comment,productId, date ,image, stars);
         return res.status(200).json(newComment);

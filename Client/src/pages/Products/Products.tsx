@@ -67,7 +67,7 @@ export const Products = () => {
           (searchedData.length && searchedData.length>0)
           ?
           searchedData.map((item: any, index: number) => {
-            console.log(item)
+            //console.log()(item)
             return (
             <div key={index} className={styles.productList}>
               {/* <Link to={`/${item.id}`}> */}

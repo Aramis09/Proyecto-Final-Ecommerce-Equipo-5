@@ -55,7 +55,7 @@ const productsListByCategory = async (req,res)=>{
     const { name, filters, order }= req.body;
     try {
         let products = await getProductsByCategory(name, filters, order,pageNumber);
-        //console.log('back', products)
+        ////console.log()('back', products)
         res.status(200).json(products);
     } catch (error) {
         res.status(400).json({error:error.message});
