@@ -14,7 +14,7 @@ export const ConfirFriends = () => {
 
   useEffect(() => {
 		dispatch(confFriend(user?.email));
-	}, [user?.email]);
+	}, [user?.email, friendsConfirmed]);
 
   const handleResponse = (ev: React.MouseEvent<HTMLButtonElement>) => {
       dispatch(
