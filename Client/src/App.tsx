@@ -49,6 +49,7 @@ function App() {
   const admin = listUsersData.find((item) => item.email === userEmail);
   
   useEffect(() => {
+    // console.log("no pos si soy")
     dispatch(getTopRatedProducts());
 
     dispatch(getListUsers()); // este falla no se porque, rompe cosas
@@ -64,12 +65,16 @@ function App() {
       dispatch(setGlobalDiscount());
       dispatch(setAutoGlobalDiscount(true));
     }
+    // console.log("no pos si soy2")
+
   }, [discountGloballyApplied]);
 
   useEffect(() => {
     if (user !== undefined) {
       dispatch(saveNewUser(user.email, user.name, user.picture));
     }
+    // console.log("no pos si so3")
+
   }, [user]);
 
   return (

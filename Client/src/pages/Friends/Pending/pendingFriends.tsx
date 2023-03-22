@@ -60,7 +60,7 @@ export const PendingFr = (props:any) => {
 			return (
 				<div className={styles.noFrien}>
 					<span className={styles.msg}>
-						You don't have any friend requests
+						
 					</span>
 				</div>
 			);
