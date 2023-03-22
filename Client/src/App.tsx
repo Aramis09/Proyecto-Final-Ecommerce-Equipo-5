@@ -5,6 +5,7 @@ import { Detail } from "./components/Detail/Detail";
 import { CheckOut } from "./pages/CheckOut/CheckOut";
 import { Transaccion } from "./pages/mercadoPagoTesting/mpLink";
 import { DiscountManager } from "./components/discountManager/DiscountManager";
+import { PaymentFailed } from "./pages/paymentFailed/PaymentFailed";
 import { useEffect } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useAppDispatch, useAppSelector } from "./redux/hooks/hooks";
@@ -88,6 +89,7 @@ function App() {
           <Route path="/checkout" element={<CheckOut />} />
           <Route path="/mptest" element={<Transaccion />} />
           <Route path="/friends" element={<Friends />} />
+          <Route path="/failure" element={<PaymentFailed />} />
           <Route path="/wish" element={<WishList />} />
           <Route path="/library" element={<Library />} />
           <Route path="/phone" element={<NavbarPhone />} />
