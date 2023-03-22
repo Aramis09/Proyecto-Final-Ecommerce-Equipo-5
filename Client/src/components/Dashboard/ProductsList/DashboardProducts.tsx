@@ -212,10 +212,11 @@ export const DashboardProducts = () => {
                         );
                       }}
                     >
-                      <img
-                        src={sendIcon}
-                        alt=""
-                      />{" "}
+                    <img
+                      src={sendIcon}
+                      className={styles["send-changes"]}
+                      alt=""
+                    />
                     </button>
                   </div>
                 </div>
@@ -251,6 +252,7 @@ export const DashboardProducts = () => {
                     onClick={() => setShowModal(true)}
                   />
                   <button
+                  className={styles["send-changes"]}
                     onClick={() => {
                       handlerProductChange(
                         name,
