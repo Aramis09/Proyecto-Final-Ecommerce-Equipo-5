@@ -11,18 +11,17 @@ export const DashboardSales = () => {
     (state) => state.userReducer.listUsersData
   );
   const [searchUser, setSearchUser] = useState<string>("");
-  const [listSales , setListSales] = useState([]);
+  const [listSales, setListSales] = useState([]);
   const [filteredSales, setFilteredSales] = useState(listSales);
-
 
   useEffect(() => {
     dispatch(getListUsers());
-    if(!listSales.length){
-      getPurchaseList().then((list:any) => {
+    if (!listSales.length) {
+      getPurchaseList().then((list: any) => {
         setFilteredSales(list);
         setListSales(list);
       });
-    };
+    }
   }, [dispatch]);
 
   const handlerSearch = () => {
@@ -30,14 +29,14 @@ export const DashboardSales = () => {
       user.email.toLowerCase().includes(searchUser.toLowerCase())
     );
     if (searchedUser) {
-      const filtered = listSales.filter((sale:any) => sale.UserEmail === searchedUser.email);
-      console.log("--------> soy el completado",searchedUser.email);  
+      const filtered = listSales.filter(
+        (sale: any) => sale.UserEmail === searchedUser.email
+      );
       setFilteredSales(filtered);
-    } 
-    else {
-        setFilteredSales([]);
-    };
-};
+    } else {
+      setFilteredSales([]);
+    }
+  };
 
   const handleClear = () => {
     setSearchUser("");
@@ -46,6 +45,9 @@ export const DashboardSales = () => {
 
   return (
     <>
+      <div className={styles.nav}>
+        <DashboardNav />
+      </div>{" "}
       <input
         type="text"
         value={searchUser}
@@ -55,7 +57,6 @@ export const DashboardSales = () => {
       />
       <button onClick={handlerSearch}>search</button>
       <button onClick={handleClear}>clean</button>
-      <DashboardNav />
       <section className={styles["sales-container"]}>
         <h3>Sales</h3>
         <div className={styles["sales-info"]}>
@@ -64,14 +65,16 @@ export const DashboardSales = () => {
           <p>price</p>
           <p>email</p>
         </div>
-        {filteredSales.map(({ id, Product, UserEmail, priceUnitNet }, index) => (
-          <div className={styles["sales-items"]} key={id + "-" + index}>
-            <p>{id}</p>
-            <p>{Product.name}</p>
-            <p>{priceUnitNet}</p>
-            <p>{UserEmail}</p>
-          </div>
-        ))}
+        {filteredSales.map(
+          ({ id, Product, UserEmail, priceUnitNet }, index) => (
+            <div className={styles["sales-items"]} key={id + "-" + index}>
+              <p>{id}</p>
+              <p>{Product.name}</p>
+              <p>{priceUnitNet}</p>
+              <p>{UserEmail}</p>
+            </div>
+          )
+        )}
       </section>
     </>
   );
