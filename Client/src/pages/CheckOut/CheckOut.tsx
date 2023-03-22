@@ -20,7 +20,7 @@ export const CheckOut = () => {
   const [control, setControl] = useState(-1);
   const [saveInLocalStorage, setSaveInLocalStorage] = useState(false);
   const [friendMail, setFriendMail] = useState<string | null>('');
-  const [init_pointButton, setInit_PointButton] = useState(false)
+  const [init_pointButton, setInit_PointButton] = useState< boolean | string>(false)
 
   const handleChildVariable = (friendMail: string | null) => {
     setFriendMail(friendMail);
