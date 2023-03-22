@@ -1,4 +1,38 @@
+@media (min-width:320px) and (max-width:960px) {
+.conatiner{
+    align-self: center;
+    padding: 5%;
+    background-color: black;
+    border-radius: 0.5rem;
+    margin-bottom: 5%;
+}
 
+.conatiner img{
+  width: 90%;
+    border-radius: 0.5rem;
+    align-self: center;
+}
+.iconCross{
+    display: none;
+}
+.iconCrossPhone{
+    margin-top: 10%;
+    width: 90%;
+    background-color: whitesmoke;
+}
+.iconCrossPhone img{
+    
+    width: 10%;
+}
+
+
+}
+
+
+@media (min-width:961px){
+    .iconCrossPhone{
+        display: none;
+    }
 .conatiner{
     width: 100%;
     display: flex;
@@ -45,4 +79,5 @@
 .iconCross:hover{
     transition: 1s;
     filter: invert(16%) sepia(91%) saturate(3003%) hue-rotate(279deg) brightness(90%) contrast(98%);
+}
 }

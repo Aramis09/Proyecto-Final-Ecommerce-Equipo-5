@@ -1,11 +1,12 @@
 @media (min-width:320px) and (max-width:960px){
   .productList{
     margin-top: 30%;
+    overflow-y: scroll;
   }
   .iconCarrito{
-    position: absolute;
-    top: 19%;
-    right: 5%;
+    position: fixed;
+    top: 100px;
+    right: 9px;
     width: 45px;
     filter: invert(1);
   }

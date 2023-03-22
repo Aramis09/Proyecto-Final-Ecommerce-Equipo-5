@@ -4,8 +4,11 @@ import { useAppDispatch, useAppSelector } from "../../../redux/hooks/hooks";
 import { getListUsers } from "../../../redux/actions/userAction";
 import { getAllProducts } from "../../../redux/actions/productAction";
 import { useAuth0 } from "@auth0/auth0-react";
-import axios from "axios";
 import { EDIT_PRODUCT } from "../../../utils/constants";
+import axios from "axios";
+import iconSearch from "../../../assets/search.svg";
+import trashIcon from "../../../assets/trash-x-filled.svg";
+import editIcon from "../../../assets/edit.svg";
 import styles from "./DashboardProducts.module.css";
 
 export const DashboardProducts = () => {
@@ -14,6 +17,7 @@ export const DashboardProducts = () => {
   const [newProductName, setNewProductName] = useState("");
   const [newProductRating, setNewProductRating] = useState("");
   const [newProductGenre, setNewProductGenre] = useState("");
+  const [newProductDescription, setNewProductDescription] = useState("");
   const [newProductPrice, setNewProductPrice] = useState("");
   const [searchProducts, setSearchProducts] = useState("");
   const [newSearch, setNewSearch] = useState([]);
@@ -61,6 +65,12 @@ export const DashboardProducts = () => {
     setNewProductPrice(event.target.value);
   };
 
+  const handleProductDescriptionChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setNewProductDescription(event.target.value);
+  };
+
   const handlerProductChange = async (
     name: string,
     rating: string,
@@ -87,7 +97,7 @@ export const DashboardProducts = () => {
       rating: newProductRating,
       playtime,
       price: newProductPrice,
-      description,
+      description: newProductDescription,
       released,
       state: newProductState,
       genres: newProductGenre,
@@ -100,7 +110,7 @@ export const DashboardProducts = () => {
       url: EDIT_PRODUCT,
       productsData,
     };
-    await axios.post(config.url,  config.productsData);
+    await axios.post(config.url, config.productsData);
   };
 
   const handlerSearch = () => {
@@ -114,7 +124,6 @@ export const DashboardProducts = () => {
     setNewSearch([]);
   };
 
-
   return (
     <>
       <DashboardNav />
@@ -125,15 +134,8 @@ export const DashboardProducts = () => {
             : styles["product-container"]
         }
       >
+        <h3>Products</h3>
         <div className={styles["head-products"]}>
-          <h3>Products</h3>
-          <button
-            onClick={() => {
-              setShowModal(true);
-            }}
-          >
-            modify
-          </button>
           <input
             type="text"
             value={searchProducts}
@@ -141,8 +143,12 @@ export const DashboardProducts = () => {
               setSearchProducts(event.target.value)
             }
           />
-          <button onClick={() => handlerSearch()}>search</button>
-          <button onClick={handleClear}>clean</button>{" "}
+          <button onClick={() => handlerSearch()}>
+            <img src={iconSearch} />
+          </button>
+          <button onClick={handleClear}>
+            <img src={trashIcon} />
+          </button>{" "}
         </div>
         <div className={styles["product-info"]}>
           <p>id</p>
@@ -151,101 +157,113 @@ export const DashboardProducts = () => {
           <p>price</p>
           <p>state</p>
         </div>
-        {newSearch.length === 0? (listProducts.map(
-          (
-            {
-              name,
-              rating,
-              id,
-              price,
-              state,
-              images,
-              genres,
-              background_image,
-              description,
-              platforms,
-              playtime,
-              stores,
-              released,
-            },
-            index
-          ) => (
-            <div className={styles["product-item"]} key={index}>
-              <p>{id}</p>
-              <p>{name}</p>
-              <p>{rating}</p>
-              <p>{price}</p>
-              <button
-                onClick={() => {
-                  handlerProductChange(
-                    name,
-                    rating,
-                    id,
-                    price,
-                    state,
-                    images,
-                    genres,
-                    background_image,
-                    description,
-                    platforms,
-                    playtime,
-                    stores,
-                    released
-                  );
-                }}
-              >
-                make Changes
-              </button>
-            </div>
-          )
-        )): (newSearch.map(
-          (
-            {
-              name,
-              rating,
-              id,
-              price,
-              state,
-              images,
-              genres,
-              background_image,
-              description,
-              platforms,
-              playtime,
-              stores,
-              released,
-            },
-            index
-          ) => (
-            <div className={styles["product-item"]} key={index}>
-              <p>{id}</p>
-              <p>{name}</p>
-              <p>{rating}</p>
-              <p>{price}</p>
-              <button
-                onClick={() => {
-                  handlerProductChange(
-                    name,
-                    rating,
-                    id,
-                    price,
-                    state,
-                    images,
-                    genres,
-                    background_image,
-                    description,
-                    platforms,
-                    playtime,
-                    stores,
-                    released
-                  );
-                }}
-              >
-                make Changes
-              </button>
-            </div>
-          )
-        ))}
+        {newSearch.length === 0
+          ? listProducts.map(
+              (
+                {
+                  name,
+                  rating,
+                  id,
+                  price,
+                  state,
+                  images,
+                  genres,
+                  background_image,
+                  description,
+                  platforms,
+                  playtime,
+                  stores,
+                  released,
+                },
+                index
+              ) => (
+                <div className={styles["product-item"]} key={index}>
+                  <p>{id}</p>
+                  <p>{name}</p>
+                  <p>{rating}</p>
+                  <p>{price}</p>
+                  <img
+                    className={styles["edit-button"]}
+                    src={editIcon}
+                    onClick={() => setShowModal(true)}
+                  />
+                  <button
+                    onClick={() => {
+                      handlerProductChange(
+                        name,
+                        rating,
+                        id,
+                        price,
+                        state,
+                        images,
+                        genres,
+                        background_image,
+                        description,
+                        platforms,
+                        playtime,
+                        stores,
+                        released
+                      );
+                    }}
+                  >
+                    make Changes
+                  </button>
+                </div>
+              )
+            )
+          : newSearch.map(
+              (
+                {
+                  name,
+                  rating,
+                  id,
+                  price,
+                  state,
+                  images,
+                  genres,
+                  background_image,
+                  description,
+                  platforms,
+                  playtime,
+                  stores,
+                  released,
+                },
+                index
+              ) => (
+                <div className={styles["product-item"]} key={index}>
+                  <p>{id}</p>
+                  <p>{name}</p>
+                  <p>{rating}</p>
+                  <p>{price}</p>
+                  <img
+                    className={styles["edit-button"]}
+                    src={editIcon}
+                    onClick={() => setShowModal(true)}
+                  />
+                  <button
+                    onClick={() => {
+                      handlerProductChange(
+                        name,
+                        rating,
+                        id,
+                        price,
+                        state,
+                        images,
+                        genres,
+                        background_image,
+                        description,
+                        platforms,
+                        playtime,
+                        stores,
+                        released
+                      );
+                    }}
+                  >
+                    make Changes
+                  </button>
+                </div>
+              )
+            )}
       </section>
       {showModal && (
         <div className={styles.modal}>
@@ -282,6 +300,8 @@ export const DashboardProducts = () => {
             type="text"
             id="productDescription"
             name="productDescription"
+            value={newProductDescription}
+            onChange={handleProductDescriptionChange}
           />
           <label htmlFor="productGenres">Genres: </label>
           <input
