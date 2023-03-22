@@ -24,6 +24,9 @@ const dispatch = useAppDispatch();
                     <p className={styles.released}>{released}</p>
                 </div>
             <img src={icon_cross} alt="" className={styles.iconCross} onClick={()=>deleteProductOfWishList()}/>
+            <button className={styles.iconCrossPhone}>
+                <img src={icon_cross} alt="" onClick={()=>deleteProductOfWishList()}/>
+            </button>
         </div>
     );
 };

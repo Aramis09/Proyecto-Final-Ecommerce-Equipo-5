@@ -3,6 +3,7 @@
     justify-content: center;
     align-items: center;
     width: 100%;
+    height: 10vh;
     top:0px;
     left: 0px;
 }
@@ -17,8 +18,9 @@
 .iconMenu{
     position: fixed;
     width: 15%;
-    top: 18%;
-    left: 3%;
+    top: 92px;
+    left:3px;
+    z-index: 50;
     filter: invert(1);
 }
 .iconCompany{

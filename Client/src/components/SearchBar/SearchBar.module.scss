@@ -26,6 +26,7 @@
         width: 100%;
         border-radius: 10rem;
         background-color: #000000;
+        text-align: center;
     }
     .Input::placeholder{
         text-align: center;
@@ -49,6 +50,7 @@
         border-radius: 20px;
         width: 150%;
         background-color: rgba($color: black, $alpha: 0.5);
+        text-align: center;
     }
     .Input:hover{
         background-image: linear-gradient(to bottom right, black, rgb(15, 15, 86));

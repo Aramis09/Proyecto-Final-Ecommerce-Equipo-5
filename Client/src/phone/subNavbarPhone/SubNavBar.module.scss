@@ -6,29 +6,31 @@
     align-items: center;
     overflow-x: scroll;
     transform: translate(-100%);
+    height: 100vh;
     transition: 1s;
     filter: blur(50px);
 }
 .containerShow{
-    margin-top: 25%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: start;
     align-items: center;
     overflow-x: scroll;
-    transform: translate(-100%);
     transform: translate(0%);
-    background-color: black;
-    
+    backdrop-filter: blur(10px);
     border-radius: 0.2rem;
-    height: 50vh;
+    height: 100vh;
     transition: 1s;
 }
 
 .buttons{
+    background-color: rgba($color: #fafafa, $alpha: 0.9);
+    border-radius: 0.5rem;
+    padding: 20px;
+    width: 120px;
     z-index: 120;
     margin: 10%;
     margin-bottom: 5px;
     font-size: large;
-    color: whitesmoke;
+    color: black;
 }
