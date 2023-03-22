@@ -36,6 +36,7 @@ export const Products = () => {
           (searchedData.length && searchedData.length>0)
           ?
           searchedData.map((item: any, index: number) => {
+            console.log(item)
             return (
             <div key={index} className={styles.productList}>
               {/* <Link to={`/${item.id}`}> */}
@@ -46,6 +47,7 @@ export const Products = () => {
                   background_image={item.background_image}
                   price={item.price}
                   genres={item.genres}
+                  state={item.state}
                 />
               {/* </Link> */}
               
