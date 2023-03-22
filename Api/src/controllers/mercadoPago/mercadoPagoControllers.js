@@ -13,12 +13,8 @@ const createPaymentMercadoPago = async (items, client, discount) => {
     let clientFullName = selectNameSurname(client);
     clientName = clientFullName.clientName;
     clientSurname = clientFullName.clientSurname;
-    //console.log('client name surname', clientName, clientSurname)
-    //console.log(client.email)
     if(discount.genre !== 'No_Discount'){
         items = applyDiscount(items, discount)
-        //applyDiscount(items, discount)
-        //console.log('after disc: ', items)
     }
     items = reshapeProductInItems(items, client.email);
     const preference = {
@@ -39,16 +35,12 @@ const createPaymentMercadoPago = async (items, client, discount) => {
         },
         back_urls: {
             success: "http://localhost:3000/",
-            pending: "http://127.0.0.1:3000/",
-            failure: "http://127.0.0.1:3000/",
+            pending: "http://127.0.0.1:3000/failure",
+            failure: "http://127.0.0.1:3000/failure",
         },
         auto_return: "approved", // si la compra es exitosa automaticamente redirige a "success" de back_urls
         binary_mode: true, //esto permite que el resultado de la compra sea solo 'failure' o solo 'success'
         notification_url: "https://e0ea-186-130-79-255.sa.ngrok.io/payment/responseMP?source_news=webhooks",
-
-        //esta variable de notificacion se tiene que cambiar depende si es para recibir por deploy o por la herramienta "ngrok",
-        //la cual CADA vez que se levanta para recibir notificaciones con el repo, cambia de url, asi que OJO!
-        ///payment/responseMP?source_news=webhooks
     }
 
     //console.log('si esto esta undefined, es porque no tenes el acces token en .env: ', ACCES_TOKEN)
@@ -122,6 +114,7 @@ const notificationData = async (query)  => {
     if(merchantOrder.body.order_status === 'paid'){ //if(merchantOrder.body.order_status === 'paid'){
         var userMailFromDescription = merchantOrder.body.items[0].description;
         merchantOrder.body.items.forEach( async (productData, index) => {
+            //console.log("------->",productData.unit_price, typeof productData.unit_price);
             dbItem = await Product.findByPk(merchantOrder.body.items[index].id);
             var calculatedDiscount = 100 - ((merchantOrder.body.items[index].unit_price * 100) / parseFloat(dbItem.price));
             calculatedDiscount = calculatedDiscount.toFixed(2);
@@ -140,39 +133,14 @@ const notificationData = async (query)  => {
             await axios.post(`http://localhost:3001/purchase/create`, {transactionDataObject})
         })
         await axios.get(`http://localhost:3001/user/removeProductInShoppingCart?email=${userMailFromDescription}&idProduct=${'all'}`)
-        mailProductsToBuyer(userMailFromDescription, merchantOrder.body.items);
+        //mailProductsToBuyer(userMailFromDescription, merchantOrder.body.items);
         
     } else { //else if (merchantOrder.body.order_status ===''){
-        console.log('estado de la orden: ', merchantOrder.body.order_status)
-        /*
-        var userMailFromDescription = merchantOrder.body.items[0].description;
-        merchantOrder.body.items.forEach( async (productData, index) => {
-            dbItem = await Product.findByPk(merchantOrder.body.items[index].id);
-            var calculatedDiscount = 100 - ((merchantOrder.body.items[index].unit_price * 100) / parseFloat(dbItem.price));
-            calculatedDiscount = calculatedDiscount.toFixed(2);
-            transactionDataObject = {
-                dateTransaction: paymentDate,
-                priceUnit: parseFloat(dbItem.price), //esto debe venir de un llamado a la db
-                specialDiscount: 0.1,//calculatedDiscount,
-                priceUnitNet: productData.unit_price,
-                serialOfGame: 'asnsdghnakjsdkjasdnkfdf', //lo inventamos con un hash?
-                numberPayment: merchantOrder.body.payments[0].id,
-                giftGame: false, // que se va a hacer con esto???
-                userEmailGift: '',
-                ProductId: productData.id,
-                UserEmail: userMailFromDescription,
-            };
-            await axios.post(`http://localhost:3001/purchase/create`, {transactionDataObject})
-        })
-        await axios.get(`http://localhost:3001/user/removeProductInShoppingCart?email=${userMailFromDescription}&idProduct=${'all'}`)
-        mailProductsToBuyer(userMailFromDescription, merchantOrder.body.items);
-
-
-        */
+        console.log('estado de la orden: ', merchantOrder.body.order_status);
+        console.log("------->",merchantOrder.body);
     }
 }
     
-
 
 
 const selectNameSurname = (client) => {
@@ -238,7 +206,7 @@ const applyDiscount = (items, discount) => {
     let itemsChecked = items.map(product => {
         var productGenres = product.Genres.map(item => item.name)
         if(productGenres.includes(discount.genre)){
-            var disc_price = (parseFloat(product.price) * (1-discount.discount));
+            var disc_price = (((100 - discount.discount) * parseFloat(product.price)) / 100);
             disc_price = disc_price.toFixed(2);
             product = {
                 id: product.id,
