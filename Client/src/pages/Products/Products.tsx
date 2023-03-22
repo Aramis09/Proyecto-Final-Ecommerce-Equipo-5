@@ -6,7 +6,7 @@ import { getListGenres } from "../../redux/actions/genresAction";
 import { eraseSearchedData } from "../../redux/reducer/productReducer";
 import { Card } from "../../components/Card/Card";
 import styles from "./Products.module.scss";
-import iconShoppingCart from "../../assets/carrito.png";
+import iconFilters from "./images/filter.png";
 import { Link } from "react-router-dom";
 import NavbarPhone from "../../phone/navBarPhone/navBarPhone";
 
@@ -28,7 +28,7 @@ export const Products = () => {
       {window.innerWidth > 959 ?<NavBar /> : <NavbarPhone/>}
 
       <div className={styles["page-container"]}>
-      <img className={styles.iconCarrito} src={iconShoppingCart} alt="soppingCart" onClick={()=> setChangeClass(!changeClass)}/>
+      <img className={styles.iconCarrito} src={iconFilters} alt="soppingCart" onClick={()=> setChangeClass(!changeClass)}/>
       <Filters 
       flag = {changeClass}
       /> 
