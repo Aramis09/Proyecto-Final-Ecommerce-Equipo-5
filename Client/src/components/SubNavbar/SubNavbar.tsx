@@ -17,9 +17,12 @@ const SubNavbar = (state:any) => {
         (()=>{
             state.show ? setChangeClass({class:styles.containerShow}) : setChangeClass({class:styles.containerHide})
         })();
-        dispatch(getListUsers());
     },[state]);
 
+    useEffect(() => {
+        dispatch(getListUsers());
+    }, [])
+    
     const admin = listUsersData.find((item) => item.email === userEmail);
 
     return (
