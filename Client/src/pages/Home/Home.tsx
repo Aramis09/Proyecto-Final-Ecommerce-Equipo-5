@@ -39,7 +39,7 @@ export const Home = () => {
       <h2 className={styles.title}>TOP GAMES</h2>
       <Product />
       <Link to={'/products'}>
-        <button className={styles['More-products-btn']} value='0' onClick={toTheSearchList}>More</button>
+        <button className={styles['More-products-btn']} value='0' onClick={toTheSearchList}>All Games...</button>
       </Link>
       <Footer />
     </div>

@@ -29,7 +29,7 @@ const editProduct = async (req, res) => {
       id,
       name,
       images,
-      genres: genres.split(','),
+      genres: genres && genres.split(','),
       background_image,
       rating,
       playtime,

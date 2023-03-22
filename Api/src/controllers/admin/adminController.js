@@ -54,6 +54,7 @@ const changePropertyProducts = async (propertys) => {
     genres,
     images,
   } = propertys;
+  console.log(propertys)
   const productByModify = await Product.findByPk(id);
   if (name) {
     productByModify.name = name;
@@ -83,14 +84,13 @@ const changePropertyProducts = async (propertys) => {
     productByModify.released = released;
     await productByModify.save();
   }
-  if (state) {
+  if (state === false || state === true) {
     productByModify.state = state;
     await productByModify.save();
   }
   if (genres) await associationGenresWithProduct(productByModify, genres);
   return productByModify;
 };
-
 const associationGenresWithProduct = async (productByModify, genres) => {
   await productByModify.setGenres([]);
   const genresArrayModify = genres.map((nameGenre) => {

@@ -12,7 +12,10 @@ import { ADDED_TO_CART, ALREADY_IN_THE_CART } from "../../utils/constants";
 import { useAuth0 } from "@auth0/auth0-react";
 
 import { style } from "@mui/system";
-import { addProductToWishList, checkIfProductWasPurchased } from "../../Controller/cardController";
+import {
+  addProductToWishList,
+  checkIfProductWasPurchased,
+} from "../../Controller/cardController";
 import { setwishList } from "../../redux/reducer/wishReducer";
 
 export const Card = ({
@@ -20,9 +23,11 @@ export const Card = ({
   name,
   background_image,
   price,
-  genres
+  genres,
+  state,
 }: any) => {
-  const { user }: any = useAuth0();
+
+  const { user , isAuthenticated }: any = useAuth0();
   const [changeClass,setChangeClass] = useState({classButton:styles.buttonAdd,classCard:styles.cardContainer});
   const [successMsg, setSuccessMsg] = useState("");
   const [control, setControl] = useState(-1);
@@ -35,11 +40,12 @@ export const Card = ({
   var todaysDiscount = useAppSelector((state) => state.productReducer.todaysDiscount);
 
   useEffect(() => {
-    if(saveInLocalStorage === true){
-      dispatch(saveShoppingCartInLocalStorage(listProductsShoppingCart, totalAmount));
+    if (saveInLocalStorage === true) {
+      dispatch(
+        saveShoppingCartInLocalStorage(listProductsShoppingCart, totalAmount)
+      );
     }
     //esto verifica si el producto esta comprado, para cambiar el boton
-
   },[control,user]);
 
   useEffect(()=>{
@@ -58,10 +64,9 @@ export const Card = ({
       setDiscountApplied(prev => prev = true)
       setDiscountPrice(finalPrice);
     }
-  }, [price])
+  }, [price]);
 
   if (typeof user !== "undefined") {
-
     var listProductsShoppingCart: object[] = useAppSelector(
       (state) => state.shoppingCartReducer.listProductsShoppingCartUser
     );
@@ -69,11 +74,8 @@ export const Card = ({
     var listProductsShoppingCart: object[] = useAppSelector(
       (state) => state.shoppingCartReducer.listProductsShoppingCartGuest
     );
-    var totalAmount:number =totalPrice ;
+    var totalAmount: number = totalPrice;
   }
-
-
-
 
   const addingToShoppingCart = (e: any) => {
     const game: object = {
@@ -81,14 +83,16 @@ export const Card = ({
       name,
       background_image,
       price,
-      genres
+      genres,
     };
     const item = listProductsShoppingCart.find(
       (item: any) => item.id == parseInt(id)
     );
 
-    if (!item) {//Si no esta el Producto en el carrito y
-      if (user) {//si existe un usuario lo agrega al Carrito del USUARIO
+    if (!item) {
+      //Si no esta el Producto en el carrito y
+      if (user) {
+        //si existe un usuario lo agrega al Carrito del USUARIO
         dispatch(addNewProductInShoppingCart(id, user.email));
       } else {
         dispatch(addShoppingCart(game));
@@ -107,43 +111,65 @@ export const Card = ({
     }
   };
 
-
-  
   const addingToWishList = async () => {
-    const newWishList = await addProductToWishList(user.email,id);
+    const newWishList = await addProductToWishList(user.email, id);
     dispatch(setwishList(newWishList));
   };
 
   return (
-		<>
-			<div className={changeClass.classCard}>
-				<div className={styles.card}>
-					<Link to={`/${id}`}>
-						<img src={background_image} alt={name} />
-					</Link>
-					<div className={styles.containerTittleAndPrice}>
-						<h3>{name}</h3>
-						{
-
-              discountApplied?
+    <>
+      <div className={changeClass.classCard}>
+        <div className={styles.card}>
+          {state ? (
+            <Link to={`/${id}`}>
+              <img src={background_image} alt={name} />
+            </Link>
+          ) : (
+            <>
+              <Link to={"/products"}>
+                <img src={background_image} alt={name} />
+              </Link>
+            </>
+          )}
+          <div className={styles.containerTittleAndPrice}>
+            <h3>{name}</h3>
+            {discountApplied ? (
               <div>
                 <del>{`${price}`}</del>
                 <p>ON SALE: {`${discountPrice}`}</p>
               </div>
-              :
+            ) : price === "free" ? (
+              <p>{`${price}`}</p>
+            ) : (
               <p>{`$${price}`}</p>
-              
-            }
-					</div>
-					<div className={styles.addShoppingCart}>
-          <div className={styles.containerButton}>
-          <button className={changeClass.classButton}  type='button' onClick={addingToShoppingCart}>Add To Cart</button>
-          <button className={changeClass.classButton} onClick={addingToWishList}>Add Favourite</button>
+            )}
           </div>
-						<p className={styles.msg}>{successMsg}</p>
-					</div>
-				</div>
-			</div>
-		</>
-	);
+          <div className={styles.addShoppingCart}>
+            <div className={styles.containerButton}>
+              {state ? (
+                <>
+                  <button
+                    className={changeClass.classButton}
+                    type="button"
+                    onClick={addingToShoppingCart}
+                  >
+                    Add To Cart
+                  </button>
+                  <button
+                    className={changeClass.classButton}
+                    onClick={addingToWishList}
+                  >
+                    Add Favourite
+                  </button>
+                </>
+              ) : (
+                <p>Not avivable Game</p>
+              )}
+            </div>
+            <p className={styles.msg}>{successMsg}</p>
+          </div>
+        </div>
+      </div>
+    </>
+  );
 };
