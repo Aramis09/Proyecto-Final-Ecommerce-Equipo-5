@@ -66,6 +66,17 @@
     width: 30px;
   }
 
+  .send-changes{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .send-changes img {
+    filter: invert(1);
+    width: 20px;
+  }
+
   .modal {
     position: fixed;
     top: 50%;
@@ -172,6 +183,7 @@
   .button-changes{
     display: flex;
     justify-content: center;
+    align-items: center;
   }
 
   .edit-button {
@@ -184,6 +196,17 @@
 
   .edit-button:hover {
     cursor: pointer;
+  }
+
+  .send-changes{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .send-changes img {
+    filter: invert(1);
+    width: 80px;
   }
 
   .modal {
