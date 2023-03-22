@@ -8,7 +8,7 @@ import { getListUsers } from "../../redux/actions/userAction";
 const SubNavbar = (state:any) => {
     const [changeClass,setChangeClass] = useState({class:styles.containerShow});
     const dispatch = useAppDispatch();
-    const { user } = useAuth0();
+    const { user , isAuthenticated} = useAuth0();
     const userEmail = user?.email;
     const listUsersData = useAppSelector(
         (state) => state.userReducer.listUsersData
@@ -31,7 +31,7 @@ const SubNavbar = (state:any) => {
                 <Link to = "/users" className={styles.buttons} >Admin</Link>
             )}
             <Link to = "/library" className={styles.buttons} >Library</Link>
-            <Link to = "/wish" className={styles.buttons}> Wish</Link>
+            {isAuthenticated===true && <Link to = "/wish" className={styles.buttons}> Wish</Link>}
             <Link to = "/friends" className={styles.buttons} >Friends</Link>
             <ShoppingCart/>
         </div>

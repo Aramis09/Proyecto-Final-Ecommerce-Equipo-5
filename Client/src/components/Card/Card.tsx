@@ -22,7 +22,7 @@ export const Card = ({
   price,
   genres
 }: any) => {
-  const { user }: any = useAuth0();
+  const { user , isAuthenticated }: any = useAuth0();
   const [changeClass,setChangeClass] = useState({classButton:styles.buttonAdd,classCard:styles.cardContainer});
   const [successMsg, setSuccessMsg] = useState("");
   const [control, setControl] = useState(-1);
@@ -132,7 +132,7 @@ export const Card = ({
 					<div className={styles.addShoppingCart}>
           <div className={styles.containerButton}>
           <button className={changeClass.classButton}  type='button' onClick={addingToShoppingCart}>Add To Cart</button>
-          <button className={changeClass.classButton} onClick={addingToWishList}>Add Favourite</button>
+          {isAuthenticated === true && <button className={changeClass.classButton} onClick={addingToWishList}>Add Favourite</button>}
           </div>
 						<p className={styles.msg}>{successMsg}</p>
 					</div>
