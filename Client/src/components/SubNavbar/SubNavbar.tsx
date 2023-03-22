@@ -21,7 +21,7 @@ const SubNavbar = (state:any) => {
 
     useEffect(() => {
         dispatch(getListUsers());
-    }, [])
+    }, []);
     
     const admin = listUsersData.find((item) => item.email === userEmail);
 

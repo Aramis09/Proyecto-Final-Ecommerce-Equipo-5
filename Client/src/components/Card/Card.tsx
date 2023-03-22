@@ -39,14 +39,18 @@ export const Card = ({
       dispatch(saveShoppingCartInLocalStorage(listProductsShoppingCart, totalAmount));
     }
     //esto verifica si el producto esta comprado, para cambiar el boton
+
+  },[control,user]);
+
+  useEffect(()=>{
     if(user){
       checkIfProductWasPurchased(user.email,id)
       .then(check => check?
       setChangeClass({classButton:styles.buttonHide,classCard:styles.cardContainerBuy})
       :setChangeClass({classButton:styles.buttonAdd,classCard:styles.cardContainer}));
     }
+  },[])
 
-  },[control,user]);
   useEffect(()  => {
     if(todaysDiscount.discount !== 100 && genres.includes(todaysDiscount.genre) && parseFloat(price) !==discountPrice && !discountApplied){
       let finalPrice =  (((100 - todaysDiscount.discount) * parseFloat(price)) / 100);

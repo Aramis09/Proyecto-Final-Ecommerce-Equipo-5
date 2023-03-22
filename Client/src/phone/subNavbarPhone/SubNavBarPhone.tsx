@@ -16,9 +16,11 @@ const SubNavbarPhone = (flags:any) => {
 
     useEffect(() => {
         flags.flagMenu ? setChangeClass({classContainer:styles.containerShow}):setChangeClass({classContainer:styles.containerHide})
-        dispatch(getListUsers());
     },[flags]);
     
+    useEffect(() => {
+        dispatch(getListUsers());
+    },[]);
 
     const admin = listUsersData.find((item) => item.email === userEmail);
     

@@ -6,7 +6,6 @@ export const addProductToWishList = async (email:string,id:number) => {
     console.log(email,id)
     const newWishListResponse = await axios(`${ADD_PRODUCT_TO_WISHLIST}?user=${email}&product=${id}`);
     const newWishList = await newWishListResponse.data;
-    console.log(newWishList,"------------------sisoy");
     return newWishList;
 } ;
 
