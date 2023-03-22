@@ -43,7 +43,7 @@ export const Detail = () => {
   useEffect(()  => {
     if(todaysDiscount.discount !== 100 && game.genres && game.genres.includes(todaysDiscount.genre) && parseFloat(game.price) !==discountPrice && !discountApplied){
       let finalPrice =  (((100 - todaysDiscount.discount) * parseFloat(game.price)) / 100);
-      finalPrice = finalPrice.toFixed(2);
+      finalPrice = parseFloat(finalPrice.toFixed(2));
       setDiscountApplied(prev => prev = true)
       setDiscountPrice(finalPrice);
     }
@@ -77,15 +77,15 @@ export const Detail = () => {
   
         if(typeof user !== 'undefined'){
           dispatch(addNewProductInShoppingCart(id, user.email));
-          if(discountPrice){
-            dispatch(addPriceForFinalAmountCheckout(discountPrice));
-          } else {
-            dispatch(addPriceForFinalAmountCheckout(game.price));
-          }
         } else {
           dispatch(addShoppingCart(game));
           setControl(listProductsShoppingCart.length);
           setSaveInLocalStorage(true);
+        }
+        if(discountPrice){
+          dispatch(addPriceForFinalAmountCheckout(discountPrice));
+        } else {
+          dispatch(addPriceForFinalAmountCheckout(parseFloat(game.price)));
         }
         setSuccessMsg(ADDED_TO_CART);
       }else{

@@ -30,7 +30,7 @@ export const Card = ({
   const [discountApplied, setDiscountApplied] = useState(false);
   
   const dispatch = useAppDispatch();
-  let totalPrice = useAppSelector((state) => state.shoppingCartReducer.totalAmount)
+  let totalPrice = useAppSelector((state) => state.shoppingCartReducer.finalPriceForCheckout)
   const [saveInLocalStorage, setSaveInLocalStorage] = useState(false);
   var todaysDiscount = useAppSelector((state) => state.productReducer.todaysDiscount);
 
@@ -54,7 +54,7 @@ export const Card = ({
   useEffect(()  => {
     if(todaysDiscount.discount !== 100 && genres.includes(todaysDiscount.genre) && parseFloat(price) !==discountPrice && !discountApplied){
       let finalPrice =  (((100 - todaysDiscount.discount) * parseFloat(price)) / 100);
-      finalPrice = finalPrice.toFixed(2);
+      finalPrice = parseFloat(finalPrice.toFixed(2));
       setDiscountApplied(prev => prev = true)
       setDiscountPrice(finalPrice);
     }
@@ -90,19 +90,17 @@ export const Card = ({
     if (!item) {//Si no esta el Producto en el carrito y
       if (user) {//si existe un usuario lo agrega al Carrito del USUARIO
         dispatch(addNewProductInShoppingCart(id, user.email));
-        if(discountPrice){
-          dispatch(addPriceForFinalAmountCheckout(discountPrice));
-        } else {
-          dispatch(addPriceForFinalAmountCheckout(price));
-        }
       } else {
-
         dispatch(addShoppingCart(game));
         setControl(listProductsShoppingCart.length);
         setSaveInLocalStorage(true);
-
       }
-
+      if(discountPrice){
+        console.log()
+        dispatch(addPriceForFinalAmountCheckout(discountPrice));
+      } else {
+        dispatch(addPriceForFinalAmountCheckout(parseFloat(price)));
+      }
       setSuccessMsg(ADDED_TO_CART);
     } else {
       setSuccessMsg(ALREADY_IN_THE_CART);

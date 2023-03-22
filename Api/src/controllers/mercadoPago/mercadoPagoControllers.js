@@ -122,7 +122,7 @@ const notificationData = async (query)  => {
             transactionDataObject = {
                 dateTransaction: paymentDate,
                 priceUnit: parseFloat(dbItem.price), //esto debe venir de un llamado a la db
-                specialDiscount: calculatedDiscount,//calculatedDiscount,
+                specialDiscount: parseFloat(calculatedDiscount),//calculatedDiscount,
                 priceUnitNet: productData.unit_price,
                 serialOfGame: 'asnsdghnakjsdkjasdnkfdf', //lo inventamos con un hash?
                 numberPayment: merchantOrder.body.payments[0].id,

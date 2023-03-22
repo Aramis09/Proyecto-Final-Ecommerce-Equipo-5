@@ -3,7 +3,7 @@ import styles from "./CheckOut.module.scss";
 import { useAppSelector, useAppDispatch } from "../../redux/hooks/hooks";
 import { deleteItemShoppingCart } from "../../redux/actions/shoppingCartAction";
 import { removeProductoInShoppingCar } from "../../redux/actions/shoppingCartAction";
-import { restAmountForShoppingCartUser } from "../../redux/reducer/shoppingCartReducer";
+import { restPriceForFinalAmountCheckout } from "../../redux/reducer/shoppingCartReducer";
 import { MERCADO_PAGO_LINK } from "../../utils/constants";
 import { useAuth0 } from "@auth0/auth0-react";
 import axios from "axios";
@@ -21,11 +21,11 @@ export const CheckOut = () => {
   const [saveInLocalStorage, setSaveInLocalStorage] = useState(false);
   const [friendMail, setFriendMail] = useState<string | null>('');
   const [init_pointButton, setInit_PointButton] = useState(false)
-  const [loader, setLoader] = useState(false)
+  const [loader, setLoader] = useState(false);
 
   const handleChildVariable = (friendMail: string | null) => {
     setFriendMail(friendMail);
-    console.log("friendMail",friendMail)
+    //console.log("friendMail",friendMail)
   };
 
   if (typeof user !== 'undefined') {
@@ -38,20 +38,30 @@ export const CheckOut = () => {
     );
   }
   let totalAmount: number = useAppSelector(
-    (state) => state.shoppingCartReducer.totalAmount,
+    (state) => state.shoppingCartReducer.finalPriceForCheckout
   );
   totalAmount = Math.round(totalAmount * 100) / 100;
+  //console.log('ttam', totalAmount)
   let items: any = listProductsShoppingCart;
+  let todaysDiscount = useAppSelector((state) => state.productReducer.todaysDiscount)
 
 
   const deleteItem = (e: any) => {
-    console.log('El id a enviar es: ' + e.target.value);
-    let lessPrice = items.filter(
-      (i: any) => i.id === parseInt(e.target.value),
-    )[0].price;
+    //console.log('El id a enviar es: ' + e.target.value);
+    let itemData = items.filter((i: any) => i.id === parseInt(e.target.value))[0];
+    let genresFromItem = itemData.Genres.map(item => item.name);
+    let lessPrice;
+    if(genresFromItem.includes(todaysDiscount.genre)){
+      lessPrice =  (((100 - todaysDiscount.discount) * parseFloat(itemData.price)) / 100);
+      lessPrice = parseFloat(lessPrice.toFixed(2))
+    } else {
+      lessPrice = parseFloat(itemData.price)
+    }
+    console.log(genresFromItem)
+
     if (typeof user !== 'undefined') {
       dispatch(removeProductoInShoppingCar(e.target.value, user.email));
-      dispatch(restAmountForShoppingCartUser(lessPrice));
+      dispatch(restPriceForFinalAmountCheckout(lessPrice));
     }else{
       setControl(listProductsShoppingCart.length);
       setSaveInLocalStorage(true);
@@ -67,7 +77,6 @@ export const CheckOut = () => {
   },[control]);
 
   var discount = useAppSelector((state) => state.productReducer.todaysDiscount)
-  console.log("today's d", discount)
 
   const fetchCheckout = async () => {
     setLoader(true)
@@ -81,7 +90,7 @@ export const CheckOut = () => {
     let redirectLink: any = (
       await axios.post(MERCADO_PAGO_LINK, {items, client , discount})
     ).data.response;
-    console.log('red', await redirectLink)
+    //console.log('red', await redirectLink)
     if (await redirectLink.init_point) {
       setLoader(false)
       setInit_PointButton(prev => prev = redirectLink.init_point)
@@ -135,16 +144,36 @@ export const CheckOut = () => {
             <div className={styles['items-container']}>
               <h4>Products</h4>
               <div className={styles['card-container']}>
-                {listProductsShoppingCart.map((game: any, index) => (
-                  <div key={index} className={styles['card-item']}>
-                    <img src={game.background_image} />
-                    <h5>{game.name}</h5>
-                    <p>${game.price}</p>
-                    <button value={game.id} onClick={deleteItem}>
-                      x
-                    </button>
-                  </div>
-                ))}
+                {listProductsShoppingCart.map((game: any, index) => 
+                    {
+                      console.log(game)
+                      var genres = game.Genres.map(item => item.name)
+                      if(genres.includes(todaysDiscount.genre)){
+                        return (
+                          <div key={index} className={styles['card-item']}>
+                            <img src={game.background_image} />
+                            <h5>{game.name}</h5>
+                            <p>{(((100 - todaysDiscount.discount) * parseFloat(game.price)) / 100).toFixed(2)}</p>
+                            <button value={game.id} onClick={deleteItem}>
+                              x
+                            </button>
+                          </div>
+                        )
+                      } else {
+                        return (
+                          <div key={index} className={styles['card-item']}>
+                            <img src={game.background_image} />
+                            <h5>{game.name}</h5>
+                            <p>${game.price}</p>
+                            <button value={game.id} onClick={deleteItem}>
+                              x
+                            </button>
+                          </div>
+                        )
+                      }
+                      
+                    }
+                )}
                 <p className={styles.price}>Amount Payable: ${totalAmount}</p>
               </div>
             </div>
