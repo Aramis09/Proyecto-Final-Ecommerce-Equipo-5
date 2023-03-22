@@ -37,9 +37,9 @@ export const salesExample = [
     giftGame: false,
     state: true,
     ProductId: 41494,
-    UserEmail: "aramisjaime48@gmail.com",
+    UserEmail: "estebangallego2002@gmail.com",
     User: {
-      email: "aramisjaime48@gmail.com",
+      email: "estebangallego2002@gmail.com",
     },
     Product: {
       name: "Cyberpunk 2077",

@@ -249,7 +249,7 @@ async function createStore (store, products) {
 };  
 async function getDataRestProducts () {
     try {
-        let data = (await axios.get(`https://apisgames-production.up.railway.app/products`)).data;
+        let data = (await axios.get(`https://apisgames-production-06fc.up.railway.app/products`)).data;
         let dataRequerida = await data.map((c) => {
             if (c.platforms.length > 0){
                 c.platforms.forEach(element=>{

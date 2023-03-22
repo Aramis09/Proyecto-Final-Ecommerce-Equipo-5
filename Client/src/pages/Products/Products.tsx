@@ -1,16 +1,17 @@
 import { Filters } from "../../components/Filters/Filters";
 import { NavBar } from "../../components/NavBar/NavBar";
-import { useEffect } from "react";
+import { useEffect,useState } from "react";
 import { useAppSelector, useAppDispatch } from "../../redux/hooks/hooks";
 import { getListGenres } from "../../redux/actions/genresAction";
 import { eraseSearchedData } from "../../redux/reducer/productReducer";
 import { Card } from "../../components/Card/Card";
 import styles from "./Products.module.scss";
+import iconFilters from "./images/filter.png";
 import { Link } from "react-router-dom";
 import NavbarPhone from "../../phone/navBarPhone/navBarPhone";
 
 export const Products = () => {
-
+  const [changeClass,setChangeClass] = useState(false);
   let searchedData = useAppSelector((state) => state.productReducer.searchedData);
   const dispatch = useAppDispatch()
 
@@ -25,11 +26,12 @@ export const Products = () => {
   return (
     <>
       {window.innerWidth > 959 ?<NavBar /> : <NavbarPhone/>}
-      {/* <Filters /> */}
-      <div className={styles["page-container"]}>
-      {window.innerWidth > 959 ?<Filters /> : <></>}
 
-        
+      <div className={styles["page-container"]}>
+      <img className={styles.iconCarrito} src={iconFilters} alt="soppingCart" onClick={()=> setChangeClass(!changeClass)}/>
+      <Filters 
+      flag = {changeClass}
+      /> 
         {
           (searchedData.length && searchedData.length>0)
           ?

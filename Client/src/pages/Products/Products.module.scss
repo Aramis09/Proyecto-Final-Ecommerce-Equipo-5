@@ -1,7 +1,14 @@
 @media (min-width:320px) and (max-width:960px){
   .productList{
     margin-top: 30%;
-    
+    overflow-y: scroll;
+  }
+  .iconCarrito{
+    position: fixed;
+    top: 100px;
+    right: 9px;
+    width: 45px;
+    filter: invert(1);
   }
 }
 
@@ -15,5 +22,8 @@
     row-gap: 50px;
     justify-content: center;
     align-items: center;
+  }
+  .iconCarrito{
+    display: none;
   }
 }
