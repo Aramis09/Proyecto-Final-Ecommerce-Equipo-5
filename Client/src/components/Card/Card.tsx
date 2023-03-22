@@ -4,7 +4,7 @@ import styles from "./Card.module.scss";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks/hooks";
 import { addShoppingCart } from "../../redux/actions/shoppingCartAction";
 import { addNewProductInShoppingCart } from "../../redux/actions/shoppingCartAction";
-import { addAmountForShoppingCartUser } from "../../redux/reducer/shoppingCartReducer";
+import { addPriceForFinalAmountCheckout } from "../../redux/reducer/shoppingCartReducer";
 import { saveShoppingCartInLocalStorage } from "../../redux/actions/localStorageAction";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
@@ -27,12 +27,12 @@ export const Card = ({
   const [successMsg, setSuccessMsg] = useState("");
   const [control, setControl] = useState(-1);
   const [discountPrice,setDiscountPrice] = useState(0);
-  const [discountApplied, setDiscountApplied] = useState(false)
+  const [discountApplied, setDiscountApplied] = useState(false);
   
   const dispatch = useAppDispatch();
   let totalPrice = useAppSelector((state) => state.shoppingCartReducer.totalAmount)
   const [saveInLocalStorage, setSaveInLocalStorage] = useState(false);
-  var todaysDiscount = useAppSelector((state) => state.productReducer.todaysDiscount)
+  var todaysDiscount = useAppSelector((state) => state.productReducer.todaysDiscount);
 
   useEffect(() => {
     if(saveInLocalStorage === true){
@@ -48,7 +48,7 @@ export const Card = ({
 
   },[control,user]);
   useEffect(()  => {
-    if(parseFloat(price) !== 0 && todaysDiscount.discount !== 'No_Discount' && genres.includes(todaysDiscount.genre) && parseFloat(price) !==discountPrice && !discountApplied){
+    if(todaysDiscount.discount !== 100 && genres.includes(todaysDiscount.genre) && parseFloat(price) !==discountPrice && !discountApplied){
       let finalPrice =  (((100 - todaysDiscount.discount) * parseFloat(price)) / 100);
       finalPrice = finalPrice.toFixed(2);
       setDiscountApplied(prev => prev = true)
@@ -86,7 +86,11 @@ export const Card = ({
     if (!item) {//Si no esta el Producto en el carrito y
       if (user) {//si existe un usuario lo agrega al Carrito del USUARIO
         dispatch(addNewProductInShoppingCart(id, user.email));
-        dispatch(addAmountForShoppingCartUser(price));
+        if(discountPrice){
+          dispatch(addPriceForFinalAmountCheckout(discountPrice));
+        } else {
+          dispatch(addPriceForFinalAmountCheckout(price));
+        }
       } else {
 
         dispatch(addShoppingCart(game));
@@ -125,7 +129,7 @@ export const Card = ({
                 <p>ON SALE: {`${discountPrice}`}</p>
               </div>
               :
-              price === 'free' ? <p>{`${price}`}</p> : <p>{`$${price}`}</p>
+              <p>{`$${price}`}</p>
               
             }
 					</div>
