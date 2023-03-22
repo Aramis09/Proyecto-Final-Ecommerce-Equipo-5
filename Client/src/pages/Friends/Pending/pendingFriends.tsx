@@ -2,7 +2,7 @@ import { useAppDispatch, useAppSelector } from '../../../redux/hooks/hooks';
 import { pendingFriend, resReque } from '../../../redux/actions/friendAction';
 import { useAuth0 } from '@auth0/auth0-react';
 import { useEffect } from 'react';
-import styles from './pendingFriends.module.css';
+import styles from './pendingFriends.module.scss';
 
 
 export const PendingFr = () => {
@@ -33,18 +33,18 @@ export const PendingFr = () => {
 	if (user?.email_verified && isAuthenticated) {
 		if (friendsPending.length > 0) {
 			return (
-				<div className={styles.conta}>
-					<span className={styles.user}>Your Friends Requests: {user?.name}</span>
+				<div className={styles.container}>
+					{/* <span className={styles.user}>Your Friends Requests: {user?.name}</span> */}
 					{friendsPending.map((pend: any, index: number) => {
 						return (
 							<div className={styles.cards} key={index}>
 								<span className={styles.resquets}>
-									Pending Friends Request: {pend.UserEmail}
+									{pend.UserEmail}
 								</span>
-								<button value='rejected' onClick={handleResponse}>
+								<button className={styles.buttonRejected} value='rejected' onClick={handleResponse}>
 									X
 								</button>
-								<button value='accept' onClick={handleResponse}>
+								<button className={styles.buttonAccept} value='accept' onClick={handleResponse}>
 									✓
 								</button>
 							</div>

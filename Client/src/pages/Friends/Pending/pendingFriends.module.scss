@@ -1,16 +1,35 @@
 @media (min-width:961px) {
-    .conta{
-        margin-top: 25px;
+    .container{
+    //    background-color: blue;
+       border-radius: 0.5rem;
     }
 
     .cards{
         margin-top: 20px;
-        width: 27rem;
+        width: 100%;
         display: flex;
         justify-content: center;
-        padding: 5px 0 5px;
+        padding: 3%;
+        
     }
-
+    .resquets{
+        width: 30%;
+        margin-right: 25%;
+        align-self: center;
+    }
+    .container button{
+        margin: 1%;
+        border-radius: 100rem;
+        
+    }
+    .buttonAccept{
+        color: greenyellow;
+        background-color: rgb(81, 113, 62);
+    }
+    .buttonRejected {
+        color: red;
+        background-color: rgb(79, 11, 11);
+    }
     .noFrien{
         margin-top: 80px;
         width: 27.029rem;
@@ -29,6 +48,7 @@
         margin-top: 80px;
         width: 27.029rem;
         height: 47rem;
+      
     }
 
     .register{

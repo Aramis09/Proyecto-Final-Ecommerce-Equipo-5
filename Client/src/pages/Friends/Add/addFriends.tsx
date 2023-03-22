@@ -2,7 +2,7 @@ import { useAppSelector, useAppDispatch } from '../../../redux/hooks/hooks';
 import { addFriend } from '../../../redux/actions/friendAction';
 import { useEffect, useState } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
-import styles from './addFriends.module.css';
+import styles from './addFriends.module.scss';
 
 
 interface FriendRequest {
@@ -35,20 +35,20 @@ export const AddiFriend = () => {
 	};
 
 	return (
-		<div className={styles.add}>
-			<h4 className={styles.send}>Send Friend Requests</h4>
+		<div className={styles.container}>
+			{/* <h4 className={styles.send}>Send Friend Requests</h4> */}
 			<input
-				className={styles.inp}
+				className={styles.input}
 				type='text'
-				placeholder='Email Friend'
+				placeholder='send request'
 				value={friendRequest.emailFriend}
 				onChange={(ev) =>
 					setFriendRequest({ ...friendRequest, emailFriend: ev.target.value })
 				}
 			/>
-			<button className={styles.but} onClick={handleAddFriend}>
-				Add Friend
-			</button>
+			{/* <button className={styles.but} onClick={handleAddFriend}>
+				send
+			</button> */}
 		</div>
 	);
 };

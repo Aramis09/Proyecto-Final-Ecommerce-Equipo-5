@@ -3,7 +3,7 @@ import { confFriend, resReque } from '../../../redux/actions/friendAction';
 import { useAuth0 } from '@auth0/auth0-react';
 import { useEffect } from 'react';
 import { Cards } from "../Cards/Card";
-import styles from './listFriend.module.css';
+import styles from './listFriend.module.scss';
 
 
 export const ConfirFriends = () => {
@@ -16,23 +16,14 @@ export const ConfirFriends = () => {
     dispatch(confFriend(user?.email))
   }, [user?.email]);
 
-  const handleResponse = (ev: React.MouseEvent<HTMLButtonElement>) => {
-      dispatch(resReque(user?.email, friendsConfirmed[0]?.FriendInListEmail, ev.currentTarget.value))
-      .then(() => {
-          dispatch(confFriend(user.email));
-      });
-  }
+
 
   return (
-    <div>
-      <h4 className={styles.title}>List friends of {user?.name}</h4>
-      <div className={styles.card}>
-      {friendsConfirmed.map((friend: unknown, index: number) => {
+    <div className={styles.container}>
+      <div className={styles.containerCards}>
+      {friendsConfirmed.map((friend: any, index: number) => {
         return (
-          <div className={styles.friends} key={index}>
             <Cards key={index} friend={friend}/>
-            <button className={styles.deletFriend} value='remove' onClick={handleResponse}>X</button>
-          </div>
         )
       })}
       </div>
