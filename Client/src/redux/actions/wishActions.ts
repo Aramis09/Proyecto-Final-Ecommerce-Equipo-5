@@ -10,7 +10,7 @@ export const getAllProductInWishList =  (emailUser: string) => async (dispatch: 
         const wishList = await wishListResponse.data;
         dispatch(setwishList(wishList));
     } catch (error) {
-        console.log("soy el error wish",error);
+        //console.log()("soy el error wish",error);
     };
 };  
 

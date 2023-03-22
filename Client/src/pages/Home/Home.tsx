@@ -5,6 +5,7 @@ import { Footer } from "../../components/Footer/Footer";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks/hooks";
 import { getProductsByFilters } from "../../redux/actions/productAction";
 //import { getShoppingCartUserFromDB } from "../../redux/actions/shoppingCartAction";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import styles from "./Home.module.scss";
 import SubNavbar from "../../components/SubNavbar/SubNavbar";
@@ -27,10 +28,11 @@ export const Home = () => {
           alphabetic: "",
           price: "",
         },
-      })
+      },
+      1
+      )
     );
   };
-  
 
   return (
     <div className={styles.container}>

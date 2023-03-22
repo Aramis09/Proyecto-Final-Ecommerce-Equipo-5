@@ -52,7 +52,6 @@ export const DashboardUser = () => {
       newSecret: adminUser?.secret,
     };
 
-    console.log(data);
     await axios.post(USER_ADMIN, data);
   };
   const handlerSearch = () => {
