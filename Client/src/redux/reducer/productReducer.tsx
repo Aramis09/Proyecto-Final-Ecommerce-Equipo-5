@@ -50,16 +50,6 @@ export const productReducer = createSlice({
         },
         selectedFilterGenre: (state, action) => {
             state.selectedFilterGenreData = [action.payload];
-            /*
-            console.log('red', state.selectedFilterGenreData, typeof action.payload, action.payload)
-            if (state.selectedFilterGenreData.includes(action.payload)){
-                state.selectedFilterGenreData = state.selectedFilterGenreData.filter(item => item !== action.payload)
-                console.log(state.selectedFilterGenreData)
-            } else {
-                state.selectedFilterGenreData = [...state.selectedFilterGenreData, action.payload]
-                console.log(state.selectedFilterGenreData)
-            }
-            */
         },
         selectedFilterPriceRange: (state, action) => {
             state.selectedFilterPriceRangeData = action.payload
