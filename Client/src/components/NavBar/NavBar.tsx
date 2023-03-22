@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import style from "./NavBar.module.scss";
 import { SearchBar } from "../SearchBar/SearchBar";
-import iconArrow from "./images/arrow.png";
+import iconArrow from "./images/hamburger-menu-icon.png";
 import { useAuth0 } from "@auth0/auth0-react";
 
 import { useEffect,useState } from "react";
