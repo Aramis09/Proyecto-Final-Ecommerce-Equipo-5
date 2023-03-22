@@ -2,8 +2,8 @@ import { useState, useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks/hooks";
 import { DashboardNav } from "../Nav/DashboardNav";
 import { getListUsers } from "../../../redux/actions/userAction";
-import { salesExample } from "../userExample";
 import styles from "./DashboardSales.module.scss";
+import { getPurchaseList } from "../../../Controller/DashBoardController";
 
 export const DashboardSales = () => {
   const dispatch = useAppDispatch();
@@ -11,30 +11,37 @@ export const DashboardSales = () => {
     (state) => state.userReducer.listUsersData
   );
   const [searchUser, setSearchUser] = useState<string>("");
-  const [filteredSales, setFilteredSales] = useState(salesExample);
+  const [listSales , setListSales] = useState([]);
+  const [filteredSales, setFilteredSales] = useState(listSales);
+
 
   useEffect(() => {
     dispatch(getListUsers());
+    if(!listSales.length){
+      getPurchaseList().then((list:any) => {
+        setFilteredSales(list);
+        setListSales(list);
+      });
+    };
   }, [dispatch]);
 
   const handlerSearch = () => {
     const searchedUser = listUsersData.find((user) =>
       user.email.toLowerCase().includes(searchUser.toLowerCase())
     );
-
     if (searchedUser) {
-      const filtered = salesExample.filter(
-        (sale) => sale.UserEmail === searchedUser.email
-      );
+      const filtered = listSales.filter((sale:any) => sale.UserEmail === searchedUser.email);
+      console.log("--------> soy el completado",searchedUser.email);  
       setFilteredSales(filtered);
-    } else {
-      setFilteredSales([]);
-    }
-  };
+    } 
+    else {
+        setFilteredSales([]);
+    };
+};
 
   const handleClear = () => {
     setSearchUser("");
-    setFilteredSales(salesExample);
+    setFilteredSales(listSales);
   };
 
   return (
