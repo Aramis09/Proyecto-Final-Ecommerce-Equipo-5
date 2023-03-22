@@ -5,7 +5,7 @@ import { NavBar } from "../../components/NavBar/NavBar";
 import { getProductsOfLibrary } from "../../Controller/LibraryController";
 import NavbarPhone from "../../phone/navBarPhone/navBarPhone";
 import styles from "./Library.module.scss";
-import CardLibrary from "./LibraryCard";
+import LibraryCard from './LibraryCard';
 import { productLibrary } from "./LibraryInterfaces";
 
 
@@ -15,31 +15,31 @@ const Library = () => {
     const { user } = useAuth0();
 
     useEffect(() => {
-        if(user?.email){
-            getProductsOfLibrary(String(user.email)).then((products:any) => setProducts(products));
+        if (user?.email) {
+            getProductsOfLibrary(String(user.email)).then((products: any) => setProducts(products));
         };
-    },[]);
-    return(
+    }, []);
+    return (
         <div className={styles.fullContainer} >
-            {window.innerWidth > 959 ?<NavBar /> : <NavbarPhone/>}
+            {window.innerWidth > 959 ? <NavBar /> : <NavbarPhone />}
             {
-                products.length ? 
-                <section className={styles.container}>
-                    {products.map((product:productLibrary) => {
-                        return (
-                            <CardLibrary
-                            id={product.id}
-                            name = {product.name} 
-                            background_image = { product.background_image}
-                            price = {product.price}
-                            released = {product.released}
-                            />
-                        );
-                    })}
-                </section>
-                : <p>"Not found Games "</p>
+                products.length ?
+                    <section>
+                        {products.map((product: productLibrary) => {
+                            return (
+                                <LibraryCard
+                                    id={product.id}
+                                    name={product.name}
+                                    background_image={product.background_image}
+                                    price={product.price}
+                                    released={product.released}
+                                />
+                            );
+                        })}
+                    </section>
+                    : <p>"Not found Games "</p>
             }
-        </div> 
+        </div>
     );
 };
 export default Library;

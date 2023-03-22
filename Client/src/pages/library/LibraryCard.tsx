@@ -2,8 +2,8 @@
 import styles from "./LibraryCard.module.scss";
 import { productLibrary } from "./LibraryInterfaces";
 
-const CardLibrary = (productData:productLibrary) => {
-    const { 
+const CardLibrary = (productData: productLibrary) => {
+    const {
         name,
         background_image,
         price,
@@ -11,10 +11,15 @@ const CardLibrary = (productData:productLibrary) => {
     } = productData;
     return (
         <div className={styles.container}>
-            <img src={background_image} alt="game" />
-            <p>{name}</p>
-            <p>${price}</p>
-            <p>{released}</p>
+            <div className={styles.content}>
+                <img src={background_image} alt="game" />
+                <div className={styles.subContent}>
+                    <h3>{name}</h3>
+                    <p>${price}</p>
+                    <p>{released}</p>
+                </div>
+            </div>
+            <hr />
         </div>
     );
 };
