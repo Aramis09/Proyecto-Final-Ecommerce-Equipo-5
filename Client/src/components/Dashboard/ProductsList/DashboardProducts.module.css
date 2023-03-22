@@ -1,4 +1,4 @@
-.product-container{
+.product-container {
   height: 100%;
   width: 90%;
   display: flex;
@@ -7,7 +7,7 @@
   font-family: 'Orbitron', sans-serif;
 }
 
-.product-container-blur{
+.product-container-blur {
   height: 100%;
   width: 90%;
   display: flex;
@@ -23,14 +23,31 @@
 
 .head-products {
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
   padding-bottom: 50px;
 }
 
+.head-products input {
+  text-align: center;
+  width: 200px;
+  height: 30px;
+  margin-right: 10px;
+  border: transparent;
+  border-radius: 10px;
+}
+
 .head-products button {
-  background-color: rgb(45, 45, 45);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 10px;
+  height: 35px;
+  width: 60px;
+}
+
+.head-products button img {
+  filter: invert(1);
 }
 
 .product-info {
@@ -61,6 +78,18 @@
 .product-item p {
   text-align: center;
   width: 300px;
+}
+
+.edit-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  filter: invert(1);
+}
+
+.edit-button:hover {
+  cursor: pointer;
 }
 
 .modal {
