@@ -21,6 +21,7 @@ export const CheckOut = () => {
   const [saveInLocalStorage, setSaveInLocalStorage] = useState(false);
   const [friendMail, setFriendMail] = useState<string | null>('');
   const [init_pointButton, setInit_PointButton] = useState< boolean | string>(false)
+  const [discountedProducts, setDiscountedProducts] = useState([]);
 
   const handleChildVariable = (friendMail: string | null) => {
     setFriendMail(friendMail);
@@ -40,6 +41,8 @@ export const CheckOut = () => {
   );
   totalAmount = Math.round(totalAmount * 100) / 100;
   let items: any = listProductsShoppingCart;
+
+
 
 
   const deleteItem = (e: any) => {
@@ -65,6 +68,23 @@ export const CheckOut = () => {
   },[control]);
 
   var discount = useAppSelector((state) => state.productReducer.todaysDiscount)
+
+  const verify_discount = listProductsShoppingCart.map(item => item.Genres)
+  const itemGenres = verify_discount.map(item => item)
+  console.log('verify_discount', itemGenres)
+
+  var steveTotal = 0;
+  listProductsShoppingCart.forEach(item => {
+    let genres = item.Genres.map(item => item.name);
+    var disc;
+    if(genres.includes(discount.genre)){
+      disc = (((100 - discount.discount) * parseFloat(item.price)) / 100);
+    } else {
+      disc = Number(item.price)
+    }
+    steveTotal += disc;
+  })
+  
 
   const fetchCheckout = async () => {
     let client = {
@@ -134,6 +154,7 @@ export const CheckOut = () => {
                   </div>
                 ))}
                 <p className={styles.price}>Amount Payable: ${totalAmount}</p>
+                <p className={styles.price}>Final Price Discount: ${steveTotal}</p>
               </div>
             </div>
           </div>
