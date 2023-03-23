@@ -132,6 +132,19 @@
 		font-size: 1.3rem;
 	}
 
+	.finalDiscount {
+		background-color: rgb(51, 159, 192);
+		width: 300px;
+		margin: 5px;
+		border-radius: 10px;
+		color: white;
+	}
+
+	.finalDiscount img {
+		width: 50px;
+		filter: invert(1);
+	}
+
 	.card-item button:hover {
 		border: none;
 		color: red;

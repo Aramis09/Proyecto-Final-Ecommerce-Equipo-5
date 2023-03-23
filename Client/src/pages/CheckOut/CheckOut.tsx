@@ -13,6 +13,7 @@ import { useState, useEffect } from "react";
 import { saveShoppingCartInLocalStorage } from "../../redux/actions/localStorageAction";
 import {MakeGift} from '../../components/MakeGift/MakeGift'
 import NavbarPhone from "../../phone/navBarPhone/navBarPhone";
+import discountIcon from "../../assets/discount-2.svg"
 
 export const CheckOut = () => {
   const dispatch = useAppDispatch();
@@ -71,7 +72,6 @@ export const CheckOut = () => {
 
   const verify_discount = listProductsShoppingCart.map(item => item.Genres)
   const itemGenres = verify_discount.map(item => item)
-  console.log('verify_discount', itemGenres)
 
   var steveTotal = 0;
   listProductsShoppingCart.forEach(item => {
@@ -154,7 +154,12 @@ export const CheckOut = () => {
                   </div>
                 ))}
                 <p className={styles.price}>Amount Payable: ${totalAmount}</p>
-                <p className={styles.price}>Final Price Discount: ${steveTotal}</p>
+                {steveTotal > 0 && (
+                <div className={styles.finalDiscount}>
+                  <img src={discountIcon} alt="" />
+                  <p className={styles.price}>Final Price Discount: ${steveTotal}</p>
+                </div>)
+                }
               </div>
             </div>
           </div>

@@ -30,9 +30,14 @@ const SubNavbar = (state:any) => {
             {admin?.admin && (
                 <Link to = "/users" className={styles.buttons} >Admin</Link>
             )}
-            <Link to = "/library" className={styles.buttons} >Library</Link>
-            {isAuthenticated===true && <Link to = "/wish" className={styles.buttons}> Wish</Link>}
-            <Link to = "/friends" className={styles.buttons} >Friends</Link>
+            {isAuthenticated===true && (
+            <>
+                <Link to = "/library" className={styles.buttons} >Library</Link>
+                <Link to = "/wish" className={styles.buttons}> Wish</Link>
+                <Link to = "/friends" className={styles.buttons} >Friends</Link>
+            </>
+            )}
+
             <ShoppingCart/>
         </div>
     );
