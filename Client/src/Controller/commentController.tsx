@@ -3,7 +3,7 @@ import { Comment } from "../types";
 
 export const getAllProductComments = async (game: any) => {
   const productComments = await axios.get(
-    `https://games-store-v.netlify.app/user/commentProduct?productId=${game.id}`
+    `http://localhost:3001/user/commentProduct?productId=${game.id}`
   ); //productComments.data => [ {Comment: '' , date:'', id:number , productId:number, userId}, {…}, {…}, … ]
   const allCommentsObject: Comment = await productComments.data;
   return allCommentsObject;
