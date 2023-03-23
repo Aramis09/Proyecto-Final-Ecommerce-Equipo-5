@@ -8,6 +8,14 @@ const getAllPurchaseds = async ()=>{
     });
     return purchasedsAll;
 };
+  // <CardLibrary
+                            // key={Math.random()+product.ProductId}
+                            // id={product.ProductId}
+                            // name = {product.name} 
+                            // background_image = { product.background_image}
+                            // price = {product.price}
+                            // released = {product.released}
+                            // />
 
 const getPurchasedsById = async (id) =>{
     if (!id) throw Error("Error: Debe existir un valor ID, ID=null..!");
