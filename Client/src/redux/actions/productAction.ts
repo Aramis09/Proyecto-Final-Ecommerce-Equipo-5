@@ -82,7 +82,7 @@ export const setGlobalDiscount = () => async (dispatch:any) => {
                 dispatch(setTodaysDiscount({genre: 'Puzzle', discount: 10}))
                 break;
             case 'Wed':
-                dispatch(setTodaysDiscount({genre: 'Platformer', discount: 20}))
+                dispatch(setTodaysDiscount({genre: 'Action', discount: 20}))
                 break;
             case 'Thu':
                 dispatch(setTodaysDiscount({genre: 'Action', discount: 50}))

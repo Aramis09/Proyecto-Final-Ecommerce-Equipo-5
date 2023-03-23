@@ -10,7 +10,7 @@ import { addShoppingCart } from "../../redux/actions/shoppingCartAction";
 import { addNewProductInShoppingCart } from "../../redux/actions/shoppingCartAction";
 import styles from "./Detail.module.scss";
 import { ADDED_TO_CART, ALREADY_IN_THE_CART } from "../../utils/constants";
-import { addAmountForShoppingCartUser } from "../../redux/reducer/shoppingCartReducer";
+import { addPriceForFinalAmountCheckout } from "../../redux/reducer/shoppingCartReducer";
 import { useAuth0 } from "@auth0/auth0-react";
 import Comments from './Comments'
 import { saveShoppingCartInLocalStorage } from "../../redux/actions/localStorageAction";
@@ -29,11 +29,25 @@ export const Detail = () => {
   const [successMsg, setSuccessMsg] = useState("");
   const [control, setControl] = useState(-1);
   const [saveInLocalStorage, setSaveInLocalStorage] = useState(false);
+  const [discountPrice,setDiscountPrice] = useState(0);
+  const [discountApplied, setDiscountApplied] = useState(false);
+  var todaysDiscount = useAppSelector((state) => state.productReducer.todaysDiscount);
+
   useEffect(() => {
     if(saveInLocalStorage === true){
       dispatch(saveShoppingCartInLocalStorage(listProductsShoppingCart, totalAmount));
     }
   },[control]);
+
+
+  useEffect(()  => {
+    if(todaysDiscount.discount !== 100 && game.genres && game.genres.includes(todaysDiscount.genre) && parseFloat(game.price) !==discountPrice && !discountApplied){
+      let finalPrice =  (((100 - todaysDiscount.discount) * parseFloat(game.price)) / 100);
+      finalPrice = parseFloat(finalPrice.toFixed(2));
+      setDiscountApplied(prev => prev = true)
+      setDiscountPrice(finalPrice);
+    }
+  }, [game])
   
   useEffect(() => {
     dispatch(getProductByID(parseInt(id)));
@@ -62,22 +76,21 @@ export const Detail = () => {
   
         if(typeof user !== 'undefined'){
           dispatch(addNewProductInShoppingCart(id, user.email));
-          dispatch(addAmountForShoppingCartUser(item.price))
         } else {
           dispatch(addShoppingCart(game));
           setControl(listProductsShoppingCart.length);
           setSaveInLocalStorage(true);
         }
+        if(discountPrice){
+          dispatch(addPriceForFinalAmountCheckout(discountPrice));
+        } else {
+          dispatch(addPriceForFinalAmountCheckout(parseFloat(game.price)));
+        }
         setSuccessMsg(ADDED_TO_CART);
       }else{
         setSuccessMsg(ALREADY_IN_THE_CART);
       }
-      
     }
-
-
-
-
 
 
 
@@ -95,7 +108,15 @@ export const Detail = () => {
               <div className={styles["left-section"]}>
                 <div key={game.id}>
                   <h3>{game.name}</h3>
-                  <p>${game.price}</p>
+                  {
+                  discountApplied?
+                  <div>
+                    <del>{`${game.price}`}</del>
+                    <p>ON SALE: {`${discountPrice}`}</p>
+                  </div>
+                  :
+                  <p>{`$${game.price}`}</p>
+                  }
                   <Rating value={game.rating} size={24}/>
                   <button className={changeClass.classButton} type="button" onClick={addingToShoppingCart}>Add To Cart</button>
                   <p>{successMsg}</p>

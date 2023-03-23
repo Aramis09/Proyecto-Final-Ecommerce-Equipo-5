@@ -3,7 +3,7 @@ import styles from "./CheckOut.module.scss";
 import { useAppSelector, useAppDispatch } from "../../redux/hooks/hooks";
 import { deleteItemShoppingCart } from "../../redux/actions/shoppingCartAction";
 import { removeProductoInShoppingCar } from "../../redux/actions/shoppingCartAction";
-import { restAmountForShoppingCartUser } from "../../redux/reducer/shoppingCartReducer";
+import { restPriceForFinalAmountCheckout } from "../../redux/reducer/shoppingCartReducer";
 import { MERCADO_PAGO_LINK } from "../../utils/constants";
 import { useAuth0 } from "@auth0/auth0-react";
 import axios from "axios";
@@ -20,7 +20,8 @@ export const CheckOut = () => {
   const [control, setControl] = useState(-1);
   const [saveInLocalStorage, setSaveInLocalStorage] = useState(false);
   const [friendMail, setFriendMail] = useState<string | null>('');
-  const [init_pointButton, setInit_PointButton] = useState< boolean | string>(false)
+  const [init_pointButton, setInit_PointButton] = useState(false)
+  const [loader, setLoader] = useState(false);
 
   const handleChildVariable = (friendMail: string | null) => {
     setFriendMail(friendMail);
@@ -36,24 +37,37 @@ export const CheckOut = () => {
     );
   }
   let totalAmount: number = useAppSelector(
-    (state) => state.shoppingCartReducer.totalAmount,
+    (state) => state.shoppingCartReducer.finalPriceForCheckout
   );
   totalAmount = Math.round(totalAmount * 100) / 100;
   let items: any = listProductsShoppingCart;
+  let todaysDiscount = useAppSelector((state) => state.productReducer.todaysDiscount)
 
 
   const deleteItem = (e: any) => {
-    //console.log()('El id a enviar es: ' + e.target.value);
-    let lessPrice = items.filter(
-      (i: any) => i.id === parseInt(e.target.value),
-    )[0].price;
-    if (typeof user !== 'undefined') {
+    let itemData = items.filter((i: any) => i.id === parseInt(e.target.value))[0];
+    let lessPrice;
+    if (user !== undefined){
+      let genres = itemData.Genres.map(item => item.name)
+      if(genres.includes(todaysDiscount.genre)){
+        lessPrice =  (((100 - todaysDiscount.discount) * parseFloat(itemData.price)) / 100);
+        lessPrice = parseFloat(lessPrice.toFixed(2))
+      } else {
+        lessPrice = parseFloat(itemData.price);
+        setControl(listProductsShoppingCart.length);
+      }
       dispatch(removeProductoInShoppingCar(e.target.value, user.email));
-      dispatch(restAmountForShoppingCartUser(lessPrice));
-    }else{
-      setControl(listProductsShoppingCart.length);
-      setSaveInLocalStorage(true);
+    } else {
+      if(itemData.genres.includes(todaysDiscount.genre)){
+        lessPrice =  (((100 - todaysDiscount.discount) * parseFloat(itemData.price)) / 100);
+        lessPrice = parseFloat(lessPrice.toFixed(2))
+      } else {
+        lessPrice = parseFloat(itemData.price);
+        setControl(listProductsShoppingCart.length);
+        setSaveInLocalStorage(true);
+      }
     }
+    dispatch(restPriceForFinalAmountCheckout(lessPrice));
     dispatch(deleteItemShoppingCart(e.target.value));
     setInit_PointButton(prev => prev = '')
   };
@@ -67,6 +81,7 @@ export const CheckOut = () => {
   var discount = useAppSelector((state) => state.productReducer.todaysDiscount)
 
   const fetchCheckout = async () => {
+    setLoader(true)
     let client = {
       name: user.name,
       email: user.email,
@@ -77,8 +92,8 @@ export const CheckOut = () => {
     let redirectLink: any = (
       await axios.post(MERCADO_PAGO_LINK, {items, client , discount})
     ).data.response;
-    //console.log()('red', await redirectLink)
     if (await redirectLink.init_point) {
+      setLoader(false)
       setInit_PointButton(prev => prev = redirectLink.init_point)
     }
   };
@@ -103,8 +118,15 @@ export const CheckOut = () => {
                 </button>
                 <div>
                 {
-                  init_pointButton &&
-                  <a href={`${init_pointButton}`}><button>Pay</button></a>
+                  loader ?
+                  <img src="https://media.tenor.com/je-huTL1vwgAAAAi/loading-buffering.gif"/>
+                  :
+                  <div>
+                    {
+                      init_pointButton &&
+                    <a href={`${init_pointButton}`}><button>Pay</button></a>
+                    }
+                  </div>
                 }
                 </div>
               </div>
@@ -123,16 +145,62 @@ export const CheckOut = () => {
             <div className={styles['items-container']}>
               <h4>Products</h4>
               <div className={styles['card-container']}>
-                {listProductsShoppingCart.map((game: any, index) => (
-                  <div key={index} className={styles['card-item']}>
-                    <img src={game.background_image} />
-                    <h5>{game.name}</h5>
-                    <p>${game.price}</p>
-                    <button value={game.id} onClick={deleteItem}>
-                      x
-                    </button>
-                  </div>
-                ))}
+                {listProductsShoppingCart.map((game: any, index) => 
+                    {
+
+                      if(user){
+                        let genres = game.Genres.map(item => item.name)
+                        if(genres.includes(todaysDiscount.genre)){
+                          return (
+                            <div key={index} className={styles['card-item']}>
+                              <img src={game.background_image} />
+                              <h5>{game.name}</h5>
+                              <p>{(((100 - todaysDiscount.discount) * parseFloat(game.price)) / 100).toFixed(2)}</p>
+                              <button value={game.id} onClick={deleteItem}>
+                                x
+                              </button>
+                            </div>
+                          )
+                        } else {
+                          return (
+                            <div key={index} className={styles['card-item']}>
+                              <img src={game.background_image} />
+                              <h5>{game.name}</h5>
+                              <p>${game.price}</p>
+                              <button value={game.id} onClick={deleteItem}>
+                                x
+                              </button>
+                            </div>
+                          )
+                        }
+                      } else {
+                        if(game.genres.includes(todaysDiscount.genre)){
+                          return (
+                            <div key={index} className={styles['card-item']}>
+                              <img src={game.background_image} />
+                              <h5>{game.name}</h5>
+                              <p>{(((100 - todaysDiscount.discount) * parseFloat(game.price)) / 100).toFixed(2)}</p>
+                              <button value={game.id} onClick={deleteItem}>
+                                x
+                              </button>
+                            </div>
+                          )
+                        } else {
+                          return (
+                            <div key={index} className={styles['card-item']}>
+                              <img src={game.background_image} />
+                              <h5>{game.name}</h5>
+                              <p>${game.price}</p>
+                              <button value={game.id} onClick={deleteItem}>
+                                x
+                              </button>
+                            </div>
+                          )
+                        }
+                      }
+                      console.log(game)
+                    }
+                )}
                 <p className={styles.price}>Amount Payable: ${totalAmount}</p>
               </div>
             </div>
