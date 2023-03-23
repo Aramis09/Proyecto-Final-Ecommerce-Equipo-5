@@ -1,4 +1,5 @@
 export const LIST_PRODUCTS='http://localhost:3001/products/';
+export const LIST_PRODUCTS_FRONT='http://localhost:3000';
 export const LIST_PRODUCTS_BY_PLATFORMS='http://localhost:3001/products/platforms';
 export const LIST_PRODUCTS_BY_FILTERS='http://localhost:3001/products/multiple';
 export const LIST_PLATFORMS='http://localhost:3001/platforms/';
@@ -9,7 +10,7 @@ export const LIST_SALES = "http://localhost:3001/purchase";
 export const ADD_PRODUCT_TO_WISHLIST = "http://localhost:3001/user/newWish";
 export const REMOVE_PRODUCT_TO_WISHLIST = "http://localhost:3001/user/removeWish";
 export const LIST_PRODUCT_LIBRARY='http://localhost:3001/products/productsBuy';
-
+export const LIST_PRODUCT_LIBRARY_BY_ID='http://localhost:3001/purchase'
 
 export const LIST_USERS = 'http://localhost:3001/user/'
 

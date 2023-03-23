@@ -2,7 +2,7 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import { useEffect, useState } from "react";
 import { NavBar } from "../../components/NavBar/NavBar";
-import { getProductsOfLibrary } from "../../Controller/LibraryController";
+import { getProductsOfLibraryById } from "../../Controller/LibraryController";
 import NavbarPhone from "../../phone/navBarPhone/navBarPhone";
 import styles from "./Library.module.scss";
 import CardLibrary from "./LibraryCard";
@@ -16,7 +16,7 @@ const Library = () => {
 
     useEffect(() => {
         if(user?.email){
-            getProductsOfLibrary(String(user.email)).then((products:any) => setProducts(products));
+            getProductsOfLibraryById(String(user.email)).then((products:any) => setProducts(products));
         };
     },[]);
     return(
@@ -25,14 +25,15 @@ const Library = () => {
             {
                 products.length ? 
                 <section className={styles.container}>
-                    {products.map((product:productLibrary) => {
+                    {products.map((product:any) => {
                         return (
                             <CardLibrary
-                            id={product.id}
-                            name = {product.name} 
-                            background_image = { product.background_image}
-                            price = {product.price}
-                            released = {product.released}
+                            key={product.id}
+                            id={product.Product.id}
+                            name = {product.Product.name} 
+                            background_image = { product.Product.background_image}
+                            price = {product.Product.price}
+                            released = {product.Product.released}
                             />
                         );
                     })}
