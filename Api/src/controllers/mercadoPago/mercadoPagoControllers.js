@@ -42,7 +42,7 @@ const createPaymentMercadoPago = async (items, client, discount) => {
         auto_return: "approved", // si la compra es exitosa automaticamente redirige a "success" de back_urls
         binary_mode: true, //esto permite que el resultado de la compra sea solo 'failure' o solo 'success'
 
-        notification_url: "https://f693-2800-810-80f-4a8-1db3-e51e-4db5-f3e5.sa.ngrok.io/payment/responseMP?source_news=webhooks",
+        notification_url: "https://6aed-2802-8010-495b-601-4096-c1d4-e200-6888.sa.ngrok.io/payment/responseMP?source_news=webhooks",
 
     }
 
