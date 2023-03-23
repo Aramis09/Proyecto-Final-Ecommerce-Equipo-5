@@ -18,6 +18,7 @@ export const DiscountManager = () => {
   const [selectedDiscount, setSelectedDiscount] = useState(0);
   const [selectedGenre, setSelectedGenre] = useState("");
   const [activeAdmin, setActiveAdmin] = useState(false);
+  // @ts-ignore
   const [showActiveDiscount, setShowActiveDiscount] = useState<DiscountState>({});
 
 

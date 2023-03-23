@@ -26,17 +26,20 @@ export const ConfirFriends = (flag:any) => {
   const emailUser = user?.email;
 
   useEffect(() => {
+    // @ts-ignore
     dispatch(confFriend(user?.email));
   }, [user?.email,flag]);
   
   
   useEffect(() => {
+    // @ts-ignore
     setFriendListResponse(friendsConfirmed);
   }, [friendsConfirmed]);
 
     const searchFriendEmailHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     const emailSearch= event.target.value;
     if(!emailSearch.length) {
+      // @ts-ignore
       dispatch(confFriend(user?.email))
     };
     searchFriendEmailController(emailUser,emailSearch).then(
