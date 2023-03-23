@@ -8,6 +8,7 @@ import { EDIT_PRODUCT } from "../../../utils/constants";
 import axios from "axios";
 import iconSearch from "../../../assets/search.svg";
 import trashIcon from "../../../assets/trash-x-filled.svg";
+import sendIcon from "../../../assets/send.svg";
 import editIcon from "../../../assets/edit.svg";
 import styles from "./DashboardProducts.module.css";
 
@@ -104,8 +105,6 @@ export const DashboardProducts = () => {
       images,
     };
 
-    console.log(productsData);
-
     const config = {
       url: EDIT_PRODUCT,
       productsData,
@@ -186,13 +185,13 @@ export const DashboardProducts = () => {
                   <p>{name}</p>
                   <p>{rating}</p>
                   <p>{price}</p>
-                  <div className={styles['button-changes']}>
+                  <div className={styles["button-changes"]}>
                     <img
                       className={styles["edit-button"]}
                       src={editIcon}
                       onClick={() => setShowModal(true)}
                     />
-                    <button
+                    <button className={styles["send-changes"]}
                       onClick={() => {
                         handlerProductChange(
                           name,
@@ -211,7 +210,10 @@ export const DashboardProducts = () => {
                         );
                       }}
                     >
-                      make Changes
+                      <img
+                        src={sendIcon}
+                        alt=""
+                      />{" "}
                     </button>
                   </div>
                 </div>
@@ -265,7 +267,11 @@ export const DashboardProducts = () => {
                       );
                     }}
                   >
-                    make Changes
+                    <img
+                      src={sendIcon}
+                      className={styles["send-changes"]}
+                      alt=""
+                    />
                   </button>
                 </div>
               )

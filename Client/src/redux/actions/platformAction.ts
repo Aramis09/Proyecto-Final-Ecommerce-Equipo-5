@@ -12,7 +12,6 @@ export const getListPlatforms =  (name: string) => async (dispatch: any) => {
         dispatch(listPlatforms(arrayPlatforms));
     }catch(error){
         dispatch(errorMsg("Ocurrio un error...intentelo mas tarde"));
-        console.log("Exception - getListPlatforms: " + error);
     }
 }
 
@@ -24,6 +23,5 @@ export const getPlatformByID =  (id: string) => async (dispatch: any) => {
         dispatch(platformByID(platform));
     }catch(error){
         dispatch(errorMsg("Ocurrio un error...intentelo mas tarde"));
-        console.log("Exception - getPlatformByID: " + error);
     }
 }

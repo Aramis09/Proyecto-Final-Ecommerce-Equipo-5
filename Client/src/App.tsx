@@ -64,12 +64,14 @@ function App() {
       dispatch(setGlobalDiscount());
       dispatch(setAutoGlobalDiscount(true));
     }
+
   }, [discountGloballyApplied]);
 
   useEffect(() => {
     if (user !== undefined) {
       dispatch(saveNewUser(user.email, user.name, user.picture));
     }
+
   }, [user]);
 
   return (

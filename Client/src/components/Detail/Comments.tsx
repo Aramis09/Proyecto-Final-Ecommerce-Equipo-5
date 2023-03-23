@@ -28,7 +28,6 @@ const Comments = () => {
   const dispatch = useAppDispatch();
 
   const sendCommentHandler = (event: React.FormEvent<HTMLFormElement>) => {
-    console.log("soy el tipo de evento de event", event.type);
     event.preventDefault();
     postComment(game, userComment, user, stars).then((newCommentObject: any) => {
       setAllComments(newCommentObject);

@@ -4,9 +4,7 @@ const getAllProductComments = async (productId) => {
   const productComments = await axios.get(
     `http://localhost:3001/user/commentProduct?productId=${productId}`
   ); //productComments.data => [ {Comment: '' , date, id , productId, userId}, {…}, {…}, … ]
-  //console.log(new Date(), "productComments: ", productComments.data);
   setAllComments(productComments.data);
-  //console.log("allComments", new Date(), allComments);
 };
 
 const postComment = async (e, email, productId, userComment) => {
@@ -16,7 +14,7 @@ const postComment = async (e, email, productId, userComment) => {
     productId,
     comment: userComment,
   };
-  //console.log("estoy en el front y soy la data", data);
+  ////console.log()("estoy en el front y soy la data", data);
 
   try {
     await axios({

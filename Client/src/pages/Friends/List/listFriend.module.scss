@@ -1,4 +1,13 @@
+@media (min-width:320px) and (max-width:960px) {
+	.inputSearch{
+		border-radius: 0.5rem;
+		width: 50%;
+		height:30px;
+		background-color: black;
+		text-align: center;
+	}
 
+}
 @media (min-width: 961px) {
 	.container{
 		display: flex;

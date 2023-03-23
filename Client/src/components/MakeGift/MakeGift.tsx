@@ -29,7 +29,6 @@ export const MakeGift: React.FC<MakeGiftProps> = ({onVariableChange}) => {
   const handleSelectEmailChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedFriendEmail(event.target.value);
     onVariableChange(event.target.value);
-    console.log('event.target.value',event.target.value)
   }
 
   const searchFriendEmailHandler = (event: React.ChangeEvent<HTMLInputElement>) => {

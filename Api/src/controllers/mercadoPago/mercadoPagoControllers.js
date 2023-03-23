@@ -4,7 +4,8 @@ const axios = require('axios');
 const nodemailer = require('nodemailer');
 const mercadopago = require("mercadopago");
 const {Product} = require('../../db');
-//const htmlmail = require("./paymentItems.html");
+const fs = require('fs');
+//const htmlmail = fs.readFileSync()
 
 const createPaymentMercadoPago = async (items, client, discount) => {
     //console.log(htmlmail, typeof htmlmail)
@@ -40,7 +41,9 @@ const createPaymentMercadoPago = async (items, client, discount) => {
         },
         auto_return: "approved", // si la compra es exitosa automaticamente redirige a "success" de back_urls
         binary_mode: true, //esto permite que el resultado de la compra sea solo 'failure' o solo 'success'
+
         notification_url: "https://f693-2800-810-80f-4a8-1db3-e51e-4db5-f3e5.sa.ngrok.io/payment/responseMP?source_news=webhooks",
+
     }
 
     //console.log('si esto esta undefined, es porque no tenes el acces token en .env: ', ACCES_TOKEN)
@@ -121,7 +124,7 @@ const notificationData = async (query)  => {
             transactionDataObject = {
                 dateTransaction: paymentDate,
                 priceUnit: parseFloat(dbItem.price), //esto debe venir de un llamado a la db
-                specialDiscount: calculatedDiscount,//calculatedDiscount,
+                specialDiscount: parseFloat(calculatedDiscount),//calculatedDiscount,
                 priceUnitNet: productData.unit_price,
                 serialOfGame: 'asnsdghnakjsdkjasdnkfdf', //lo inventamos con un hash?
                 numberPayment: merchantOrder.body.payments[0].id,
@@ -135,7 +138,7 @@ const notificationData = async (query)  => {
         await axios.get(`http://localhost:3001/user/removeProductInShoppingCart?email=${userMailFromDescription}&idProduct=${'all'}`)
         mailProductsToBuyer(userMailFromDescription, merchantOrder.body.items);
         
-    } else { //else if (merchantOrder.body.order_status ===''){
+    } else {
         console.log('estado de la orden: ', merchantOrder.body.order_status);
         console.log("------->",merchantOrder.body);
     }
@@ -148,7 +151,6 @@ const selectNameSurname = (client) => {
     let clientName; 
     let clientSurname;
     let clientFullName = client.name.split(' ');
-    //console.log('clientFullName', clientFullName)
     
     if(clientFullName.length === 1){
         clientName = clientFullName[0];
@@ -170,7 +172,6 @@ const selectNameSurname = (client) => {
         clientName = clientFullName.slice(0, clientFullName.length-2).join(' ');
         clientSurname = clientFullName.slice(clientFullName.length-2, clientFullName.length).join(' ');
     }
-    //console.log('cc', clientName, clientSurname)
     return {clientName, clientSurname}
 }
 
@@ -189,14 +190,7 @@ const reshapeProductInItems = (items, email) => {
             quantity: 1, //needed
             currency_id: "ARS", //needed
         }
-
-        //return {
-        //    title: item.name,
-        //    unit_price: parseFloat(item.price),
-        //    quantity: 1, //needed
-        //}
     })
-    //console.log('a', items)
     return itemsReady
 
 }
@@ -217,7 +211,6 @@ const applyDiscount = (items, discount) => {
         }
         return product
     })
-    //console.log('changed', itemsChecked)
     return itemsChecked
 }
 
@@ -227,101 +220,3 @@ module.exports = {
     createPaymentMercadoPago,
     notificationData
 }
-
-
-
-//NOTAS:
-
-/* este es el array ITEMS que tiene que llevar los siguientes elementos:
-    id: id,
-    title:name,
-    description: :l,
-    picture_url: imagen principal,
-    category_id: "virtualKey",
-    quantity: parseInt(unit),
-    currency_id: "ARS",
-    unit_price: parseFloat(price)
-*/
-
-
-/* NO BORRAR
-                //excluded_payment_methods
-                {
-                    "id":"credit_card"
-                },
-                {
-                    "id":"debit_card"
-                },
-                {
-                    "id":"prepaid_card"
-                },
-                {
-                    "id":"ticket"
-                },
-                {
-                    "id":"atm"
-                }
-
-
-                //excluded_payment_types
-                {
-                    "id": "master"
-                },
-                {
-                    "id": "naranja"
-                },
-                {
-                    "id": "cabal"
-                },
-                {
-                    "id": "argencard"
-                },
-                {
-                    "id": "tarshop"
-                },
-                {
-                    "id": "debcabal"
-                },
-                {
-                    "id": "sol"
-                },
-                {
-                    "id": "cencosud"
-                },
-                {
-                    "id": "debvisa"
-                },
-                {
-                    "id": "debmaster"
-                },
-                {
-                    "id": "cmr"
-                },
-                {
-                    "id": "debin_transfer"
-                },
-                {
-                    "id": "sucredito"
-                },
-                {
-                    "id": "visa"
-                },
-                {
-                    "id": "amex"
-                },
-                {
-                    "id": "diners"
-                },
-                {
-                    "id": "maestro"
-                },
-                {
-                    "id": "pagofacil"
-                },
-                {
-                    "id": "rapipago"
-                },
-                {
-                    "id": "cobroexpress"
-                }
-            */

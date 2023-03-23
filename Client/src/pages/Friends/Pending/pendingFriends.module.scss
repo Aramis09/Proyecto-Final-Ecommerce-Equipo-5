@@ -1,7 +1,33 @@
+@media (min-width:320px) and (max-width:960px) {
+    .cards{
+        text-align: center;
+        margin-top: 20px;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 3%;
+        font-size: large;
+    }
+    .cards button {
+        width: 100%;
+        margin-top: 10%;
+        // background-color: whitesmoke;
+        color: black;
+    }
+    .buttonRejected{
+        background-color: rgb(180, 6, 6);
+    }
+    .buttonAccept{
+        background-color: rgb(86, 223, 86);
+    }
+}
+
 @media (min-width:961px) {
     .container{
     //    background-color: blue;
        border-radius: 0.5rem;
+       overflow-y: scroll;
     }
 
     .cards{
@@ -10,7 +36,6 @@
         display: flex;
         justify-content: center;
         padding: 3%;
-        
     }
     .resquets{
         width: 30%;
