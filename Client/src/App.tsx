@@ -33,7 +33,7 @@ import NavbarPhone from "./phone/navBarPhone/navBarPhone";
 
 function App() {
   const dispatch = useAppDispatch();
-  const { user } = useAuth0();
+  const { user }: any = useAuth0();
   const userEmail = user?.email;
 
   const listUsersData = useAppSelector(

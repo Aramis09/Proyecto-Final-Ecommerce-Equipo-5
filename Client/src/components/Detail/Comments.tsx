@@ -44,59 +44,62 @@ const Comments = () => {
   }, []); //hay que pasarle algo para que cuando se haga un comentario aparezca
 
   return (
-    <>
-      <div className={styles["comment-container"]}>
-        <h3>Leave a Comment...</h3>
-        <div className="card flex justify-content-center">
-          <Rating
-            value={stars}
-            onChange={(e: RatingChangeEvent) => setStars(e.value)}
-            cancel={false}
-          />
-        </div>
+		<>
+			<div className={styles['comment-container']}>
+				<h3>Leave a Comment...</h3>
+				<div className='card flex justify-content-center'>
+					<Rating
+						value={stars}
+						onChange={(e: RatingChangeEvent) => setStars(Number(e.value))}
+						cancel={false}
+					/>
+				</div>
 
-        <form className={styles["form-comment"]} onSubmit={sendCommentHandler}>
-          <textarea
-            name="comment"
-            placeholder={
-              !user ? "Log in to leave a comment" : "Your Comment..."
-            }
-            className={styles["input-comment"]}
-            onChange={(e) => setComment(e.target.value)}
-            value={userComment}
-          />
+				<form className={styles['form-comment']} onSubmit={sendCommentHandler}>
+					<textarea
+						name='comment'
+						placeholder={
+							!user ? 'Log in to leave a comment' : 'Your Comment...'
+						}
+						className={styles['input-comment']}
+						onChange={(e) => setComment(e.target.value)}
+						value={userComment}
+					/>
 
-          <button type="submit" className={styles["button-comment"]}>
-            <img src={commentIcon} alt="" />
-          </button>
-        </form>
-      </div>
-      {allComments &&
-        allComments.map((commentObject: Comment) => (
-          <div className={styles["comment-card"]} key={commentObject.id}>
-            <div className={styles["user-info"]}>
-              <div>
-                <img
-                  className={styles["comment-card-img"]}
-                  src={commentObject?.image}
-                  alt="user image"
-                />
-              </div>
-              <div>
-                <div>{commentObject.userId}</div>
-                <div>{commentObject.date}</div>
-            <Rating value={commentObject.stars || 3} readOnly cancel={false} />
-              </div>
-            </div>
-            <div className={styles["comment-info"]}>
-              <img src={commentIcon} alt="" />
-              <p>{commentObject.comment}</p>
-            </div>
-
-          </div>
-        ))}
-    </>
-  );
+					<button type='submit' className={styles['button-comment']}>
+						<img src={commentIcon} alt='' />
+					</button>
+				</form>
+			</div>
+			{allComments &&
+				allComments.map((commentObject: Comment) => (
+					<div className={styles['comment-card']} key={commentObject.id}>
+						<div className={styles['user-info']}>
+							<div>
+								<img
+									className={styles['comment-card-img']}
+									src={commentObject?.image}
+									alt='user image'
+								/>
+							</div>
+							<div>
+								<div>{commentObject.userId}</div>
+								<div>{commentObject.date}</div>
+								<Rating
+									value={commentObject.stars || 3}
+									readOnly
+									cancel={false}
+								/>
+							</div>
+						</div>
+						<div className={styles['comment-info']}>
+							<img src={commentIcon} alt='' />
+							<p>{commentObject.comment}</p>
+						</div>
+					</div>
+				))}
+		</>
+	);
 };
 
 export default Comments;

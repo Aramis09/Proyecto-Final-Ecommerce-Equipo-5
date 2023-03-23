@@ -11,8 +11,8 @@ import console from "console";
 
 interface Friend  {
   accept: string
- UserMail : string,
- FriendInListEmail: string,
+  UserMail : string,
+  FriendInListEmail: string,
 };
 
 interface MakeGiftProps {
@@ -22,8 +22,8 @@ interface MakeGiftProps {
 export const ConfirFriends = (flag:any) => {
   const dispatch = useAppDispatch();
   const friendsConfirmed = useAppSelector((state) => state.friendReducer.friendsConfirmed);
-  const [friendListResponse,setFriendListResponse]=useState([]);
-  const { user } = useAuth0();
+  const [friendListResponse,setFriendListResponse]: any = useState([]);
+  const { user }: any = useAuth0();
   const emailUser = user?.email;
 
   useEffect(() => {

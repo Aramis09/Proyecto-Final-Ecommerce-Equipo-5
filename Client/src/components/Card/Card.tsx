@@ -15,6 +15,11 @@ import { style } from "@mui/system";
 import { addProductToWishList, checkIfProductWasPurchased } from "../../Controller/cardController";
 import { setwishList } from "../../redux/reducer/wishReducer";
 
+interface tdDisc {
+  discount: number,
+  genre: string
+}
+
 export const Card = ({
   id,
   name,
@@ -31,7 +36,7 @@ export const Card = ({
   const dispatch = useAppDispatch();
   let totalPrice = useAppSelector((state) => state.shoppingCartReducer.totalAmount)
   const [saveInLocalStorage, setSaveInLocalStorage] = useState(false);
-  var todaysDiscount = useAppSelector((state) => state.productReducer.todaysDiscount)
+  var todaysDiscount: any = useAppSelector((state) => state.productReducer.todaysDiscount)
 
   useEffect(() => {
     if(saveInLocalStorage === true){
@@ -52,7 +57,7 @@ export const Card = ({
 
   useEffect(()  => {
     if(parseFloat(price) !== 0 && todaysDiscount.discount !== 'No_Discount' && genres.includes(todaysDiscount.genre) && parseFloat(price) !==discountPrice && !discountApplied){
-      let finalPrice =  (((100 - todaysDiscount.discount) * parseFloat(price)) / 100);
+      let finalPrice: any =  (((100 - todaysDiscount.discount) * parseFloat(price)) / 100);
       finalPrice = finalPrice.toFixed(2);
       setDiscountApplied(prev => prev = true)
       setDiscountPrice(finalPrice);

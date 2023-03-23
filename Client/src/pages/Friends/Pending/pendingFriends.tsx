@@ -5,12 +5,15 @@ import { useAuth0 } from '@auth0/auth0-react';
 import { useEffect } from 'react';
 import styles from './pendingFriends.module.scss';
 
+interface FriendRequest {
+	UserEmail: string;
+}
 
 export const PendingFr = (props:any) => {
 	const dispatch = useAppDispatch();
 	const { user, isAuthenticated }: any = useAuth0();
 	const friendsPending = useAppSelector(
-		(state) => state.friendReducer.FriendsPending,
+		(state) => state.friendReducer.FriendsPending as Record<string, any>[],
 	);
 
 	useEffect(() => {
@@ -18,7 +21,7 @@ export const PendingFr = (props:any) => {
 			dispatch(pendingFriend(user?.email));
 		}
 	}, [user?.email, isAuthenticated]);
-	console.log(props)
+	
 	const handleResponse = (ev: React.MouseEvent<HTMLButtonElement>) => {
 		dispatch(
 			resReque(
@@ -30,7 +33,7 @@ export const PendingFr = (props:any) => {
 			dispatch(pendingFriend(user?.email));
 		});
 
-		if(String(ev.target.value) === "accept"){
+		if (String(ev.currentTarget.value) === 'accept') {
 			props.wayFlagToUpdate(Math.random());
 		}
 	};

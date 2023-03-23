@@ -114,7 +114,7 @@ export const DashboardProducts = () => {
   };
 
   const handlerSearch = () => {
-    const searchedProduct = listProducts.filter((product) =>
+    const searchedProduct:any = listProducts.filter((product) =>
       product.name.toLowerCase().includes(searchProducts.toLowerCase())
     );
     setNewSearch(searchedProduct);

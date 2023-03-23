@@ -9,7 +9,7 @@ export const Cards = ({ friend, index }: any | number) => {
 	const friendsConfirmed = useAppSelector((state) => state.friendReducer.friendsConfirmed);
 
 	const handleResponse = (ev: React.MouseEvent<HTMLButtonElement>) => {
-		dispatch(resReque(user?.email, friendsConfirmed[0]?.FriendInListEmail, ev.currentTarget.value))
+		dispatch(resReque(user?.email, friend.FriendInListEmail, ev.currentTarget.value))
 		.then(() => {
 			dispatch(confFriend(user.email));
 		});

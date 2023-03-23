@@ -56,7 +56,7 @@ export const DashboardUser = () => {
     await axios.post(USER_ADMIN, data);
   };
   const handlerSearch = () => {
-    const searchedUser = listUsersData.filter((user) =>
+    const searchedUser: any = listUsersData.filter((user) =>
       user.name.toLowerCase().includes(searchUser.toLowerCase())
     );
     setNewSearch(searchedUser);

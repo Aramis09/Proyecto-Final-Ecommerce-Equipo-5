@@ -5,6 +5,7 @@ import { getListUsers } from "../../../redux/actions/userAction";
 import styles from "./DashboardSales.module.scss";
 import { getPurchaseList } from "../../../Controller/DashBoardController";
 
+
 export const DashboardSales = () => {
   const dispatch = useAppDispatch();
   const listUsersData = useAppSelector(
@@ -66,7 +67,7 @@ export const DashboardSales = () => {
           <p>email</p>
         </div>
         {filteredSales.map(
-          ({ id, Product, UserEmail, priceUnitNet }, index) => (
+          ({ id, Product, UserEmail, priceUnitNet }: any, index) => (
             <div className={styles["sales-items"]} key={id + "-" + index}>
               <p>{id}</p>
               <p>{Product.name}</p>
