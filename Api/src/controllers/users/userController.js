@@ -60,7 +60,7 @@ const searchFriendsByEmail = async (emailUser,valueForSearch) => {
 };
 const addProductInShoppingCartForUser = async (pkUser, pkProduct) => {
   try {
-    console.log("pkUser",pkUser,"pkProduct",pkProduct);
+    //console.log()("pkUser",pkUser,"pkProduct",pkProduct);
 
     const user = await User.findByPk(pkUser);
     const porductToAdd = await Product.findByPk(pkProduct);
@@ -79,7 +79,7 @@ const addProductInShoppingCartForUser = async (pkUser, pkProduct) => {
 
 const addAllProductInShoppingCartForUser = async (arrayProuductsShoppingcart) => {
   try {
-    console.log("arrayProuductsShoppingcart",arrayProuductsShoppingcart, Array.isArray(arrayProuductsShoppingcart));
+    //console.log()("arrayProuductsShoppingcart",arrayProuductsShoppingcart, Array.isArray(arrayProuductsShoppingcart));
     let pkUser = "";
     await Promise.all(
       arrayProuductsShoppingcart.map(async (element)=>{
@@ -108,7 +108,7 @@ const acceptFriend = async (email, emailFriend) => {
         FriendInListEmail: email,
       },
     });
-    console.log(userTwo, userOne);
+    //console.log()(userTwo, userOne);
     if (!userOne && !userTwo) throw new Error("user not found");
     userOne.accept = "true";
     userTwo.accept = "true";
@@ -125,7 +125,7 @@ const removeOrRejectedFriend = async (email, emailFriend, response) => {
     if (response === "remove") {
       const user = await User.findByPk(email);
       const friend = await User.findByPk(emailFriend);
-      console.log("llegue aqui");
+      //console.log()("llegue aqui");
       await user.removeFriendInList(friend, {
         // especificar la tabla intermedia a utilizar
         through: FriendUser,
@@ -139,7 +139,7 @@ const removeOrRejectedFriend = async (email, emailFriend, response) => {
     if (response === "rejected") {
       const user = await User.findByPk(email);
       const friend = await User.findByPk(emailFriend);
-      console.log("llegue aqui");
+      //console.log()("llegue aqui");
       await user.removeFriendInList(friend, {
         // especificar la tabla intermedia a utilizar
         through: { model: FriendUser, where: { accept: "pending" } },
@@ -276,19 +276,6 @@ const getAllWishes = async (email) => {
 };
 
 const addNewComment = async (email, comment, productId, date, image, stars) => {
-
-  console.log(
-    "Yo le llego a:userController a la funcion addNewComment y recibo estos parametros: email--->",
-    email,
-    "productId:-->",
-    productId,
-    "comment-->",
-    comment,
-    "image-->",
-    image,
-    "starts-->",
-    stars,
-  );
   const newComment = await Comment.build({
     //tengo que mejorar esto porque no anda
     comment: comment,

@@ -9,7 +9,8 @@ const initialState: shoppingCartReducerState = {
     successMsg: "",
     errorMsg: "",
     listProductsShoppingCartGuest: [],
-    emptyUserDBShoppingCart: false
+    emptyUserDBShoppingCart: false,
+    finalPriceForCheckout: 0.00
 }
 
 export const shoppingCartReducer = createSlice({
@@ -34,14 +35,6 @@ export const shoppingCartReducer = createSlice({
         eraseGuestShoppingCart: (state) => {
             state.listProductsShoppingCartGuest = [];
         },
-        /*gettingShoppingCartFromDB: (state, action) => {
-            state.listProductsShoppingCartGuest = action.payload;
-            if(state.listProductsShoppingCartGuest.length > 0){
-                for(let i = 0; i < state.listProductsShoppingCartGuest.length; i++) {
-                    state.totalAmount = Number((state.totalAmount + Number(action.payload.price)).toFixed(2));
-                }
-            }
-        },*/
         resetTotalAmount: (state) => {
             state.totalAmount = 0.00;
         },
@@ -59,19 +52,17 @@ export const shoppingCartReducer = createSlice({
         userShoppingDBemptyByHand: (state, action) => {
             state.emptyUserDBShoppingCart = action.payload
         },
-        //gettingShoppingCartFromDBUser: (state, action) => {
-        //    state.listProductsShoppingCartUser = action.payload;
-        //    if(state.listProductsShoppingCartUser.length > 0){
-        //        for(let i = 0; i < state.listProductsShoppingCartUser.length; i++) {
-        //            state.totalAmount = Number((state.totalAmount + Number(action.payload.price)).toFixed(2));
-        //        }
-        //    }
-        //},
         settingShoppingCartFromLocalStorage: (state, action) => {
             state.listProductsShoppingCartGuest = action.payload.listProductsShoppingCartGuest;
             state.totalAmount = action.payload.totalAmount;
-            console.log("state.listProductsShoppingCartGuest --> " + state.listProductsShoppingCartGuest.length);
-            console.log("state.totalAmount --> " + state.totalAmount);
+            //console.log("state.listProductsShoppingCartGuest --> " + state.listProductsShoppingCartGuest.length);
+            //console.log("state.totalAmount --> " + state.totalAmount);
+        },
+        addPriceForFinalAmountCheckout: (state, action) => {
+            state.finalPriceForCheckout = state.finalPriceForCheckout + action.payload
+        },
+        restPriceForFinalAmountCheckout: (state, action) => {
+            state.finalPriceForCheckout = state.finalPriceForCheckout - action.payload
         },
         successMsg: (state, action) => {
             state.successMsg = action.payload
@@ -94,7 +85,9 @@ export const {
     eraseGuestShoppingCart,
     //  gettingShoppingCartFromDBUser,
     userShoppingDBemptyByHand,
-    settingShoppingCartFromLocalStorage
+    settingShoppingCartFromLocalStorage,
+    restPriceForFinalAmountCheckout,
+    addPriceForFinalAmountCheckout
 } = shoppingCartReducer.actions;
 
 export default shoppingCartReducer.reducer

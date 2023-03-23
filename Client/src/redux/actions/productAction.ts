@@ -11,19 +11,17 @@ export const getAllProducts = () => async (dispatch:any) => {
         dispatch(listProducts(arrayProducts))
     } catch (error) {
         dispatch(errorMsg("Ocurrio un error...intentelo mas tarde"))
-        console.log("Exception - getAllProducts: " + error);
     }
 }
 
-export const getProductsByFilters =  (filters: {}) => async (dispatch: any) => {
+export const getProductsByFilters =  (filters: {},pageNumber:number) => async (dispatch: any) => {
     let listProducts: object[];
     try{
-        listProducts = (await axios.post(LIST_PRODUCTS_BY_FILTERS, filters)).data;
+        listProducts = (await axios.post(`${LIST_PRODUCTS_BY_FILTERS}?pageNumber=${pageNumber}`, filters)).data;
         dispatch(searchObject(filters))
         dispatch(productsByFilters(listProducts));
     }catch(error){
         dispatch(errorMsg("Ocurrio un error...intentelo mas tarde"));
-        console.log("Exception - getProductsByFilters: " + error);
     }
 }
 
@@ -35,7 +33,6 @@ export const getProductByID =  (id: number) => async (dispatch: any) => {
         dispatch(productByID(product));
     }catch(error){
         dispatch(errorMsg("Ocurrio un error...intentelo mas tarde"));
-        console.log("Exception - getProdByID: " + error);
     }
 }
 
@@ -70,7 +67,7 @@ export const getTopRatedProducts =  () => async (dispatch: any) => {
         dispatch(saveTopRatedProducts(maxList.slice(3, 9)));
     }catch(error){
         dispatch(errorMsg("Ocurrio un error...intentelo mas tarde"));
-        console.log("Exception - listProducts: " + error);
+        //console.log()("Exception - listProducts: " + error);
     }
 }
 
@@ -85,7 +82,7 @@ export const setGlobalDiscount = () => async (dispatch:any) => {
                 dispatch(setTodaysDiscount({genre: 'Puzzle', discount: 10}))
                 break;
             case 'Wed':
-                dispatch(setTodaysDiscount({genre: 'Platformer', discount: 20}))
+                dispatch(setTodaysDiscount({genre: 'Action', discount: 20}))
                 break;
             case 'Thu':
                 dispatch(setTodaysDiscount({genre: 'Action', discount: 50}))
@@ -102,7 +99,6 @@ export const setGlobalDiscount = () => async (dispatch:any) => {
         }
     } catch (error) {
         dispatch(errorMsg("Ocurrio un error...intentelo mas tarde"));
-        console.log("Exception - setGlobalDiscount: " + error);
     }
 }
 

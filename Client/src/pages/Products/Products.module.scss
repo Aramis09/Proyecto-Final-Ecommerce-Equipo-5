@@ -26,4 +26,17 @@
   .iconCarrito{
     display: none;
   }
+  .paginate{
+    position: fixed;
+    left: 50%;
+    bottom: 0;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    grid-column: 1/3;
+    
+  }
+  .paginate button{
+    margin: 2%;
+    background-color: black;
+  }
 }

@@ -18,7 +18,7 @@ export const ShoppingCartItem = () => {
     } else {
         var listProductsShoppingCart: object[] = useAppSelector((state) => state.shoppingCartReducer.listProductsShoppingCartGuest);
     }
-	let totalAmount: number = useAppSelector((state) => state.shoppingCartReducer.totalAmount);
+	let totalAmount: number = useAppSelector((state) => state.shoppingCartReducer.finalPriceForCheckout);
 
 useEffect( ()=>{
     if(typeof user !== 'undefined'){

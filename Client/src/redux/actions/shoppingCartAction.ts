@@ -21,7 +21,6 @@ export const addShoppingCart =  (game: {}) => async (dispatch: any) => {
         // const result = (await axios.post(SAVE_SHOPPING_CART_DB, game)).data;
     }catch(error){
         dispatch(errorMsg("Ocurrio un error...intentelo mas tarde"));
-        console.log("Exception - addShoppingCart: " + error);
     }
 }
 
@@ -30,7 +29,6 @@ export const deleteItemShoppingCart =  (id: string) => (dispatch: any) => {
         dispatch(deletingItemShoppingCart(id));
     }catch(error){
         dispatch(errorMsg("Ocurrio un error...intentelo mas tarde"));
-        console.log("Exception - addShoppingCart: " + error);
     }
 }
 /*
@@ -41,7 +39,7 @@ export const getShoppingCartFromDB =  (userID: string) => (dispatch: any) => {
         dispatch(gettingShoppingCartFromDB(listProductsShoppingCart));
     }catch(error){
         dispatch(errorMsg("Ocurrio un error...intentelo mas tarde"));
-        console.log("Exception - addShoppingCart: " + error);
+        //console.log()("Exception - addShoppingCart: " + error);
     }
 }*/
 
@@ -51,22 +49,18 @@ export const addNewProductInShoppingCart =  (id:any, email:any) => async (dispat
     try{
         await axios.get(ADD_NEW_PRODUCT_IN_SHOPPING_CART + `?email=${email}&idProduct=${id}`);
         let carrito = (await axios.get(PRODUCTS_LIST_SHOPPING_CART + `?email=${email}`)).data;
-        console.log('carrito despues de agregar prods al de usuario', carrito)
         dispatch(updateShoppingCartUser(carrito));
     }catch(error){
         dispatch(errorMsg("Ocurrio un error...intentelo mas tarde"));
-        console.log("Exception - addNewProductInShoppingCart: " + error);
     }
 }
 
 export const removeProductoInShoppingCar =  (id:any, email:any) => async (dispatch: any) => {
     try{
         let carrito = (await axios.get(REMOVE_PRODUCT_IN_SHOPPING_CART + `?email=${email}&idProduct=${id}`)).data;
-        //let carrito = (await axios.get(PRODUCTS_LIST_SHOPPING_CART)).data;
         dispatch(updateShoppingCartUser(carrito));
     }catch(error){
         dispatch(errorMsg("Ocurrio un error...intentelo mas tarde"));
-        console.log("Exception - removeProductoInShoppingCar: " + error);
     }
 }
 
@@ -77,14 +71,13 @@ export const moveProductsFromGuestCartToUserCart = (email:any, carritoGuest:any)
         dispatch(eraseGuestShoppingCart())
     } catch (error) {
         dispatch(errorMsg("Ocurrio un error...intentelo mas tarde"));
-        console.log("Exception - moveProductsFromGuestCartToUserCart: " + error);
+        //console.log()("Exception - moveProductsFromGuestCartToUserCart: " + error);
     }
 }
 
 export const getShoppingCartUserFromDB = (email: any) => async(dispatch:any) => {
     try {
         let carrito = (await axios.get(PRODUCTS_LIST_SHOPPING_CART + `?email=${email}`)).data;
-        console.log('carrito que no se actualiza bien',carrito)
             if(carrito.length>0){
                 dispatch(userShoppingDBemptyByHand(false));
             } else {
@@ -93,7 +86,6 @@ export const getShoppingCartUserFromDB = (email: any) => async(dispatch:any) => 
         dispatch(updateShoppingCartUser(carrito));
     } catch (error){
         dispatch(errorMsg("Ocurrio un error...intentelo mas tarde"));
-        console.log("Exception - getShoppingCartUserFromDB: " + error);
     }
 }
 

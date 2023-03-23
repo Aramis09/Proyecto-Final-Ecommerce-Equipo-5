@@ -6,6 +6,8 @@ import { selectedFilterPriceRange } from "../../redux/reducer/productReducer";
 
 export const PriceSlider = () => {
   const [priceRange, setPriceRange] = useState([0, 100]);
+  const [lowLimit, setLowLimit] = useState();
+  const [highLimit, setHighLimit] = useState();
 
   const dispatch = useAppDispatch();
 

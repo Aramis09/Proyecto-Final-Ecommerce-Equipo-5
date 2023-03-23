@@ -44,7 +44,7 @@ export const ConfirFriends = (flag:any) => {
      friend => setFriendListResponse(friend)
     );
 };
-// console.log(friendsConfirmed)ss
+
   return (
     <div className={styles.container}>
       <div className={styles.containerCards}>
