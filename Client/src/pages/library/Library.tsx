@@ -29,7 +29,7 @@ const Library = () => {
                         return (
                             <CardLibrary
                             key={product.id}
-                            id={product.Product.id}
+                            id={product.ProductId}
                             name = {product.Product.name} 
                             background_image = { product.Product.background_image}
                             price = {product.Product.price}
