@@ -156,12 +156,14 @@ export const Card = ({
                   >
                     Add To Cart
                   </button>
-                  <button
-                    className={changeClass.classButton}
-                    onClick={addingToWishList}
-                  >
-                    Add Favourite
-                  </button>
+                  {isAuthenticated === true && (
+                    <button
+                      className={changeClass.classButton}
+                      onClick={addingToWishList}
+                    >
+                      Add Favourite
+                    </button>
+                  )}
                 </>
               ) : (
                 <p>Not avivable Game</p>
