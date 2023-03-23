@@ -22,13 +22,14 @@ export const PendingFr = (props:any) => {
 		dispatch(
 			resReque(
 				user?.email,
+				// @ts-ignore
 				friendsPending[0]?.UserEmail,
 				ev.currentTarget.value,
 			),
 		).then(() => {
 			dispatch(pendingFriend(user?.email));
 		});
-
+    // @ts-ignore
 		if(String(ev.target.value) === "accept"){
 			props.wayFlagToUpdate(Math.random());
 		}

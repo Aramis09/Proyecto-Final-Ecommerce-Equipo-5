@@ -5,6 +5,7 @@ import { getListUsers } from "../../../redux/actions/userAction";
 import { getAllProducts } from "../../../redux/actions/productAction";
 import { useAuth0 } from "@auth0/auth0-react";
 import { EDIT_PRODUCT } from "../../../utils/constants";
+import { Game } from "../../../types";
 import axios from "axios";
 import iconSearch from "../../../assets/search.svg";
 import trashIcon from "../../../assets/trash-x-filled.svg";
@@ -21,7 +22,7 @@ export const DashboardProducts = () => {
   const [newProductDescription, setNewProductDescription] = useState("");
   const [newProductPrice, setNewProductPrice] = useState("");
   const [searchProducts, setSearchProducts] = useState("");
-  const [newSearch, setNewSearch] = useState([]);
+  const [newSearch, setNewSearch] = useState<Game[]>([]);
 
   let listProducts = useAppSelector(
     (state) => state.productReducer.allProductsData
@@ -210,10 +211,11 @@ export const DashboardProducts = () => {
                         );
                       }}
                     >
-                      <img
-                        src={sendIcon}
-                        alt=""
-                      />{" "}
+                    <img
+                      src={sendIcon}
+                      className={styles["send-changes"]}
+                      alt=""
+                    />
                     </button>
                   </div>
                 </div>
@@ -249,6 +251,7 @@ export const DashboardProducts = () => {
                     onClick={() => setShowModal(true)}
                   />
                   <button
+                  className={styles["send-changes"]}
                     onClick={() => {
                       handlerProductChange(
                         name,

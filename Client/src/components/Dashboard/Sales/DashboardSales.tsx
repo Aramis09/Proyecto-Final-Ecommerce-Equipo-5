@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../../redux/hooks/hooks";
 import { DashboardNav } from "../Nav/DashboardNav";
 import { getListUsers } from "../../../redux/actions/userAction";
+import { ListSales } from "../../../types";
 import styles from "./DashboardSales.module.scss";
 import { getPurchaseList } from "../../../Controller/DashBoardController";
 
@@ -12,7 +13,7 @@ export const DashboardSales = () => {
   );
   const [searchUser, setSearchUser] = useState<string>("");
   const [listSales, setListSales] = useState([]);
-  const [filteredSales, setFilteredSales] = useState(listSales);
+  const [filteredSales, setFilteredSales] = useState<ListSales[]>([]);
 
   useEffect(() => {
     dispatch(getListUsers());

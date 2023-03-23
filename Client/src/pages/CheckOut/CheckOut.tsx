@@ -69,17 +69,21 @@ export const CheckOut = () => {
   },[control]);
 
   var discount = useAppSelector((state) => state.productReducer.todaysDiscount)
-
+  // @ts-ignore
   const verify_discount = listProductsShoppingCart.map(item => item.Genres)
   const itemGenres = verify_discount.map(item => item)
 
   var steveTotal = 0;
   listProductsShoppingCart.forEach(item => {
+    // @ts-ignore
     let genres = item.Genres.map(item => item.name);
     var disc;
+    // @ts-ignore
     if(genres.includes(discount.genre)){
+        // @ts-ignore
       disc = (((100 - discount.discount) * parseFloat(item.price)) / 100);
     } else {
+        // @ts-ignore
       disc = Number(item.price)
     }
     steveTotal += disc;

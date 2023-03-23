@@ -51,3 +51,15 @@ export interface Friend {
   emailFriend: string,
   response: string
 }
+
+interface DiscountState {
+  discount: number,
+  genre: string
+}
+
+export interface ListSales {
+  id:number,
+  Product:Name,
+  priceUnitNet: string,
+  UserEmail: string
+}
