@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const getAllProductComments = async (productId) => {
   const productComments = await axios.get(
-    `http://localhost:3001/user/commentProduct?productId=${productId}`
+    `https://games-store-v.netlify.app/user/commentProduct?productId=${productId}`
   ); //productComments.data => [ {Comment: '' , date, id , productId, userId}, {…}, {…}, … ]
   setAllComments(productComments.data);
 };
@@ -19,7 +19,7 @@ const postComment = async (e, email, productId, userComment) => {
   try {
     await axios({
       method: "post",
-      url: "http://localhost:3001/user/newComment",
+      url: "https://games-store-v.netlify.app/user/newComment",
       data,
     });
     await getAllProductComments();
