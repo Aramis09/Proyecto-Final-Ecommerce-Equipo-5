@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks/hooks";
 import { PriceSlider } from "../PriceSlider/PriceSlider";
-import { selectedFilterGenre, selectedAlphabeticOrder, eraseSearchedName } from "../../redux/reducer/productReducer";
+import { selectedFilterGenre, selectedAlphabeticOrder, eraseSearchedName, selectedPriceOrder } from "../../redux/reducer/productReducer";
 import { getProductsByFilters } from "../../redux/actions/productAction";
 import styles from "./Filters.module.scss";
 
@@ -11,8 +11,8 @@ export const Filters = (flags:any) => {
 
   const dispatch = useAppDispatch();
   const [genresOpen, setGenresOpen] = useState(false);
-  const [platformsOpen, setPlatformsOpen] = useState(false);
   const [orderOpen, setOrderOpen] = useState(false);
+  const [orderPriceOpen, setOrderPriceOpen] = useState(false);
   const [changeClass,setChangeClass] = useState({classContainer:styles.containerHide}); 
   const [selectAttribute, setSelectAttribute] = useState(true);
   let listGenres = useAppSelector((state => state.genresReducer.listGenresData))
@@ -20,6 +20,7 @@ export const Filters = (flags:any) => {
   let selectedFilterGenreData = useAppSelector((state) => state.productReducer.selectedFilterGenreData)
   let selectedFilterPriceRangeData = useAppSelector((state) => state.productReducer.selectedFilterPriceRangeData)
   let selectedAlphabeticOrderData = useAppSelector((state) => state.productReducer.selectedAlphabeticOrderData)
+	let selectedPriceOrderData = useAppSelector((state) => state.productReducer.selectedPriceOrderData)
 
 	//console.log()("soy el filter","filter")
 
@@ -50,6 +51,9 @@ export const Filters = (flags:any) => {
   const selectAlphabeticOrder = (dato:any) => {
     dispatch(selectedAlphabeticOrder(dato.target.value))
   }
+	const selectPriceOrder = (dato:any) => {
+    dispatch(selectedPriceOrder(dato.target.value))
+  }
 
   const filterTheSearch = () => {
     dispatch(getProductsByFilters( //NO TOCAR
@@ -64,7 +68,7 @@ export const Filters = (flags:any) => {
 			order:
 			{
 				alphabetic: selectedAlphabeticOrderData,
-				price:''
+				price: selectedPriceOrderData
 			}    
 			},flags.pageNumber
 			));
@@ -84,9 +88,9 @@ export const Filters = (flags:any) => {
 					<label
 						className={styles['label-tittle']}
 						onClick={() => {
-							if (platformsOpen || orderOpen) {
-								setPlatformsOpen(false);
+							if ( orderOpen || orderPriceOpen ) {
 								setOrderOpen(false);
+								setOrderPriceOpen(false)
 								setGenresOpen(!genresOpen);
 							} else {
 								setGenresOpen(!genresOpen);
@@ -105,20 +109,6 @@ export const Filters = (flags:any) => {
 					</select>
 				</div>
 				<div className={styles['options-container']}>
-					<label
-						className={styles['label-tittle']}
-						onClick={() => {
-							if (genresOpen || orderOpen) {
-								setOrderOpen(false);
-								setGenresOpen(false);
-								setPlatformsOpen(!platformsOpen);
-							} else {
-								setPlatformsOpen(!platformsOpen);
-							}
-						}}>
-					</label>
-				</div>
-				<div className={styles['options-container']}>
 					<label className={styles['label-tittle']}>Price</label>
 					<PriceSlider />
 				</div>
@@ -126,15 +116,15 @@ export const Filters = (flags:any) => {
 					<label
 						className={styles['label-tittle']}
 						onClick={() => {
-							if (platformsOpen || genresOpen) {
-								setPlatformsOpen(false);
+							if (genresOpen || orderPriceOpen) {
 								setGenresOpen(false);
+								setOrderPriceOpen(false)
 								setOrderOpen(!orderOpen);
 							} else {
 								setOrderOpen(!orderOpen);
 							}
 						}}>
-						<p>Order</p>
+						<p>Order A-Z</p>
 					</label>
 					<select
 						multiple={selectAttribute}
@@ -144,6 +134,33 @@ export const Filters = (flags:any) => {
 								key={option}
 								value={option}
 								onClick={selectAlphabeticOrder}>
+								{option}
+							</option>
+						))}
+					</select>
+				</div>
+				<div className={styles['options-container']}>
+					<label
+						className={styles['label-tittle']}
+						onClick={() => {
+							if ( genresOpen || orderOpen) {
+								setGenresOpen(false);
+								setOrderOpen(false);
+								setOrderPriceOpen(!orderPriceOpen)
+							} else {
+								setOrderPriceOpen(!orderPriceOpen)
+							}
+						}}>
+						<p>Order Price</p>
+					</label>
+					<select
+						multiple={selectAttribute}
+						className={orderPriceOpen ? styles.open : ''}>
+						{optionOrder.map((option) => (
+							<option
+								key={option}
+								value={option}
+								onClick={selectPriceOrder}>
 								{option}
 							</option>
 						))}
