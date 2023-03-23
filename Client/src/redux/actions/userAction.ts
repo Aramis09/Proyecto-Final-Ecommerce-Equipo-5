@@ -12,7 +12,6 @@ export const getListUsers =  () => async (dispatch: any) => {
         dispatch(listUser(arrayUsers));
     }catch(error){
         dispatch(errorMsg("Ocurrio un error...intentelo mas tarde"));
-        console.log("Exception - getListUser: " + error);
     }
 }
 
@@ -24,7 +23,6 @@ export const getUserByID =  (id: string) => async (dispatch: any) => {
         dispatch(userByID(user));
     }catch(error){
         dispatch(errorMsg("Ocurrio un error...intentelo mas tarde"));
-        console.log("Exception - getUserByID: " + error);
     }
 }
 
@@ -38,6 +36,5 @@ export const saveNewUser =  (email: string, name:string, picture:string) => asyn
         }
     }catch(error){
         dispatch(errorMsg("Ocurrio un error...intentelo mas tarde"));
-        console.log("Exception - saveNewUser: " + error);
     }
 }

@@ -8,4 +8,4 @@ sequelize.sync({force: false})
     console.log("Back listening on http://localhost:"+PORT); // eslint-disable-line no-console
         });
     })
-.catch((err)=>console.log(err.message));
+.catch((err)=>(err.message));

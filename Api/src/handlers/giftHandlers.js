@@ -3,7 +3,7 @@ const { sendGiftToFrend,getGiftReceived,getGiftSentToFriend } = require("../cont
 const newGift = async (req,res) => {
     try {
         const { idProduct,emailFriend,emailUser } = req.body;
-        console.log(req.body)
+        //console.log()(req.body)
         if(!idProduct || !emailFriend || !emailUser) throw new Error("send me all data");
         const myNewListGiftSendToFriend = await sendGiftToFrend(idProduct,emailFriend,emailUser);
         return res.status(200).json(myNewListGiftSendToFriend);

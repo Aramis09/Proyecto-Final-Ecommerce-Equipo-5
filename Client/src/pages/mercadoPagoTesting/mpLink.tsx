@@ -14,7 +14,7 @@ export const Transaccion = () => {
                 
         // data.global is the ID that MP returns from the API, it comes from our backend route
         let redirectLink:any = (await axios.post(MERCADO_PAGO_LINK, {carrito, cliente})).data.response
-        console.log('red', redirectLink)
+  
         if(redirectLink.id) {
             const script = document.createElement('script') // Here we create the empty script tag
             script.type = 'text/javascript' // The type of the script
@@ -29,7 +29,6 @@ export const Transaccion = () => {
             const mp = new window.MercadoPago('TEST-5bbaf9c6-7285-45e4-966a-83819d381b76', {
                 locale: 'es-AR'
             })
-            // console.log(process.env.REACT_APP_MP_PUBLIC_KEY)
             // The ".checkout" is the function that creates the connection between the button and the platform
             mp.checkout({
                 preference: {

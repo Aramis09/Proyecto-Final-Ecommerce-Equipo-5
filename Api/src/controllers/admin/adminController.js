@@ -2,13 +2,13 @@ const { where } = require("sequelize");
 const { Product, Genre, Image, User } = require("../../db");
 
 const verifyIsAdmin = async (emailAdmin, secret) => {
-  console.log("verificando si es admin");
+  //console.log()("verificando si es admin");
   if (!secret) return false;
   const adminFound = await User.findByPk(emailAdmin);
-  console.log("verificandoooo--->", adminFound);
+  //console.log()("verificandoooo--->", adminFound);
   if (!adminFound.admin) return false;
   if (adminFound.secret === secret) {
-    console.log("si es admin");
+    //console.log()("si es admin");
 
     return true;
   }
@@ -21,7 +21,7 @@ const createFirstAdmin = async (emailAdmin, secret) => {
   firstAdmin.admin = true;
   firstAdmin.secret = secret;
   await firstAdmin.save();
-  console.log("creando primer admin");
+  //console.log()("creando primer admin");
   return firstAdmin;
 };
 const blockedUser = async (emailUser) => {
@@ -54,7 +54,7 @@ const changePropertyProducts = async (propertys) => {
     genres,
     images,
   } = propertys;
-  console.log(propertys)
+  //console.log()(propertys)
   const productByModify = await Product.findByPk(id);
   if (name) {
     productByModify.name = name;

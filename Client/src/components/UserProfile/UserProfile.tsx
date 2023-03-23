@@ -5,7 +5,7 @@ import styles from "./UserProfile.module.scss";
 export const UserProfile = () =>{
    
     const { user } = useAuth0();
-    console.log('UserProfile ===>', user)
+    //console.log()('UserProfile ===>', user)
     const userEmail = user?.email;
     const name = user?.name;
     const profileImage = user?.picture

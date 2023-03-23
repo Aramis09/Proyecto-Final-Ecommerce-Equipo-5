@@ -3,7 +3,7 @@ const { getAllGenres,getGenreById } = require("../controllers/genres/genresContr
 const genresList = ('/',async (req,res)=>{
     try {
         const genresList = await getAllGenres();
-        //console.log(genresList)
+        ////console.log()(genresList)
         if(genresList?.error){
             return res.status(404).json(genresList.error);
         };

@@ -105,8 +105,6 @@ export const DashboardProducts = () => {
       images,
     };
 
-    console.log(productsData);
-
     const config = {
       url: EDIT_PRODUCT,
       productsData,
