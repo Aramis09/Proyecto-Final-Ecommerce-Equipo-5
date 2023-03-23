@@ -41,11 +41,11 @@ export const Card = ({
   var todaysDiscount = useAppSelector(
     (state) => state.productReducer.todaysDiscount
   );
-
+  console.log('discountPrice', discountPrice)
   useEffect(() => {
     if (saveInLocalStorage === true) {
       dispatch(
-        saveShoppingCartInLocalStorage(listProductsShoppingCart, totalAmount)
+        saveShoppingCartInLocalStorage(listProductsShoppingCart, discountPrice)
       );
     }
     //esto verifica si el producto esta comprado, para cambiar el boton
@@ -60,14 +60,15 @@ export const Card = ({
     }
   },[])
 
-  //useEffect(()  => {
-  //  if(parseFloat(price) !== 0 && todaysDiscount.discount !== 'No_Discount' && genres.includes(todaysDiscount.genre) && parseFloat(price) !==discountPrice && !discountApplied){
-  //    let finalPrice =  (((100 - todaysDiscount.discount) * parseFloat(price)) / 100);
-  //    finalPrice = finalPrice.toFixed(2);
-  //    setDiscountApplied((prev) => (prev = true));
-  //    setDiscountPrice(finalPrice);
-  //  }
-  //}, [price]);
+  useEffect(()  => {
+    if(parseFloat(price) !== 0 && todaysDiscount.discount !== 'No_Discount' && genres.includes(todaysDiscount.genre) && parseFloat(price) !==discountPrice && !discountApplied){
+      let finalPrice =  (((100 - todaysDiscount.discount) * parseFloat(price)) / 100);
+      finalPrice = finalPrice.toFixed(2);
+      console.log('finalPrice', finalPrice)  
+      setDiscountApplied((prev) => (prev = true));
+      setDiscountPrice(finalPrice);
+    }
+  }, [price]);
 
   if (typeof user !== "undefined") {
     var listProductsShoppingCart: object[] = useAppSelector(
