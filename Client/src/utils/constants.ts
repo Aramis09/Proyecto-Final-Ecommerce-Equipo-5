@@ -1,5 +1,5 @@
 export const LIST_PRODUCTS='https://grupo-cinco-production.up.railway.app/products/';
-export const LIST_PRODUCTS_FRONT='http://localhost:3000';
+export const LIST_PRODUCTS_FRONT='https://games-store-v.netlify.app/';
 export const LIST_PRODUCTS_BY_PLATFORMS='https://grupo-cinco-production.up.railway.app/products/platforms';
 export const LIST_PRODUCTS_BY_FILTERS='https://grupo-cinco-production.up.railway.app/products/multiple';
 export const LIST_PLATFORMS='https://grupo-cinco-production.up.railway.app/platforms/';
