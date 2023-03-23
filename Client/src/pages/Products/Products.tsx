@@ -15,7 +15,7 @@ import { getProductsByFilters } from "../../redux/actions/productAction";
 export const Products = () => {
   const [changeClass,setChangeClass] = useState(false);
   const [pageNumber,setPageNumber] = useState(1);  
-  const [productList,setProductList] = useState([]);
+  const [productList,setProductList] = useState<object[]>([]);
   let searchedData = useAppSelector((state) => state.productReducer.searchedData);
   const dispatch = useAppDispatch();
 

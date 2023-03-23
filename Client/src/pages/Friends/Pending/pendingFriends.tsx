@@ -28,7 +28,7 @@ export const PendingFr = (props:any) => {
 		).then(() => {
 			dispatch(pendingFriend(user?.email));
 		});
-
+    // @ts-ignore
 		if(String(ev.target.value) === "accept"){
 			props.wayFlagToUpdate(Math.random());
 		}
@@ -73,3 +73,4 @@ export const PendingFr = (props:any) => {
 		);
 	}
 };
+// @ts-ignor

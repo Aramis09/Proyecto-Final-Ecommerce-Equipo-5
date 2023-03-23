@@ -49,7 +49,7 @@ const Comments = () => {
         <div className="card flex justify-content-center">
           <Rating
             value={stars}
-            onChange={(e: RatingChangeEvent) => setStars(e.value)}
+            onChange={(e: any) => setStars(e.value)}
             cancel={false}
           />
         </div>
