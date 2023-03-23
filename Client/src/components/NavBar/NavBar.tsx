@@ -8,6 +8,7 @@ import { useEffect,useState } from "react";
 import icon from "./images/icon.png";
 import axios from "axios";
 import SubNavbar from "../SubNavbar/SubNavbar";
+import { ShowDailyDiscount } from './../ShowDailyDiscount/ShowDailyDiscount';
 
 
 export const NavBar = () => {
@@ -30,6 +31,7 @@ export const NavBar = () => {
         <Link to="/" className={style.home}>
           <img src={icon} alt="joystick_icon" />
         </Link>
+        <ShowDailyDiscount/>
         <div className={style.containerSearch}>
           <img src={iconArrow} alt="arrowIcon" onClick={()=>setShowSubNavBar(!showSubNavBar)}/>
           <SearchBar />
