@@ -72,7 +72,6 @@ export const Detail = () => {
   
     const addingToShoppingCart = (e: any) => {
       const item:any = listProductsShoppingCart.find((item:any) => item.id == parseInt(id));
-      //console.log('detail item', item)
       if(!item){
   
         if(typeof user !== 'undefined'){

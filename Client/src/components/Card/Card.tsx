@@ -100,7 +100,6 @@ export const Card = ({
         setSaveInLocalStorage(true);
       }
       if(discountPrice){
-        console.log()
         dispatch(addPriceForFinalAmountCheckout(discountPrice));
       } else {
         dispatch(addPriceForFinalAmountCheckout(parseFloat(price)));

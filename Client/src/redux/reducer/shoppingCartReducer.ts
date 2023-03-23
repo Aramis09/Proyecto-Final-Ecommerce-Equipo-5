@@ -55,14 +55,11 @@ export const shoppingCartReducer = createSlice({
         settingShoppingCartFromLocalStorage: (state, action) => {
             state.listProductsShoppingCartGuest = action.payload.listProductsShoppingCartGuest;
             state.totalAmount = action.payload.totalAmount;
-            console.log("state.listProductsShoppingCartGuest --> " + state.listProductsShoppingCartGuest.length);
-            console.log("state.totalAmount --> " + state.totalAmount);
+            //console.log("state.listProductsShoppingCartGuest --> " + state.listProductsShoppingCartGuest.length);
+            //console.log("state.totalAmount --> " + state.totalAmount);
         },
         addPriceForFinalAmountCheckout: (state, action) => {
-            //console.log('elaction', action.payload)
-            //console.log('m', state.finalPriceForCheckout)
             state.finalPriceForCheckout = state.finalPriceForCheckout + action.payload
-            //console.log('after', state.finalPriceForCheckout)
         },
         restPriceForFinalAmountCheckout: (state, action) => {
             state.finalPriceForCheckout = state.finalPriceForCheckout - action.payload
