@@ -1,13 +1,14 @@
 import { Link } from "react-router-dom";
 import style from "./NavBar.module.scss";
 import { SearchBar } from "../SearchBar/SearchBar";
-import iconArrow from "./images/arrow.png";
+import iconArrow from "./images/hamburger-menu-icon.png";
 import { useAuth0 } from "@auth0/auth0-react";
 
 import { useEffect,useState } from "react";
 import icon from "./images/icon.png";
 import axios from "axios";
 import SubNavbar from "../SubNavbar/SubNavbar";
+import { ShowDailyDiscount } from './../ShowDailyDiscount/ShowDailyDiscount';
 
 
 export const NavBar = () => {
@@ -30,6 +31,7 @@ export const NavBar = () => {
         <Link to="/" className={style.home}>
           <img src={icon} alt="joystick_icon" />
         </Link>
+        <ShowDailyDiscount/>
         <div className={style.containerSearch}>
           <img src={iconArrow} alt="arrowIcon" onClick={()=>setShowSubNavBar(!showSubNavBar)}/>
           <SearchBar />
