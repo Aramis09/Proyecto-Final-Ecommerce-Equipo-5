@@ -9,15 +9,17 @@ import {
 import { setGlobalDiscount } from "../../redux/actions/productAction";
 import style from "./style.module.css";
 import { DashboardNav } from "../Dashboard/Nav/DashboardNav";
+import { DiscountState } from "../../types";
 
 export const DiscountManager = () => {
   const dispatch = useAppDispatch();
   const [discAppliedFromAdmin, setDiscAppliedFromAdmin] = useState(false);
-  const [allGenres, setAllGenres] = useState([]);
-  const [selectedDiscount, setSelectedDiscount] = useState("");
+  const [allGenres, setAllGenres] = useState<object[]>([]);
+  const [selectedDiscount, setSelectedDiscount] = useState(0);
   const [selectedGenre, setSelectedGenre] = useState("");
   const [activeAdmin, setActiveAdmin] = useState(false);
-  const [showActiveDiscount, setShowActiveDiscount] = useState({});
+  const [showActiveDiscount, setShowActiveDiscount] = useState<DiscountState>({});
+
 
   //let allDaysArray = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
   let defaultDiscounts = [
@@ -43,12 +45,12 @@ export const DiscountManager = () => {
     (state) => state.productReducer.todaysDiscount
   );
 
-  const selectDisc = (e) => {
+  const selectDisc = (e:any) => {
     let disc = parseFloat(e.target.value);
     setSelectedDiscount((prev) => (prev = disc));
   };
 
-  const selectGenre = (e) => {
+  const selectGenre = (e:any) => {
     let genre = e.target.value;
     setSelectedGenre(genre);
   };
@@ -60,11 +62,11 @@ export const DiscountManager = () => {
     dispatch(onOffAdminDiscount(true));
     dispatch(setAutoGlobalDiscount(false));
     setSelectedGenre("");
-    setSelectedDiscount("");
+    setSelectedDiscount(0);
   };
 
   const backToDefault = () => {
-    setSelectedDiscount("");
+    setSelectedDiscount(0);
     setSelectedGenre("");
     dispatch(setGlobalDiscount());
     dispatch(setAutoGlobalDiscount(true));
@@ -72,7 +74,7 @@ export const DiscountManager = () => {
   };
 
   const eraseSelection = () => {
-    setSelectedDiscount("");
+    setSelectedDiscount(0);
     setSelectedGenre("");
   };
 
@@ -136,10 +138,10 @@ export const DiscountManager = () => {
       <h2>Genres</h2>
       <div className={style["genres-list"]}>
         {allGenres.length > 0 &&
-          allGenres.map((genre, index) => {
+          allGenres.map(({name}:any, index) => {
             return (
-              <button value={genre.name} onClick={selectGenre} key={index} className={style['genres-button']}>
-                {genre.name}
+              <button value={name} onClick={selectGenre} key={index} className={style['genres-button']}>
+                {name}
               </button>
             );
           })}

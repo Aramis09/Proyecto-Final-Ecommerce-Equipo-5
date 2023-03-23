@@ -8,6 +8,7 @@ import axios from "axios";
 import iconSearch from "../../../assets/search.svg";
 import trashIcon from "../../../assets/trash-x-filled.svg";
 import styles from "./DashboardUsers.module.css";
+import { User } from "../../../types";
 
 export const DashboardUser = () => {
   const dispatch = useAppDispatch();
@@ -16,7 +17,7 @@ export const DashboardUser = () => {
   );
   const { user } = useAuth0();
   const [searchUser, setSearchUser] = useState("");
-  const [newSearch, setNewSearch] = useState([]);
+  const [newSearch, setNewSearch] = useState<User[]>([]);
 
   useEffect(() => {
     dispatch(getListUsers());
