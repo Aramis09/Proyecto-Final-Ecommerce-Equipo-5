@@ -56,7 +56,7 @@ export const ConfirFriends = (flag:any) => {
       >
     </input>
 
-      {friendListResponse.map((friend: any, index: number) => {
+      {friendListResponse?.map((friend: any, index: number) => {
         return (
             <Cards key={index} friend={friend}/>
         )

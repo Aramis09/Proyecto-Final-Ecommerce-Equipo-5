@@ -6,9 +6,11 @@ import axios from 'axios';
 export const addFriend = (emailUser: string, emailFriend: string) => async (dispatch: any) => {
 		let frReque: object[];
 		try {
+			console.log("soy el rompe culos 3mil --->",emailUser,emailFriend)
 			frReque = (await axios.get(User + `newFriendRequest?emailUser=${emailUser}&emailFriend=${emailFriend}`)).data;
-			dispatch(addFriends(frReque));
-			dispatch(confirmFriend(frReque));
+			console.log("soy el rompe culos ------------>",frReque)
+			dispatch(addFriends(frReque))
+			// dispatch(confirmFriend(frReque)); //esto puede romper
 		} catch (error) {
 			console.error('Esto ocurrio en el back ' + error);
 		}
@@ -29,8 +31,10 @@ export const resReque = (emailUser: string, emailFriend: string, res: string) =>
 //Amigos confirmados
 export const confFriend = (emailUser: string) => async (dispatch: any) => {
 	try {
-		let confirFriend: object[] = (await axios.get(User + `friendsConfirmed?email=${emailUser}`)).data;
-		dispatch(confirmFriend(confirFriend));
+		let friendList: object[] = (await axios.get(User + `friendsConfirmed?email=${emailUser}`)).data;
+		console.log("---------> no pos sisoy",friendList)
+		if(typeof(friendList) === 'object') dispatch(confirmFriend(friendList));
+		
 	} catch (error) {
 		console.error('Esto ocurrio en el back ' + error);
 	};

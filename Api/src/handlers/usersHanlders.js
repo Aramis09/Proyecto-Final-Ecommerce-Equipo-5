@@ -93,12 +93,13 @@ const removeWish = async (req,res) => {
 const addNewFriend = async (req,res) => {
    try {
     const {emailUser,emailFriend} = req.query;
+    console.log(emailUser,emailFriend)
     if(!emailUser || !emailFriend) throw new Error('send me all data please');
     const userAddedFriend = await addFriends(emailUser,emailFriend);
     // if(userAddedFriend.error) throw new Error(userAddedFriend.error);
     return res.status(200).json(userAddedFriend);
    } catch (error) {
-    return res.status(400).json(error.message);
+    return res.status(400).json({error:error.message});
    };
 };
 const responseRequestNewFriend = async (req,res) => {
