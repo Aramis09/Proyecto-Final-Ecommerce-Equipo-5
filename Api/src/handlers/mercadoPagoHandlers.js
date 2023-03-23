@@ -9,7 +9,7 @@ const getMercadoPagoLink = async (req, res) => {
       email: "cualquiercosa@gmail.com"
     }
   */
-  //console.log('client', items[0].Genres, discount)
+  ////console.log()('client', items[0].Genres, discount)
   let paymentCreated = await createPaymentMercadoPago(items, client, discount)
   res.status(200).send(paymentCreated)
 }

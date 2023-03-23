@@ -70,8 +70,6 @@ export const shoppingCartReducer = createSlice({
         settingShoppingCartFromLocalStorage: (state, action) => {
             state.listProductsShoppingCartGuest = action.payload.listProductsShoppingCartGuest;
             state.totalAmount = action.payload.totalAmount;
-            console.log("state.listProductsShoppingCartGuest --> " + state.listProductsShoppingCartGuest.length);
-            console.log("state.totalAmount --> " + state.totalAmount);
         },
         successMsg: (state, action) => {
             state.successMsg = action.payload

@@ -99,8 +99,6 @@ export const DiscountManager = () => {
     setSelectedDiscount(discount);
   };
 
-  // console.log("gl", selectedDiscount, selectedGenre);
-  console.log("selectedDiscount", selectedDiscount);
   return (
     <div className={style["discount-container"]}>
       <DashboardNav />

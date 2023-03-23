@@ -8,6 +8,6 @@ export const getPaymentLink = (items: Array<object>, client: object) => async (d
         let response = (await axios.post(MERCADO_PAGO_LINK, {items, client})).data;
         dispatch(paymentLink(response))
     } catch (err) {
-        console.log('Error en respuesta de mercado pago, a la action getPaymentLink: ', err)
+        //console.log()('Error en respuesta de mercado pago, a la action getPaymentLink: ', err)
     }
 }

@@ -17,7 +17,7 @@ export const PendingFr = (props:any) => {
 			dispatch(pendingFriend(user?.email));
 		}
 	}, [user?.email, isAuthenticated]);
-	console.log(props)
+	//console.log()(props)
 	const handleResponse = (ev: React.MouseEvent<HTMLButtonElement>) => {
 		dispatch(
 			resReque(

@@ -24,7 +24,6 @@ export const CheckOut = () => {
 
   const handleChildVariable = (friendMail: string | null) => {
     setFriendMail(friendMail);
-    console.log("friendMail",friendMail)
   };
 
   if (typeof user !== 'undefined') {
@@ -44,7 +43,7 @@ export const CheckOut = () => {
 
 
   const deleteItem = (e: any) => {
-    console.log('El id a enviar es: ' + e.target.value);
+    //console.log()('El id a enviar es: ' + e.target.value);
     let lessPrice = items.filter(
       (i: any) => i.id === parseInt(e.target.value),
     )[0].price;
@@ -66,7 +65,6 @@ export const CheckOut = () => {
   },[control]);
 
   var discount = useAppSelector((state) => state.productReducer.todaysDiscount)
-  console.log("today's d", discount)
 
   const fetchCheckout = async () => {
     let client = {
@@ -79,7 +77,7 @@ export const CheckOut = () => {
     let redirectLink: any = (
       await axios.post(MERCADO_PAGO_LINK, {items, client , discount})
     ).data.response;
-    console.log('red', await redirectLink)
+    //console.log()('red', await redirectLink)
     if (await redirectLink.init_point) {
       setInit_PointButton(prev => prev = redirectLink.init_point)
     }
